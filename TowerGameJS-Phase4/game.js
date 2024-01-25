@@ -12,7 +12,7 @@ var ssImage;
 var load = document.getElementById('loader');
 var wrap;
 
-let gameStateID = 1;
+
 
 function loadImages() {
   bsImage = new Image();
@@ -54,6 +54,7 @@ class Game {
     this.bankValue = 500;
     this.rays = [];
     this.checkOnce = true;
+    this.gameStateID = 1;
     this.enemyNum = 20;
     this.wallCost = 2;
 
@@ -605,7 +606,7 @@ class Game {
   }
 
   handleCNVMouseClicked(event) { // places grid (the walls)
-    //14 rows and 17 col
+    //14 rows wide and 17 col tall, starting at 0
     var row = Math.floor(event.offsetY/towerGame.w);
     var col = Math.floor(event.offsetX/towerGame.w);
     var cell = towerGame.grid[col][row];
@@ -629,9 +630,18 @@ class Game {
       towerGame.brushfire(towerGame.undo(cell));   // all new distances and parents
     }
 
-    if(gameStateID === 4){
+    if(game.gameStateID === 4){ //premade level 1
       if (towerGame.placingTower && towerGame.canAddTower(cell)) {
-        towerGame.placeTower(towerGame);
+        for(let col1 = 2; col1 < 16; col1++) //creates left column
+        towerGame.placeTower(towerGame.grid[0][col1]);
+        
+        for(let row1 = 1; row1 < 11; row1++) //creates bottom row
+        towerGame.placeTower(towerGame.grid[row1][16])
+
+        for(let row2 = 2; row2 < 16; row2++) //creates top row
+        towerGame.placeTower(towerGame.grid[row2][0])
+
+
       }
     }
   }
