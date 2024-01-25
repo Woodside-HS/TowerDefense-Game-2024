@@ -12,8 +12,6 @@ var ssImage;
 var load = document.getElementById('loader');
 var wrap;
 
-let gameStateID = 1;
-
 function loadImages() {
   bsImage = new Image();
   bsImage.src = "resources/images/spritesheets/buttons.png";
@@ -604,10 +602,9 @@ class Game {
     }
   }
 
-  handleCNVMouseClicked(event) { // places grid (the walls)
-    //14 rows and 17 col
-    var row = Math.floor(event.offsetY/towerGame.w);
-    var col = Math.floor(event.offsetX/towerGame.w);
+  handleCNVMouseClicked(event) {
+    var row = Math.floor(event.offsetY / towerGame.w);
+    var col = Math.floor(event.offsetX / towerGame.w);
     var cell = towerGame.grid[col][row];
 
     if (towerGame.placingTower && towerGame.canAddTower(cell)) {
@@ -627,12 +624,6 @@ class Game {
         cell.occupied = false;
       }
       towerGame.brushfire(towerGame.undo(cell));   // all new distances and parents
-    }
-
-    if(gameStateID === 4){
-      if (towerGame.placingTower && towerGame.canAddTower(cell)) {
-        towerGame.placeTower(towerGame);
-      }
     }
   }
 

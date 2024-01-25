@@ -60,7 +60,7 @@ var panelJSON = [{
       pic: "resources/images/panels/start.png",
       picId: "play",
       funk: function () {
-        towerGame.gameState = new GameState4(towerGame)
+        towerGame.gameState = new GameState2(towerGame)
         document.getElementById("firstPanel").parentNode.removeChild(document.getElementById("firstPanel"))
       }
     }, {
@@ -110,7 +110,7 @@ var panelJSON = [{
       pic: "resources/images/panels/restart.png",
       picId: "wframe",
       funk: function () {
-        towerGame.gameState = new GameState4(towerGame)
+        towerGame.gameState = new GameState2(towerGame)
         document.getElementById("endPanel").parentNode.removeChild(document.getElementById("endPanel"))
       }
     }, {
