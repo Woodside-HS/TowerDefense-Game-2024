@@ -96,8 +96,7 @@ class Game {
 
 
 
-
-    // containerarrays for cells
+    // container arrays for cells
     this.grid = [];
     this.cols = Math.floor(this.canvas.width / this.w);
     this.rows = Math.floor(this.canvas.height / this.w);
@@ -605,43 +604,57 @@ class Game {
     }
   }
 
-  handleCNVMouseClicked(event) { // places grid (the walls)
-    //14 rows wide and 17 col tall, starting at 0
-    var row = Math.floor(event.offsetY/towerGame.w);
-    var col = Math.floor(event.offsetX/towerGame.w);
+  handleCNVMouseClicked(event) { // places the walls
+
+    var col = Math.floor(event.offsetX / towerGame.w);
+    var row = Math.floor(event.offsetY / towerGame.w);
     var cell = towerGame.grid[col][row];
-
-    if (towerGame.placingTower && towerGame.canAddTower(cell)) {
-      towerGame.placeTower(cell);
-    }
-
-    else if (!towerGame.placingTower && !cell.hasTower) {
-      // toggle the occupied property of the clicked cell
-      if (!cell.occupied && towerGame.bankValue >= towerGame.wallCost) {
-        towerGame.bankValue -= towerGame.wallCost;
-        cell.occupied = true;
-      } else if (!cell.occupied) {
-        alert("Insufficient Funds!");
-      }
-      else {
-        towerGame.bankValue += towerGame.wallCost;
-        cell.occupied = false;
-      }
-      towerGame.brushfire(towerGame.undo(cell));   // all new distances and parents
-    }
-
-    if(game.gameStateID === 4){ //premade level 1
+    if (towerGame.gameStateID === 9) {
       if (towerGame.placingTower && towerGame.canAddTower(cell)) {
-        for(let col1 = 2; col1 < 16; col1++) //creates left column
-        towerGame.placeTower(towerGame.grid[0][col1]);
-        
-        for(let row1 = 1; row1 < 11; row1++) //creates bottom row
-        towerGame.placeTower(towerGame.grid[row1][16])
+        towerGame.placeTower(cell);
+      }
 
-        for(let row2 = 2; row2 < 16; row2++) //creates top row
-        towerGame.placeTower(towerGame.grid[row2][0])
+      else if (!towerGame.placingTower && !cell.hasTower) {
+        // toggle the occupied property of the clicked cell
+        if (!cell.occupied && towerGame.bankValue >= towerGame.wallCost) {
+          towerGame.bankValue -= towerGame.wallCost;
+          cell.occupied = true;
+        } else if (!cell.occupied) {
+          alert("Insufficient Funds!");
+        }
+        else {
+          towerGame.bankValue += towerGame.wallCost;
+          cell.occupied = false;
+        }
+        towerGame.brushfire(towerGame.undo(cell));   // all new distances and parents
+      }
+    }
 
 
+  }
+
+  level1Render() {
+    let col1 = Math.floor(this.canvas.width / this.w) - 1;
+    let row1 = Math.floor(this.canvas.height / this.w) - 1;
+    let cell1 = towerGame.grid[col1][row1];
+    if (towerGame.gameStateID === 4) { //premade level 1
+      if (towerGame.placingTower && towerGame.canAddTower(cell)) {
+        //14 rows tall and 17 col wide, starting at 0
+        for (let c = 2; c < 13; c++) //creates left column
+          towerGame.placeTower(towerGame.grid[0][c]);
+
+        // for (let r = 1; r < 11; r++) //creates bottom row
+        //   towerGame.placeTower(towerGame.grid[r][13]);
+
+        // for (let h = 2; h < 16; h++) //creates top row
+        //   towerGame.placeTower(towerGame.grid[h][0]);
+
+        // for (let a = 1; a < 11; a++) //creates right column
+        //   towerGame.placeTower(towerGame.grid[16][a]);
+
+        // for (let f = 4; f < 8; f++) { // creates the rect in center
+
+        // }
       }
     }
   }

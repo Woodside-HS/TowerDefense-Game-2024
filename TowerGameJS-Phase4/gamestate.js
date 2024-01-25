@@ -18,7 +18,7 @@ class GameState {
 class GameState1 extends GameState { // Start Screen
   constructor(game) {
     super(game, 1)
-    game.gameStateID = 1;
+    this.game.gameStateID = 1;
     this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/start.png')"
     this.panelStart = new Panel(this, 0)
     this.panelInstructions = 0
@@ -36,7 +36,7 @@ class GameState1 extends GameState { // Start Screen
 }
 class GameState2 extends GameState { // Level screen
   constructor(game) {
-    game.gameStateID = 2;
+    towerGame.gameStateID = 2;
   }
 
 }
@@ -44,7 +44,7 @@ class GameState2 extends GameState { // Level screen
 class GameState3 extends GameState { // end screen
   constructor(game) {
     super(game)
-    game.gameStateID = 3
+    this.game.gameStateID = 3
     this.game.enemies = []
     this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/end.png')"
     this.panelQuit = new Panel(this, 2)
@@ -64,12 +64,12 @@ class GameState3 extends GameState { // end screen
 
 class GameState4 extends GameState { // Game Screen basic
   constructor(game) {
-    super(game, 4)
-    game.gameStateID = 4;
+    super(game)
+    this.game.gameStateID = 4;
     this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/play.png')"
     this.game.health = 100
     this.game.score = 0
-    this.game.bankValue = 500;
+    this.game.bankValue = 200;
     this.game.gameTime = 0
     this.game.grid = [];
     this.game.towers = [];
@@ -81,16 +81,21 @@ class GameState4 extends GameState { // Game Screen basic
     this.game.loadGrid();
     this.game.root = this.game.grid[this.game.cols - 1][this.game.rows - 1];
     this.game.brushfire();
-  }
-  init() {
 
+
+    
+
+    
   }
+ 
   run() {
     let gt = this.game.updateGameTime();
     this.game.updateInfoElements(gt);
     this.game.removeBullets();
     this.game.removeEnemies();
     this.game.controlWaves()
+    this.game.level1Render();
+
     this.game.backgroundMusic.play();
     if (this.game.isRunning) {
       this.game.render();
