@@ -141,10 +141,11 @@ class Game {
         FRAME_RATE = 30;
       }
     }, false);
-    var towerSwitchButton = document.getElementById('towerSwitch');
+     var towerSwitchButton = document.getElementById('towerSwitch');
     towerSwitchButton.addEventListener('click', function () {
-      if(towerState = 1){
+    if(towerState = 1){
         towerState = 2;
+
       }else {
         towerState = 1; 
       }
@@ -432,6 +433,7 @@ class Game {
 
     }
   }
+
   updateInfoElements(time) {
     let infoElements = document.getElementById('infoDiv').getElementsByClassName('infoTileDiv');
     for (let i = 0; i < infoElements.length - 1; i++) {
