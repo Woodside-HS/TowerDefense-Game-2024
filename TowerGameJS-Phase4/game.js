@@ -143,12 +143,12 @@ class Game {
     }, false);
      var towerSwitchButton = document.getElementById('towerSwitch');
     towerSwitchButton.addEventListener('click', function () {
-    if(towerState = 1){
-        towerSwitchButton.innerHTML = " YES"
+    if(towerState == 1){
         towerState = 2;
-
-      }else {
+        towerSwitchButton.innerHTML = "Additional Towers";
+      }else{
         towerState = 1; 
+        towerSwitchButton.innerHTML = "More Towers";
       }
     }, false);
 
@@ -261,6 +261,9 @@ class Game {
     towerGame.paused = !towerGame.paused;
     if (towerGame.paused) butt.innerHTML = "Play";
     if (!towerGame.paused) butt.innerHTML = "Pause";
+  }
+  switchState(){
+    let c = document.get
   }
 
 

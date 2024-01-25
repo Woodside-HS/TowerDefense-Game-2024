@@ -19,10 +19,10 @@ body{
 }
 
 #switchDiv{
-  background-color: #1e00ff58;
-  margin-right: 10px;
+  background-color: #009da2;
+  margin-right: 0px;
   margin-top: -20px;
-  width:100px;
+  width:120px;
   height:20px;
   float:right;
 }
