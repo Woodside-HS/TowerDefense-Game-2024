@@ -144,6 +144,7 @@ class Game {
      var towerSwitchButton = document.getElementById('towerSwitch');
     towerSwitchButton.addEventListener('click', function () {
     if(towerState = 1){
+        towerSwitchButton.innerHTML = " YES"
         towerState = 2;
 
       }else {
