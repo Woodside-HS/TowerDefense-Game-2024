@@ -477,7 +477,9 @@ class Game {
       innerDiv.style.height = "100px";
       // Not using imageBitmaps for the buttons
       // As they are not on the canvas
-      innerDiv.style.backgroundImage = "url(resources/images/spritesheets/buttons.png)";
+      if (towerGame.gameStateID != 1) {
+        innerDiv.style.backgroundImage = "url(resources/images/spritesheets/buttons.png)";
+      }
       innerDiv.style.backgroundPosition = `${-button.x}px ${-button.y}px`;
       innerDiv.style.margin = "5px";
       mtd.appendChild(innerDiv);
@@ -606,8 +608,8 @@ class Game {
 
   handleCNVMouseClicked(event) { // places grid (the walls)
     //14 rows and 17 col
-    var row = Math.floor(event.offsetY/towerGame.w);
-    var col = Math.floor(event.offsetX/towerGame.w);
+    var row = Math.floor(event.offsetY / towerGame.w);
+    var col = Math.floor(event.offsetX / towerGame.w);
     var cell = towerGame.grid[col][row];
 
     if (towerGame.placingTower && towerGame.canAddTower(cell)) {
@@ -629,7 +631,7 @@ class Game {
       towerGame.brushfire(towerGame.undo(cell));   // all new distances and parents
     }
 
-    if(gameStateID === 4){
+    if (gameStateID === 4) {
       if (towerGame.placingTower && towerGame.canAddTower(cell)) {
         towerGame.placeTower(towerGame);
       }
