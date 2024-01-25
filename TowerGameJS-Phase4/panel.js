@@ -60,7 +60,7 @@ var panelJSON = [{
       pic: "resources/images/panels/start.png",
       picId: "play",
       funk: function () {
-        towerGame.gameState = new GameState4(towerGame)
+        towerGame.gameState = new GameState2(towerGame)
         document.getElementById("firstPanel").parentNode.removeChild(document.getElementById("firstPanel"))
       }
     }, {
@@ -81,6 +81,7 @@ var panelJSON = [{
         towerGame.gameState = new GameState3(towerGame)
         document.getElementById("firstPanel").parentNode.removeChild(document.getElementById("firstPanel"))
       }
+
     }]
 }, {
   name: "Instruction Panel",
@@ -110,7 +111,7 @@ var panelJSON = [{
       pic: "resources/images/panels/restart.png",
       picId: "wframe",
       funk: function () {
-        towerGame.gameState = new GameState4(towerGame)
+        towerGame.gameState = new GameState2(towerGame)
         document.getElementById("endPanel").parentNode.removeChild(document.getElementById("endPanel"))
       }
     }, {
@@ -149,5 +150,22 @@ var panelJSON = [{
         towerGame.gameState.panelQuit = new Panel(towerGame, 2)
         document.getElementById("creditesPanel").parentNode.removeChild(document.getElementById("creditesPanel"))
       }
-    }]
+    }, ]
+
+},{
+  name: "Switch Button",
+  id: "switchButton",
+  pic: "resources/images/panels/panel.png",
+  picId: "pan",
+  buttonJSON: [
+{
+    name: "More Towers",
+    id: "towerSwitch",
+    pic: "resources/images/panels/towerChange.png",
+    picId:"switch",
+    funk: function(){
+      document.getElementById("towerSwitch").parentNode.removeChild(document.getElementById("towerSwitch"))
+    }
+}]
+
 }]

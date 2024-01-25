@@ -8,7 +8,7 @@ class LockOn{
   }
 
   run(){
-    //console.log("running");
+  
     this.render();
     this.update();
   }

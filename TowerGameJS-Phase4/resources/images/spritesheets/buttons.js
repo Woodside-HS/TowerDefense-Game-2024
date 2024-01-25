@@ -47,7 +47,40 @@ buttonsJSON = {"frames": {
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":92,"h":92},
 	"sourceSize": {"w":92,"h":92}
-}},
+},
+"B70000":
+{
+	"frame": {"x":1,"y":323,"w":90,"h":130},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":90,"h":130},
+	"sourceSize": {"w":90,"h":130}
+},
+"B80000":
+{
+	"frame": {"x":92,"y":323,"w":92,"h":92},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":92,"h":92},
+	"sourceSize": {"w":92,"h":92}
+},
+"B90000":
+{
+	"frame": {"x":92,"y":323,"w":92,"h":92},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":92,"h":92},
+	"sourceSize": {"w":92,"h":92}
+},
+"B100000":
+{
+	"frame": {"x":92,"y":323,"w":92,"h":92},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":92,"h":92},
+	"sourceSize": {"w":92,"h":92}
+},
+},
 "meta": {
 	"app": "Adobe Flash CS6",
 	"version": "12.0.2.529",

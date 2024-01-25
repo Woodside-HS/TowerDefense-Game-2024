@@ -7,13 +7,14 @@ class Bullet{
     this.loc = location;
     this.speed = 25;
     this.r=30
-    this.shape="circle"
+    this.shape="circle";
     this.angle = angle;
     this.img = bImg;
-    this.ability=type
+    this.ability=type;
     if(this.ability == "freeze"){
       this.speed = 80;
     }
+
   }
 
   run(){
@@ -26,8 +27,13 @@ class Bullet{
     ctx.save();
     ctx.translate(this.loc.x, this.loc.y);
     ctx.rotate(this.angle+Math.PI/2);
+
+    //if(this.ability == "cannon"){
+    //  ctx.drawImage(this.img, -this.img.width*2,-this.img.height*2);
+   // }else{
     ctx.drawImage(this.img, -this.img.width/2,-this.img.height/2);
 
+  //  }
     ctx.restore();
   }
 

@@ -5,14 +5,13 @@ window.addEventListener('load', loadImages, false);
 
 var towerGame;   // the global game object
 var FRAME_RATE = 30;
+var towerState = 1;
 var cellId = 0;
 
 var bsImage;
 var ssImage;
 var load = document.getElementById('loader');
 var wrap;
-
-let gameStateID = 1;
 
 function loadImages() {
   bsImage = new Image();
@@ -23,6 +22,7 @@ function loadImages() {
 }
 function setup() {
   wrap = document.getElementById('wrapperDiv');
+
   load.style.display = 'none';
   wrap.style.display = 'block';
 
@@ -51,7 +51,7 @@ class Game {
     this.enemies = [];
     this.bullets = [];
     this.explosiveBullets = [];
-    this.bankValue = 500;
+    this.bankValue = 50000;
     this.rays = [];
     this.checkOnce = true;
     this.enemyNum = 20;
@@ -90,7 +90,29 @@ class Game {
     this.w = 50;
     this.done = false;
     this.gameState = new GameState1(this)
-
+    //panelthings
+    // this.panelStart.ceatebutton("Start",
+    //   function(){
+    //     document.getElementById("panelStart").style.display = 'none'
+    //     towerGame.panelStart.go = true
+    //   }, "panelStartStartButton")
+    //
+    // this.panelStart.ceatebutton("Instructions",
+    //   function(){
+    //     document.getElementById("panelStart").style.display = 'none'
+    //     towerGame.panelInstructions = new Panel(this,100,-500, "panelInstructions")
+    //     towerGame.panelInstructions.ceatebutton("Back",
+    //       function(){
+    //         document.getElementById("panelStart").style.display = 'block'
+    //         document.getElementById("panelInstructions").parentNode.removeChild(document.getElementById("panelInstructions"))
+    //       }, "panelInstructionsButton")
+    //   }, "panelStartInstructionButton")
+    //
+    // this.panelStart.ceatebutton("Quit",
+    //   function(){
+    //     towerGame.panelQuit = new Panel(this,100,-500,"panelQuit")
+    //     document.getElementById("panelStart").style.display = 'none'
+    //   }, "panelStartQuitButton")
 
 
 
@@ -119,6 +141,15 @@ class Game {
         FRAME_RATE = 30;
       }
     }, false);
+    var towerSwitchButton = document.getElementById('towerSwitch');
+    towerSwitchButton.addEventListener('click', function () {
+      if(towerState = 1){
+        towerState = 2;
+      }else {
+        towerState = 1; 
+      }
+    }, false);
+
   }
   //load wall stuff
   loadWallImage() {
@@ -162,9 +193,63 @@ class Game {
 
   run() { // called from draw()
 
-    if (!this.paused) {
-      this.gameState.run()
-    }
+    if (!this.paused){
+    this.gameState.run()
+  }     // let gt = this.updateGameTime();
+    // this.updateInfoElements(gt);
+    // this.removeBullets();
+    // this.removeEnemies();
+    // this.controlWaves()
+    // if (this.isRunning) {
+    //   this.render();
+    // }
+    //
+    // // draw the grid
+    // for(let i = 0; i < this.cols; i++){
+    //   for(let j = 0; j < this.rows; j++){
+    //     this.grid[i][j].render();
+    //   }
+    // }
+    //  // draw the towers
+    // for (let i = 0; i < this.towers.length; i++) {
+    //   this.towers[i].run();
+    // }
+    // for (let i = 0; i < this.enemies.length; i++) {
+    //   this.enemies[i].run();
+    // }
+    // for (let i = 0; i < this.bullets.length; i++) {
+    //   this.bullets[i].run();
+    // }
+    //
+    // // some help text in the bottom left of the canvas
+    // this.context.save();
+    // this.context.fillStyle = "white";
+    // this.context.font = "14px sans-serif";
+    // this.context.fillText("Press the E key to send enemies", 20, this.canvas.height-20);
+    // this.context.restore();
+    //
+    // //more panelthings
+    // if(this.panelStart){
+    //   this.panelStart.render()
+    // }
+    //
+    // if(this.panelInstructions){
+    //   this.panelInstructions.render()
+    // }
+    //
+    // if(this.panelQuit){
+    //   this.panelQuit.render()
+    // }
+    //
+    // //collision detection
+    // for(var i = 0; i < this.enemies.length; i++){
+    //   for(var j = 0; j < this.bullets.length; j++){
+    //     if(this.circlePointCollision(this.bullets[j].loc.x, this.bullets[j].loc.y, this.enemies[i].loc.x, this.enemies[i].loc.y, this.enemies[i].radius)){
+    //       this.bullets.splice(j, 1);
+    //       this.enemies.splice(i, 1);
+    //     }
+    //   }
+    // }
 
   }
 
@@ -246,7 +331,12 @@ class Game {
     }
 
 
-
+    // give each cell a vector that points to its parent
+    //       for(var i = 0; i < this.cols; i++){
+    //         for(var j = 0; j < this.rows; j++){
+    //           this.grid[i][j].vec = this.grid[i][j].getVector();
+    //         }
+    //       }
 
   }
   //check the map to see if there are cells without parents
@@ -419,10 +509,12 @@ class Game {
       // quit code
     }
     var propertyName = "T" + (index + 1) + "0000";
+
     var frame = json.frames[propertyName].frame;
     var bulletPropertyName = "p" + (index + 1) + "0000";
     var bulletFrame = json.frames[bulletPropertyName].frame;
     //cool stuff
+
     Promise.all([
       createImageBitmap(ssImage, frame.x, frame.y, frame.w, frame.h),
       createImageBitmap(ssImage, bulletFrame.x, bulletFrame.y, bulletFrame.w, bulletFrame.h)
@@ -443,9 +535,10 @@ class Game {
   // canvas.
   createTileDivs() {
     var tiles = [];
-    var buttons = ["B10000", "B20000", "B30000", "B40000", "B50000", "B60000"];
+    var buttons = ["B10000", "B20000", "B30000", "B40000", "B50000", "B60000",
+      "B70000", "B80000", "B90000", "B100000", ];
     //  loop through the towers and DO NOT include wall element
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < 10; i++) {
       var mtd = document.createElement("div"); // createDiv("");
       if (i == 0) {
         mtd.ability = "normal";
@@ -463,12 +556,23 @@ class Game {
         mtd.ability = "explosive";
         //  this.bankValue = 700;
 
-      } else {
+      } else if (i == 4) {
         mtd.ability = "ray";
         //  this.bankValue = 1000;
-      }// createDiv("");
-
+      }else if (i == 5){
+        mtd.ability = "cannon";
+      }
+      else if (i == 6) {
+        mtd.ability = "temp7";
+      } else if (i ==7){
+        mtd.ability = "temp8";
+      }else if ( i ==8){
+        mtd.ability = "temp9";
+      }else if (i == 9){
+        mtd.ability = "temp10";
+      }
       var b = buttons[i];
+
       var button = buttonsJSON.frames[b].frame;
 
       var innerDiv = document.createElement("div");
@@ -479,13 +583,16 @@ class Game {
       // As they are not on the canvas
       innerDiv.style.backgroundImage = "url(resources/images/spritesheets/buttons.png)";
       innerDiv.style.backgroundPosition = `${-button.x}px ${-button.y}px`;
+
       innerDiv.style.margin = "5px";
       mtd.appendChild(innerDiv);
-
       document.getElementById("menuDiv").appendChild(mtd);
+      //document.getElementById("towerSwitchDiv");
+      mtd.cost = 1 * i + 1;
 
 
-      mtd.cost = 100 * i + 50;
+
+
       mtd.setAttribute('title', 'Cost = ' + mtd.cost);
       mtd.id = 'towImgDiv' + i;
       tiles.push(mtd);
@@ -604,10 +711,9 @@ class Game {
     }
   }
 
-  handleCNVMouseClicked(event) { // places grid (the walls)
-    //14 rows and 17 col
-    var row = Math.floor(event.offsetY/towerGame.w);
-    var col = Math.floor(event.offsetX/towerGame.w);
+  handleCNVMouseClicked(event) {
+    var row = Math.floor(event.offsetY / towerGame.w);
+    var col = Math.floor(event.offsetX / towerGame.w);
     var cell = towerGame.grid[col][row];
 
     if (towerGame.placingTower && towerGame.canAddTower(cell)) {
@@ -627,12 +733,6 @@ class Game {
         cell.occupied = false;
       }
       towerGame.brushfire(towerGame.undo(cell));   // all new distances and parents
-    }
-
-    if(gameStateID === 4){
-      if (towerGame.placingTower && towerGame.canAddTower(cell)) {
-        towerGame.placeTower(towerGame);
-      }
     }
   }
 
