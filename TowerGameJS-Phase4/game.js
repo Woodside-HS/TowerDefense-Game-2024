@@ -146,18 +146,31 @@ class Game {
       }
     }, false);
     towerSwitchButton.addEventListener('click', function () {
+      let duplicate = towerSwitchButton;
       if (towerState == 1) {
+        console.log("a")
         towerState = 2;
         towerSwitchButton.innerHTML = "More Towers!";
-        towerSwitchButton.loc
-
+        document.getElementById("switchDiv").firstChild.remove();
       } else {
         towerState = 1;
         towerSwitchButton.innerHTML = "More Towers!";
-
+        document.getElementById("switchDiv").firstChild.remove();
       }
     }, false);
+    // var innerDiv = document.createElement("div");
+    // innerDiv.id = "innerDiv" + i-6;
+    // innerDiv.style.width = "90px";
+    // innerDiv.style.height = "100px";
+    // // Not using imageBitmaps for the buttons
+    // // As they are not on the canvas
+    // innerDiv.style.backgroundImage = "url(resources/images/spritesheets/buttons.png)";
+    // innerDiv.style.backgroundPosition = `${-button.x}px ${-button.y}px`;
 
+    // innerDiv.style.margin = "5px";
+    // mtd.appendChild(innerDiv);
+    // document.getElementById("menuDiv").appendChild(mtd);
+    // mtd.cost = 1 * i + 1;
   }
 
 
@@ -208,7 +221,7 @@ class Game {
         count--;
       }
 
-    } else if (towerState == 2) {
+    } else if (towerState == 1) {
       if (count == 0) {
         this.createTileDivs();
         count++;

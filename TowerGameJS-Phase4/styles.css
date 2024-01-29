@@ -19,12 +19,12 @@ body{
 }
 
 #switchDiv{
-  background-color: #009da2;
-  margin-top: -20px;
+  background-color: #ffffff00;
+  margin-top: -735px;
   margin-left: 8px;
   margin-right: 8px;
   width:100px;
-  height:20px;
+  height:750px;
   float:right;
 }
 #fastForward:hover{
@@ -132,7 +132,18 @@ body{
  }
  #towerSwitchDiv{
   position: absolute;
+  width:120px;
+  height:750px;
   margin-left: -50px;
+  /* margin-right: 8px; */
+ }
+ #towerSwitchDiv2{
+  position: absolute;
+  width:120px;
+  height:750px;
+  margin-bottom: -700px;
+  margin-left: -50px;
+  /* margin-right: 8px; */
  }
  button {
      color:inherit;
