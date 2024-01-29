@@ -609,7 +609,7 @@ class Game {
     var col = Math.floor(event.offsetX / towerGame.w);
     var row = Math.floor(event.offsetY / towerGame.w);
     var cell = towerGame.grid[col][row];
-    if (towerGame.gameStateID === 9) {
+    if (towerGame.gameStateID === 4) {
       if (towerGame.placingTower && towerGame.canAddTower(cell)) {
         towerGame.placeTower(cell);
       }
@@ -633,40 +633,83 @@ class Game {
 
   }
 
-  level1Render() {
+  level1Render() { //premade level 1
     //14 rows tall and 17 col wide, starting at 0
-    let col1 = Math.floor(this.canvas.width / this.w) - 1;
-    let row1 = Math.floor(this.canvas.height / this.w) - 1;
-    // let cell1, cell2, cell3, cell4, cell5;
     let cell1 = [];
-    for (let c = 2; c < 13; c++) { //creates left column
+    let cell2 = [];
+    let cell3 = [];
+    let cell4 = [];
+    let cell5 = [];
+    let cell6 = [];
+
+    for (let c = 2; c < 14; c++)  //info for left column
       cell1.push(towerGame.grid[0][c]);
-      console.log
-    }
 
-    if (towerGame.gameStateID === 4) { //premade level 1
-      if (towerGame.placingTower && towerGame.canAddTower(cell1)) {
-        for(let i = 0; i < cell1.length; i++)
+    for (let r = 1; r < 14; r++) //info for bottom row
+      cell2.push(towerGame.grid[r][13]);
+
+    for (let h = 2; h < 17; h++) //info for top row
+      cell3.push(towerGame.grid[h][0]);
+
+    for (let a = 1; a < 11; a++) //creates right column
+      cell4.push(towerGame.grid[16][a]);
+
+    for (let f = 4; )
+
+
+    for (let i = 0; i < cell1.length; i++) { // creates left column
+      if (towerGame.placingTower && towerGame.canAddTower(cell1[i])) {
         towerGame.placeTower(cell1[i]);
+      }
+      else if (!towerGame.placingTower && !cell1[i].hasTower) {
+        // toggle the occupied property of the clicked cell
+        cell1[i].occupied = true;
 
-
-
-
-        // for (let r = 1; r < 11; r++) //creates bottom row
-        //   towerGame.placeTower(towerGame.grid[r][13]);
-
-        // for (let h = 2; h < 16; h++) //creates top row
-        //   towerGame.placeTower(towerGame.grid[h][0]);
-
-        // for (let a = 1; a < 11; a++) //creates right column
-        //   towerGame.placeTower(towerGame.grid[16][a]);
-
-        // for (let f = 4; f < 8; f++) { // creates the rect in center
-
-        // }
+        towerGame.brushfire(towerGame.undo(cell1[i]));
       }
     }
+
+    for (let i = 0; i < cell2.length; i++) { // creates bottom row
+      if (towerGame.placingTower && towerGame.canAddTower(cell2[i])) {
+        towerGame.placeTower(cell2[i]);
+      }
+      else if (!towerGame.placingTower && !cell2[i].hasTower) {
+        // toggle the occupied property of the clicked cell
+        cell2[i].occupied = true;
+
+        towerGame.brushfire(towerGame.undo(cell2[i]));
+      }
+    }
+
+    for (let i = 0; i < cell3.length; i++) { // creates top row
+      if (towerGame.placingTower && towerGame.canAddTower(cell3[i])) {
+        towerGame.placeTower(cell3[i]);
+      }
+      else if (!towerGame.placingTower && !cell3[i].hasTower) {
+        // toggle the occupied property of the clicked cell
+        cell3[i].occupied = true;
+
+        towerGame.brushfire(towerGame.undo(cell3[i]));
+      }
+    }
+
+    for (let i = 0; i < cell4.length; i++) { // creates right column
+      if (towerGame.placingTower && towerGame.canAddTower(cell4[i])) {
+        towerGame.placeTower(cell4[i]);
+      }
+      else if (!towerGame.placingTower && !cell4[i].hasTower) {
+        // toggle the occupied property of the clicked cell
+        cell4[i].occupied = true;
+
+        towerGame.brushfire(towerGame.undo(cell4[i]));
+      }
+    }
+    
+
+    
   }
+
+
 
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   //collision detection utilities

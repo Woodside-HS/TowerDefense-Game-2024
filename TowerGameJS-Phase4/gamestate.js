@@ -81,9 +81,8 @@ class GameState4 extends GameState { // Game Screen basic
     this.game.loadGrid();
     this.game.root = this.game.grid[this.game.cols - 1][this.game.rows - 1];
     this.game.brushfire();
-
-
     
+    this.game.level1Render();
 
     
   }
@@ -94,7 +93,7 @@ class GameState4 extends GameState { // Game Screen basic
     this.game.removeBullets();
     this.game.removeEnemies();
     this.game.controlWaves();
-    this.game.level1Render();
+    
 
     this.game.backgroundMusic.play();
     if (this.game.isRunning) {
