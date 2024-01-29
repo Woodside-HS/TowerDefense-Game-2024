@@ -7,9 +7,10 @@ var towerGame;   // the global game object
 var FRAME_RATE = 30;
 var towerState = 1;
 var cellId = 0;
-
+var count = 0;
 var bsImage;
 var ssImage;
+var tiles = [];
 var load = document.getElementById('loader');
 var wrap;
 
@@ -76,7 +77,10 @@ class Game {
       throw "No valid context found!";
     this.lastTime = Date.now();
     //select everything of type/class and set call backs
+
     this.tileDivs = this.createTileDivs();
+    var towerSwitchButton = document.getElementById('towerSwitch');
+
     this.loadDOMCallBacks(this.tileDivs);
     // select canvas for callbacks
     this.canvas.addEventListener('mousemove', this.handleCNVMouseMoved, false);
@@ -141,18 +145,22 @@ class Game {
         FRAME_RATE = 30;
       }
     }, false);
-     var towerSwitchButton = document.getElementById('towerSwitch');
     towerSwitchButton.addEventListener('click', function () {
-    if(towerState == 1){
+      if (towerState == 1) {
         towerState = 2;
-        towerSwitchButton.innerHTML = "Additional Towers";
-      }else{
-        towerState = 1; 
-        towerSwitchButton.innerHTML = "More Towers";
+        towerSwitchButton.innerHTML = "More Towers!";
+        towerSwitchButton.loc
+
+      } else {
+        towerState = 1;
+        towerSwitchButton.innerHTML = "More Towers!";
+
       }
     }, false);
 
   }
+
+
   //load wall stuff
   loadWallImage() {
     // grab the wall image from the buttons stprite sheet
@@ -194,10 +202,22 @@ class Game {
   hideImgElement() { this.style.display = "none"; }
 
   run() { // called from draw()
+    if (towerState == 1) {
+      if (count == 1) {
+        this.createTileDivs();
+        count--;
+      }
 
-    if (!this.paused){
-    this.gameState.run()
-  }     // let gt = this.updateGameTime();
+    } else if (towerState == 2) {
+      if (count == 0) {
+        this.createTileDivs();
+        count++;
+      }
+    }
+
+    if (!this.paused) {
+      this.gameState.run()
+    }     // let gt = this.updateGameTime();
     // this.updateInfoElements(gt);
     // this.removeBullets();
     // this.removeEnemies();
@@ -261,9 +281,6 @@ class Game {
     towerGame.paused = !towerGame.paused;
     if (towerGame.paused) butt.innerHTML = "Play";
     if (!towerGame.paused) butt.innerHTML = "Pause";
-  }
-  switchState(){
-    let c = document.get
   }
 
 
@@ -540,72 +557,116 @@ class Game {
   // parameters for creating towers to be drawn on the
   // canvas.
   createTileDivs() {
-    var tiles = [];
-    var buttons = ["B10000", "B20000", "B30000", "B40000", "B50000", "B60000",
-      "B70000", "B80000", "B90000", "B100000", ];
-    //  loop through the towers and DO NOT include wall element
-    for (var i = 0; i < 10; i++) {
-      var mtd = document.createElement("div"); // createDiv("");
-      if (i == 0) {
-        mtd.ability = "normal";
-        //        this.bankValue = 200;
 
-      } else if (i == 1) {
-        mtd.ability = "fast";
-        //  this.bankValue = 500;
+   while(document.getElementById("menuDiv").hasChildNodes()){
 
-      } else if (i == 2) {
-        mtd.ability = "freeze";
-        //  this.bankValue = 300;
+   document.getElementById("menuDiv").firstChild.remove();
+   }
 
-      } else if (i == 3) {
-        mtd.ability = "explosive";
-        //  this.bankValue = 700;
+    var buttons = ["B10000", "B20000", "B30000", "B40000", "B50000", "B60000", "B70000", "B80000", "B90000", "B100000", "B110000"];
 
-      } else if (i == 4) {
-        mtd.ability = "ray";
-        //  this.bankValue = 1000;
-      }else if (i == 5){
-        mtd.ability = "cannon";
+    if (towerState == 1) {
+
+
+      //  loop through the towers and DO NOT include wall element
+      for (var i = 0; i < 5; i++) {
+        var mtd = document.createElement("div"); // createDiv("");
+        if (i == 0) {
+          mtd.ability = "normal";
+          //        this.bankValue = 200;
+
+        } else if (i == 1) {
+          mtd.ability = "fast";
+          //  this.bankValue = 500;
+
+        } else if (i == 2) {
+          mtd.ability = "freeze";
+          //  this.bankValue = 300;
+
+        } else if (i == 3) {
+          mtd.ability = "explosive";
+          //  this.bankValue = 700;
+
+        } else if (i == 4) {
+          mtd.ability = "ray";
+          //  this.bankValue = 1000;
+        } else if (i == 5) {
+          mtd.ability = "cannon";
+        }
+        var b = buttons[i];
+        var button = buttonsJSON.frames[b].frame;
+
+        var innerDiv = document.createElement("div");
+        innerDiv.id = "innerDiv" + i;
+        innerDiv.style.width = "90px";
+        innerDiv.style.height = "100px";
+        // Not using imageBitmaps for the buttons
+        // As they are not on the canvas
+        innerDiv.style.backgroundImage = "url(resources/images/spritesheets/buttons.png)";
+        innerDiv.style.backgroundPosition = `${-button.x}px ${-button.y}px`;
+
+        innerDiv.style.margin = "5px";
+        mtd.appendChild(innerDiv);
+        document.getElementById("menuDiv").appendChild(mtd);
+        mtd.cost = 1 * i + 1;
+
+
+
+
+        mtd.setAttribute('title', 'Cost = ' + mtd.cost);
+        mtd.id = 'towImgDiv' + i;
+        tiles[i] = mtd;
+        this.createTowerBitmaps(ssImage, mtd, i)
+
+
+
       }
-      else if (i == 6) {
-        mtd.ability = "temp7";
-      } else if (i ==7){
-        mtd.ability = "temp8";
-      }else if ( i ==8){
-        mtd.ability = "temp9";
-      }else if (i == 9){
-        mtd.ability = "temp10";
+    } if(towerState == 2) {
+      for (var i = 6; i < 11; i++) {
+        var mtd = document.createElement("div");
+        if (i == 6) {
+          mtd.ability = "temp7";
+        } else if (i == 7) {
+          mtd.ability = "temp8";
+        } else if (i == 8) {
+          mtd.ability = "temp9";
+        } else if (i == 9) {
+          mtd.ability = "temp10";
+        } else if (i == 10) {
+          mtd.ability = "temp10";
+        }
+
+
+        var b = buttons[i];
+        var button = buttonsJSON.frames[b].frame;
+
+        var innerDiv = document.createElement("div");
+        innerDiv.id = "innerDiv" + i-6;
+        innerDiv.style.width = "90px";
+        innerDiv.style.height = "100px";
+        // Not using imageBitmaps for the buttons
+        // As they are not on the canvas
+        innerDiv.style.backgroundImage = "url(resources/images/spritesheets/buttons.png)";
+        innerDiv.style.backgroundPosition = `${-button.x}px ${-button.y}px`;
+
+        innerDiv.style.margin = "5px";
+        mtd.appendChild(innerDiv);
+        document.getElementById("menuDiv").appendChild(mtd);
+        mtd.cost = 1 * i + 1;
+
+
+
+
+        mtd.setAttribute('title', 'Cost = ' + mtd.cost);
+        mtd.id = 'towImgDiv' + i;
+        tiles[i - 6] = mtd;
+        this.createTowerBitmaps(ssImage, mtd, i)
       }
-      var b = buttons[i];
 
-      var button = buttonsJSON.frames[b].frame;
-
-      var innerDiv = document.createElement("div");
-      innerDiv.id = "innerDiv" + i;
-      innerDiv.style.width = "90px";
-      innerDiv.style.height = "100px";
-      // Not using imageBitmaps for the buttons
-      // As they are not on the canvas
-      innerDiv.style.backgroundImage = "url(resources/images/spritesheets/buttons.png)";
-      innerDiv.style.backgroundPosition = `${-button.x}px ${-button.y}px`;
-
-      innerDiv.style.margin = "5px";
-      mtd.appendChild(innerDiv);
-      document.getElementById("menuDiv").appendChild(mtd);
-      //document.getElementById("towerSwitchDiv");
-      mtd.cost = 1 * i + 1;
-
-
-
-
-      mtd.setAttribute('title', 'Cost = ' + mtd.cost);
-      mtd.id = 'towImgDiv' + i;
-      tiles.push(mtd);
-      this.createTowerBitmaps(ssImage, mtd, i)
 
     }
     return tiles;
+
 
   }
 

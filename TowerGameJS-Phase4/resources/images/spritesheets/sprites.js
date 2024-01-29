@@ -80,7 +80,14 @@ json = {"frames": {
 	"spriteSourceSize": {"x":0,"y":0,"w":35,"h":29},
 	"sourceSize": {"w":35,"h":29}
 },
-
+"E110000":
+{
+	"frame": {"x":37,"y":34,"w":35,"h":29},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":35,"h":29},
+	"sourceSize": {"w":35,"h":29}
+},
 "T10000":
 {
 	"frame": {"x":73,"y":34,"w":33,"h":35},
@@ -154,6 +161,14 @@ json = {"frames": {
 	"sourceSize": {"w":38,"h":38}
 },
 "T100000":
+{
+	"frame": {"x":1,"y":106,"w":38,"h":38},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":38,"h":38},
+	"sourceSize": {"w":38,"h":38}
+},
+"T110000":
 {
 	"frame": {"x":1,"y":106,"w":38,"h":38},
 	"rotated": false,
@@ -235,6 +250,14 @@ json = {"frames": {
 	"sourceSize": {"w":10,"h":10}
 },
 "p100000":
+{
+	"frame": {"x":25, "y":152, "w":10, "h":10},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":10,"h":10},
+	"sourceSize": {"w":10,"h":10}
+},
+"p110000":
 {
 	"frame": {"x":25, "y":152, "w":10, "h":10},
 	"rotated": false,

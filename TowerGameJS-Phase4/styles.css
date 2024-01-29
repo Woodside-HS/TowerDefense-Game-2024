@@ -20,9 +20,10 @@ body{
 
 #switchDiv{
   background-color: #009da2;
-  margin-right: 0px;
   margin-top: -20px;
-  width:120px;
+  margin-left: 8px;
+  margin-right: 8px;
+  width:100px;
   height:20px;
   float:right;
 }
@@ -98,14 +99,23 @@ body{
   font-family: Arial, Helvetica, sans-serif;
   font-size: 14pt;
 }
-#towImgDiv0,#towImgDiv1, #towImgDiv2, #towImgDiv3,#towImgDiv4, #towImgDiv5,#towImgDiv6,#towImgDiv7, #towImgDiv8, #towImgDiv9, #towImgDiv10{
+#towImgDiv0, #towImgDiv6{
   border:solid black 2px;
   border-radius: 5px;
   background-color: #DDD;
-  margin-top: 30px;
+  margin-top: 50px;
   margin-left: 8px;
   margin-right: 8px;
 }
+#towImgDiv1, #towImgDiv2, #towImgDiv3,#towImgDiv4, #towImgDiv5,#towImgDiv7, #towImgDiv8, #towImgDiv9, #towImgDiv10{
+  border:solid black 2px;
+  border-radius: 5px;
+  background-color: #DDD;
+  margin-top: 20px;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
  #panelStart{
    position: absolute;
     left: 80%;
