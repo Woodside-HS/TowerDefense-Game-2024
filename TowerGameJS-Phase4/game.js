@@ -180,13 +180,31 @@ class Game {
 
   render() { // draw game stuff
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    if (this.displayOverDraftBanner) {
+    if (this.displayOverDraftBanner == true) {
       this.context.beginPath();
-      this.context.rect(150, 200, 600, 350);
+      this.context.rect(150, 210, 600, 250);
       this.context.strokeStyle = "#3B6C8E";
+      this.context.fillStyle = "#3B6C8E";
       this.context.fill();
       this.context.stroke();
+      this.context.closePath();
+
+
+      const text = "Too expensive!";
+      this.context.font = "italic 100px Garamond"; // Set the font size and type
+      this.context.fillStyle = "white"; // Set the text color
+      const textWidth = this.context.measureText(text).width;
+      const textX = 150 + (600 - textWidth) / 2; // Center the text horizontally
+      const textY = 200 + 350 / 2; // Center the text vertically
+      this.context.fillText(text, textX, textY);
+
+
+
+      setTimeout(() => {
+        this.displayOverDraftBanner = false;
+      }, 300);
     }
+
 
   }
 
