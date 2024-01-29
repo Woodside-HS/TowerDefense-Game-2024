@@ -477,9 +477,9 @@ class Game {
       innerDiv.style.height = "100px";
       // Not using imageBitmaps for the buttons
       // As they are not on the canvas
-      if (towerGame.gameStateID != 1) {
-        innerDiv.style.backgroundImage = "url(resources/images/spritesheets/buttons.png)";
-      }
+      // if (towerGame.gameStateID != 1) {
+      innerDiv.style.backgroundImage = "url(resources/images/spritesheets/buttons.png)";
+      //}
       innerDiv.style.backgroundPosition = `${-button.x}px ${-button.y}px`;
       innerDiv.style.margin = "5px";
       mtd.appendChild(innerDiv);
@@ -528,8 +528,7 @@ class Game {
       else {
         println('failed to make tower');
       }
-    }
-    else alert("Insufficient Funds!");
+    } else alert("Insufficient Funds!");
     return (false);
   }
 
