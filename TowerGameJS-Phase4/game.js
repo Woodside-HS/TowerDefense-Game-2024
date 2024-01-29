@@ -528,7 +528,14 @@ class Game {
       else {
         println('failed to make tower');
       }
-    } else alert("Insufficient Funds!");
+    } else {
+      //  alert("Insufficient Funds!");
+      // context.beginPath();
+      // context.arc(300, 400, 30, 0, 2 * Math.PI);
+      // context.strokeStyle = "#3B6C8E";
+      // context.fill();
+      // context.stroke();
+    }
     return (false);
   }
 
@@ -739,3 +746,4 @@ window.onkeydown = function (e) {
     }
   }
 }
+
