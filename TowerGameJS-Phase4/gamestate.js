@@ -93,7 +93,7 @@ class GameState4 extends GameState { // Game Screen basic
     this.game.updateInfoElements(gt);
     this.game.removeBullets();
     this.game.removeEnemies();
-    this.game.controlWaves()
+    this.game.controlWaves();
     this.game.level1Render();
 
     this.game.backgroundMusic.play();

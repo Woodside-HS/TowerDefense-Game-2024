@@ -634,14 +634,23 @@ class Game {
   }
 
   level1Render() {
+    //14 rows tall and 17 col wide, starting at 0
     let col1 = Math.floor(this.canvas.width / this.w) - 1;
     let row1 = Math.floor(this.canvas.height / this.w) - 1;
-    let cell1 = towerGame.grid[col1][row1];
+    // let cell1, cell2, cell3, cell4, cell5;
+    let cell1 = [];
+    for (let c = 2; c < 13; c++) { //creates left column
+      cell1.push(towerGame.grid[0][c]);
+      console.log
+    }
+
     if (towerGame.gameStateID === 4) { //premade level 1
-      if (towerGame.placingTower && towerGame.canAddTower(cell)) {
-        //14 rows tall and 17 col wide, starting at 0
-        for (let c = 2; c < 13; c++) //creates left column
-          towerGame.placeTower(towerGame.grid[0][c]);
+      if (towerGame.placingTower && towerGame.canAddTower(cell1)) {
+        for(let i = 0; i < cell1.length; i++)
+        towerGame.placeTower(cell1[i]);
+
+
+
 
         // for (let r = 1; r < 11; r++) //creates bottom row
         //   towerGame.placeTower(towerGame.grid[r][13]);
