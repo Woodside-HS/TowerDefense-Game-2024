@@ -62,10 +62,12 @@ class GameState3 extends GameState { // end screen
   }
 }
 
-class GameState4 extends GameState { // Game Screen basic
+class GameState4 extends GameState { // Levels 1
   constructor(game) {
     super(game)
-    this.game.gameStateID = 4;
+    
+    this.game.gameStateID = 6;
+
     this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/play.png')"
     this.game.health = 100
     this.game.score = 0
@@ -82,8 +84,7 @@ class GameState4 extends GameState { // Game Screen basic
     this.game.root = this.game.grid[this.game.cols - 1][this.game.rows - 1];
     this.game.brushfire();
     
-    this.game.level1Render();
-
+    this.game.levelRender();
     
   }
  
@@ -148,3 +149,4 @@ class GameState4 extends GameState { // Game Screen basic
   }
 
 }
+

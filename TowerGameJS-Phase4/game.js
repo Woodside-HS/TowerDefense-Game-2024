@@ -609,7 +609,7 @@ class Game {
     var col = Math.floor(event.offsetX / towerGame.w);
     var row = Math.floor(event.offsetY / towerGame.w);
     var cell = towerGame.grid[col][row];
-    if (towerGame.gameStateID === 4) {
+    if (towerGame.gameStateID === 2) {
       if (towerGame.placingTower && towerGame.canAddTower(cell)) {
         towerGame.placeTower(cell);
       }
@@ -633,81 +633,117 @@ class Game {
 
   }
 
-  level1Render() { //premade level 1
+  levelRender() { //premade level render
+    //grid[col][row]
     //14 rows tall and 17 col wide, starting at 0
-    let cell1 = [];
-    let cell2 = [];
-    let cell3 = [];
-    let cell4 = [];
-    let cell5 = [];
-    let cell6 = [];
+    let level1 = [];
+    let level2 = [];
+    let level3 = [];
+    let level4 = [];
+    let level5 = [];
 
-    for (let c = 2; c < 14; c++)  //info for left column
-      cell1.push(towerGame.grid[0][c]);
+    if (this.gameStateID === 4) { //level 1
+      for (let c = 2; c < 14; c++)  //info for left column
+        level1.push(towerGame.grid[0][c]);
 
-    for (let r = 1; r < 14; r++) //info for bottom row
-      cell2.push(towerGame.grid[r][13]);
+      for (let r = 1; r < 14; r++) //info for bottom row
+        level1.push(towerGame.grid[r][13]);
 
-    for (let h = 2; h < 17; h++) //info for top row
-      cell3.push(towerGame.grid[h][0]);
+      for (let h = 2; h < 17; h++) //info for top row
+        level1.push(towerGame.grid[h][0]);
 
-    for (let a = 1; a < 11; a++) //creates right column
-      cell4.push(towerGame.grid[16][a]);
+      for (let a = 1; a < 11; a++) //creates right column
+        level1.push(towerGame.grid[16][a]);
 
-    for (let f = 4; )
-
-
-    for (let i = 0; i < cell1.length; i++) { // creates left column
-      if (towerGame.placingTower && towerGame.canAddTower(cell1[i])) {
-        towerGame.placeTower(cell1[i]);
+      // infor for box in middle
+      for (let f = 5; f < 8; f++) {
+        level1.push(towerGame.grid[f][4]);
+        level1.push(towerGame.grid[f][9]);
       }
-      else if (!towerGame.placingTower && !cell1[i].hasTower) {
-        // toggle the occupied property of the clicked cell
-        cell1[i].occupied = true;
 
-        towerGame.brushfire(towerGame.undo(cell1[i]));
+      for (let i = 9; i < 12; i++) {
+        level1.push(towerGame.grid[i][4]);
+        level1.push(towerGame.grid[i][9]);
       }
-    }
 
-    for (let i = 0; i < cell2.length; i++) { // creates bottom row
-      if (towerGame.placingTower && towerGame.canAddTower(cell2[i])) {
-        towerGame.placeTower(cell2[i]);
+      for (let s = 5; s < 9; s++) {
+        level1.push(towerGame.grid[4][s]);
+        level1.push(towerGame.grid[12][s]);
       }
-      else if (!towerGame.placingTower && !cell2[i].hasTower) {
-        // toggle the occupied property of the clicked cell
-        cell2[i].occupied = true;
 
-        towerGame.brushfire(towerGame.undo(cell2[i]));
-      }
-    }
+      //renders the entire level
+      for (let i = 0; i < level1.length; i++) { // creates left column
+        if (towerGame.placingTower && towerGame.canAddTower(level1[i])) {
+          towerGame.placeTower(level1[i]);
+        }
+        else if (!towerGame.placingTower && !level1[i].hasTower) {
+          // toggle the occupied property of the clicked cell
+          level1[i].occupied = true;
 
-    for (let i = 0; i < cell3.length; i++) { // creates top row
-      if (towerGame.placingTower && towerGame.canAddTower(cell3[i])) {
-        towerGame.placeTower(cell3[i]);
-      }
-      else if (!towerGame.placingTower && !cell3[i].hasTower) {
-        // toggle the occupied property of the clicked cell
-        cell3[i].occupied = true;
-
-        towerGame.brushfire(towerGame.undo(cell3[i]));
+          towerGame.brushfire(towerGame.undo(level1[i]));
+        }
       }
     }
 
-    for (let i = 0; i < cell4.length; i++) { // creates right column
-      if (towerGame.placingTower && towerGame.canAddTower(cell4[i])) {
-        towerGame.placeTower(cell4[i]);
-      }
-      else if (!towerGame.placingTower && !cell4[i].hasTower) {
-        // toggle the occupied property of the clicked cell
-        cell4[i].occupied = true;
+    else if (this.gameStateID === 5) { //level 2
+      for (let i = 0; i < 16; i++) //first row
+        level2.push(towerGame.grid[i][2]);
 
-        towerGame.brushfire(towerGame.undo(cell4[i]));
+      for (let j = 2; j < 18; j++) //second row
+        level2.push(towerGame.grid[j][5]);
+
+      for (let v = 0; v < 16; v++) //3rd row
+        level2.push(towerGame.grid[v][8]);
+
+      for (let u = 2; u < 18; u++) // 4th row
+        level2.push(towerGame.grid[u][11]);
+
+      for (let g = 0; g < 16; g++) //5th row
+        level2.push(towerGame.grid[g][14]);
+
+      for (let i = 0; i < level2.length; i++) { //render level 2
+        if (towerGame.placingTower && towerGame.canAddTower(level2[i])) {
+          towerGame.placeTower(level2[i]);
+        }
+        else if (!towerGame.placingTower && !level2[i].hasTower) {
+          // toggle the occupied property of the clicked cell
+          level2[i].occupied = true;
+
+          towerGame.brushfire(towerGame.undo(level2[i]));
+        }
       }
     }
-    
+    else if(this.gameStateID === 6){ //level 3
+      //I cannot write what each for loop does 
+      //as there are a lot and may get confusing if you misinterpret
+      //I will write what they do if it is simple enough, but some loops only
+      //load in 2-4 tiles, so those won't be labeled.
 
-    
+      for(let i = 3; i < 16; i++) //topmost row
+      level3.push(towerGame.grid[i][1]);
+
+      for(let i = 1; i < 15; i++) //bottom row
+      level3.push(towerGame.grid[i][13]);
+
+      for(let b = 4; b < 12; b++)
+      level3.push(towerGame.grid[1][b]);
+
+      level3.push(towerGame.grid[2][5]);
+
+      for (let i = 0; i < level3.length; i++) {
+        if (towerGame.placingTower && towerGame.canAddTower(level3[i])) {
+          towerGame.placeTower(level3[i]);
+        }
+        else if (!towerGame.placingTower && !level3[i].hasTower) {
+          // toggle the occupied property of the clicked cell
+          level3[i].occupied = true;
+
+          towerGame.brushfire(towerGame.undo(level3[i]));
+        }
+      }
+    }
   }
+
 
 
 
