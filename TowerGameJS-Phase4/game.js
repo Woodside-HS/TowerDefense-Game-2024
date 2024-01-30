@@ -150,6 +150,7 @@ class Game {
       console.log(towerState)
       if (towerState == 1) {
         towerState = 2;
+        d4k.style.backgroundImage =  'url(' + "towerChange.png" + ')';
         towerSwitchButton.innerHTML = "More Towers!";
         d4k.style.transform = "translate(" + 0 + "px, " + -700 + "px)";
       } else if ( towerState == 2){
