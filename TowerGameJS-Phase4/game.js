@@ -145,19 +145,24 @@ class Game {
         FRAME_RATE = 30;
       }
     }, false);
+    document.getElementById('switchDiv').style.transform = "translate(" + 0 + "px, " + -50 + "px)";
+      towerSwitchButton.style.backgroundColor = "#00000000";
     towerSwitchButton.addEventListener('click', function () {
-      towerSwitchButton.style.backgroundImage = "url(resources/images/panels/towerChange.png)";
-      let d4k = document.getElementById('switchDiv');
+
+
+      let d4k = document.getElementById('switchDiv');//bro what is this variable name?
       console.log(towerState)
       if (towerState == 1) {
         towerState = 2;
       
         towerSwitchButton.innerHTML = "More Towers!";
-        d4k.style.transform = "translate(" + 0 + "px, " + -700 + "px)";
+        towerSwitchButton.style.transform =  'rotate(' + 180 + 'deg)';
+        d4k.style.transform = 'rotate(' + 180 + 'deg)';
+        d4k.style.transform = "translate(" + 0 + "px, " + -750 + "px)";
       } else if ( towerState == 2){
         towerState = 1;
         towerSwitchButton.innerHTML = "More Towers!";
-       d4k.style.transform = "translate(" + 0 + "px, " + 0 + "px)";
+       d4k.style.transform = "translate(" + 0 + "px, " + -50 + "px)";
       }
     }, false);
 
