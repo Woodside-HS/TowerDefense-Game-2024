@@ -145,7 +145,7 @@ class Game {
         FRAME_RATE = 30;
       }
     }, false);
-    document.getElementById('switchDiv').style.transform = "translate(" + 0 + "px, " + -50 + "px)";
+    document.getElementById('switchDiv').style.transform = "translate(" + 0 + "px, " + -50 + "px)";//idk
       towerSwitchButton.style.backgroundColor = "#00000000";
     towerSwitchButton.addEventListener('click', function () {
 
