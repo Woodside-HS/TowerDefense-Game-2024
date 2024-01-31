@@ -84,6 +84,8 @@ class Game {
     this.canvas.addEventListener('mousemove', this.handleCNVMouseMoved, false);
     this.canvas.addEventListener('mouseover', this.handleCNVMouseOver, false);
     this.canvas.addEventListener('click', this.handleCNVMouseClicked, false);
+
+
     this.currentWaveNum = 0
     this.wave = new Wave(this, AllWaves[this.currentWaveNum])
 
@@ -92,10 +94,6 @@ class Game {
     this.w = 50;
     this.done = false;
     this.gameState = new GameState1(this)
-
-
-
-
 
     // container arrays for cells
     this.grid = [];
@@ -630,7 +628,7 @@ class Game {
       //follow mouse
       towerGame.towers[towerGame.towers.length - 1].loc.x = this.mouseX;
       towerGame.towers[towerGame.towers.length - 1].loc.y = this.mouseY;
-      //        console.log(this.mouseX + ", " + this.mouseY + ", " + towerGame.towers[towerGame.towers.length-1].loc.toString());
+
     }
   }
 
@@ -639,7 +637,15 @@ class Game {
     var col = Math.floor(event.offsetX / towerGame.w);
     var row = Math.floor(event.offsetY / towerGame.w);
     var cell = towerGame.grid[col][row];
-    if (towerGame.gameStateID === 2) {
+    if (towerGame.gameStateID === 4 //if the game is in any of these gamestates, it only
+      || towerGame.gameStateID === 5 // allows towers to be built, it does not include
+      || towerGame.gameStateID === 6 //the walls. gameStateID 4-8 are premade levels so
+      || towerGame.gameStateID === 7  //the player shouldn't be able to place/remove walls
+      || towerGame.gameStateID === 8) {
+      if (towerGame.placingTower && towerGame.canAddTower(cell)) {
+        towerGame.placeTower(cell);
+      }
+    } else if (towerGame.gameStateID === 9) {
       if (towerGame.placingTower && towerGame.canAddTower(cell)) {
         towerGame.placeTower(cell);
       }
@@ -651,8 +657,7 @@ class Game {
           cell.occupied = true;
         } else if (!cell.occupied) {
           alert("Insufficient Funds!");
-        }
-        else {
+        } else {
           towerGame.bankValue += towerGame.wallCost;
           cell.occupied = false;
         }
@@ -706,16 +711,16 @@ class Game {
         if (towerGame.placingTower && towerGame.canAddTower(level1[i])) {
           towerGame.placeTower(level1[i]);
         }
-        else if (!towerGame.placingTower && !level1[i].hasTower) {
-          // toggle the occupied property of the clicked cell
-          if (!level1[i].occupied){
-            level1[i].occupied = true
-          } else {
-           
-            level1[i].occupied = false;
+        else
+          if (!towerGame.placingTower && !level1[i].hasTower) {
+
+            if (!level1[i].occupied) {
+              level1[i].occupied = true
+            } else if (level1[i].occupied) {
+              cell.occupied = false;
+            }
+            towerGame.brushfire(towerGame.undo(level1[i]));
           }
-          towerGame.brushfire(towerGame.undo(level1[i]));
-        }
       }
     }
 
@@ -756,13 +761,13 @@ class Game {
       for (let i = 3; i < 16; i++) //topmost row
         level3.push(towerGame.grid[i][1]);
 
-      for (let i = 1; i < 15; i++) //bottom row
+      for (let i = 1; i < 14; i++) //bottom row
         level3.push(towerGame.grid[i][13]);
 
       for (let b = 4; b < 12; b++) //left column
         level3.push(towerGame.grid[1][b]);
 
-        //diagonal area of bottom
+      //diagonal area of bottom
       level3.push(towerGame.grid[2][5]);
 
       for (let f = 6; f < 8; f++)
@@ -773,17 +778,49 @@ class Game {
 
       level3.push(towerGame.grid[6][9])
 
-        for (let i = 0; i < level3.length; i++) {
-          if (towerGame.placingTower && towerGame.canAddTower(level3[i])) {
-            towerGame.placeTower(level3[i]);
-          }
-          else if (!towerGame.placingTower && !level3[i].hasTower) {
-            // toggle the occupied property of the clicked cell
-            level3[i].occupied = true;
+      for (let m = 7; m < 9; m++)
+        level3.push(towerGame.grid[m][10])
 
-            towerGame.brushfire(towerGame.undo(level3[i]));
-          }
+      for (let m = 9; m < 11; m++)
+        level3.push(towerGame.grid[m][11])
+
+      for (let m = 11; m < 13; m++)
+        level3.push(towerGame.grid[m][12])
+
+      for (let h = 2; h < 6; h++)
+        level3.push(towerGame.grid[15][h]);
+
+      //diagonal part of top sections
+      for (let c = 4; c < 6; c++)
+        level3.push(towerGame.grid[c][2]);
+
+      for (let c = 6; c < 8; c++)
+        level3.push(towerGame.grid[c][3]);
+
+      for (let c = 8; c < 10; c++)
+        level3.push(towerGame.grid[c][4]);
+
+      for (let c = 10; c < 12; c++)
+        level3.push(towerGame.grid[c][5]);
+
+      for (let c = 12; c < 14; c++)
+        level3.push(towerGame.grid[c][6]);
+
+      for (let c = 14; c < 16; c++)
+        level3.push(towerGame.grid[c][7]);
+
+
+      for (let i = 0; i < level3.length; i++) {
+        if (towerGame.placingTower && towerGame.canAddTower(level3[i])) {
+          towerGame.placeTower(level3[i]);
         }
+        else if (!towerGame.placingTower && !level3[i].hasTower) {
+          // toggle the occupied property of the clicked cell
+          level3[i].occupied = true;
+
+          towerGame.brushfire(towerGame.undo(level3[i]));
+        }
+      }
     }
   }
 
