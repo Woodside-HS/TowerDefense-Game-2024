@@ -708,8 +708,12 @@ class Game {
         }
         else if (!towerGame.placingTower && !level1[i].hasTower) {
           // toggle the occupied property of the clicked cell
-          level1[i].occupied = true;
-
+          if (!level1[i].occupied){
+            level1[i].occupied = true
+          } else {
+           
+            level1[i].occupied = false;
+          }
           towerGame.brushfire(towerGame.undo(level1[i]));
         }
       }
@@ -743,34 +747,43 @@ class Game {
         }
       }
     }
-    else if(this.gameStateID === 6){ //level 3
+    else if (this.gameStateID === 6) { //level 3
       //I cannot write what each for loop does 
       //as there are a lot and may get confusing if you misinterpret
       //I will write what they do if it is simple enough, but some loops only
       //load in 2-4 tiles, so those won't be labeled.
 
-      for(let i = 3; i < 16; i++) //topmost row
-      level3.push(towerGame.grid[i][1]);
+      for (let i = 3; i < 16; i++) //topmost row
+        level3.push(towerGame.grid[i][1]);
 
-      for(let i = 1; i < 15; i++) //bottom row
-      level3.push(towerGame.grid[i][13]);
+      for (let i = 1; i < 15; i++) //bottom row
+        level3.push(towerGame.grid[i][13]);
 
-      for(let b = 4; b < 12; b++)
-      level3.push(towerGame.grid[1][b]);
+      for (let b = 4; b < 12; b++) //left column
+        level3.push(towerGame.grid[1][b]);
 
+        //diagonal area of bottom
       level3.push(towerGame.grid[2][5]);
 
-      for (let i = 0; i < level3.length; i++) {
-        if (towerGame.placingTower && towerGame.canAddTower(level3[i])) {
-          towerGame.placeTower(level3[i]);
-        }
-        else if (!towerGame.placingTower && !level3[i].hasTower) {
-          // toggle the occupied property of the clicked cell
-          level3[i].occupied = true;
+      for (let f = 6; f < 8; f++)
+        level3.push(towerGame.grid[3][f]);
 
-          towerGame.brushfire(towerGame.undo(level3[i]));
+      for (let a = 4; a < 6; a++)
+        level3.push(towerGame.grid[a][8]);
+
+      level3.push(towerGame.grid[6][9])
+
+        for (let i = 0; i < level3.length; i++) {
+          if (towerGame.placingTower && towerGame.canAddTower(level3[i])) {
+            towerGame.placeTower(level3[i]);
+          }
+          else if (!towerGame.placingTower && !level3[i].hasTower) {
+            // toggle the occupied property of the clicked cell
+            level3[i].occupied = true;
+
+            towerGame.brushfire(towerGame.undo(level3[i]));
+          }
         }
-      }
     }
   }
 
