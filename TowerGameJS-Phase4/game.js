@@ -226,11 +226,12 @@ class Game {
 
 
       setTimeout(() => {
-        this.displayOverDraftBanner = false;
+        this.displayTowerOverlapBanner = false;
       }, 600);
 
 
     }
+  }
 
     // brushfire()
     // starting with the 'root' cell, which is the bottom right cell of the grid
@@ -291,7 +292,6 @@ class Game {
               enemy.kill = true;    // kill the orphans
           }
           console.log("brushfire created an invalid map and no undo was inputed")
-
         }
       }
 
@@ -766,7 +766,7 @@ class Game {
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Other
   } // end Game class +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-window.onkeydown = function (e) {
+  window.onkeydown = function (e) {
     var code = e.keyCode ? e.keyCode : e.which;
 
     if (code == 85) { // u key
