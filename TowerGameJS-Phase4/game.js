@@ -91,7 +91,7 @@ class Game {
     this.mouseY = 0;
     this.w = 50;
     this.done = false;
-    this.level= new Level1(this)
+    this.gameState= new GameState1(this)
     //panelthings
     // this.panelStart.ceatebutton("Start",
     //   function(){
@@ -197,7 +197,7 @@ class Game {
   run() { // called from draw()
 
     if (!this.paused){
-    this.level.run()
+    this.gameState.run()
   } 
   
   // let gt = this.updateGameTime();
