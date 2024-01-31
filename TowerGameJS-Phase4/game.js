@@ -202,7 +202,7 @@ class Game {
 
       setTimeout(() => {
         this.displayOverDraftBanner = false;
-      }, 300);
+      }, 600);
     }
 
 
