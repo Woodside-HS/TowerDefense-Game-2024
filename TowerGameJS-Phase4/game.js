@@ -79,7 +79,7 @@ class Game {
     //select everything of type/class and set call backs
 
     this.tileDivs = this.createTileDivs();
-    var towerSwitchButton = document.getElementById('towerSwitch');
+    var towerSwitchButton = document.getElementById('switchDiv');
 
     this.loadDOMCallBacks(this.tileDivs);
     // select canvas for callbacks
@@ -145,8 +145,8 @@ class Game {
         FRAME_RATE = 30;
       }
     }, false);
-    document.getElementById('switchDiv').style.transform = "translate(" + 0 + "px, " + -50 + "px)";//idk
-      towerSwitchButton.style.backgroundColor = "#00000000";
+    document.getElementById('switchDiv').style.transform = "translate(" + 0 + "px, " + -52 + "px)";//idk this is clipping
+  
     towerSwitchButton.addEventListener('click', function () {
 
 
@@ -154,7 +154,7 @@ class Game {
       console.log(towerState)
       if (towerState == 1) {
         towerState = 2;
-        d4k.style.transform = "translate(" + 0 + "px, " + -750 + "px) rotate(180deg)";//
+        d4k.style.transform = "translate(" + 0 + "px, " + -749 + "px) rotate(180deg)";//
       } else if ( towerState == 2){
         towerState = 1;
        d4k.style.transform = "translate(" + 0 + "px, " + -50 + "px)";
