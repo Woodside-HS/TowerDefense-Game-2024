@@ -151,7 +151,7 @@ class Game {
 
 
       let d4k = document.getElementById('switchDiv');//bro what is this variable name?
-      console.log(towerState)
+
       if (towerState == 1) {
         towerState = 2;
         d4k.style.transform = "translate(" + 0 + "px, " + -749 + "px) rotate(180deg)";//
@@ -208,12 +208,14 @@ class Game {
     if (towerState == 1) {
       if (count == 1) {
         this.createTileDivs();
+      //  this.loadDOMCallBacks(this.tileDivs);
         count--;
       }
 
-    } else if (towerState == 1) {
+    } else if (towerState == 2) {
       if (count == 0) {
-        this.createTileDivs();
+       this.createTileDivs();
+    //   this.loadDOMCallBacks(this.tileDivs);
         count++;
       }
     }
@@ -566,7 +568,7 @@ class Game {
    document.getElementById("menuDiv").firstChild.remove();
    }
 
-    var buttons = ["B10000", "B20000", "B30000", "B40000", "B50000", "B60000", "B70000", "B80000", "B90000", "B100000", "B110000"];
+    var buttons = ["B10000", "B20000", "B30000", "B40000", "B50000","B60000", "B70000", "B80000", "B90000", "B100000", "B110000"];
 
     if (towerState == 1) {
 
@@ -576,23 +578,19 @@ class Game {
         var mtd = document.createElement("div"); // createDiv("");
         if (i == 0) {
           mtd.ability = "normal";
-          //        this.bankValue = 200;
+
 
         } else if (i == 1) {
           mtd.ability = "fast";
-          //  this.bankValue = 500;
 
         } else if (i == 2) {
           mtd.ability = "freeze";
-          //  this.bankValue = 300;
 
         } else if (i == 3) {
           mtd.ability = "explosive";
-          //  this.bankValue = 700;
 
         } else if (i == 4) {
           mtd.ability = "ray";
-          //  this.bankValue = 1000;
         } else if (i == 5) {
           mtd.ability = "cannon";
         }
@@ -636,7 +634,7 @@ class Game {
         } else if (i == 9) {
           mtd.ability = "temp10";
         } else if (i == 10) {
-          mtd.ability = "temp10";
+          mtd.ability = "temp11";
         }
 
 
@@ -644,7 +642,7 @@ class Game {
         var button = buttonsJSON.frames[b].frame;
 
         var innerDiv = document.createElement("div");
-        innerDiv.id = "innerDiv" + i-6;
+        innerDiv.id = "innerDiv" + (i);
         innerDiv.style.width = "90px";
         innerDiv.style.height = "100px";
         // Not using imageBitmaps for the buttons
@@ -662,7 +660,7 @@ class Game {
 
         mtd.setAttribute('title', 'Cost = ' + mtd.cost);
         mtd.id = 'towImgDiv' + i;
-        tiles[i - 6] = mtd;
+        tiles[i] = mtd;
         this.createTowerBitmaps(ssImage, mtd, i)
       }
 
