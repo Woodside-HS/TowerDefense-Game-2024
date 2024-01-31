@@ -8,6 +8,7 @@ var FRAME_RATE = 30;
 var towerState = 1;
 var cellId = 0;
 var count = 0;
+var firstRun = 0;
 var bsImage;
 var ssImage;
 var tiles = [];
@@ -167,7 +168,7 @@ class Game {
   //load wall stuff
   loadWallImage() {
     // grab the wall image from the buttons stprite sheet
-    var propName = "B60000";
+    var propName = "B110000";
     var f = buttonsJSON.frames[propName].frame;
     createImageBitmap(bsImage, f.x, f.y, f.w, f.h).then(function (wallImage) {
       Cell.wallImage = wallImage;
@@ -207,15 +208,16 @@ class Game {
   run() { // called from draw()
     if (towerState == 1) {
       if (count == 1) {
-        this.createTileDivs();
-      //  this.loadDOMCallBacks(this.tileDivs);
+      //  this.createTileDivs();
+        this.tileDivs = this.createTileDivs();
+        this.loadDOMCallBacks(this.tileDivs);
         count--;
       }
 
     } else if (towerState == 2) {
       if (count == 0) {
-       this.createTileDivs();
-    //   this.loadDOMCallBacks(this.tileDivs);
+        this.tileDivs = this.createTileDivs();
+       this.loadDOMCallBacks(this.tileDivs);
         count++;
       }
     }
@@ -563,12 +565,13 @@ class Game {
   // canvas.
   createTileDivs() {
 
+
    while(document.getElementById("menuDiv").hasChildNodes()){
 
    document.getElementById("menuDiv").firstChild.remove();
    }
 
-    var buttons = ["B10000", "B20000", "B30000", "B40000", "B50000","B60000", "B70000", "B80000", "B90000", "B100000", "B110000"];
+    var buttons = ["B10000", "B20000", "B30000", "B40000", "B50000","B60000", "B70000", "B80000", "B90000", "B100000"];
 
     if (towerState == 1) {
 
@@ -578,7 +581,6 @@ class Game {
         var mtd = document.createElement("div"); // createDiv("");
         if (i == 0) {
           mtd.ability = "normal";
-
 
         } else if (i == 1) {
           mtd.ability = "fast";
@@ -591,8 +593,6 @@ class Game {
 
         } else if (i == 4) {
           mtd.ability = "ray";
-        } else if (i == 5) {
-          mtd.ability = "cannon";
         }
         var b = buttons[i];
         var button = buttonsJSON.frames[b].frame;
@@ -619,13 +619,20 @@ class Game {
         tiles[i] = mtd;
         this.createTowerBitmaps(ssImage, mtd, i)
 
-
-
+        if(firstRun == 0){
+          console.log(firstRun)
+          towerState == 2;
+          firstRun ++;
+        }
+      
       }
     } if(towerState == 2) {
-      for (var i = 6; i < 11; i++) {
+      console.log(firstRun)
+      for (var i = 5; i < 10; i++) {
         var mtd = document.createElement("div");
-        if (i == 6) {
+        if (i == 5) {
+          mtd.ability = "cannon";
+        } else if (i == 6) {
           mtd.ability = "temp7";
         } else if (i == 7) {
           mtd.ability = "temp8";
@@ -633,8 +640,6 @@ class Game {
           mtd.ability = "temp9";
         } else if (i == 9) {
           mtd.ability = "temp10";
-        } else if (i == 10) {
-          mtd.ability = "temp11";
         }
 
 
@@ -726,6 +731,7 @@ class Game {
     //  load tile menu callbacks
     for (var i = 0; i < menuTiles.length; i++) {
       var mtd = menuTiles[i];
+      console.log(menuTiles)
       mtd.addEventListener('mouseover', this.tileRollOver, false);
       mtd.addEventListener('mouseout', this.tileRollOut, false);
       mtd.addEventListener('mousedown', this.tilePressed, false);

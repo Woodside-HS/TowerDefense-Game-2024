@@ -85,7 +85,7 @@ class Enemy {
           //  console.log(towerGame.bullets[h].ability);
       if(this.checkCollide(this, towerGame.bullets[h])){
         if(towerGame.bullets[h].ability == "normal"){
-          this.health = this.health - 500;
+          this.health = this.health - 500000;
           towerGame.bullets.splice(h, 1);
         } else if(towerGame.bullets[h].ability == "fast"){
           this.health = this.health - 350;
