@@ -15,15 +15,11 @@ class Tower {
     this.lastTime = Date.now();
     this.coolDown = 500;
     towerGame.bankValue = towerGame.bankValue- this.cost;
-    this.enemies=towerGame.enemies;
+    this.enemies=towerGame.enemies
     this.range=200;
     if(ability == "freeze"){
     this.coolDown = 3000;
     this.range = 500;
-  }
-  if(ability == "cannon"){
-    this.coolDown = 2000;
-    this.range = 350;
   }
   else if(ability == "normal" || ability == "explosive")
     this.coolDown = 700;
@@ -32,8 +28,8 @@ class Tower {
   else
     this.coolDown = 100;
   this.ability = ability;
-    this.target=null;
-    this.enemy=null;
+    this.target=null
+    this.enemy=null
   }
 
   run() {
@@ -65,7 +61,7 @@ class Tower {
     //  Rotate turret to follow mouse
     this.enemy=this.findEnemy()
     if(this.enemy) {
-      this.target=this.enemy.loc;
+      this.target=this.enemy.loc
     }else{
       this.target=vector2d(towerGame.canvas.mouseX,towerGame.canvas.mouseY)
     }
@@ -93,10 +89,6 @@ class Tower {
             //console.log("shoot");
 
             towerGame.bullets.push(b);
-      }
-      if(this.ability = "cannon"){
-        let cannon = new Bullet(bulletLocation, this.bulletImg, this.towAngle, this.ability)
-        towerGame.bullets.push(cannon)
       }
         if(this.ability == "freeze"){
           let sb = new Bullet(bulletLocation , this.bulletImg, this.towAngle, this.ability)

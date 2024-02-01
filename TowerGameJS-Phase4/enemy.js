@@ -75,17 +75,17 @@ class Enemy {
 
     // update()
     // Calculate a new location for this enemy.
-    // If has reached the root cell, kill it
+    // If has reached the root cell, kill itmin
     // If it has reached the current target along the path,
     // find a new target and rotate the velocity in the direaction
     // of the new target.
   update() {
+    console.log(this.health)
     let millis = Date.now();
     for(let h = 0; h < towerGame.bullets.length; h++){
-          //  console.log(towerGame.bullets[h].ability);
       if(this.checkCollide(this, towerGame.bullets[h])){
         if(towerGame.bullets[h].ability == "normal"){
-          this.health = this.health - 500000;
+          this.health = this.health - 500;
           towerGame.bullets.splice(h, 1);
         } else if(towerGame.bullets[h].ability == "fast"){
           this.health = this.health - 350;
@@ -93,7 +93,6 @@ class Enemy {
           towerGame.bullets.splice(h, 1);
         }else if(towerGame.bullets[h].ability == "freeze"){
           this.health = this.health -1000;
-          console.log("asdfasdfa");
         //  this.vel = this.initialVel - .8;
         }else if(towerGame.bullets[h].ability == "explosive"){
 

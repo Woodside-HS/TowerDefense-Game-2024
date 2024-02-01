@@ -87,7 +87,7 @@ class Game {
     this.canvas.addEventListener('mousemove', this.handleCNVMouseMoved, false);
     this.canvas.addEventListener('mouseover', this.handleCNVMouseOver, false);
     this.canvas.addEventListener('click', this.handleCNVMouseClicked, false);
-    this.currentWaveNum = 0
+    this.currentWaveNum = 0;
     this.wave = new Wave(this, AllWaves[this.currentWaveNum])
 
     this.mouseX = 0;
@@ -564,14 +564,13 @@ class Game {
   // parameters for creating towers to be drawn on the
   // canvas.
   createTileDivs() {
-
-
    while(document.getElementById("menuDiv").hasChildNodes()){
 
    document.getElementById("menuDiv").firstChild.remove();
    }
 
-    var buttons = ["B10000", "B20000", "B30000", "B40000", "B50000","B60000", "B70000", "B80000", "B90000", "B100000"];
+    var buttons = ["B10000", "B20000", "B30000", "B40000", "B50000",
+    "B60000", "B70000", "B80000", "B90000", "B100000"];
 
     if (towerState == 1) {
 
