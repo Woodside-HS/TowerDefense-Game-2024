@@ -7,10 +7,11 @@ class Enemy {
     this.randomPath = 0;   //boolean to randomize or not
     this.radius = 15.0;
     this.r = 3.0;
-    this.vel = 3.0;
+    this.vel = 8.0;
     this.isLocked = false;
-    this.initialVel = 1.8;
+    this.initialVel = 3;
     this.isTarget= false;
+    this.speedDecrease = 0;
     this.deathSound = new Audio('resources/sounds/splat.mp3');
     this.lastTime = Date.now();
     this.coolDown = 1000;
@@ -80,7 +81,6 @@ class Enemy {
     // find a new target and rotate the velocity in the direaction
     // of the new target.
   update() {
-    console.log(this.health)
     let millis = Date.now();
     for(let h = 0; h < towerGame.bullets.length; h++){
       if(this.checkCollide(this, towerGame.bullets[h])){
@@ -92,8 +92,14 @@ class Enemy {
         //  console.log(this.health)
           towerGame.bullets.splice(h, 1);
         }else if(towerGame.bullets[h].ability == "freeze"){
-          this.health = this.health -1000;
-        //  this.vel = this.initialVel - .8;
+          this.health = this.health -10;
+          this.speedDecrease += 0.5;
+          if(this.speedDecrease  <= 2){
+          this.vel = 2;
+          setTimeout(function() {
+            this.vel = 3;
+        }, "2000");
+      }
         }else if(towerGame.bullets[h].ability == "explosive"){
 
             this.health = this.health - 100;
