@@ -110,15 +110,12 @@ class Enemy {
         }, 5000);
 
         } else if (towerGame.bullets[h].ability == "explosive") {
-          console.log("a")
           this.health = this.health - 100;
           if (this.health <= 0) {
             this.kill = true;
           }
           this.locations = this.loc;
-          console.log("idk");
           towerGame.explosiveBullets.push(new Explosives(towerGame.bullets[h].loc));
-          console.log(towerGame.explosiveBullets.length);
 
           towerGame.bullets.splice(h, 1);
         }
