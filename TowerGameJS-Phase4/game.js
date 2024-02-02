@@ -31,7 +31,7 @@ function setup() {
 
   //panelthings
 
-}
+} 
 
 function draw() {   // the animation loop
   towerGame.run();
@@ -91,7 +91,7 @@ class Game {
     this.mouseY = 0;
     this.w = 50;
     this.done = false;
-    this.gameState = new GameState1(this)
+    this.gameState = new GameState1(this);
 
 
 
@@ -218,10 +218,10 @@ class Game {
       const text = "You can't place a tower there!";
       this.context.font = "italic 100px Garamond"; // Set the font size and type
       this.context.fillStyle = "white"; // Set the text color
-      const textWidth = this.context.measureText(text).width;
-      const textX = 150 + (600 - textWidth) / 2; // Center the text horizontally
-      const textY = 200 + 350 / 2; // Center the text vertically
-      this.context.fillText(text, textX, textY);
+      const tw = this.context.measureText(text).width;
+      const tx = 150 + (600 - tw) / 2; // Center the text horizontally
+      const ty = 200 + 350 / 2; // Center the text vertically
+      this.context.fillText(text, tx, ty);
 
 
 
