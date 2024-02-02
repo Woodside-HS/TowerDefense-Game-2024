@@ -89,7 +89,6 @@ class Tower {
           || this.ability == "freeze"){
             towerGame.bullets.push(b);//first two very normal
         }
-
     }
     if(this.ability == "ray" && towerGame.enemies.length != 0){//I will fix code eventually
       var a3 = this.loc.x - this.target.x;

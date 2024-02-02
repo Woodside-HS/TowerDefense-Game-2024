@@ -94,6 +94,8 @@ class Enemy {
     let millis = Date.now();
     for (let h = 0; h < towerGame.bullets.length; h++) {
       if (this.checkCollide(this, towerGame.bullets[h])) {
+        console.log(towerGame.bullets[h].ability)
+        console.log(towerGame.bu)
         if (towerGame.bullets[h].ability == "normal") {
           this.health = this.health - 500;
           towerGame.bullets.splice(h, 1);
@@ -109,7 +111,7 @@ class Enemy {
         }, 5000);
 
         } else if (towerGame.bullets[h].ability == "explosive") {
-
+          console.log("a")
           this.health = this.health - 100;
           if (this.health <= 0) {
             this.kill = true;
@@ -119,7 +121,6 @@ class Enemy {
           towerGame.explosiveBullets.push(new Explosives(towerGame.bullets[h].loc));
           console.log(towerGame.explosiveBullets.length);
 
-          //towerGame.explosiveBullets.push(new Explosives(towerGame.bullets[h].loc));
           towerGame.bullets.splice(h, 1);
         }
 
