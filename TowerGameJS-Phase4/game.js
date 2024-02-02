@@ -53,7 +53,7 @@ class Game {
     this.enemies = [];
     this.bullets = [];
     this.explosiveBullets = [];
-    this.bankValue = 50000;
+    this.bankValue = 500;
     this.rays = [];
     this.checkOnce = true;
     this.enemyNum = 20;
@@ -139,7 +139,7 @@ class Game {
     var fastForwardButton = document.getElementById('fastForward');
     fastForwardButton.addEventListener('click', function () {
       if (FRAME_RATE == 30) {
-        FRAME_RATE = 60;
+        FRAME_RATE = 120;
         fastForwardButton.innerHTML = "Slow Down";
       } else {
         fastForwardButton.innerHTML = "Fast Forward";

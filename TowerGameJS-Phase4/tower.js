@@ -18,7 +18,7 @@ class Tower {
     this.enemies=towerGame.enemies
     this.range=200;
     if(ability == "freeze"){
-    this.coolDown = 100;
+    this.coolDown = 1000;
     this.range = 500;
   }
   else if(ability == "normal" || ability == "explosive")
