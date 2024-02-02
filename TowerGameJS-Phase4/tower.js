@@ -22,7 +22,7 @@ class Tower {
     this.range = 150;
   }
   else if(ability == "normal" || ability == "explosive")
-    this.coolDown = 2500;
+    this.coolDown = 750;
   else if(ability == "fast")
     this.coolDown = 500;
   else if(ability == "healingGuy"){
