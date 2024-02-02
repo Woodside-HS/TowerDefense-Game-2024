@@ -11,7 +11,6 @@ class Wave {
 
   run() {
     while (this.game.gameTime > this.referenceTime && !this.spawnOver) {
-      console.log("running");
       if (this.enemyId[0] < this.waveJson.packets.length) {
         if (this.enemyId[1] < this.waveJson.packets[this.enemyId[0]].num) {
           this.game.enemies.push(this.enemySelector(this.game, this.waveJson.packets[this.enemyId[0]].enemy))
