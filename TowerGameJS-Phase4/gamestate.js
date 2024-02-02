@@ -83,7 +83,17 @@ class GameState4 extends GameState { // Levels 1
     this.game.root = this.game.grid[this.game.cols - 1][this.game.rows - 1];
     this.game.brushfire();
     
-    this.game.levelKey();
+    if(this.game.gameStateID === 4){
+      this.game.levelRender(level1Key);
+    } else if(this.game.gameStateID === 5) {
+      this.game.levelRender(level2Key);
+    } else if(this.game.gameStateID === 6){
+      this.game.levelRender(level3Key);  
+    } else if(this.game.gameStateID === 7){
+      this.game.levelRender(level4Key);
+    } else if(this.game.gameStateID === 8){
+      this.game.levelRender(level5Key);
+    }
     
   }
  

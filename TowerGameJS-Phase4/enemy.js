@@ -2,7 +2,7 @@ class Enemy {
 
   constructor(game) {
     this.game = game;
-    this.currentCell = this.game.grid[0][0];
+    this.currentCell = this.game.grid[0][0]; // start position of the enemies
     this.loc = this.currentCell.center.copy();
     this.randomPath = 0;   //boolean to randomize or not
     this.radius = 15.0;
