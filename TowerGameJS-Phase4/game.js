@@ -113,14 +113,19 @@ class Game {
 
     var fastForwardButton = document.getElementById('fastForward');
     fastForwardButton.addEventListener('click', function () {
-      if (FRAME_RATE == 30) {
-        FRAME_RATE = 60;
-        fastForwardButton.innerHTML = "Slow Down";
+      if (towerGame.gameTime > 20) {
+        if (FRAME_RATE == 30) {
+          FRAME_RATE = 60;
+          fastForwardButton.innerHTML = "Slow Down";
+        } else {
+          fastForwardButton.innerHTML = "Fast Forward";
+          FRAME_RATE = 30;
+        }
       } else {
-        fastForwardButton.innerHTML = "Fast Forward";
-        FRAME_RATE = 30;
+        towerGame.gameTime = 20;
       }
     }, false);
+
   }
   //load wall stuff
   loadWallImage() {
