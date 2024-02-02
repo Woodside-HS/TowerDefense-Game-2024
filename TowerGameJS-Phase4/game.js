@@ -644,7 +644,7 @@ class Game {
         } else if (i == 8) {
           mtd.ability = "temp9";
         } else if (i == 9) {
-          mtd.ability = "healing+Buff";
+          mtd.ability = "buffregen";
         }
 
 
@@ -736,7 +736,6 @@ class Game {
     //  load tile menu callbacks
     for (var i = 0; i < menuTiles.length; i++) {
       var mtd = menuTiles[i];
-      console.log(menuTiles)
       mtd.addEventListener('mouseover', this.tileRollOver, false);
       mtd.addEventListener('mouseout', this.tileRollOut, false);
       mtd.addEventListener('mousedown', this.tilePressed, false);

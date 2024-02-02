@@ -75,6 +75,7 @@ class Enemy {
 
       ctx.restore();
     }
+
     ctx.save();
 
     ctx.translate(this.loc.x, this.loc.y);
@@ -94,8 +95,6 @@ class Enemy {
     let millis = Date.now();
     for (let h = 0; h < towerGame.bullets.length; h++) {
       if (this.checkCollide(this, towerGame.bullets[h])) {
-        console.log(towerGame.bullets[h].ability)
-        console.log(towerGame.bu)
         if (towerGame.bullets[h].ability == "normal") {
           this.health = this.health - 500;
           towerGame.bullets.splice(h, 1);
