@@ -17,7 +17,7 @@ class Enemy {
     this.coolDown = 1000;
     this.towerLoc = vector2d(0, 0);
     this.velVec;
-    this.slowed = 1;
+    this.slowed = 1.2;
     this.count = 0;
     this.increasedDamg = 20;
     this.health = 1000;
@@ -38,8 +38,8 @@ class Enemy {
   }
 
   run() {
-    this.update();
     this.render();
+    this.update();
   }
 
   // nextTarget()
@@ -67,12 +67,25 @@ class Enemy {
   // enemies with an optimal path are green
   render() {
     var ctx = this.game.context
+    if(this.slowed < 1){
+      ctx.save();
+      ctx.translate(this.loc.x, this.loc.y)
+      ctx.strokeStyle = "rgba(0,0,100,0.4)";
+      ctx.beginPath();
+      ctx.arc(0, 0, (this.img.width+this.img.height)/4, 0, Math.PI * 2, false);
+
+      ctx.closePath();
+      ctx.stroke();
+
+      ctx.restore();
+    }
     ctx.save();
 
     ctx.translate(this.loc.x, this.loc.y);
     ctx.rotate(this.angle + Math.PI / 2);
     ctx.drawImage(this.img, -this.img.width / 2, -this.img.height / 2);
     ctx.restore();
+
   }
 
   // update()
@@ -94,11 +107,10 @@ class Enemy {
           towerGame.bullets.splice(h, 1);
         } else if (towerGame.bullets[h].ability == "freeze") {
           this.health = this.health - 10;
-          this.slowed -= 0.01;
-          setTimeout(function () {
-            this.slowed = 5;
-
-          }, 500);
+          this.slowed -= 0.1;
+          setTimeout(() => {
+            this.slowed = 1.2;
+        }, 5000);
 
         } else if (towerGame.bullets[h].ability == "explosive") {
 
@@ -112,7 +124,6 @@ class Enemy {
           console.log(towerGame.explosiveBullets.length);
           //towerGame.explosiveBullets.push(new Explosives(towerGame.bullets[h].loc));
           towerGame.bullets.splice(h, 1);
-          //console.log("exp");
         }
 
 
@@ -180,22 +191,12 @@ class Enemy {
     }
     if (this.slowed < 1) {//the third guy does this
       this.count++;
-      let ctx = this.ctx;
-      ctx.save();
-      ctx.translate(this.loc.x, this.loc.y)
-      ctx.strokeStyle = "rgba(255,0,0,0.1)";//overlapping causes this to be a lot thicker
-      ctx.beginPath();
-      ctx.arc(0, 0, 75, 0, Math.PI * 2, false);
-
-      ctx.closePath();
-      ctx.stroke();
-
-      ctx.restore();
       if(this.count == 3){
           this.loc.add(this.velVec)
           this.count = 0;
       }
-    } else if(this.slowed >= 1){
+    } else if(this.slowed > 1){
+      console.log("a")
       this.loc.add(this.velVec);
     }          // apply velocity to location
   }
