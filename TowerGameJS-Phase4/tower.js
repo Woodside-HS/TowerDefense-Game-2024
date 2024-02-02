@@ -86,7 +86,7 @@ class Tower {
           let bulletLocation = vector2d(this.loc.x, this.loc.y);
           let b = new Bullet(bulletLocation , this.bulletImg, this.towAngle, this.ability);
           if( this.ability == "fast" || this.ability == "normal" 
-          || this.ability == "freeze"){
+          || this.ability == "freeze" || this.ability == "explosives"){
             towerGame.bullets.push(b);//first two very normal
         }
     }
