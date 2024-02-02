@@ -112,17 +112,18 @@ class Game {
     button.addEventListener('click', this.pause, false);
 
     var fastForwardButton = document.getElementById('fastForward');
-    fastForwardButton.addEventListener('click', function () {
-      if (towerGame.gameTime > 20) {
-        if (FRAME_RATE == 30) {
-          FRAME_RATE = 60;
-          fastForwardButton.innerHTML = "Slow Down";
-        } else {
-          fastForwardButton.innerHTML = "Fast Forward";
-          FRAME_RATE = 30;
+    fastForwardButton.addEventListener('click', function () {//upper right hand button
+      if (towerGame.gameTime > 20) { //if game has already started sending enemies
+        if (FRAME_RATE == 30) { //if it is on slow mode
+          FRAME_RATE = 60; //make it fast
+          fastForwardButton.innerHTML = "Slow Down"; //change the button to say "Slow Down"
+        } else { //if it is on fast mode
+          fastForwardButton.innerHTML = "Fast Forward"; //change the button to say "Fast Forward"
+          FRAME_RATE = 30; //make it slow
         }
-      } else {
-        towerGame.gameTime = 20;
+      } else { //if the game has not started sending enemies
+        towerGame.gameTime = 20; //change gameTime to the point when it starts sending enemies
+        fastForwardButton.innerHTML = "Fast Forward"; //change the button to say "Fast Forward"
       }
     }, false);
 
