@@ -180,6 +180,17 @@ class Enemy {
     }
     if (this.slowed < 1) {//the third guy does this
       this.count++;
+      let ctx = this.ctx;
+      ctx.save();
+      ctx.translate(this.loc.x, this.loc.y)
+      ctx.strokeStyle = "rgba(255,0,0,0.1)";//overlapping causes this to be a lot thicker
+      ctx.beginPath();
+      ctx.arc(0, 0, 75, 0, Math.PI * 2, false);
+
+      ctx.closePath();
+      ctx.stroke();
+
+      ctx.restore();
       if(this.count == 3){
           this.loc.add(this.velVec)
           this.count = 0;
