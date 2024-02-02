@@ -95,7 +95,7 @@ class Enemy {
           this.health = this.health -10;
           this.speedDecrease += 0.5;
           if(this.speedDecrease  <= 2){
-          this.vel = 2;
+          this.vel = 0.5;
           setTimeout(function() {
             this.vel = 3;
         }, "2000");
@@ -274,7 +274,7 @@ class Enemy2 extends Enemy {
     this.img=Enemy.image2
   }
   fun(){
-    this.velVec = this.velVec.copy().normalize().scale(Math.random()*10)
+    //this.velVec = this.velVec.copy().normalize().scale(Math.random()*10)
   }
 }
 class Enemy3 extends Enemy {
