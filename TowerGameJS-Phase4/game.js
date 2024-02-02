@@ -137,15 +137,22 @@ class Game {
     button.addEventListener('click', this.pause, false);
 
     var fastForwardButton = document.getElementById('fastForward');
-    fastForwardButton.addEventListener('click', function () {
-      if (FRAME_RATE == 30) {
-        FRAME_RATE = 120;
-        fastForwardButton.innerHTML = "Slow Down";
-      } else {
-        fastForwardButton.innerHTML = "Fast Forward";
-        FRAME_RATE = 30;
+    fastForwardButton.addEventListener('click', function () {//upper right hand button
+      if (towerGame.gameTime > 20) { //if game has already started sending enemies
+        if (FRAME_RATE == 30) { //if it is on slow mode
+          FRAME_RATE = 60; //make it fast
+          fastForwardButton.innerHTML = "Slow Down"; //change the button to say "Slow Down"
+        } else { //if it is on fast mode
+          fastForwardButton.innerHTML = "Fast Forward"; //change the button to say "Fast Forward"
+          FRAME_RATE = 30; //make it slow
+        }
+      } else { //if the game has not started sending enemies
+        towerGame.gameTime = 20; //change gameTime to the point when it starts sending enemies
+        fastForwardButton.innerHTML = "Fast Forward"; //change the button to say "Fast Forward"
       }
     }, false);
+
+  
     document.getElementById('switchDiv').style.transform = "translate(" + 0 + "px, " + -52 + "px)";//idk this is clipping
   
     towerSwitchButton.addEventListener('click', function () {
@@ -618,15 +625,14 @@ class Game {
         tiles[i] = mtd;
         this.createTowerBitmaps(ssImage, mtd, i)
 
-        if(firstRun == 0){
-          console.log(firstRun)
+        if(firstRun == 0){//this is for loading all things the first frame
           towerState == 2;
           firstRun ++;
         }
       
       }
-    } if(towerState == 2) {
-      console.log(firstRun)
+    } if(towerState == 2) {//tower state 2 gets called when you click the
+      // button and changes back to 1 after you click it again
       for (var i = 5; i < 10; i++) {
         var mtd = document.createElement("div");
         if (i == 5) {

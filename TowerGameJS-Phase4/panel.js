@@ -160,6 +160,7 @@ var panelJSON = [{
   buttonJSON: [
 {
     name: "More Towers",
+    // this is button for switches placeable towers
     id: "towerSwitch",
     pic: "resources/images/panels/towerChange.png",
     picId:"switch",

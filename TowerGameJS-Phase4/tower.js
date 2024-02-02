@@ -19,7 +19,7 @@ class Tower {
     this.range=200;
     if(ability == "freeze"){
     this.coolDown = 1000;
-    this.range = 500;
+    this.range = 150;
   }
   else if(ability == "normal" || ability == "explosive")
     this.coolDown = 700;
@@ -61,7 +61,7 @@ class Tower {
     //  Rotate turret to follow mouse
     this.enemy=this.findEnemy()
     if(this.enemy) {
-      this.target=this.enemy.loc
+      this.target=this.enemy.loc;
     }else{
       this.target=vector2d(towerGame.canvas.mouseX,towerGame.canvas.mouseY)
     }
