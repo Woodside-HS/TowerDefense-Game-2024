@@ -9,21 +9,17 @@ class Enemy {
     this.r = 3.0;
     this.vel = 3.0;
     this.isLocked = false;
-    this.initialVel = 3;
     this.isTarget = false;
-    this.speedDecrease = 0;
     this.deathSound = new Audio('resources/sounds/splat.mp3');
     this.lastTime = Date.now();
     this.coolDown = 1000;
     this.towerLoc = vector2d(0, 0);
-    this.velVec;
     this.slowed = 1.2;
     this.count = 0;
     this.increasedDamg = 20;
     this.health = 1000;
     // velocity factor
     this.damages = 0;
-    this.vel = 3.0;       // velocity factor
     this.targetCell = this.nextTarget();
     this.target = this.targetCell.center;
     this.shape = "circle";
@@ -103,7 +99,7 @@ class Enemy {
           towerGame.bullets.splice(h, 1);
         } else if (towerGame.bullets[h].ability == "fast") {
           this.health = this.health - 350;
-          //  console.log(this.health)
+          
           towerGame.bullets.splice(h, 1);
         } else if (towerGame.bullets[h].ability == "freeze") {
           this.health = this.health - 10;
@@ -122,6 +118,7 @@ class Enemy {
           console.log("idk");
           towerGame.explosiveBullets.push(new Explosives(towerGame.bullets[h].loc));
           console.log(towerGame.explosiveBullets.length);
+
           //towerGame.explosiveBullets.push(new Explosives(towerGame.bullets[h].loc));
           towerGame.bullets.splice(h, 1);
         }
@@ -192,11 +189,12 @@ class Enemy {
     if (this.slowed < 1) {//the third guy does this
       this.count++;
       if(this.count == 3){
-          this.loc.add(this.velVec)
+          this.loc.add(this.velVec)//this make it look extremely jittery 
+          //I will eventually do a complete overhaul of the velocity to get with better.
+          //(proboly after all the other towers are decent)
           this.count = 0;
       }
     } else if(this.slowed > 1){
-      console.log("a")
       this.loc.add(this.velVec);
     }          // apply velocity to location
   }

@@ -644,7 +644,7 @@ class Game {
         } else if (i == 8) {
           mtd.ability = "temp9";
         } else if (i == 9) {
-          mtd.ability = "temp10";
+          mtd.ability = "healing+Buff";
         }
 
 

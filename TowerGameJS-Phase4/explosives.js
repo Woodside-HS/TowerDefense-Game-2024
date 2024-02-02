@@ -31,7 +31,7 @@ class Explosives{
 
     ctx.ellipse(this.loc.x, this.loc.y, this.radius, this.radius, 0, 2*Math.PI, false);
     ctx.fill();
-
+console.log(this.loc.x)
     ctx.restore();
   }
 

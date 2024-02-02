@@ -22,14 +22,15 @@ class Tower {
     this.range = 150;
   }
   else if(ability == "normal" || ability == "explosive")
-    this.coolDown = 700;
+    this.coolDown = 2500;
   else if(ability == "fast")
-    this.coolDown = 250;
-  else
-    this.coolDown = 100;
+    this.coolDown = 500;
+  else if(ability == "healingGuy"){
+    this.coolDown = 9622;//why is this such a random number
+  }
   this.ability = ability;
-    this.target=null
-    this.enemy=null
+    this.target=null;
+    this.enemy=null;
   }
 
   run() {
@@ -58,6 +59,7 @@ class Tower {
   }
 
   update() {
+    console.log(this.coolDown)
     //  Rotate turret to follow mouse
     this.enemy=this.findEnemy()
     if(this.enemy) {
@@ -82,20 +84,14 @@ class Tower {
           // reset lastTime to current time
           this.lastTime = millis;
           let bulletLocation = vector2d(this.loc.x, this.loc.y);
-          //console.log(this.ability);
           let b = new Bullet(bulletLocation , this.bulletImg, this.towAngle, this.ability);
-        //  towerGame.bullets.push(b);
-          if( this.ability != "ray" && this.ability!= "freeze"){
-            //console.log("shoot");
-
-            towerGame.bullets.push(b);
-      }
-        if(this.ability == "freeze"){
-          let sb = new Bullet(bulletLocation , this.bulletImg, this.towAngle, this.ability)
-          towerGame.bullets.push(sb);
+          if( this.ability == "fast" || this.ability == "normal" 
+          || this.ability == "freeze"){
+            towerGame.bullets.push(b);//first two very normal
         }
+
     }
-    if(this.ability == "ray" && towerGame.enemies.length != 0){
+    if(this.ability == "ray" && towerGame.enemies.length != 0){//I will fix code eventually
       var a3 = this.loc.x - this.target.x;
       var b3 = this.loc.y - this.target.y;
       var k = Math.sqrt(a3*a3 + b3*b3);
