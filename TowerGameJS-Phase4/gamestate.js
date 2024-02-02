@@ -141,6 +141,9 @@ class GameState4 extends GameState { // Game Screen basic
     if (this.game.health <= 0) {
       this.game.gameState = new GameState3(this.game)
     }
+    if (this.game.isRunning) {
+      this.game.banner();
+    }
   }
 
 }

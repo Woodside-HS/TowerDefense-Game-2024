@@ -181,7 +181,10 @@ class Game {
 
   render() { // draw game stuff
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    //Code to display overdraft banner
+
+  }
+
+  banner() {
     if (this.displayOverDraftBanner == true) {
       this.context.beginPath();
       this.context.rect(150, 210, 600, 250);
