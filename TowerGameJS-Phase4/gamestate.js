@@ -23,6 +23,7 @@ class GameState1 extends GameState { // Start Screen
     this.panelStart = new Panel(this, 0)
     this.panelInstructions = 0
     this.panelQuit = 0
+    document.getElementById('infoDiv').style.visibility = 'hidden'; // Make info tiles invisible on start page
   }
   run() {
     if (this.panelStart) {
@@ -81,6 +82,7 @@ class GameState4 extends GameState { // Game Screen basic
     this.game.loadGrid();
     this.game.root = this.game.grid[this.game.cols - 1][this.game.rows - 1];
     this.game.brushfire();
+    document.getElementById('infoDiv').style.visibility = 'visible'; // Make info tiles visible on game start
   }
   init() {
 
