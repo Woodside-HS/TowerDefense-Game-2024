@@ -68,7 +68,7 @@ class GameState4 extends GameState { // Game Screen basic
   constructor(game) {
     super(game, 4)
     gameStateID = 4;
-    this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/play.png')"
+    this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/play.png')";
     this.game.health = 100
     this.game.score = 0
     this.game.bankValue = 500;
@@ -79,7 +79,7 @@ class GameState4 extends GameState { // Game Screen basic
     this.game.bullets = []
     this.game.cols = Math.floor(this.game.canvas.width / this.game.w);
     this.game.rows = Math.floor(this.game.canvas.height / this.game.w);
-    this.game.backgroundMusic = new Audio('resources/sounds/Elevator-music.mp3')
+    this.game.backgroundMusic = new Audio('resources/sounds/Elevator-music.mp3');
     this.game.loadGrid();
     this.game.root = this.game.grid[this.game.cols - 1][this.game.rows - 1];
     this.game.brushfire();
