@@ -3,7 +3,7 @@ body {
 }
 
 #wrapperDiv {
-  background-color: lightblue;
+  background-color: rgb(77, 7, 7);
   width: 1020px;
   height: 850px;
   border: solid black 2px;
