@@ -67,8 +67,8 @@ class GameState4 extends GameState { // Levels 1
   constructor(game) {
     super(game)
 
-    this.game.gameStateID = 6;
-    this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/play.png')"
+    this.game.gameStateID = 4;
+    this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/level1.jpg')"
     this.game.health = 100
     this.game.score = 0
     this.game.bankValue = 200;
