@@ -129,7 +129,7 @@ class Game {
     this.rows = Math.floor(this.canvas.height / this.w);
 
     this.loadGrid();
-    this.root = this.grid[this.cols - 1][this.rows - 1];
+    this.root = this.grid[this.cols - 1][this.rows - 1];//its defined here but is always overrun by gamestate.js
     this.brushfire();
     this.loadWallImage();
 
@@ -317,7 +317,7 @@ class Game {
     for (var i = 0; i < this.cols; i++) {
       for (var j = 0; j < this.rows; j++) {
         var cell = this.grid[i][j];
-        cell.dist = this.cols * this.rows * 10;     // set distance to max
+        cell.dist = this.cols * this.rows * 5;     // set distance to max
         cell.vec = null;    // clear parent vector
         cell.parent = 0;    // clear parent
         cell.addNeighbors(this, this.grid); // fill the neighbors array

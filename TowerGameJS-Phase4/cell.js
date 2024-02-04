@@ -27,7 +27,7 @@ class Cell{
     else if(this == this.game.root) {
         ctx.fillStyle = "yellow";
         ctx.beginPath();
-        ctx.ellipse(this.center.x, this.center.y, this.game.w/2, this.game.w/2, 0, 2*Math.PI, false);
+        ctx.ellipse(this.loc.x, this.loc.y, this.game.w/2, this.game.w/2, 0, 2*Math.PI, false);
         ctx.fill();
         ctx.stroke();
         }
@@ -41,8 +41,6 @@ class Cell{
     //   this.game.context.stroke();
     //
     // }
-
-  //  this.getText();
   }
 
     // addNeighbors()
@@ -115,21 +113,4 @@ class Cell{
         }
     else return(vector2d(0,0));
   }
-
-  getText(){
-
-    var context = this.game.context;
-    context.save();
-    context.fillStyle = "white";
-    context.font = "14px sans-serif";
-    context.fillText(""+this.dist, this.loc.x+.2*this.game.w/2, this.loc.y+this.game.w/2 - 5);
-    context.fillStyle = "black";
-    context.fillText(""+this.id, this.loc.x+.2*this.game.w/2, this.loc.y+this.game.w/2 +15);
-    //if(this.vec) context.fillText(""+this.vec.toString(), this.loc.x+.2*this.game.w/2, this.loc.y+this.game.w/2 +15);
-
-    context.restore();
-  }
-
-
-
 }

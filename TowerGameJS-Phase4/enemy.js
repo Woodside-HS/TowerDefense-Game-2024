@@ -56,7 +56,7 @@ class Enemy {
       return (candidates[Math.floor(Math.random() * candidates.length)]);
     }
   }
-
+//make 10 a niche tower
   // render()
   // Draw the enemy at its current location
   // Enemies with a randomized path are blue and

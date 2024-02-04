@@ -47,7 +47,7 @@ class GameState2 extends GameState{
     this.game.rows = Math.floor(this.game.canvas.height / this.game.w);
     this.game.backgroundMusic = new Audio('resources/sounds/Elevator-music.mp3')
     this.game.loadGrid();
-    this.game.root = this.game.grid[this.game.cols - 1][this.game.rows -1];
+    this.game.root = this.game.grid[this.game.cols - 1][this.game.rows -8];//this was -1 -1 normally 
     this.game.brushfire();
   }
   init(){
