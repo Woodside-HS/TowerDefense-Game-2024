@@ -37,6 +37,7 @@ class GameState1 extends GameState { // Start Screen
 class GameState2 extends GameState { // Level screen
   constructor(game) {
     towerGame.gameStateID = 2;
+
   }
 
 }
@@ -65,8 +66,8 @@ class GameState3 extends GameState { // end screen
 class GameState4 extends GameState { // Levels 1
   constructor(game) {
     super(game)
-    
-    this.game.gameStateID = 7;
+
+    this.game.gameStateID = 6;
     this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/play.png')"
     this.game.health = 100
     this.game.score = 0
@@ -82,28 +83,28 @@ class GameState4 extends GameState { // Levels 1
     this.game.loadGrid();
     this.game.root = this.game.grid[this.game.cols - 1][this.game.rows - 1];
     this.game.brushfire();
-    
+
     if(this.game.gameStateID === 4){
       this.game.levelRender(level1Key);
     } else if(this.game.gameStateID === 5) {
       this.game.levelRender(level2Key);
     } else if(this.game.gameStateID === 6){
-      this.game.levelRender(level3Key);  
+      this.game.levelRender(level3Key);
     } else if(this.game.gameStateID === 7){
       this.game.levelRender(level4Key);
     } else if(this.game.gameStateID === 8){
       this.game.levelRender(level5Key);
     }
-    
+
   }
- 
+
   run() {
     let gt = this.game.updateGameTime();
     this.game.updateInfoElements(gt);
     this.game.removeBullets();
     this.game.removeEnemies();
     this.game.controlWaves();
-    
+
 
     this.game.backgroundMusic.play();
     if (this.game.isRunning) {
@@ -158,4 +159,3 @@ class GameState4 extends GameState { // Levels 1
   }
 
 }
-
