@@ -26,7 +26,7 @@ class Tower {
     else if (ability == "fast")
       this.coolDown = 500;
     else if (ability == "buffregen") {
-      this.coolDown = 9622;//why is this such a random number
+      this.coolDown = 19622;//why is this such a random number
       this.buffConstant = 0.8; //multiply cooldown by buffConstant
     }
     else if( ability == "missles") {
@@ -130,7 +130,8 @@ class Tower {
           towerGame.health++;
         }
         if(this.ability == "missiles"){
-         towerGame.b
+          let c = new Missile(bulletLocation, this.bulletImg, this.towAngle, this.ability);
+         towerGame.missiles.push(c)
 
           
         }
