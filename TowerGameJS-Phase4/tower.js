@@ -42,17 +42,19 @@ class Tower {
 
   render() {
     var ctx = towerGame.context;
-      if (this.ability == "buffregen") {
+    if (this.ability == "buffregen") {
       ctx.save();
       ctx.translate(this.loc.x, this.loc.y)
-      ctx.strokeStyle = "rgba(250,250,210, 0.4)"
-      ctx.
+      ctx.strokeStyle = "rgba(0,250,210, 0.8)"
+      ctx.fillStyle = "rgba(0, 250, 210, 0.08)"
+
       ctx.beginPath();
       ctx.arc(0, 0, this.range, 0, Math.PI * 2, false);
 
       ctx.closePath();
       ctx.stroke();
-      
+      ctx.fill();
+
 
       ctx.restore();
     }

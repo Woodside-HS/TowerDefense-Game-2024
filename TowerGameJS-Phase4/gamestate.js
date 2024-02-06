@@ -15,19 +15,19 @@ class GameState {
 }
 class GameState1 extends GameState {
   constructor(game){
-    super(game,1)
+    super(game,1);
     this.game.canvas.canDiv.style.backgroundImage="url('resources/images/bg/start.png')"
-    this.panelStart = new Panel(this, 0)
-    this.panelInstructions = 0
-    this.panelQuit = 0
+    this.panelStart = new Panel(this, 0);
+    this.panelInstructions = 0;
+    this.panelQuit = 0;
   }
   run() {
     if(this.panelStart){
-      this.panelStart.render()
+      this.panelStart.render();
     }
 
     if(this.panelInstructions){
-      this.panelInstructions.render()
+      this.panelInstructions.render();
     }
   }
 }

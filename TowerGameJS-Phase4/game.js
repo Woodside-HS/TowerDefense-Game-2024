@@ -154,6 +154,7 @@ class Game {
 
   
     document.getElementById('switchDiv').style.transform = "translate(" + 0 + "px, " + -52 + "px)";//idk this is clipping
+    //I suck at editing png so yeah
   
     towerSwitchButton.addEventListener('click', function () {
 
@@ -161,7 +162,7 @@ class Game {
       let d4k = document.getElementById('switchDiv');//bro what is this variable name?
 
       if (towerState == 1) {
-        towerState = 2;
+        towerState = 2;//just switching positions + rotating to point arrow in correct directions
         d4k.style.transform = "translate(" + 0 + "px, " + -749 + "px) rotate(180deg)";//
       } else if ( towerState == 2){
         towerState = 1;
@@ -642,7 +643,7 @@ class Game {
         } else if (i == 7) {
           mtd.ability = "temp8";
         } else if (i == 8) {
-          mtd.ability = "temp9";
+          mtd.ability = "missile";
         } else if (i == 9) {
           mtd.ability = "buffregen";
         }
