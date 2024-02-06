@@ -1,4 +1,4 @@
-class Missiles {
+class Missile {
     constructor(location, bImg, angle, type) {
         this.loc = location;
         this.radius = 8;

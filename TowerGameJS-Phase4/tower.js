@@ -129,12 +129,13 @@ class Tower {
         if (towerGame.health < 150) {
           towerGame.health++;
         }
+      }
         if(this.ability == "missiles"){
           let c = new Missile(bulletLocation, this.bulletImg, this.towAngle, this.ability);
          towerGame.missiles.push(c)
-
+console.log("a")
           
-        }
+        
       }
     }
     if (this.ability == "ray" && towerGame.enemies.length != 0) {//I will fix code eventually
