@@ -26,6 +26,7 @@ class Explosives{
     ctx.fill();
 
     ctx.restore();
+    
   }
 
   update(){

@@ -52,6 +52,7 @@ class Game {
     this.towers = [];
     this.enemies = [];
     this.bullets = [];
+    this.missiles = [];
     this.explosiveBullets = [];
     this.bankValue = 500;
     this.rays = [];

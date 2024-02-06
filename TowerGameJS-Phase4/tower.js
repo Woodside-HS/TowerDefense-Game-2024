@@ -29,6 +29,9 @@ class Tower {
       this.coolDown = 9622;//why is this such a random number
       this.buffConstant = 0.8; //multiply cooldown by buffConstant
     }
+    else if( ability == "missles") {
+      this.coolDown = 1000/3;
+    }
     this.MaxCoolDown = this.coolDown;
     this.ability = ability;
     this.target = null;
@@ -120,11 +123,16 @@ class Tower {
       let b = new Bullet(bulletLocation, this.bulletImg, this.towAngle, this.ability);
       if (this.ability == "fast" || this.ability == "normal"
         || this.ability == "freeze" || this.ability == "explosive") {
-        towerGame.bullets.push(b);//first two very normal
+        towerGame.bullets.push(b);//first four use this
       }
       if (this.ability == "buffregen") {
         if (towerGame.health < 150) {
           towerGame.health++;
+        }
+        if(this.ability == "missiles"){
+         towerGame.b
+
+          
         }
       }
     }
