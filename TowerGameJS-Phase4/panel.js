@@ -11,8 +11,8 @@ class Panel {
     this.panel.style.backgroundImage = 'url("' + panelJSON[number].pic + '")'
     this.panel.style.position = "absolute"
     this.panel.style.align = "center"
-    this.panel.style.top = -800 + "px"
-    this.panel.style.left = 680 + "px";
+    this.panel.style.top = 0 + "px"
+    this.panel.style.left = 0 + "px";
     this.panel.style.textAlign = "center"
     this.wrapper = document.getElementById('wrapperDiv').appendChild(this.panel)
     for (let i = 0; i < panelJSON[number].buttonJSON.length; i++) {
@@ -22,7 +22,7 @@ class Panel {
 
   render() {
     this.y = this.slideDown(this.y, 550, .05)
-    this.panel.style.top = this.y + "px"
+    this.panel.style.top = this.y - 50 + "px"
   }
 
   slideDown(start, end, incroment) {
@@ -136,7 +136,7 @@ var panelJSON = [{
     }]
 }, {
   name: "Credites Panel",
-  id: "creditesPanel",
+  id: "creditsPanel",
   pic: "resources/images/panels/pan.png",
   picId: "pan",
   buttonJSON: [
@@ -147,7 +147,7 @@ var panelJSON = [{
       picId: "back",
       funk: function () {
         towerGame.gameState.panelQuit = new Panel(towerGame, 2)
-        document.getElementById("creditesPanel").parentNode.removeChild(document.getElementById("creditesPanel"))
+        document.getElementById("creditsPanel").parentNode.removeChild(document.getElementById("creditsPanel"));
       }
     }]
 }]
