@@ -122,7 +122,7 @@ class Tower {
       let bulletLocation = vector2d(this.loc.x, this.loc.y);
       let b = new Bullet(bulletLocation, this.bulletImg, this.towAngle, this.ability);
       if (this.ability == "fast" || this.ability == "normal"
-        || this.ability == "freeze" || this.ability == "explosive") {
+        || this.ability == "freeze" || this.ability == "explosive" || this.ability == "missile") {
         towerGame.bullets.push(b);//first four use this
       }
       if (this.ability == "buffregen") {
@@ -130,15 +130,15 @@ class Tower {
           towerGame.health++;
         }
       }
-        if(this.ability == "missiles"){
-          let c = new Missile(bulletLocation, this.bulletImg, this.towAngle, this.ability);
-         towerGame.missiles.push(c)
-console.log("a")
+      //   if(this.ability == "missile"){
           
+      //     let c = new Missile(bulletLocation, this.bulletImg, this.towAngle, this.ability);
+      //    towerGame.missiles.push(c);
+      
         
-      }
+      // }
     }
-    if (this.ability == "ray" && towerGame.enemies.length != 0) {//I will fix code eventually
+    if (this.ability == "ray" && towerGame.enemies.length != 0) {//I will fix this code eventually
       var a3 = this.loc.x - this.target.x;
       var b3 = this.loc.y - this.target.y;
       var k = Math.sqrt(a3 * a3 + b3 * b3);

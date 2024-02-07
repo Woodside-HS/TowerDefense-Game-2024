@@ -11,14 +11,12 @@ class Explosives{
   }
 
   run(){
-    //console.log("running");
     this.render();
     this.update();
   }
   render(){
     var ctx = towerGame.context;
     ctx.fillStyle = 'orange';
-   // console.log(this.loc);
     ctx.beginPath();
 
 

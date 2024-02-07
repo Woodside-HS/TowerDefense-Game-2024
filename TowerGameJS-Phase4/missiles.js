@@ -1,10 +1,12 @@
+'use strict'
+
 class Missile {
     constructor(location, bImg, angle, type) {
         this.loc = location;
         this.radius = 8;
-        let red = Math.floor(Math.random() * 256);
-        let green = Math.floor(Math.random() * 256);
-        let blue = Math.floor(Math.random() * 256);
+         let red = Math.floor(Math.random() * 256);
+         let green = Math.floor(Math.random() * 256);
+         let blue = Math.floor(Math.random() * 256);
         this.clr = 'rgba(' + red + ',' + green + ',' + blue + ',' + 0.5 + ')';
         this.speed = 25;
         this.shape = "circle";
@@ -21,11 +23,13 @@ class Missile {
     render() {
         let ctx = towerGame.context;
         ctx.beginPath();
-
-        if (this.visible) { //  not visible when first created
+        ctx.save();
+        ctx.fillStyle = this.clr;
+        ctx.strokeStyle = this.clr;
+        ctx.translate(this.loc.x, this.loc.y);
+   //     ctx.rotate(this.angle+Math.PI/2);
             ctx.drawImage(this.img, -this.img.width/2,-this.img.height/2);
-
-        }
+          //  ctx.arc(0, 0, this.radius, 0, Math.PI*2, false);
         ctx.fill();
         ctx.restore();
     }
