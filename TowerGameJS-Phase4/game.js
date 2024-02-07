@@ -40,6 +40,7 @@ function draw() {   // the animation loop
 class Game {
   //  This is a test
   constructor() { // from setup()
+    this.displayOverDraftBanner = false;
     this.isRunning = true;
     this.placingTower = false;
     this.currentTower = 0;
@@ -177,6 +178,31 @@ class Game {
 
   render() { // draw game stuff
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    if (this.displayOverDraftBanner == true) {
+      this.context.beginPath();
+      this.context.rect(150, 210, 600, 250);
+      this.context.strokeStyle = "#3B6C8E";
+      this.context.fillStyle = "#3B6C8E";
+      this.context.fill();
+      this.context.stroke();
+      this.context.closePath();
+
+
+      const text = "Too expensive!";
+      this.context.font = "italic 100px Garamond"; // Set the font size and type
+      this.context.fillStyle = "white"; // Set the text color
+      const textWidth = this.context.measureText(text).width;
+      const textX = 150 + (600 - textWidth) / 2; // Center the text horizontally
+      const textY = 200 + 350 / 2; // Center the text vertically
+      this.context.fillText(text, textX, textY);
+
+
+
+      setTimeout(() => {
+        this.displayOverDraftBanner = false;
+      }, 600);
+    }
+
 
   }
 
@@ -475,7 +501,9 @@ class Game {
       innerDiv.style.height = "100px";
       // Not using imageBitmaps for the buttons
       // As they are not on the canvas
+      // if (towerGame.gameStateID != 1) {
       innerDiv.style.backgroundImage = "url(resources/images/spritesheets/buttons.png)";
+      //}
       innerDiv.style.backgroundPosition = `${-button.x}px ${-button.y}px`;
       innerDiv.style.margin = "5px";
       mtd.appendChild(innerDiv);
@@ -524,8 +552,10 @@ class Game {
       else {
         println('failed to make tower');
       }
+    } else {
+      //alert("Insufficient Funds!");
+      this.displayOverDraftBanner = true;
     }
-    else alert("Insufficient Funds!");
     return (false);
   }
 
@@ -602,7 +632,8 @@ class Game {
     }
   }
 
-  handleCNVMouseClicked(event) {
+  handleCNVMouseClicked(event) { // places grid (the walls)
+    //14 rows and 17 col
     var row = Math.floor(event.offsetY / towerGame.w);
     var col = Math.floor(event.offsetX / towerGame.w);
     var cell = towerGame.grid[col][row];
@@ -624,6 +655,12 @@ class Game {
         cell.occupied = false;
       }
       towerGame.brushfire(towerGame.undo(cell));   // all new distances and parents
+    }
+
+    if (gameStateID === 4) {
+      if (towerGame.placingTower && towerGame.canAddTower(cell)) {
+        towerGame.placeTower(towerGame);
+      }
     }
   }
 
@@ -729,3 +766,4 @@ window.onkeydown = function (e) {
     }
   }
 }
+
