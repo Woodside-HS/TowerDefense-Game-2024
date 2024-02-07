@@ -10,7 +10,6 @@ class Wave {
   }
 
   run() {
-
     while (this.game.gameTime > this.referenceTime && !this.spawnOver) {
       if (this.enemyId[0] < this.waveJson.packets.length) {
         if (this.enemyId[1] < this.waveJson.packets[this.enemyId[0]].num) {

@@ -18,7 +18,7 @@ class GameState {
 class GameState1 extends GameState { // Start Screen
   constructor(game) {
     super(game, 1)
-    this.game.gameStateID = 1;
+    game.gameStateID = 1;
     this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/start.png')"
     this.panelStart = new Panel(this, 0)
     this.panelInstructions = 0
@@ -36,8 +36,7 @@ class GameState1 extends GameState { // Start Screen
 }
 class GameState2 extends GameState { // Level screen
   constructor(game) {
-    towerGame.gameStateID = 2;
-
+    game.gameStateID = 2;
   }
 
 }
@@ -45,7 +44,7 @@ class GameState2 extends GameState { // Level screen
 class GameState3 extends GameState { // end screen
   constructor(game) {
     super(game)
-    this.game.gameStateID = 3
+    gameStateID = 3
     this.game.enemies = []
     this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/end.png')"
     this.panelQuit = new Panel(this, 2)
@@ -63,15 +62,14 @@ class GameState3 extends GameState { // end screen
   }
 }
 
-class GameState4 extends GameState { // Levels 1
+class GameState4 extends GameState { // Game Screen basic
   constructor(game) {
-    super(game)
-
-    this.game.gameStateID = 4;
-    this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/level1.jpg')"
+    super(game, 4)
+    gameStateID = 4;
+    this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/play.png')"
     this.game.health = 100
     this.game.score = 0
-    this.game.bankValue = 200;
+    this.game.bankValue = 500;
     this.game.gameTime = 0
     this.game.grid = [];
     this.game.towers = [];
@@ -95,17 +93,16 @@ class GameState4 extends GameState { // Levels 1
     } else if(this.game.gameStateID === 8){
       this.game.levelRender(level5Key);
     }
+  }
+  init() {
 
   }
-
   run() {
     let gt = this.game.updateGameTime();
     this.game.updateInfoElements(gt);
     this.game.removeBullets();
     this.game.removeEnemies();
-    this.game.controlWaves();
-
-
+    this.game.controlWaves()
     this.game.backgroundMusic.play();
     if (this.game.isRunning) {
       this.game.render();
@@ -155,6 +152,9 @@ class GameState4 extends GameState { // Levels 1
     }
     if (this.game.health <= 0) {
       this.game.gameState = new GameState3(this.game)
+    }
+    if (this.game.isRunning) {
+      this.game.banner();
     }
   }
 
