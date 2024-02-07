@@ -43,6 +43,7 @@ class Game {
   //  This is a test
   constructor() { // from setup()
     this.displayOverDraftBanner = false;
+    this.invalidGridBanner = false;
     this.isRunning = true;
     this.placingTower = false;
     this.currentTower = 0;
@@ -90,7 +91,7 @@ class Game {
     this.mouseY = 0;
     this.w = 50;
     this.done = false;
-    this.gameState = new GameState1(this)
+    this.gameState = new GameState1(this);
 
 
 
@@ -111,15 +112,21 @@ class Game {
     button.addEventListener('click', this.pause, false);
 
     var fastForwardButton = document.getElementById('fastForward');
-    fastForwardButton.addEventListener('click', function () {
-      if (FRAME_RATE == 30) {
-        FRAME_RATE = 60;
-        fastForwardButton.innerHTML = "Slow Down";
-      } else {
-        fastForwardButton.innerHTML = "Fast Forward";
-        FRAME_RATE = 30;
+    fastForwardButton.addEventListener('click', function () {//upper right hand button
+      if (towerGame.gameTime > 20) { //if game has already started sending enemies
+        if (FRAME_RATE == 30) { //if it is on slow mode
+          FRAME_RATE = 60; //make it fast
+          fastForwardButton.innerHTML = "Slow Down"; //change the button to say "Slow Down"
+        } else { //if it is on fast mode
+          fastForwardButton.innerHTML = "Fast Forward"; //change the button to say "Fast Forward"
+          FRAME_RATE = 30; //make it slow
+        }
+      } else { //if the game has not started sending enemies
+        towerGame.gameTime = 20; //change gameTime to the point when it starts sending enemies
+        fastForwardButton.innerHTML = "Fast Forward"; //change the button to say "Fast Forward"
       }
     }, false);
+
   }
   //load wall stuff
   loadWallImage() {
@@ -180,6 +187,10 @@ class Game {
 
   render() { // draw game stuff
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+  }
+
+  banner() {
     if (this.displayOverDraftBanner == true) {
       this.context.beginPath();
       this.context.rect(150, 210, 600, 250);
@@ -197,15 +208,39 @@ class Game {
       const textX = 150 + (600 - textWidth) / 2; // Center the text horizontally
       const textY = 200 + 350 / 2; // Center the text vertically
       this.context.fillText(text, textX, textY);
-
-
-
       setTimeout(() => {
         this.displayOverDraftBanner = false;
       }, 600);
     }
 
+    //code to display invalid grid banner
+    if (this.invalidGridBanner == true) {
+      console.log("working");
+      this.context.beginPath();
+      this.context.rect(180, 220, 580, 250);
+      this.context.strokeStyle = "#3B6C8E";
+      this.context.fillStyle = "#3B6C8E";
+      this.context.fill();
+      this.context.stroke();
+      this.context.closePath();
 
+
+      const text = "Invalid grid!";
+      this.context.font = "italic 120px Garamond"; // Set the font size and type
+      this.context.fillStyle = "white"; // Set the text color
+      const tw = this.context.measureText(text).width;
+      const tx = 150 + (600 - tw) / 2; // Center the text horizontally
+      const ty = 200 + 350 / 2; // Center the text vertically
+      this.context.fillText(text, tx, ty);
+
+
+
+      setTimeout(() => {
+        this.invalidGridBanner = false;
+      }, 600);
+
+
+    }
   }
 
   // brushfire()
@@ -257,7 +292,7 @@ class Game {
     }   // while(queue.length)
     if (!this.validMap()) {
       if (undo) {
-        undo()
+        undo();
         this.brushfire()
       } else {
         // delete any enemy that is currently in a cell without a parent
@@ -267,7 +302,6 @@ class Game {
             enemy.kill = true;    // kill the orphans
         }
         console.log("brushfire created an invalid map and no undo was inputed")
-
       }
     }
 
@@ -299,7 +333,7 @@ class Game {
       return function () {
         cell.hasTower = false;
         towerGame.towers.splice(towerGame.towers.indexOf(tower))
-        alert("you cannot place a tower here")
+        alert("you cannot place a tower here");
       }
     } else {
       return function () {
@@ -310,7 +344,8 @@ class Game {
           cell.occupied = true;
           towerGame.bankValue -= towerGame.wallCost;
         }
-        alert("performing that action would create an invalid grid")
+        //    alert("performing that action would create an invalid grid")
+        towerGame.invalidGridBanner = true;
       }
     }
   }
