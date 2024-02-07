@@ -53,7 +53,6 @@ class Game {
     this.enemies = [];
     this.bullets = [];
     this.explosiveBullets = [];
-    this.bankValue = 500;
     this.rays = [];
     this.checkOnce = true;
     this.gameStateID = 1;
@@ -94,6 +93,7 @@ class Game {
     this.mouseY = 0;
     this.w = 50;
     this.done = false;
+    
     this.gameState = new GameState1(this);
 
     // container arrays for cells
