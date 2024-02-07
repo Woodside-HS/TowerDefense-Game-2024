@@ -850,7 +850,7 @@ this.gameStateID = 1;
       towerGame.brushfire(towerGame.undo(cell));   // all new distances and parents
     }
 
-    if (gameStateID === 4) {
+    if (this.gameStateID === 4) {
       if (towerGame.placingTower && towerGame.canAddTower(cell)) {
         towerGame.placeTower(towerGame);
       }

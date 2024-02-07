@@ -8,19 +8,16 @@ class Enemy {
     this.radius = 15.0;
     this.r = 3.0;
     this.vel = 3.0;
+    this.slowed = 1.2;
     this.isLocked = false;
     this.isTarget = false;
     this.deathSound = new Audio('resources/sounds/splat.mp3');
     this.lastTime = Date.now();
     this.coolDown = 1000;
     this.towerLoc = vector2d(0, 0);
-    this.velVec;
     this.increasedDamg = 20;
     this.health = 1000;
-    this.slowVel = this.initialVel - .8;
-    // velocity factor
     this.damages = 0;
-    this.vel = 3.0;       // velocity factor
     this.targetCell = this.nextTarget();
     this.target = this.targetCell.center;
     this.shape = "circle";
