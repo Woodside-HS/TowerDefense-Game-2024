@@ -8,7 +8,7 @@ class Missile {
          let green = Math.floor(Math.random() * 256);
          let blue = Math.floor(Math.random() * 256);
         this.clr = 'rgba(' + red + ',' + green + ',' + blue + ',' + 0.5 + ')';
-        this.speed = 25;
+        this.speed = 15;
         this.shape = "circle";
         this.angle = angle;
         this.img = bImg;
@@ -39,5 +39,11 @@ class Missile {
         this.loc.x += Math.cos(this.angle) * this.speed;
     }
 randomNess(){
+    let randomNum = Math.floor(Math.random()*4+1);
+    if(randomNum < 3){
+    this.loc.x += Math.random()*25-12.5;
+    this.loc.y += Math.random()*25-12.5;
+    }
+   
     }
 }

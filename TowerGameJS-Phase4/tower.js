@@ -87,12 +87,8 @@ class Tower {
       // Draw the inner circle for minRange
       ctx.moveTo(0 + this.minRange, 0); // Move to the starting point of the inner circle
       ctx.arc(0, 0, this.minRange, 0, 2 * Math.PI, false); // Draw the inner circle
-
-      // Fill the shapes
       ctx.fillStyle = 'rgba(192, 192, 192, 0.5)';
       ctx.fill();
-
-      // Draw the outlines
       ctx.lineWidth = 5;
       ctx.strokeStyle = '#003300';
       ctx.stroke();
@@ -111,12 +107,26 @@ class Tower {
     this.enemy = this.findEnemy()
     if (this.enemy) {
       this.target = this.enemy.loc;
+      if (this.ability == "missile") {
+        let dx = this.loc.x - this.target.x;
+        let dy = this.loc.y - this.target.y;
+        let dist = vector2d(dx, dy).length();
+        if(dist < this.minRange){
+          this.target = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY)
+        }
+      }
     } else {
       this.target = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY)
     }
-    let dx = this.loc.x - this.target.x;
-    let dy = this.loc.y - this.target.y;
-    this.towAngle = Math.atan2(dy, dx) - Math.PI;
+    if (this.ability != "missile") {
+      let dx = this.loc.x - this.target.x;
+      let dy = this.loc.y - this.target.y;
+      this.towAngle = Math.atan2(dy, dx) - Math.PI;
+    } else {
+      let mouseX = towerGame.canvas.mouseX;
+      let mouseY = towerGame.canvas.mouseY;
+      this.towAngle = Math.atan2(mouseY, mouseX) ;
+    }
     this.checkEnemies();
     this.checkBuffandHeal();
   }
@@ -124,11 +134,11 @@ class Tower {
     if (this.ability == "buffregen") {
       for (let i = 0; i < towerGame.towers.length; i++) {
         if (towerGame.towers[i].ability != "buffregen") {
-          let dist = this.loc.dist(towerGame.towers[i].loc)
+          let dist = this.loc.dist(towerGame.towers[i].loc);
           if (dist < this.range) {
             towerGame.towers[i].coolDown = towerGame.towers[i].MaxCoolDown * this.buffConstant;
             //this current system is non stackable
-            //idk if you want that
+            //will eventually
           }
         }
       }
@@ -187,7 +197,8 @@ class Tower {
   }
   findEnemy() {
     for (let i = 0; i < this.enemies.length; i++) {
-      if (this.enemies[i].loc.dist(this.loc) < this.range) {
+      if (this.enemies[i].loc.dist(this.loc) < this.range &&
+       this.enemies[i].loc.dist(this.loc) > this.minRange) {
         return this.enemies[i]
       }
     }

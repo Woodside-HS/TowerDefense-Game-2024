@@ -117,7 +117,8 @@ class Enemy {
 
           towerGame.bullets.splice(h, 1);
         } else if (towerGame.bullets[h].ability == "missile") {
-          this.health -= 150;
+          this.health -= 800;//this does not current work
+          towerGame.missiles.splice(h, 1);
         }
 
 
