@@ -118,7 +118,6 @@ class Enemy {
           towerGame.bullets.splice(h, 1);
         } else if (towerGame.bullets[h].ability == "missile") {
           this.health -= 150;
-          towerGame.explosiveBullets.push(new Missile(towerGame.bullets[h].loc, this.img, this.angle, this.ability));
         }
 
 

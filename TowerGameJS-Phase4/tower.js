@@ -15,25 +15,32 @@ class Tower {
     this.lastTime = Date.now();
     this.coolDown = 500;
     towerGame.bankValue = towerGame.bankValue - this.cost;
-    this.enemies = towerGame.enemies
+    this.enemies = towerGame.enemies;
     this.range = 200;
+    this.minRange = 0;
+    this.ability = ability;
     if (ability == "freeze") {
-      this.coolDown = 1000;
+      this.coolDown = 100;
       this.range = 150;
     }
-    else if (ability == "normal" || ability == "explosive")
+    else if (ability == "normal" || ability == "explosive") {
       this.coolDown = 750;
-    else if (ability == "fast")
+    }
+    else if (ability == "fast") {
       this.coolDown = 500;
+    }
     else if (ability == "buffregen") {
       this.coolDown = 19622;//why is this such a random number
       this.buffConstant = 0.8; //multiply cooldown by buffConstant
     }
-    else if( ability == "missles") {
-      this.coolDown = 1000/3;
+    else if (ability == "missile") {
+      this.range = 600;
+      this.minRange = 240;
+      this.coolDown = 1000 / 6;
+
     }
     this.MaxCoolDown = this.coolDown;
-    this.ability = ability;
+
     this.target = null;
     this.enemy = null;
   }
@@ -62,17 +69,36 @@ class Tower {
       ctx.restore();
     }
     ctx.save();
+
+    // Translate to the location
     ctx.translate(this.loc.x, this.loc.y);
+
+    // Rotate if needed
     ctx.rotate(this.towAngle + Math.PI / 2);
+
+    // Check if not placed and x location is not zero
     if (!this.placed && this.loc.x !== 0) {
+      // Begin a new path
       ctx.beginPath();
+
+      // Draw the outer circle
       ctx.arc(0, 0, this.range, 0, 2 * Math.PI, false);
+
+      // Draw the inner circle for minRange
+      ctx.moveTo(0 + this.minRange, 0); // Move to the starting point of the inner circle
+      ctx.arc(0, 0, this.minRange, 0, 2 * Math.PI, false); // Draw the inner circle
+
+      // Fill the shapes
       ctx.fillStyle = 'rgba(192, 192, 192, 0.5)';
       ctx.fill();
+
+      // Draw the outlines
       ctx.lineWidth = 5;
       ctx.strokeStyle = '#003300';
       ctx.stroke();
     }
+
+    // Restore the saved context state
     if (this.visible) { //  not visible when first created
       ctx.drawImage(this.towImg, -this.towImg.width / 2, -this.towImg.height / 2);
     }
@@ -116,27 +142,26 @@ class Tower {
     let millis = Date.now();
     if (this.placed &&
       dist < this.range &&
+      dist > this.minRange &&
       (millis - this.lastTime > this.coolDown) && towerGame.enemies.length != 0 && this.target.x != towerGame.canvas.mouseX) {
       // reset lastTime to current time
       this.lastTime = millis;
       let bulletLocation = vector2d(this.loc.x, this.loc.y);
       let b = new Bullet(bulletLocation, this.bulletImg, this.towAngle, this.ability);
+      let q = new Missile(bulletLocation, this.bulletImg, this.towAngle, this.ability);
       if (this.ability == "fast" || this.ability == "normal"
-        || this.ability == "freeze" || this.ability == "explosive" || this.ability == "missile") {
+        || this.ability == "freeze" || this.ability == "explosive") {
         towerGame.bullets.push(b);//first four use this
       }
       if (this.ability == "buffregen") {
         if (towerGame.health < 150) {
           towerGame.health++;
         }
+
       }
-      //   if(this.ability == "missile"){
-          
-      //     let c = new Missile(bulletLocation, this.bulletImg, this.towAngle, this.ability);
-      //    towerGame.missiles.push(c);
-      
-        
-      // }
+      if (this.ability == "missile") {
+        towerGame.missiles.push(q);
+      }
     }
     if (this.ability == "ray" && towerGame.enemies.length != 0) {//I will fix this code eventually
       var a3 = this.loc.x - this.target.x;

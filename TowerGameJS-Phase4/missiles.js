@@ -18,6 +18,7 @@ class Missile {
     run() {
         this.render();
         this.update();
+        this.randomNess();
     }
 
     render() {
@@ -26,15 +27,17 @@ class Missile {
         ctx.save();
         ctx.fillStyle = this.clr;
         ctx.strokeStyle = this.clr;
+     //   ctx.rotate(this.angle+Math.PI/2);
         ctx.translate(this.loc.x, this.loc.y);
-   //     ctx.rotate(this.angle+Math.PI/2);
             ctx.drawImage(this.img, -this.img.width/2,-this.img.height/2);
-          //  ctx.arc(0, 0, this.radius, 0, Math.PI*2, false);
         ctx.fill();
         ctx.restore();
     }
     update() {
+        
         this.loc.y += Math.sin(this.angle) * this.speed;
         this.loc.x += Math.cos(this.angle) * this.speed;
+    }
+randomNess(){
     }
 }

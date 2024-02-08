@@ -503,6 +503,19 @@ this.gameStateID = 1;
 
     }
   }
+  removeMissiles() {
+    if (this.missiles.length < 1) return;
+    for (let i = this.missiles.length - 1; i >= 0; i--) {
+
+      if (this.missiles[i].loc.x < 0 ||
+        this.missiles[i].loc.x > this.canvas.width ||
+        this.missiles[i].loc.y < 0 ||
+        this.missiles[i].loc.y > this.canvas.height) {
+        this.missiles.splice(i, 1);
+      }
+
+    }
+  }
 
   updateInfoElements(time) {
     let infoElements = document.getElementById('infoDiv').getElementsByClassName('infoTileDiv');

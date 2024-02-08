@@ -57,6 +57,7 @@ class GameState2 extends GameState{
     let gt = this.game.updateGameTime();
     this.game.updateInfoElements(gt);
     this.game.removeBullets();
+    this.game.removeMissiles();
     this.game.removeEnemies();
     this.game.controlWaves()
     this.game.backgroundMusic.play();
@@ -83,7 +84,9 @@ class GameState2 extends GameState{
     for (let i = 0; i < this.game.explosiveBullets.length; i++) {
       this.game.explosiveBullets[i].run();
     }
-
+    for( let i = 0; i < this.game.missiles.length; i ++){
+      this.game.missiles[i].run();
+    }
     for (let i = 0; i < this.game.bullets.length; i++) {
   //    this.game.lockon[i].run();
     }
