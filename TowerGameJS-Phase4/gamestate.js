@@ -23,6 +23,8 @@ class GameState1 extends GameState { // Start Screen
     this.panelStart = new Panel(this, 0)
     this.panelInstructions = 0
     this.panelQuit = 0
+    document.getElementById('infoDiv').style.visibility = 'hidden'; // Make info tiles invisible on start page
+    document.getElementById('menuDiv').style.visibility = 'hidden';
   }
   run() {
     if (this.panelStart) {
@@ -36,7 +38,7 @@ class GameState1 extends GameState { // Start Screen
 }
 class GameState2 extends GameState { // Level screen
   constructor(game) {
-    game.gameStateID = 2;
+    towerGame.gameStateID = 2;
   }
 
 }
@@ -79,12 +81,14 @@ class GameState4 extends GameState { // Game Screen basic
     this.game.backgroundMusic = new Audio('resources/sounds/Elevator-music.mp3')
     this.game.loadGrid();
     this.game.brushfire();
-    this.game.root = this.game.grid[this.game.cols - this.game.rootX][this.game.rows - this.game.rootY];
-
+    let x = 1;
+    let y = 1;
+    this.game.root = this.game.grid[this.game.cols - x][this.game.rows - y];
+    
     if (this.game.gameStateID === 4) {
       this.game.levelRender(level1Key);
-      this.game.rootX = 4;
-      this.game.rootY = 4;
+      this.game.root = this.game.grid[this.game.cols - 10][this.game.rows - 7];
+
       this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/level1.jpg')"
     } else if (this.game.gameStateID === 5) {
       this.game.levelRender(level2Key);
@@ -95,6 +99,9 @@ class GameState4 extends GameState { // Game Screen basic
     } else if (this.game.gameStateID === 8) {
       this.game.levelRender(level5Key);
     }
+
+    document.getElementById('infoDiv').style.visibility = 'visible'; // Make info tiles invisible on start page
+    document.getElementById('menuDiv').style.visibility = 'visible';
   }
   init() {
 

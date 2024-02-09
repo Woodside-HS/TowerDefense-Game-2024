@@ -103,9 +103,9 @@ class Game {
     this.rows = Math.floor(this.canvas.height / this.w);
 
     this.loadGrid();
-    this.rootX = 10;
-    this.rootY = 7;
-    this.root = this.grid[this.cols - this.rootX][this.rows - this.rootY];
+    this.rootX = 1;
+    this.rootY = 1;
+    this.root = this.grid[this.cols - 10][this.rows - 1];
     this.brushfire();
     this.loadWallImage();
 
