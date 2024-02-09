@@ -131,10 +131,12 @@ class Tower {
       towerGame.canvas.addEventListener('click', () => {
         let mouseLoc = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY);
         let dist = this.loc.dist(mouseLoc)
-        if (dist < 80) {
+        if(this.isInRange){
+          this.isInRange = false;
+        }else if (dist < 80) {
           this.isInRange = true;
         }
-      });
+      
 
       towerGame.canvas.addEventListener('mousemove', (event) => {
         if (this.isInRange) {
@@ -142,14 +144,9 @@ class Tower {
           let mouseX = this.loc.x - towerGame.canvas.mouseX;
           let mouseY = this.loc.y - towerGame.canvas.mouseY;
           this.towAngle = Math.atan2(mouseY, mouseX) - Math.PI;
-          let dist = this.loc.dist(mouseLoc);
-          
-          if(dist < 240){
-            this.isInRange = false;
-          }
         }
-      })
-
+      });
+    });
 
     }
 
