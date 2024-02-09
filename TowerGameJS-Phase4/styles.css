@@ -3,12 +3,12 @@ body{
   background-color:black;
 }
 
-#wrapperDiv{
-  background-color: lightblue;
-  width:1020px;
-  height:850px;
-  border:solid black 2px;
-  margin:auto;
+#wrapperDiv {
+  background-color: black;
+  width: 1020px;
+  height: 850px;
+  border: solid black 2px;
+  margin: auto;
   display: none;
 }
 #infoDiv{
