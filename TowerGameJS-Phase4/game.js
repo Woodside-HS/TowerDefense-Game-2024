@@ -779,41 +779,49 @@ class Game {
             cell.occupied = false;
         }
         towerGame.brushfire(towerGame.undo(cell));   // all new distances and parents
-        }else if(!towerGame.placingTower && cell.hasTower){ //removeTower ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        console.log("Clicked cell at column: " + col + ", row: " + row);
-
-        // Check if the click is within the grid bounds
-        if (col < 0 || col >= this.cols || row < 0 || row >= this.rows) {
-            console.log("Clicked outside of grid bounds.");
-            return; // Clicked outside the grid
-        }
+        }else if (!towerGame.placingTower && cell.hasTower) {
+          console.log("Clicked cell at column: " + col + ", row: " + row);
       
-       // let cell = this.grid[col][row];
-        console.log("Cell has tower: " + cell.hasTower); // Debugging
+          if (col < 0 || col >= this.cols || row < 0 || row >= this.rows) {
+              console.log("Clicked outside of grid bounds.");
+              return; // Clicked outside the grid
+          }
       
-        // Check if the cell has a tower
-        if (cell.hasTower) {
-            for (let i = 0; i < towerGame.towers.length; i++) {
-              let tower = towerGame.towers[i];
-              console.log("Tower " + i + " at: " + tower.loc.x + ", " + tower.loc.y); // Debugging
-                if (Math.abs(tower.loc.x - cell.center.x) < 1 && Math.abs(tower.loc.y - cell.center.y) < 1) {
-                    // Refund the cost of the tower
-                    towerGame.setBankValue(towerGame.towers[i].cost);
-      //clickCounter = 0;
-                    // Remove the tower from the array
-                    towerGame.towers.splice(i, 1);
-                    cell.hasTower = false; // Update the cell's state
-                    console.log("Tower removed and cost refunded.");
+          console.log("Cell has tower: " + cell.hasTower); // Debugging
       
-                    // Re-run the pathfinding algorithm since the grid has changed
-                    towerGame.brushfire();
-                    //count = 1;
-                    return;
-                }
-            }
-        
+          if (cell.hasTower) {
+              for (let i = 0; i < towerGame.towers.length; i++) {
+                  let tower = towerGame.towers[i];
+                  console.log("Tower " + i + " at: " + tower.loc.x + ", " + tower.loc.y); // Debugging
+                  if (Math.abs(tower.loc.x - cell.center.x) < 1 && Math.abs(tower.loc.y - cell.center.y) < 1) {
+      
+                      // Instantiate Popup near the tower location
+                      const popupX = tower.loc.x; // Adjust based on your canvas or element positioning
+                      const popupY = tower.loc.y; // Adjust based on your canvas or element positioning
+                      const myPopup = new Popup(popupX, popupY);
+      
+                      // Refund and remove tower logic moved to button event listener
+                      document.getElementById('refundButton').addEventListener('click', () => {
+                          towerGame.setBankValue(tower.cost); // Refund the cost of the tower
+                          towerGame.towers.splice(i, 1); // Remove the tower from the array
+                          cell.hasTower = false; // Update the cell's state
+                          console.log("Tower removed and cost refunded.");
+                          towerGame.brushfire(); // Re-run the pathfinding algorithm
+                          myPopup.hide(); // Close the popup
+                      });
+      
+                      // Upgrade tower logic (You'll need to define it)
+                      document.getElementById('upgradeButton').addEventListener('click', () => {
+                          console.log("Upgrade button clicked");
+                          // Implement your upgrade logic here
+                          myPopup.hide(); // Close the popup
+                      });
+      
+                      return;
+                  }
+              }
+          }
       }
-    }
       //removeTower ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
   }
