@@ -44,6 +44,7 @@ class Game {
   constructor() { // from setup()
     this.displayOverDraftBanner = false;
     this.invalidGridBanner = false;
+    this.towerErrorBanner = false;
     this.isRunning = true;
     this.placingTower = false;
     this.currentTower = 0;
@@ -191,6 +192,7 @@ class Game {
   }
 
   banner() {
+    //overdraft banner
     if (this.displayOverDraftBanner == true) {
       this.context.beginPath();
       this.context.rect(150, 210, 600, 250);
@@ -199,8 +201,6 @@ class Game {
       this.context.fill();
       this.context.stroke();
       this.context.closePath();
-
-
       const text = "Too expensive!";
       this.context.font = "italic 100px Garamond"; // Set the font size and type
       this.context.fillStyle = "white"; // Set the text color
@@ -223,8 +223,6 @@ class Game {
       this.context.fill();
       this.context.stroke();
       this.context.closePath();
-
-
       const text = "Invalid grid!";
       this.context.font = "italic 120px Garamond"; // Set the font size and type
       this.context.fillStyle = "white"; // Set the text color
@@ -232,15 +230,38 @@ class Game {
       const tx = 150 + (600 - tw) / 2; // Center the text horizontally
       const ty = 200 + 350 / 2; // Center the text vertically
       this.context.fillText(text, tx, ty);
-
-
-
       setTimeout(() => {
         this.invalidGridBanner = false;
       }, 600);
-
-
     }
+
+    //invalid tower placement banner
+    if (this.towerErrorBanner == true) {
+      console.log("working");
+      this.context.beginPath();
+      this.context.rect(180, 220, 580, 250);
+      this.context.strokeStyle = "#3B6C8E";
+      this.context.fillStyle = "#3B6C8E";
+      this.context.fill();
+      this.context.stroke();
+      this.context.closePath();
+      const textLine1 = "You can't place";
+      const textLine2 = "a tower there!";
+      this.context.font = "italic 100px Garamond"; // Adjusted font size to fit the text in two lines
+      this.context.fillStyle = "white";
+      const tw1 = this.context.measureText(textLine1).width;
+      const tw2 = this.context.measureText(textLine2).width;
+      const tx1 = 180 + (580 - tw1) / 2; // Center the first line horizontally
+      const tx2 = 180 + (580 - tw2) / 2; // Center the second line horizontally
+      const ty1 = 220 + (250 / 2) - 25; // Position for the first line (slightly above the middle)
+      const ty2 = 220 + (250 / 2) + 75; // Position for the second line (slightly below the middle)
+      this.context.fillText(textLine1, tx1, ty1);
+      this.context.fillText(textLine2, tx2, ty2);
+      setTimeout(() => {
+        this.towerErrorBanner = false;
+      }, 600);
+    }
+
   }
 
   // brushfire()
@@ -333,7 +354,8 @@ class Game {
       return function () {
         cell.hasTower = false;
         towerGame.towers.splice(towerGame.towers.indexOf(tower))
-        alert("you cannot place a tower here");
+        //alert("you cannot place a tower here");
+        towerGame.towerErrorBanner = true;
       }
     } else {
       return function () {
