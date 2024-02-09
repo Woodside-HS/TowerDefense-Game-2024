@@ -866,12 +866,13 @@ class Game {
                   let tower = towerGame.towers[i];
                   console.log("Tower " + i + " at: " + tower.loc.x + ", " + tower.loc.y); // Debugging
                   if (Math.abs(tower.loc.x - cell.center.x) < 1 && Math.abs(tower.loc.y - cell.center.y) < 1) {
-      
                       // Instantiate Popup near the tower location
                       const popupX = tower.loc.x; // Adjust based on your canvas or element positioning
                       const popupY = tower.loc.y; // Adjust based on your canvas or element positioning
-                      const myPopup = new Popup(popupX, popupY);
-      
+                     // Set popupOpen to true as we are now opening a popup
+
+            // Instantiate Popup near the tower location
+            const popup = new Popup(popupX, popupY);
                       // Refund and remove tower logic moved to button event listener
                       document.getElementById('refundButton').addEventListener('click', () => {
                           towerGame.setBankValue(tower.cost); // Refund the cost of the tower
@@ -879,17 +880,17 @@ class Game {
                           cell.hasTower = false; // Update the cell's state
                           console.log("Tower removed and cost refunded.");
                           towerGame.brushfire(); // Re-run the pathfinding algorithm
-                          myPopup.hide(); // Close the popup
+                          popup.hide(); // Close the popup
                       });
       
                       // Upgrade tower logic (You'll need to define it)
                       document.getElementById('upgradeButton').addEventListener('click', () => {
                           console.log("Upgrade button clicked");
                           // Implement your upgrade logic here
-                          myPopup.hide(); // Close the popup
+                          popup.hide(); // Close the popup
                       });
       
-                      return;
+                       return;
                   }
               }
           }
