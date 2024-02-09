@@ -13,9 +13,12 @@ class GameState {
     //lol
   }
 }
-class GameState1 extends GameState {
+
+
+class GameState1 extends GameState { // Start Screen
   constructor(game) {
     super(game, 1)
+    game.gameStateID = 1;
     this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/start.png')"
     this.panelStart = new Panel(this, 0)
     this.panelInstructions = 0
@@ -31,9 +34,38 @@ class GameState1 extends GameState {
     }
   }
 }
-class GameState2 extends GameState {
+class GameState2 extends GameState { // Level screen
   constructor(game) {
-    super(game, 2)
+    game.gameStateID = 2;
+  }
+
+}
+
+class GameState3 extends GameState { // end screen
+  constructor(game) {
+    super(game)
+    gameStateID = 3
+    this.game.enemies = []
+    this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/end.png')"
+    this.panelQuit = new Panel(this, 2)
+    this.panelCredits = 0
+    this.panelStart = 0
+  }
+  run() {
+    this.game.render()
+    document.getElementById("infoDiv").getElementsByClassName("infoTileDiv")[4].innerHTML = ("Health </br>" + 0); if (this.panelQuit) {
+      this.panelQuit.render()
+    }
+    if (this.panelCredits) {
+      this.panelCredits.render()
+    }
+  }
+}
+
+class GameState4 extends GameState { // Game Screen basic
+  constructor(game) {
+    super(game, 4)
+    gameStateID = 4;
     this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/play.png')"
     this.game.health = 100
     this.game.score = 0
@@ -95,8 +127,6 @@ class GameState2 extends GameState {
     this.game.context.font = "14px sans-serif";
     this.game.context.restore();
 
-
-
     //collision detection
     for (var i = this.game.enemies.length - 1; i >= 0; i--) {
       for (var j = this.game.bullets.length - 1; j >= 0; j--) {
@@ -111,25 +141,9 @@ class GameState2 extends GameState {
     if (this.game.health <= 0) {
       this.game.gameState = new GameState3(this.game)
     }
+    if (this.game.isRunning) {
+      this.game.banner();
+    }
   }
 
-}
-class GameState3 extends GameState {
-  constructor(game) {
-    super(game)
-    this.game.enemies = []
-    this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/end.png')"
-    this.panelQuit = new Panel(this, 2)
-    this.panelCredits = 0
-    this.panelStart = 0
-  }
-  run() {
-    this.game.render()
-    document.getElementById("infoDiv").getElementsByClassName("infoTileDiv")[4].innerHTML = ("Health </br>" + 0); if (this.panelQuit) {
-      this.panelQuit.render()
-    }
-    if (this.panelCredits) {
-      this.panelCredits.render()
-    }
-  }
 }
