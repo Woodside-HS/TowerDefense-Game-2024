@@ -44,6 +44,8 @@ function draw() {   // the animation loop
 class Game {
   //  This is a test
   constructor() { // from setup()
+    this.displayOverDraftBanner = false;
+    this.invalidGridBanner = false;
     this.isRunning = true;
     this.placingTower = false;
     this.currentTower = 0;
@@ -52,13 +54,14 @@ class Game {
     this.towers = [];
     this.enemies = [];
     this.bullets = [];
+    this.missiles = [];
     this.explosiveBullets = [];
     this.bankValue = 500;
     this.rays = [];
     this.checkOnce = true;
     this.enemyNum = 20;
     this.wallCost = 2;
-
+this.gameStateID = 1;
     this.paused = false;
 
     this.loadEnemyImages();
@@ -94,30 +97,8 @@ class Game {
     this.mouseY = 0;
     this.w = 50;
     this.done = false;
-    this.gameState = new GameState1(this)
-    //panelthings
-    // this.panelStart.ceatebutton("Start",
-    //   function(){
-    //     document.getElementById("panelStart").style.display = 'none'
-    //     towerGame.panelStart.go = true
-    //   }, "panelStartStartButton")
-    //
-    // this.panelStart.ceatebutton("Instructions",
-    //   function(){
-    //     document.getElementById("panelStart").style.display = 'none'
-    //     towerGame.panelInstructions = new Panel(this,100,-500, "panelInstructions")
-    //     towerGame.panelInstructions.ceatebutton("Back",
-    //       function(){
-    //         document.getElementById("panelStart").style.display = 'block'
-    //         document.getElementById("panelInstructions").parentNode.removeChild(document.getElementById("panelInstructions"))
-    //       }, "panelInstructionsButton")
-    //   }, "panelStartInstructionButton")
-    //
-    // this.panelStart.ceatebutton("Quit",
-    //   function(){
-    //     towerGame.panelQuit = new Panel(this,100,-500,"panelQuit")
-    //     document.getElementById("panelStart").style.display = 'none'
-    //   }, "panelStartQuitButton")
+    this.gameState = new GameState1(this);
+
 
 
 
@@ -154,6 +135,7 @@ class Game {
 
   
     document.getElementById('switchDiv').style.transform = "translate(" + 0 + "px, " + -52 + "px)";//idk this is clipping
+    //I suck at editing png so yeah
   
     towerSwitchButton.addEventListener('click', function () {
 
@@ -161,7 +143,7 @@ class Game {
       let d4k = document.getElementById('switchDiv');//bro what is this variable name?
 
       if (towerState == 1) {
-        towerState = 2;
+        towerState = 2;//just switching positions + rotating to point arrow in correct directions
         d4k.style.transform = "translate(" + 0 + "px, " + -749 + "px) rotate(180deg)";//
       } else if ( towerState == 2){
         towerState = 1;
@@ -303,6 +285,59 @@ class Game {
 
   }
 
+  banner() {
+    if (this.displayOverDraftBanner == true) {
+      this.context.beginPath();
+      this.context.rect(150, 210, 600, 250);
+      this.context.strokeStyle = "#3B6C8E";
+      this.context.fillStyle = "#3B6C8E";
+      this.context.fill();
+      this.context.stroke();
+      this.context.closePath();
+
+
+      const text = "Too expensive!";
+      this.context.font = "italic 100px Garamond"; // Set the font size and type
+      this.context.fillStyle = "white"; // Set the text color
+      const textWidth = this.context.measureText(text).width;
+      const textX = 150 + (600 - textWidth) / 2; // Center the text horizontally
+      const textY = 200 + 350 / 2; // Center the text vertically
+      this.context.fillText(text, textX, textY);
+      setTimeout(() => {
+        this.displayOverDraftBanner = false;
+      }, 600);
+    }
+
+    //code to display invalid grid banner
+    if (this.invalidGridBanner == true) {
+      console.log("working");
+      this.context.beginPath();
+      this.context.rect(180, 220, 580, 250);
+      this.context.strokeStyle = "#3B6C8E";
+      this.context.fillStyle = "#3B6C8E";
+      this.context.fill();
+      this.context.stroke();
+      this.context.closePath();
+
+
+      const text = "Invalid grid!";
+      this.context.font = "italic 120px Garamond"; // Set the font size and type
+      this.context.fillStyle = "white"; // Set the text color
+      const tw = this.context.measureText(text).width;
+      const tx = 150 + (600 - tw) / 2; // Center the text horizontally
+      const ty = 200 + 350 / 2; // Center the text vertically
+      this.context.fillText(text, tx, ty);
+
+
+
+      setTimeout(() => {
+        this.invalidGridBanner = false;
+      }, 600);
+
+
+    }
+  }
+
   // brushfire()
   // starting with the 'root' cell, which is the bottom right cell of the grid
   // assign a "distance" to all other cells where the distance is the
@@ -352,7 +387,7 @@ class Game {
     }   // while(queue.length)
     if (!this.validMap()) {
       if (undo) {
-        undo()
+        undo();
         this.brushfire()
       } else {
         // delete any enemy that is currently in a cell without a parent
@@ -362,7 +397,6 @@ class Game {
             enemy.kill = true;    // kill the orphans
         }
         console.log("brushfire created an invalid map and no undo was inputed")
-
       }
     }
 
@@ -399,7 +433,7 @@ class Game {
       return function () {
         cell.hasTower = false;
         towerGame.towers.splice(towerGame.towers.indexOf(tower))
-        alert("you cannot place a tower here")
+        alert("you cannot place a tower here");
       }
     } else {
       return function () {
@@ -410,7 +444,8 @@ class Game {
           cell.occupied = true;
           towerGame.bankValue -= towerGame.wallCost;
         }
-        alert("performing that action would create an invalid grid")
+        //    alert("performing that action would create an invalid grid")
+        towerGame.invalidGridBanner = true;
       }
     }
   }
@@ -464,6 +499,19 @@ class Game {
         this.bullets[i].loc.y < 0 ||
         this.bullets[i].loc.y > this.canvas.height) {
         this.bullets.splice(i, 1);
+      }
+
+    }
+  }
+  removeMissiles() {
+    if (this.missiles.length < 1) return;
+    for (let i = this.missiles.length - 1; i >= 0; i--) {
+
+      if (this.missiles[i].loc.x < 0 ||
+        this.missiles[i].loc.x > this.canvas.width ||
+        this.missiles[i].loc.y < 0 ||
+        this.missiles[i].loc.y > this.canvas.height) {
+        this.missiles.splice(i, 1);
       }
 
     }
@@ -642,7 +690,7 @@ class Game {
         } else if (i == 7) {
           mtd.ability = "temp8";
         } else if (i == 8) {
-          mtd.ability = "temp9";
+          mtd.ability = "missile";
         } else if (i == 9) {
           mtd.ability = "buffregen";
         }
@@ -711,8 +759,10 @@ class Game {
       else {
         println('failed to make tower');
       }
+    } else {
+      //alert("Insufficient Funds!");
+      this.displayOverDraftBanner = true;
     }
-    else alert("Insufficient Funds!");
     return (false);
   }
 
@@ -811,6 +861,12 @@ class Game {
         cell.occupied = false;
       }
       towerGame.brushfire(towerGame.undo(cell));   // all new distances and parents
+    }
+
+    if (this.gameStateID === 4) {
+      if (towerGame.placingTower && towerGame.canAddTower(cell)) {
+        towerGame.placeTower(towerGame);
+      }
     }
   }
 
@@ -916,3 +972,4 @@ window.onkeydown = function (e) {
     }
   }
 }
+

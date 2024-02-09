@@ -15,19 +15,19 @@ class GameState {
 }
 class GameState1 extends GameState {
   constructor(game){
-    super(game,1)
+    super(game,1);
     this.game.canvas.canDiv.style.backgroundImage="url('resources/images/bg/start.png')"
-    this.panelStart = new Panel(this, 0)
-    this.panelInstructions = 0
-    this.panelQuit = 0
+    this.panelStart = new Panel(this, 0);
+    this.panelInstructions = 0;
+    this.panelQuit = 0;
   }
   run() {
     if(this.panelStart){
-      this.panelStart.render()
+      this.panelStart.render();
     }
 
     if(this.panelInstructions){
-      this.panelInstructions.render()
+      this.panelInstructions.render();
     }
   }
 }
@@ -57,6 +57,7 @@ class GameState2 extends GameState{
     let gt = this.game.updateGameTime();
     this.game.updateInfoElements(gt);
     this.game.removeBullets();
+    this.game.removeMissiles();
     this.game.removeEnemies();
     this.game.controlWaves()
     this.game.backgroundMusic.play();
@@ -83,7 +84,9 @@ class GameState2 extends GameState{
     for (let i = 0; i < this.game.explosiveBullets.length; i++) {
       this.game.explosiveBullets[i].run();
     }
-
+    for( let i = 0; i < this.game.missiles.length; i ++){
+      this.game.missiles[i].run();
+    }
     for (let i = 0; i < this.game.bullets.length; i++) {
   //    this.game.lockon[i].run();
     }
@@ -123,6 +126,9 @@ class GameState2 extends GameState{
     }
     if( this.game.health <= 0){
       this.game.gameState=new GameState3(this.game)
+    }
+    if (this.game.isRunning) {
+      this.game.banner();
     }
   }
 

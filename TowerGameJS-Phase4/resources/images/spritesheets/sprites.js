@@ -243,11 +243,11 @@ json = {"frames": {
 },
 "p90000":
 {
-	"frame": {"x":25, "y":152, "w":10, "h":10},
+	"frame": {"x":49, "y":152, "w":16, "h":16},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":10,"h":10},
-	"sourceSize": {"w":10,"h":10}
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
 },
 "p100000":
 {
