@@ -40,7 +40,7 @@ class GameState1 extends GameState { // Start Screen
 class GameState2 extends GameState {
   constructor(game) {
     gameStateID = 2;
-    
+
   }
 
 }
@@ -48,7 +48,7 @@ class GameState2 extends GameState {
 class GameState3 extends GameState { // end screen
   constructor(game) {
     super(game)
-    gameStateID = 3
+    towerGame.gameStateID = 3;
     this.game.enemies = [];
     this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/end.png')"
     this.panelQuit = new Panel(this, 2)
@@ -69,7 +69,7 @@ class GameState3 extends GameState { // end screen
 class GameState4 extends GameState { // Game Screen basic
   constructor(game) {
     super(game, 4)
-    gameStateID = 4;
+    towerGame.gameStateID = 4;
     this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/play.png')";
     this.game.health = 100
     this.game.score = 0

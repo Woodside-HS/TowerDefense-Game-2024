@@ -3,7 +3,7 @@
 class Missile {
     constructor(location, bImg, angle, type) {
         this.loc = location;
-        this.r = 16;
+        this.r = 8;
          let red = Math.floor(Math.random() * 256);
          let green = Math.floor(Math.random() * 256);
          let blue = Math.floor(Math.random() * 256);

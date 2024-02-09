@@ -157,7 +157,6 @@ class Enemy {
       this.kill = true;
 
       this.deathSound.play();
-      console.log("play");
       towerGame.bankValue += 10;
 
       //console.log("kills");
