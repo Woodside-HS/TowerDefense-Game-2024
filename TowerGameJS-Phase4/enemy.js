@@ -61,12 +61,12 @@ class Enemy {
   // enemies with an optimal path are green
   render() {
     var ctx = this.game.context
-    if(this.slowed < 1){
+    if (this.slowed < 1) {
       ctx.save();
       ctx.translate(this.loc.x, this.loc.y)
       ctx.strokeStyle = "rgba(0,0,100,0.4)";
       ctx.beginPath();
-      ctx.arc(0, 0, (this.img.width+this.img.height)/4, 0, Math.PI * 2, false);
+      ctx.arc(0, 0, (this.img.width + this.img.height) / 4, 0, Math.PI * 2, false);
 
       ctx.closePath();
       ctx.stroke();
@@ -91,6 +91,16 @@ class Enemy {
   // of the new target.
   update() {
     let millis = Date.now();
+    for (let h = 0; h < towerGame.missiles.length; h++) {
+      if (this.checkCollide(this, towerGame.missiles[h])) {
+        console.log(towerGame.missiles[h].ability)
+        if (towerGame.missiles[h].ability == "missile") {
+          this.health -= 800;//this does not current work
+          towerGame.missiles.splice(h, 1);
+        }
+      }
+    }
+
     for (let h = 0; h < towerGame.bullets.length; h++) {
       if (this.checkCollide(this, towerGame.bullets[h])) {
         if (towerGame.bullets[h].ability == "normal") {
@@ -98,14 +108,14 @@ class Enemy {
           towerGame.bullets.splice(h, 1);
         } else if (towerGame.bullets[h].ability == "fast") {
           this.health = this.health - 350;
-          
+
           towerGame.bullets.splice(h, 1);
         } else if (towerGame.bullets[h].ability == "freeze") {
           this.health = this.health - 10;
           this.slowed -= 0.1;
           setTimeout(() => {
             this.slowed = 1.2;
-        }, 5000);
+          }, 5000);
 
         } else if (towerGame.bullets[h].ability == "explosive") {
           this.health = this.health - 100;
@@ -116,9 +126,6 @@ class Enemy {
           towerGame.explosiveBullets.push(new Explosives(towerGame.bullets[h].loc));
 
           towerGame.bullets.splice(h, 1);
-        } else if (towerGame.bullets[h].ability == "missile") {
-          this.health -= 800;//this does not current work
-          towerGame.missiles.splice(h, 1);
         }
 
 
@@ -186,13 +193,13 @@ class Enemy {
     }
     if (this.slowed < 1) {//the third guy does this
       this.count++;
-      if(this.count == 3){
-          this.loc.add(this.velVec)//this make it look extremely jittery 
-          //I will eventually do a complete overhaul of the velocity to get with better.
-          //(proboly after all the other towers are decent)
-          this.count = 0;
+      if (this.count == 3) {
+        this.loc.add(this.velVec)//this make it look extremely jittery 
+        //I will eventually do a complete overhaul of the velocity to get with better.
+        //(proboly after all the other towers are decent)
+        this.count = 0;
       }
-    } else if(this.slowed > 1){
+    } else if (this.slowed > 1) {
       this.loc.add(this.velVec);
     }          // apply velocity to location
   }
