@@ -39,7 +39,8 @@ class GameState1 extends GameState { // Start Screen
 }
 class GameState2 extends GameState {
   constructor(game) {
-    game.gameStateID = 2;
+    gameStateID = 2;
+    
   }
 
 }
@@ -48,7 +49,7 @@ class GameState3 extends GameState { // end screen
   constructor(game) {
     super(game)
     gameStateID = 3
-    this.game.enemies = []
+    this.game.enemies = [];
     this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/end.png')"
     this.panelQuit = new Panel(this, 2)
     this.panelCredits = 0
