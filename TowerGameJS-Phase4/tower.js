@@ -120,7 +120,6 @@ class Tower {
       this.target = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY)
     }
     if (this.ability != "missile") {
-      console.log(this.loc)
       let dx = this.loc.x - this.target.x;
       let dy = this.loc.y - this.target.y;
       this.towAngle = Math.atan2(dy, dx) - Math.PI;
@@ -187,8 +186,8 @@ class Tower {
       let b = new Bullet(bulletLocation, this.bulletImg, this.towAngle, this.ability);
       let q = new Missile(bulletLocation, this.bulletImg, this.towAngle, this.ability);
       if (this.ability == "fast" || this.ability == "normal"
-        || this.ability == "freeze" || this.ability == "explosive") {
-        towerGame.bullets.push(b);//first four use this
+        || this.ability == "freeze" || this.ability == "explosive" || this.ability == "cannon") {
+        towerGame.bullets.push(b);
       }
       if (this.ability == "buffregen") {
         if (towerGame.health < 150) {
