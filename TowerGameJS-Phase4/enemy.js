@@ -293,6 +293,6 @@ class Enemy5 extends Enemy {
   constructor(game) {
     super(game)
     this.img = Enemy.image5
-    this.health = 1000000000000000000
+    this.health = 1000000000000000000;
   }
 }

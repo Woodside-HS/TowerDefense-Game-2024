@@ -44,7 +44,7 @@ class GameState2 extends GameState { // Level screen
 class GameState3 extends GameState { // end screen
   constructor(game) {
     super(game)
-    gameStateID = 3
+    towerGame.gameStateID = 3
     this.game.enemies = []
     this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/end.png')"
     this.panelQuit = new Panel(this, 2)
@@ -79,12 +79,12 @@ class GameState4 extends GameState { // Game Screen basic
     this.game.backgroundMusic = new Audio('resources/sounds/Elevator-music.mp3')
     this.game.loadGrid();
     this.game.brushfire();
-    let x = 10;
-    let y = 7;
-    this.game.root = this.game.grid[this.game.cols - x][this.game.rows - y];
+    this.game.root = this.game.grid[this.game.cols - this.game.rootX][this.game.rows - this.game.rootY];
 
     if (this.game.gameStateID === 4) {
       this.game.levelRender(level1Key);
+      this.game.rootX = 4;
+      this.game.rootY = 4;
       this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/level1.jpg')"
     } else if (this.game.gameStateID === 5) {
       this.game.levelRender(level2Key);
