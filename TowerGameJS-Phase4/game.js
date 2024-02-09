@@ -268,8 +268,61 @@ class Game {
 
 
   render() { // draw game stuff
-    this.context.clearRect(0,0,this.canvas.width, this.canvas.height);
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
+  }
+
+  banner() {
+    if (this.displayOverDraftBanner == true) {
+      this.context.beginPath();
+      this.context.rect(150, 210, 600, 250);
+      this.context.strokeStyle = "#3B6C8E";
+      this.context.fillStyle = "#3B6C8E";
+      this.context.fill();
+      this.context.stroke();
+      this.context.closePath();
+
+
+      const text = "Too expensive!";
+      this.context.font = "italic 100px Garamond"; // Set the font size and type
+      this.context.fillStyle = "white"; // Set the text color
+      const textWidth = this.context.measureText(text).width;
+      const textX = 150 + (600 - textWidth) / 2; // Center the text horizontally
+      const textY = 200 + 350 / 2; // Center the text vertically
+      this.context.fillText(text, textX, textY);
+      setTimeout(() => {
+        this.displayOverDraftBanner = false;
+      }, 600);
+    }
+
+    //code to display invalid grid banner
+    if (this.invalidGridBanner == true) {
+      console.log("working");
+      this.context.beginPath();
+      this.context.rect(180, 220, 580, 250);
+      this.context.strokeStyle = "#3B6C8E";
+      this.context.fillStyle = "#3B6C8E";
+      this.context.fill();
+      this.context.stroke();
+      this.context.closePath();
+
+
+      const text = "Invalid grid!";
+      this.context.font = "italic 120px Garamond"; // Set the font size and type
+      this.context.fillStyle = "white"; // Set the text color
+      const tw = this.context.measureText(text).width;
+      const tx = 150 + (600 - tw) / 2; // Center the text horizontally
+      const ty = 200 + 350 / 2; // Center the text vertically
+      this.context.fillText(text, tx, ty);
+
+
+
+      setTimeout(() => {
+        this.invalidGridBanner = false;
+      }, 600);
+
+
+    }
   }
 
       // brushfire()
@@ -301,37 +354,36 @@ class Game {
     // in the queue and adding all its neighbors to the end of the
     // queue.  The neighbors will only be those that are not occupied
     // and not blocked diagonally.
-    while(queue.length) {
-        var current = queue.shift();   // remove the first cell from the queue
-        // for all its neighbors...
-        for(let j =0; j < current.neighbors.length; j++){
-            let neighbor = current.neighbors[j];
-            var dist = current.dist+10; // adjacent neighbors have a distance of 10
-            if(current.loc.x != neighbor.loc.x && current.loc.y != neighbor.loc.y)
-                dist = current.dist+14; // diagonal neighbors have a distance of 14
-            // if this neighbor has not already been assigned a distance
-            // or we now have a shorter distance, give it a distance
-            // and a parent and push to the end of the queue.
-            if(neighbor.dist > dist) {
-                neighbor.parent = current;
-                neighbor.dist = dist;
-                queue.push(neighbor);
-                }
-          }     // for each neighbor
-        }   // while(queue.length)
-    if(!this.validMap()){
-      if(undo){
-          undo()
-          this.brushfire()
-      }else{
+    while (queue.length) {
+      var current = queue.shift();   // remove the first cell from the queue
+      // for all its neighbors...
+      for (let j = 0; j < current.neighbors.length; j++) {
+        let neighbor = current.neighbors[j];
+        var dist = current.dist + 10; // adjacent neighbors have a distance of 10
+        if (current.loc.x != neighbor.loc.x && current.loc.y != neighbor.loc.y)
+          dist = current.dist + 14; // diagonal neighbors have a distance of 14
+        // if this neighbor has not already been assigned a distance
+        // or we now have a shorter distance, give it a distance
+        // and a parent and push to the end of the queue.
+        if (neighbor.dist > dist) {
+          neighbor.parent = current;
+          neighbor.dist = dist;
+          queue.push(neighbor);
+        }
+      }     // for each neighbor
+    }   // while(queue.length)
+    if (!this.validMap()) {
+      if (undo) {
+        undo();
+        this.brushfire()
+      } else {
         // delete any enemy that is currently in a cell without a parent
-        for(let i = 0; i < this.enemies.length;  i++) {
-            let enemy = towerGame.enemies[i];
-            if(!enemy.currentCell.parent)
-                enemy.kill = true;    // kill the orphans
-            }
-            console.log("brushfire created an invalid map and no undo was inputed")
-
+        for (let i = 0; i < this.enemies.length; i++) {
+          let enemy = towerGame.enemies[i];
+          if (!enemy.currentCell.parent)
+            enemy.kill = true;    // kill the orphans
+        }
+        console.log("brushfire created an invalid map and no undo was inputed")
       }
     }
 
