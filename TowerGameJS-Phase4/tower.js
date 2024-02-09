@@ -3,6 +3,7 @@
 class Tower {
   // issue#1 use preloaded images
   constructor(cost, tImg, bImg, ability) {
+    this.isInRange = false;
     this.loc = vector2d(0, 0);
     this.placed = false;
     this.visible = false;
@@ -34,8 +35,8 @@ class Tower {
       this.buffConstant = 0.8; //multiply cooldown by buffConstant
     }
     else if (ability == "missile") {
-      this.range = 600;
-      this.minRange = 240;
+      this.range = 800;
+      this.minRange = this.range / 3;
       this.coolDown = 1000 / 6;
 
     }
@@ -111,7 +112,7 @@ class Tower {
         let dx = this.loc.x - this.target.x;
         let dy = this.loc.y - this.target.y;
         let dist = vector2d(dx, dy).length();
-        if(dist < this.minRange){
+        if (dist < this.minRange) {
           this.target = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY)
         }
       }
@@ -119,14 +120,42 @@ class Tower {
       this.target = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY)
     }
     if (this.ability != "missile") {
+      console.log(this.loc)
       let dx = this.loc.x - this.target.x;
       let dy = this.loc.y - this.target.y;
       this.towAngle = Math.atan2(dy, dx) - Math.PI;
     } else {
-      let mouseX = towerGame.canvas.mouseX;
-      let mouseY = towerGame.canvas.mouseY;
-      this.towAngle = Math.atan2(mouseY, mouseX) ;
+
+     
+
+      towerGame.canvas.addEventListener('click', () => {
+        let mouseLoc = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY);
+        let dist = this.loc.dist(mouseLoc)
+        if (dist < 80) {
+          this.isInRange = true;
+        }
+      });
+
+      towerGame.canvas.addEventListener('mousemove', (event) => {
+        if (this.isInRange) {
+         let mouseLoc = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY);
+          let mouseX = this.loc.x - towerGame.canvas.mouseX;
+          let mouseY = this.loc.y - towerGame.canvas.mouseY;
+          this.towAngle = Math.atan2(mouseY, mouseX) - Math.PI;
+          let dist = this.loc.dist(mouseLoc);
+          
+          if(dist < 240){
+            this.isInRange = false;
+          }
+        }
+      })
+
+
     }
+
+
+
+
     this.checkEnemies();
     this.checkBuffandHeal();
   }
@@ -198,7 +227,7 @@ class Tower {
   findEnemy() {
     for (let i = 0; i < this.enemies.length; i++) {
       if (this.enemies[i].loc.dist(this.loc) < this.range &&
-       this.enemies[i].loc.dist(this.loc) > this.minRange) {
+        this.enemies[i].loc.dist(this.loc) > this.minRange) {
         return this.enemies[i]
       }
     }
