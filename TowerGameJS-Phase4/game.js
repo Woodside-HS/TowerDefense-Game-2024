@@ -56,6 +56,8 @@ class Game {
     this.enemies = [];
     this.bullets = [];
     this.missiles = [];
+    this.isHandsy = false;
+    this.hands = [];
     this.explosiveBullets = [];
     this.bankValue = 500;
     this.rays = [];
@@ -710,7 +712,7 @@ this.gameStateID = 1;
         } else if (i == 6) {
           mtd.ability = "temp7";
         } else if (i == 7) {
-          mtd.ability = "temp8";
+          mtd.ability = "liquify";
         } else if (i == 8) {
           mtd.ability = "missile";
         } else if (i == 9) {

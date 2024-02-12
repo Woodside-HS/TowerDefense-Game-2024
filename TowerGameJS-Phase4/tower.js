@@ -39,6 +39,9 @@ class Tower {
       this.minRange = this.range / 3;
       this.coolDown = 1000 / 6;
 
+    }else if (ability == "liquify") {
+      this.range = 80;
+      this.coolDown = 3000;
     }
     this.MaxCoolDown = this.coolDown;
 
@@ -197,6 +200,10 @@ class Tower {
       }
       if (this.ability == "missile") {
         towerGame.missiles.push(q);
+      }
+      if(this.ability == "liquify" && towerGame.isHandsy == false){
+        towerGame.
+        towerGame.isHandsy = true;
       }
     }
     if (this.ability == "ray" && towerGame.enemies.length != 0) {//I will fix this code eventually
