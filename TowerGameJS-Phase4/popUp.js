@@ -26,7 +26,9 @@ class Popup {
     popup.style.top = `${this.y}px`;
     popup.style.padding = '10px';
     popup.style.border = '1px solid black';
-    popup.style.background = 'white';
+    // Set the background to a PNG image
+    popup.style.background = `url('resources/images/button1.png')`;
+    popup.style.backgroundSize = 'cover'; // Ensure the background covers the whole popup
     popup.style.boxShadow = '0 2px 5px rgba(0,0,0,0.2)';
 
     const refundButton = this.createButton('refundButton', 'Refund', () => {
@@ -34,41 +36,62 @@ class Popup {
       
     });
     const upgradeButton = this.createButton('upgradeButton', 'Upgrade', () => {
-      this.upgradeElement = this.createUpgradePopup();
+      if(towerGame.bankValue > this.tower.cost){
+        this.upgradeElement = this.createUpgradePopup();
+        } else {
+          alert("Insufficient Funds!");
+        }
+    });
+
+    const cancleButton = this.createButton('cancleButton', 'X', () => {
+      console.log('Cancle button clicked');
+    //  this.hide();
     });
 
     popup.appendChild(refundButton);
     popup.appendChild(upgradeButton);
+    popup.appendChild(cancleButton);
 
     return popup;
   }
 
   createUpgradePopup() {
     const upgradePopup = document.createElement('div');
-    upgradePopup.style.position = 'fixed'; // Use fixed to center it on the screen
-    upgradePopup.style.left = '50%';
-    upgradePopup.style.top = '50%';
+    upgradePopup.style.position = 'absolute';
+    upgradePopup.style.left = `${this.x + 100}px`;
+    upgradePopup.style.top = `${this.y - 25}px`;
     upgradePopup.style.transform = 'translate(-50%, -50%)';
     upgradePopup.style.padding = '20px';
     upgradePopup.style.border = '1px solid #ddd';
-    upgradePopup.style.background = '#fff';
+    // Set the background to a different PNG image for the upgrade popup
+    upgradePopup.style.background = `url('resources/images/button2.png')`;
+    upgradePopup.style.backgroundSize = 'cover'; // Ensure the background covers the whole popup
     upgradePopup.style.boxShadow = '0 2px 5px rgba(0,0,0,0.3)';
-    upgradePopup.style.zIndex = '1000'; // Ensure it's above other content
+    upgradePopup.style.zIndex = '1000';
 
     // Creating buttons for the upgrade popup
     const rangeButton = this.createButton('rangeButton', 'Range', () => {
       this.tower.range = this.tower.range*1.2;
       console.log("Range increased by 20%");
+      towerGame.bankValue -= this.tower.cost;
       this.hideUpgrade();
       
     });
     const cooldownButton = this.createButton('cooldownButton', 'Cooldown', () => {
       this.tower.cooldown = this.tower.cooldown*0.8;
 console.log("Cooldown decreased by 20%");
+towerGame.bankValue -= this.tower.cost;
 this.hideUpgrade();
     });
     const damageButton = this.createButton('damageButton', 'Damage', () => {
       console.log("Damage increased by 20%");
+      towerGame.bankValue -= this.tower.cost;
+      this.tower.damageUpgrade();
+      this.hideUpgrade();
+    });
+
+    const cancleButton = this.createButton('cancleButton', 'X', () => {
+      console.log("Cancle button clicked");
       this.hideUpgrade();
     });
 
@@ -77,6 +100,7 @@ this.hideUpgrade();
     upgradePopup.appendChild(rangeButton);
     upgradePopup.appendChild(cooldownButton);
     upgradePopup.appendChild(damageButton);
+    upgradePopup.appendChild(cancleButton);
 
     // Show the upgrade popup
     document.body.appendChild(upgradePopup);

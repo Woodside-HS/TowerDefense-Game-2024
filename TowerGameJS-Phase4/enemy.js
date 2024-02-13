@@ -29,7 +29,7 @@ class Enemy {
     this.velVec = targetVec.copy().normalize().scale(this.vel);      // initial velocity vector
     this.kill = false;
     this.angle = this.velVec.angle()
-  this.damage = 
+  this.damageMult = 1;
     this.img = Enemy.image3;// image for enemy
 
 
@@ -86,20 +86,20 @@ class Enemy {
       if (this.checkCollide(this, towerGame.bullets[h])) {
         if (towerGame.bullets[h].ability == "normal") {
           //this.health = this.health - 100;
-          this.health = this.health - 500;
+          this.health = this.health - 500*this.damageMult;
           //console.log(this.health)
           towerGame.bullets.splice(h, 1);
         } else if (towerGame.bullets[h].ability == "fast") {
-          this.health = this.health - 350;
+          this.health = this.health - 350*this.damageMult;
           //  console.log(this.health)
           towerGame.bullets.splice(h, 1);
         } else if (towerGame.bullets[h].ability == "freeze") {
-          this.health = this.health - 1000;
+          this.health = this.health - 1000*this.damageMult;
           console.log("asdfasdfa");
           //  this.vel = this.initialVel - .8;
         } else if (towerGame.bullets[h].ability == "explosive") {
 
-          this.health = this.health - 100;
+          this.health = this.health - 100*this.damageMult;
           //this.health = this.health - 10;
           if (this.health <= 0) {
             this.kill = true;
