@@ -160,20 +160,24 @@ class Tower {
     this.checkBuffandHeal();
   }
   checkBuffandHeal() {
-    if (this.ability == "buffregen") {
+    let count = 0;
+    if (this.ability != "buffregen") {
       for (let i = 0; i < towerGame.towers.length; i++) {
-        if (towerGame.towers[i].ability != "buffregen") {
+        if (towerGame.towers[i].ability == "buffregen") {
           let dist = this.loc.dist(towerGame.towers[i].loc);
           if (dist < this.range) {
-            towerGame.towers[i].coolDown = towerGame.towers[i].MaxCoolDown * this.buffConstant;
-            //this current system is non stackable
-            //will eventually
+            count++;
+          }
+        }
+          if(count > 0){
+            towerGame.towers[i].coolDown = towerGame.towers[i].MaxCoolDown * this.buffConstant^(count);
+          }
           }
         }
       }
-    }
+    
 
-  }
+  
   checkEnemies() {
     let dx = this.loc.x - this.target.x;
     let dy = this.loc.y - this.target.y;
@@ -188,6 +192,7 @@ class Tower {
       let bulletLocation = vector2d(this.loc.x, this.loc.y);
       let b = new Bullet(bulletLocation, this.bulletImg, this.towAngle, this.ability);
       let q = new Missile(bulletLocation, this.bulletImg, this.towAngle, this.ability);
+      let h = new Liquify(bulletLocation, this.bulletImg, this.towAngle, this.ability);
       if (this.ability == "fast" || this.ability == "normal"
         || this.ability == "freeze" || this.ability == "explosive" || this.ability == "cannon") {
         towerGame.bullets.push(b);
@@ -202,7 +207,7 @@ class Tower {
         towerGame.missiles.push(q);
       }
       if(this.ability == "liquify" && towerGame.isHandsy == false){
-        towerGame.
+        towerGame.hands.push(h)
         towerGame.isHandsy = true;
       }
     }

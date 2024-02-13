@@ -100,6 +100,17 @@ class Enemy {
         }
       }
     }
+    for (let h = 0; h < towerGame.hands.length; h++) {
+      if (this.checkCollide(this, towerGame.hands[h])) {
+        console.log(towerGame.hands[h].ability)
+        if (towerGame.hands[h].ability == "missile") {
+          ;//this does not current work
+          towerGame.hands.splice(h, 1);
+        }
+      }
+    }
+    
+
 
     for (let h = 0; h < towerGame.bullets.length; h++) {
       if (this.checkCollide(this, towerGame.bullets[h])) {

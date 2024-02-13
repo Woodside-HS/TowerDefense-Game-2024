@@ -7,7 +7,7 @@ class Liquify{
     this.loc = location;
     this.towerLoc = location;
     this.speed = 25;
-    this.r=30
+    this.r=30;
     this.shape="circle";
     this.angle = angle;
     this.img = bImg;
