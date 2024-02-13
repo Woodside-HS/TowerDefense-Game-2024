@@ -730,44 +730,6 @@ class Game {
     towerGame.brushfire(towerGame.undo(cell,towerGame.towers[towerGame.towers.length-1]));   // all new distances and parents
   }
 
-
-//   removeTower() {
-//     // Get the location of the mouse click on the canvas
-//     let col = Math.floor(this.mouseX / this.w);
-//     let row = Math.floor(this.mouseY / this.w);
-//     console.log("Clicked cell at column: " + col + ", row: " + row);
-
-//     // Check if the click is within the grid bounds
-//     if (col < 0 || col >= this.cols || row < 0 || row >= this.rows) {
-//         console.log("Clicked outside of grid bounds.");
-//         return; // Clicked outside the grid
-//     }
-
-//     let cell = this.grid[col][row];
-//     console.log("Cell has tower: " + cell.hasTower); // Debugging
-
-//     // Check if the cell has a tower
-//     if (cell.hasTower) {
-//         for (let i = 0; i < this.towers.length; i++) {
-//             let tower = this.towers[i];
-//             console.log("Tower " + i + " at: " + tower.loc.x + ", " + tower.loc.y); // Debugging
-
-//             if (Math.abs(tower.loc.x - cell.center.x) < 1 && Math.abs(tower.loc.y - cell.center.y) < 1) {
-//                 // Refund the cost of the tower
-//                 this.setBankValue(this.towers[i].cost);
-
-//                 // Remove the tower from the array
-//                 this.towers.splice(i, 1);
-//                 cell.hasTower = false; // Update the cell's state
-//                 console.log("Tower removed and cost refunded.");
-
-//                 // Re-run the pathfinding algorithm since the grid has changed
-//                 this.brushfire();
-//                 return;
-//             }
-//         }
-//     }
-// }
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ load callbacks
   loadDOMCallBacks(menuTiles) {
     //  load tile menu callbacks
