@@ -526,6 +526,13 @@ this.gameStateID = 1;
 
     }
   }
+  removePests(){
+  for(let i = this.hands.length - 1; i >= 0; i --){
+    if(this.death == true){
+      this.hands.splice(i, 1);
+    }
+    }
+  }
   removeMissiles() {
     if (this.missiles.length < 1) return;
     for (let i = this.missiles.length - 1; i >= 0; i--) {

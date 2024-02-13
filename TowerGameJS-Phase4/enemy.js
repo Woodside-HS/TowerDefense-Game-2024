@@ -100,21 +100,19 @@ class Enemy {
         }
       }
     }
-    console.log(towerGame.hands.length)
     for (let h = 0; h < towerGame.hands.length; h++) {
       if (this.checkCollide(this, towerGame.hands[h])) {
-        console.log(towerGame.hands[h].ability)
         if (towerGame.hands[h].ability == "liquify") {
-        //this does not current work
-        if(this.kill){
-          towerGame.hands.splice(h, 1);
-          towerGame.isHands = false;
-        }
-          
+          //this does not current work
+          if (this.kill) {
+            // towerGame.hands.splice(h, 1);
+            tower.isHands = false;
+          }
+
         }
       }
     }
-    
+
 
 
     for (let h = 0; h < towerGame.bullets.length; h++) {

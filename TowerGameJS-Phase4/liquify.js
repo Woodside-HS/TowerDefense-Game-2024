@@ -15,6 +15,8 @@ class Liquify {
     this.img = bImg;
     this.ability = type;
     this.nearestEnemy = 100000;
+    this.lifeSpan = 1000;
+    this.death = false;
   }
 
   run() {
@@ -54,6 +56,10 @@ class Liquify {
     return new Vector2d(v1.x, v1.y);
   }
   update() {
+    this.lifeSpan --;
+    if(this.lifeSpan <= 0){
+      this.death = true;
+    }
     for (let i = 0; i < towerGame.enemies.length; i++) {
       let dist = this.loc.dist(towerGame.enemies[i].loc);
 
@@ -63,7 +69,7 @@ class Liquify {
     }
     this.acc = this.subGetNew(this.nearestEnemy.loc, this.loc);
     this.acc.normalize();
-    this.acc = this.multiply(this.acc, 0.5);
+    this.acc = this.multiply(this.acc, 1);
     this.vel = this.vel.add(this.acc);
     this.vel = this.limit(this.vel, 4);
     this.loc = this.loc.add(this.vel);

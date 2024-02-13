@@ -20,7 +20,7 @@ class Tower {
     this.range = 200;
     this.minRange = 0;
     this.ability = ability;
-    this.hands = false;
+    this.isHands = false;
     if (ability == "freeze") {
       this.coolDown = 100;
       this.range = 150;
@@ -207,9 +207,9 @@ class Tower {
       if (this.ability == "missile") {
         towerGame.missiles.push(q);
       }
-      if (this.ability == "liquify" && towerGame.isHands == false) {
+      if (this.ability == "liquify" && this.isHands == false) {
         towerGame.hands.push(h)
-        towerGame.isHands = true;
+     //   towerGame.isHands = true;
 
       }
     }
