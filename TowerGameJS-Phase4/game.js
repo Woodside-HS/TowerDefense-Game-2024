@@ -529,7 +529,7 @@ class Game {
     var buttons = ["B10000", "B20000", "B30000", "B40000", "B50000", "B60000"];
     //  loop through the towers and DO NOT include wall element
     for (var i = 0; i < 5; i++) {
-      var mtd = document.createElement("div"); // createDiv("");
+      var mtd = document.createElement("div"); // createDiv("");//  mtd = menu-tile-div
       if (i == 0) {
         mtd.ability = "normal";
         //        this.bankValue = 200;
