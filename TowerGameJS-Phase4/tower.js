@@ -240,7 +240,7 @@ class Tower {
     for (let i = 0; i < this.enemies.length; i++) {
       if (this.enemies[i].loc.dist(this.loc) < this.range &&
         this.enemies[i].loc.dist(this.loc) > this.minRange) {
-        return this.enemies[i]
+        return this.enemies[i];
       }
     }
   }

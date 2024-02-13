@@ -39,7 +39,8 @@ class GameState1 extends GameState { // Start Screen
 }
 class GameState2 extends GameState {
   constructor(game) {
-    gameStateID = 2;
+    super(game)
+    towerGame.gameStateID = 2;
 
   }
 

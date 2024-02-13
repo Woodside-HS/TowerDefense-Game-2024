@@ -5,7 +5,9 @@ class Liquify{
   constructor(location, bImg, angle, type){
     // issue#1 use preloaded bullet image instead of loadImage
     this.loc = location;
-    this.towerLoc = location;
+    this.vel = vector2d(0, 0);
+    this.acc = vector2d(0, 0);
+    this.towerLoc = location
     this.speed = 3;
     this.r=30;
     this.shape="circle";
@@ -33,12 +35,10 @@ class Liquify{
   update(){
     this.loc.y += Math.sin(this.angle)*this.speed;
     this.loc.x += Math.cos(this.angle)*this.speed;
-    
 
   }
 
   checkRange(){
-   let dist = this.loc.dist(this.towerLoc);
-   console.log(dist)
+
   }
 }
