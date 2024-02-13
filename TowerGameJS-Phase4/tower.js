@@ -39,9 +39,9 @@ class Tower {
       this.minRange = this.range / 3;
       this.coolDown = 1000 / 6;
 
-    }else if (ability == "liquify") {
-      this.range = 80;
-      this.coolDown = 3000;
+    } else if (ability == "liquify") {
+      this.range = 800;
+      this.coolDown = 300;
     }
     this.MaxCoolDown = this.coolDown;
 
@@ -128,28 +128,28 @@ class Tower {
       this.towAngle = Math.atan2(dy, dx) - Math.PI;
     } else {
 
-     
+
 
       towerGame.canvas.addEventListener('click', () => {
         let mouseLoc = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY);
         let dist = this.loc.dist(mouseLoc)
-        if(this.isInRange){
+        if (this.isInRange) {
           this.isInRange = false;
         }
-         if (dist < 80) {
+        if (dist < 80) {
           this.isInRange = true;
         }
-      
 
-      towerGame.canvas.addEventListener('mousemove', (event) => {
-        if (this.isInRange) {
-        // let mouseLoc = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY);
-          let mouseX = this.loc.x - towerGame.canvas.mouseX;
-          let mouseY = this.loc.y - towerGame.canvas.mouseY;
-          this.towAngle = Math.atan2(mouseY, mouseX) - Math.PI;
-        }
+
+        towerGame.canvas.addEventListener('mousemove', (event) => {
+          if (this.isInRange) {
+            // let mouseLoc = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY);
+            let mouseX = this.loc.x - towerGame.canvas.mouseX;
+            let mouseY = this.loc.y - towerGame.canvas.mouseY;
+            this.towAngle = Math.atan2(mouseY, mouseX) - Math.PI;
+          }
+        });
       });
-    });
 
     }
 
@@ -169,15 +169,15 @@ class Tower {
             count++;
           }
         }
-          if(count > 0){
-            towerGame.towers[i].coolDown = towerGame.towers[i].MaxCoolDown * this.buffConstant^(count);
-          }
-          }
+        if (count > 0) {
+          towerGame.towers[i].coolDown = towerGame.towers[i].MaxCoolDown * this.buffConstant ^ (count);
         }
       }
-    
+    }
+  }
 
-  
+
+
   checkEnemies() {
     let dx = this.loc.x - this.target.x;
     let dy = this.loc.y - this.target.y;
@@ -206,9 +206,12 @@ class Tower {
       if (this.ability == "missile") {
         towerGame.missiles.push(q);
       }
-      if(this.ability == "liquify" && towerGame.isHandsy == false){
+      if (this.ability == "liquify" && towerGame.isHands == false) {
         towerGame.hands.push(h)
-        towerGame.isHandsy = true;
+        towerGame.isHands = true;
+
+      } else {
+
       }
     }
     if (this.ability == "ray" && towerGame.enemies.length != 0) {//I will fix this code eventually

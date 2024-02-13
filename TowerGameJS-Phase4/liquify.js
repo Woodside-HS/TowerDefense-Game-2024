@@ -6,7 +6,7 @@ class Liquify{
     // issue#1 use preloaded bullet image instead of loadImage
     this.loc = location;
     this.towerLoc = location;
-    this.speed = 25;
+    this.speed = 3;
     this.r=30;
     this.shape="circle";
     this.angle = angle;
@@ -18,13 +18,14 @@ class Liquify{
   run(){
     this.render();
     this.update();
+    this.checkRange();
   }
   render(){
 
     var ctx = towerGame.context;
     ctx.save();
     ctx.translate(this.loc.x, this.loc.y);
-    ctx.rotate(this.angle+Math.PI/2);
+   // ctx.rotate(this.angle+Math.PI/2);
     ctx.drawImage(this.img, -this.img.width/2,-this.img.height/2);
     ctx.restore();
   }
@@ -34,5 +35,10 @@ class Liquify{
     this.loc.x += Math.cos(this.angle)*this.speed;
     
 
+  }
+
+  checkRange(){
+   let dist = this.loc.dist(this.towerLoc);
+   console.log(dist)
   }
 }
