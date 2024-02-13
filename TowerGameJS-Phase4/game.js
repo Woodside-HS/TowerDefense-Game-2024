@@ -56,7 +56,7 @@ class Game {
     this.checkOnce = true;
     this.enemyNum = 20;
     this.wallCost = 2;
-
+    this.gameStateID = 1;
     this.paused = false;
 
     this.loadEnemyImages();
@@ -169,7 +169,7 @@ class Game {
   run() { // called from draw()
 
     if (!this.paused) {
-      this.gameState.run()
+      this.gameState.run();
     }
 
   }
@@ -692,7 +692,7 @@ class Game {
       towerGame.brushfire(towerGame.undo(cell));   // all new distances and parents
     }
 
-    if (gameStateID === 4) {
+    if (this.gameStateID === 4) {
       if (towerGame.placingTower && towerGame.canAddTower(cell)) {
         towerGame.placeTower(towerGame);
       }
