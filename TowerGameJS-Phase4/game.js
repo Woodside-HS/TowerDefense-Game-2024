@@ -56,7 +56,6 @@ class Game {
     this.enemies = [];
     this.bullets = [];
     this.missiles = [];
-    this.isHands = false;
     this.hands = [];
     this.explosiveBullets = [];
     this.bankValue = 500;
