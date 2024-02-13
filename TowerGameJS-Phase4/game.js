@@ -105,7 +105,7 @@ class Game {
     this.loadGrid();
     this.rootX = 1;
     this.rootY = 1;
-    this.root = this.grid[this.cols - 10][this.rows - 1];
+    this.root = this.grid[this.cols - 1][this.rows - 1];
     this.brushfire();
     this.loadWallImage();
 
@@ -584,6 +584,7 @@ class Game {
   getBankValue() {
     return this.bankValue;
   }
+
   //  Logic to add tower +++++++++++++++++++++++
   canAddTower(cell) {
     // add conditions before allowing user to place turret
@@ -592,7 +593,7 @@ class Game {
     if (towerGame.placingTower) {
       if (!cell.occupied && !cell.hasTower && cell != towerGame.root) {
         return true;
-      }
+      } 
       return (false);
     }
   }
@@ -742,6 +743,8 @@ class Game {
               towerGame.grid[col][row].occupied = true;
               towerGame.brushfire(towerGame.undo(towerGame.grid[col][row]));
             }
+          } else if(key[row][col] === 'e'){
+            this.root = this.grid[this.cols - 10][this.rows - 7];
           }
         }
       }
