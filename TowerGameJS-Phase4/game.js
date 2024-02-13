@@ -528,7 +528,7 @@ this.gameStateID = 1;
   }
   removePests(){
   for(let i = this.hands.length - 1; i >= 0; i --){
-    if(this.death == true){
+    if(this.hands[i].death == true){
       this.hands.splice(i, 1);
     }
     }

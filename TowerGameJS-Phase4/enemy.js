@@ -103,11 +103,8 @@ class Enemy {
     for (let h = 0; h < towerGame.hands.length; h++) {
       if (this.checkCollide(this, towerGame.hands[h])) {
         if (towerGame.hands[h].ability == "liquify") {
-          //this does not current work
-          if (this.kill) {
-            // towerGame.hands.splice(h, 1);
-            tower.isHands = false;
-          }
+            this.health -= 10
+
 
         }
       }

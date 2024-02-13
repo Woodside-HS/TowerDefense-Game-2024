@@ -129,7 +129,7 @@ class GameState4 extends GameState { // Game Screen basic
       this.game.missiles[i].run();
     }
     for (let i = 0; i < this.game.hands.length; i++) {
-    this.game.hands[i].run();
+      this.game.hands[i].run();
     }
 
 

@@ -23,8 +23,8 @@ class Wave {
             this.enemyId[0]+=1;
           }
         }else{
-          this.spawnOver=true
-          break
+          this.spawnOver=true;
+          break;
         }
       }
 

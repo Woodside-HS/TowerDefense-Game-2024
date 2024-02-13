@@ -15,7 +15,7 @@ class Liquify {
     this.img = bImg;
     this.ability = type;
     this.nearestEnemy = 100000;
-    this.lifeSpan = 1000;
+    this.lifeSpan = 500;
     this.death = false;
   }
 

@@ -42,7 +42,7 @@ class Tower {
 
     } else if (ability == "liquify") {
       this.range = 800;
-      this.coolDown = 300;
+      this.coolDown = 1000;
     }
     this.MaxCoolDown = this.coolDown;
 
@@ -132,13 +132,16 @@ class Tower {
 
 
       towerGame.canvas.addEventListener('click', () => {
+
         let mouseLoc = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY);
         let dist = this.loc.dist(mouseLoc)
         if (this.isInRange) {
           this.isInRange = false;
+                  towerGame.cell.occupied = true;
         }
         if (dist < 80) {
           this.isInRange = true;
+          towerGame.cell.occupied = true;
         }
 
 
@@ -148,6 +151,7 @@ class Tower {
             let mouseX = this.loc.x - towerGame.canvas.mouseX;
             let mouseY = this.loc.y - towerGame.canvas.mouseY;
             this.towAngle = Math.atan2(mouseY, mouseX) - Math.PI;
+          
           }
         });
       });
