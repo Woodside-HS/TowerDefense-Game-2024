@@ -27,12 +27,13 @@ class Liquify{
     var ctx = towerGame.context;
     ctx.save();
     ctx.translate(this.loc.x, this.loc.y);
-   // ctx.rotate(this.angle+Math.PI/2);
     ctx.drawImage(this.img, -this.img.width/2,-this.img.height/2);
     ctx.restore();
   }
 
   update(){
+    let dist = this.loc.dist(enemy.target)
+
     this.loc.y += Math.sin(this.angle)*this.speed;
     this.loc.x += Math.cos(this.angle)*this.speed;
 
