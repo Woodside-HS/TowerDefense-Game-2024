@@ -59,7 +59,7 @@ class Popup {
     const upgradePopup = document.createElement('div');
     upgradePopup.style.position = 'absolute';
     upgradePopup.style.left = `${this.x + 100}px`;
-    upgradePopup.style.top = `${this.y - 25}px`;
+    upgradePopup.style.top = `${this.y}px`;
     upgradePopup.style.transform = 'translate(-50%, -50%)';
     upgradePopup.style.padding = '20px';
     upgradePopup.style.border = '1px solid #ddd';
@@ -83,13 +83,14 @@ console.log("Cooldown decreased by 20%");
 towerGame.bankValue -= this.tower.cost;
 this.hideUpgrade();
     });
+   
     const damageButton = this.createButton('damageButton', 'Damage', () => {
       console.log("Damage increased by 20%");
       towerGame.bankValue -= this.tower.cost;
       this.tower.damageUpgrade();
       this.hideUpgrade();
     });
-
+    
     const cancleButton = this.createButton('cancleButton', 'X', () => {
       console.log("Cancle button clicked");
       this.hideUpgrade();
@@ -101,10 +102,11 @@ this.hideUpgrade();
     upgradePopup.appendChild(cooldownButton);
     upgradePopup.appendChild(damageButton);
     upgradePopup.appendChild(cancleButton);
-
+   
     // Show the upgrade popup
     document.body.appendChild(upgradePopup);
 return upgradePopup;
+
     // Optionally, you can add a close button or a method to remove this popup
   }
 
