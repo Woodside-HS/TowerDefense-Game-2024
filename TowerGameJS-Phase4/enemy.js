@@ -29,7 +29,7 @@ class Enemy {
     this.velVec = targetVec.copy().normalize().scale(this.vel);      // initial velocity vector
     this.kill = false;
     this.angle = this.velVec.angle()
-
+  this.damage = 
     this.img = Enemy.image3;// image for enemy
 
 

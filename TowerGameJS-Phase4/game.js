@@ -832,8 +832,8 @@ class Game {
                      // Set popupOpen to true as we are now opening a popup
 
                              // Instantiate Popup near the tower location
-                          const popup = new Popup(popupX, popupY);
-                        
+                          const popup = new Popup(popupX, popupY, tower);
+                         
                       // Refund and remove tower logic moved to button event listener
                       document.getElementById('refundButton').addEventListener('click', () => {
                           towerGame.setBankValue(tower.cost); // Refund the cost of the tower
@@ -849,6 +849,7 @@ class Game {
                           console.log("Upgrade button clicked");
                           if(towerGame.bankValue > tower.cost/5){
                           // Implement upgrade logic here
+                        //  tower.upgrade(); // Call the upgrade method on the tower
                           towerGame.bankValue -= tower.cost/5 // Cost of upgrade is 1/5 of the cost of the tower
                           } else {
                             alert("Insufficient Funds!");

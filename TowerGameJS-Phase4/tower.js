@@ -2,7 +2,7 @@
 
 class Tower {
   // issue#1 use preloaded images
-  constructor( cost, tImg, bImg, ability, upgradeNum) {
+  constructor( cost, tImg, bImg, ability) {
     this.loc = vector2d(0, 0);
     this.placed = false;
     this.visible = false;
