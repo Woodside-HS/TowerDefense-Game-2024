@@ -783,7 +783,7 @@ class Game {
     return value >= Math.min(min, max) && Math.max(min, max) <= Math.max(min, max);
   }
 
-  //parameters:
+
   //loc1 = location vector of first circle
   //loc2 = location vector of second circle
   //rad1 = radius of first circle
