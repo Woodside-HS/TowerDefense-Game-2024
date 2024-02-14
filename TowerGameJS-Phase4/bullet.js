@@ -12,7 +12,7 @@ class Bullet{
     this.img = bImg;
     this.ability=type;
     if(this.ability == "freeze"){
-      this.speed = 80;
+      this.speed = 10;
     }
 
   }

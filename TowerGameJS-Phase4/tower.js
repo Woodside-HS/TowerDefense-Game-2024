@@ -20,7 +20,6 @@ class Tower {
     this.range = 200;
     this.minRange = 0;
     this.ability = ability;
-    this.isHands = false;
     if (ability == "freeze") {
       this.coolDown = 100;
       this.range = 150;
@@ -30,6 +29,9 @@ class Tower {
     }
     else if (ability == "fast") {
       this.coolDown = 500;
+    }
+    else if (ability == "cannon"){
+      this.coolDown = 100;
     }
     else if (ability == "buffregen") {
       this.coolDown = 19622;//why is this such a random number
@@ -147,7 +149,7 @@ class Tower {
 
         towerGame.canvas.addEventListener('mousemove', (event) => {
           if (this.isInRange) {
-            // let mouseLoc = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY);
+           
             let mouseX = this.loc.x - towerGame.canvas.mouseX;
             let mouseY = this.loc.y - towerGame.canvas.mouseY;
             this.towAngle = Math.atan2(mouseY, mouseX) - Math.PI;
@@ -211,7 +213,7 @@ class Tower {
       if (this.ability == "missile") {
         towerGame.missiles.push(q);
       }
-      if (this.ability == "liquify" && this.isHands == false) {
+      if (this.ability == "liquify") {
         towerGame.hands.push(h)
      //   towerGame.isHands = true;
 

@@ -72,7 +72,7 @@ class Liquify {
     this.acc = this.multiply(this.acc, 1);
     this.vel = this.vel.add(this.acc);
     this.vel = this.limit(this.vel, 4);
-    this.loc = this.loc.add(this.vel);
+    this.loc = this.loc.add(this.vel);//movement is terrible but its a feature ig
 
   }
 

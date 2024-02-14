@@ -54,6 +54,21 @@ class Enemy {
       return (candidates[Math.floor(Math.random() * candidates.length)]);
     }
   }
+  oppositeNextTarget(){//idk
+
+      if (!this.randomPath)
+        return (this.currentCell.parent);    // the parent cell is always the shortest path
+      else {  // else choose from cells with a lesser distance to the root
+        let candidates = [];
+        for (let i = 0; i < this.currentCell.neighbors.length; i++) {
+          if (this.currentCell.neighbors[i].dist > this.currentCell.dist)
+            candidates.push(this.currentCell.neighbors[i]);
+        }
+        // randomly pick one of the candidates
+        return (candidates[Math.floor(Math.random() * candidates.length)]);
+      }
+    } 
+  
 
   // render()
   // Draw the enemy at its current location
@@ -103,7 +118,7 @@ class Enemy {
     for (let h = 0; h < towerGame.hands.length; h++) {
       if (this.checkCollide(this, towerGame.hands[h])) {
         if (towerGame.hands[h].ability == "liquify") {
-            this.health -= 10
+            this.health -= 10;
 
 
         }
@@ -127,9 +142,11 @@ class Enemy {
           setTimeout(() => {
             this.slowed = 1.2;
           }, 5000);
-
+        } else if (towerGame.bullets[h].ability == "cannon"){
+          this.health -= 250;
+        
         } else if (towerGame.bullets[h].ability == "explosive") {
-          this.health = this.health - 100;
+          this.health -= 100;
           if (this.health <= 0) {
             this.kill = true;
           }
