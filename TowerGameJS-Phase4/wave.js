@@ -28,6 +28,7 @@ class Wave {
     }
 
   }
+  
   isWaveOver() {
     if (!this.game.enemies[0] && this.spawnOver) {
       return true

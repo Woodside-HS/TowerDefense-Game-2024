@@ -85,8 +85,8 @@ class GameState4 extends GameState { // Game Screen basic
     let y = 1;
     this.game.root = this.game.grid[this.game.cols - x][this.game.rows - y];
 
-    this.cell = this.game.grid[this.game.cols-1][this.game.rows - 1];
-    
+    this.cell = this.game.grid[this.game.cols - 1][this.game.rows - 1];
+
     if (this.game.gameStateID === 4) {
       this.game.levelRender(level1Key);
       this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/level1.jpg')"
