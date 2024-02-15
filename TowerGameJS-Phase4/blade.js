@@ -5,6 +5,9 @@ class Blade {
         this.shape = "square";
         this.img = bImg;
         this.ability=type;
+        this.orbitalRadius = 35;
+        this.angle = 0;
+        this.angularVelocity = 0;
     }
 
 
@@ -27,6 +30,9 @@ class Blade {
       }
 
       update(){
-        
+        console.log(this.loc.x);
+        this.loc.x = tower.loc.x + Math.cos(this.angle)*this.orbitalRadius;
+        this.loc.y = tower.loc.y + Math.sin(this.angle)*this.orbitalRadius;
+        this.angle += this.angularVelocity;
       }
 }
