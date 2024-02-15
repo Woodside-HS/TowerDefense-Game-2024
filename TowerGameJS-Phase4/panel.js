@@ -110,7 +110,10 @@ var panelJSON = [{
       pic: "resources/images/panels/restart.png",
       picId: "wframe",
       funk: function () {
-        towerGame.gameState = new GameState4(towerGame)
+        towerGame.gameState = new GameState4(towerGame);
+        towerGame.wave.referenceTime = 20;
+        document.getElementById('fastForward').innerHTML = "Start";
+        FRAME_RATE = 30;
         document.getElementById("endPanel").parentNode.removeChild(document.getElementById("endPanel"))
       }
     }, {

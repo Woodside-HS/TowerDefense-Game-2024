@@ -123,7 +123,7 @@ class Game {
           FRAME_RATE = 30; //make it slow
         }
       } else { //if the game has not started sending enemies
-        towerGame.gameTime = 20; //change gameTime to the point when it starts sending enemies
+        towerGame.gameTime = towerGame.wave.referenceTime; //change gameTime to the point when it starts sending enemies
         fastForwardButton.innerHTML = "Fast Forward"; //change the button to say "Fast Forward"
       }
     }, false);

@@ -69,7 +69,7 @@ class GameState4 extends GameState { // Game Screen basic
     super(game, 4)
     gameStateID = 4;
     this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/play.png')";
-    this.game.health = 100
+    this.game.health = 2;
     this.game.score = 0
     this.game.bankValue = 500;
     this.game.gameTime = 0
