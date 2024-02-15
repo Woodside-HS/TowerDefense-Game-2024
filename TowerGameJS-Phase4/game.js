@@ -57,6 +57,8 @@ class Game {
     this.bullets = [];
     this.missiles = [];
     this.hands = [];
+    this.blades = [];
+    this.allowPlace = true;
     this.explosiveBullets = [];
     this.bankValue = 500;
     this.rays = [];
@@ -716,7 +718,7 @@ this.gameStateID = 1;
         if (i == 5) {
           mtd.ability = "cannon";
         } else if (i == 6) {
-          mtd.ability = "temp7";
+          mtd.ability = "bladeStorm";
         } else if (i == 7) {
           mtd.ability = "liquify";
         } else if (i == 8) {
@@ -768,7 +770,7 @@ this.gameStateID = 1;
     // Some money required but also cannot place tower on a cell
     // of the grid that is occupied or is the root cell
     if (towerGame.placingTower) {
-      if (!cell.occupied && !cell.hasTower && cell != towerGame.root) {
+      if (!cell.occupied && !cell.hasTower && cell != towerGame.root && towerGame.allowPlace == true) {
         return true;
       }
       return (false);
@@ -873,7 +875,6 @@ this.gameStateID = 1;
     var row = Math.floor(event.offsetY / towerGame.w);
     var col = Math.floor(event.offsetX / towerGame.w);
     var cell = towerGame.grid[col][row];
-
     if (towerGame.placingTower && towerGame.canAddTower(cell)) {
       towerGame.placeTower(cell);
     }

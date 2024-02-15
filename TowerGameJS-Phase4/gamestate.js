@@ -131,6 +131,9 @@ class GameState4 extends GameState { // Game Screen basic
     for (let i = 0; i < this.game.hands.length; i++) {
       this.game.hands[i].run();
     }
+    for (let i = 0; i < this.game.blades.length; i ++){
+      this.game.blades[i].run();
+    }
 
 
     // some help text in the bottom left of the canvas

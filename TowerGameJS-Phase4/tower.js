@@ -20,6 +20,8 @@ class Tower {
     this.range = 200;
     this.minRange = 0;
     this.ability = ability;
+    this.allowPlace = true;
+
     if (ability == "freeze") {
       this.coolDown = 100;
       this.range = 150;
@@ -30,8 +32,11 @@ class Tower {
     else if (ability == "fast") {
       this.coolDown = 500;
     }
-    else if (ability == "cannon"){
+    else if (ability == "cannon") {
       this.coolDown = 100;
+    }
+    else if (ability == "bladeStorm"){
+      this.coolDown = 2000;
     }
     else if (ability == "buffregen") {
       this.coolDown = 19622;//why is this such a random number
@@ -134,26 +139,19 @@ class Tower {
 
 
       towerGame.canvas.addEventListener('click', () => {
-
         let mouseLoc = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY);
         let dist = this.loc.dist(mouseLoc)
         if (this.isInRange) {
           this.isInRange = false;
-                  towerGame.cell.occupied = true;
         }
         if (dist < 80) {
           this.isInRange = true;
-          towerGame.cell.occupied = true;
         }
-
-
         towerGame.canvas.addEventListener('mousemove', (event) => {
           if (this.isInRange) {
-           
             let mouseX = this.loc.x - towerGame.canvas.mouseX;
             let mouseY = this.loc.y - towerGame.canvas.mouseY;
             this.towAngle = Math.atan2(mouseY, mouseX) - Math.PI;
-          
           }
         });
       });
@@ -198,8 +196,10 @@ class Tower {
       this.lastTime = millis;
       let bulletLocation = vector2d(this.loc.x, this.loc.y);
       let b = new Bullet(bulletLocation, this.bulletImg, this.towAngle, this.ability);
-      let q = new Missile(bulletLocation, this.bulletImg, this.towAngle, this.ability);
+      let q = new Missile(bulletLocation, this.bulletImg, this.towAngle, this.ability);//ya know Missile, Liqufy,
+      // and Blade don't need a this.ability bc its unquie for only that tower but yeah
       let h = new Liquify(bulletLocation, this.bulletImg, this.towAngle, this.ability);
+      let s = new Blade(bulletLocation, this.bulletImg, this.ability)
       if (this.ability == "fast" || this.ability == "normal"
         || this.ability == "freeze" || this.ability == "explosive" || this.ability == "cannon") {
         towerGame.bullets.push(b);
@@ -215,8 +215,10 @@ class Tower {
       }
       if (this.ability == "liquify") {
         towerGame.hands.push(h)
-     //   towerGame.isHands = true;
 
+      }
+      if(this.ability == "bladeStorm"){
+        towerGame.blades.push(s);
       }
     }
     if (this.ability == "ray" && towerGame.enemies.length != 0) {//I will fix this code eventually
