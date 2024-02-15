@@ -111,6 +111,8 @@ var panelJSON = [{
       picId: "wframe",
       funk: function () {
         towerGame.gameState = new GameState4(towerGame);
+        towerGame.currentWaveNum = 0; // Reset the current wave number to 0
+        towerGame.wave = new Wave(towerGame, AllWaves[towerGame.currentWaveNum]); // Create a new Wave instance with the first wave
         towerGame.wave.referenceTime = 20;
         document.getElementById('fastForward').innerHTML = "Start";
         FRAME_RATE = 30;
@@ -125,6 +127,9 @@ var panelJSON = [{
         document.getElementById("endPanel").parentNode.removeChild(document.getElementById("endPanel"))
         towerGame.gameState.panelQuit = new Panel(towerGame, 2)
         towerGame.gameState = new GameState1(towerGame)
+        towerGame.wave.referenceTime = 20;
+        document.getElementById('fastForward').innerHTML = "Start";
+        FRAME_RATE = 30;
         document.getElementById("endPanel").parentNode.removeChild(document.getElementById("endPanel"))
       }
     }, {
@@ -154,3 +159,4 @@ var panelJSON = [{
       }
     }]
 }]
+
