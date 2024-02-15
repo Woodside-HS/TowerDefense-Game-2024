@@ -36,7 +36,7 @@ class Tower {
       this.coolDown = 100;
     }
     else if (ability == "bladeStorm"){
-      this.coolDown = 2000;
+      this.coolDown = 12;
     }
     else if (ability == "buffregen") {
       this.coolDown = 19622;//why is this such a random number
@@ -66,9 +66,9 @@ class Tower {
     var ctx = towerGame.context;
     if (this.ability == "buffregen") {
       ctx.save();
-      ctx.translate(this.loc.x, this.loc.y)
-      ctx.strokeStyle = "rgba(0,250,210, 0.8)"
-      ctx.fillStyle = "rgba(0, 250, 210, 0.08)"
+      ctx.translate(this.loc.x, this.loc.y);
+      ctx.strokeStyle = "rgba(0,250,210, 0.8)";
+      ctx.fillStyle = "rgba(0, 250, 210, 0.08)";
 
       ctx.beginPath();
       ctx.arc(0, 0, this.range, 0, Math.PI * 2, false);
@@ -199,7 +199,6 @@ class Tower {
       let q = new Missile(bulletLocation, this.bulletImg, this.towAngle, this.ability);//ya know Missile, Liqufy,
       // and Blade don't need a this.ability bc its unquie for only that tower but yeah
       let h = new Liquify(bulletLocation, this.bulletImg, this.towAngle, this.ability);
-      let s = new Blade(bulletLocation, this.bulletImg, this.ability)
       if (this.ability == "fast" || this.ability == "normal"
         || this.ability == "freeze" || this.ability == "explosive" || this.ability == "cannon") {
         towerGame.bullets.push(b);
@@ -214,11 +213,15 @@ class Tower {
         towerGame.missiles.push(q);
       }
       if (this.ability == "liquify") {
+
         towerGame.hands.push(h)
 
       }
       if(this.ability == "bladeStorm"){
-        towerGame.blades.push(s);
+        for( let i = 0; i < 4; i ++){
+          let s = new Blade(bulletLocation, this.bulletImg, (Math.PI/2)*i, this.ability);
+          towerGame.blades.push(s);
+        }
       }
     }
     if (this.ability == "ray" && towerGame.enemies.length != 0) {//I will fix this code eventually
