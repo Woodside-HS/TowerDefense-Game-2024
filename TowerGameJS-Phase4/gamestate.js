@@ -19,7 +19,7 @@ class GameState1 extends GameState { // Start Screen
   constructor(game) {
     super(game, 1)
     game.gameStateID = 1;
-    this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/start.png')"
+    this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/startScreen.jpg')"
     this.panelStart = new Panel(this, 0)
     this.panelInstructions = 0
     this.panelQuit = 0

@@ -744,7 +744,7 @@ class Game {
               towerGame.brushfire(towerGame.undo(towerGame.grid[col][row]));
             }
           } else if(key[row][col] === 'e'){
-            this.root = this.grid[this.cols - 10][this.rows - 7];
+            this.root = this.grid[col][row];
           }
         }
       }
