@@ -12,7 +12,7 @@ class Panel {
     this.panel.style.position = "absolute"
     this.panel.style.align = "center"
     this.panel.style.top = -800 + "px"
-    this.panel.style.left = 680 + "px";
+    this.panel.style.left = 725 + "px";
     this.panel.style.textAlign = "center"
     this.wrapper = document.getElementById('wrapperDiv').appendChild(this.panel)
     for (let i = 0; i < panelJSON[number].buttonJSON.length; i++) {

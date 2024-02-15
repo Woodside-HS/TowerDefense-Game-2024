@@ -48,7 +48,7 @@ class GameState3 extends GameState { // end screen
     super(game)
     towerGame.gameStateID = 3
     this.game.enemies = []
-    this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/end.png')"
+    this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/endScreen.jpg')"
     this.panelQuit = new Panel(this, 2)
     this.panelCredits = 0
     this.panelStart = 0
@@ -85,8 +85,7 @@ class GameState4 extends GameState { // Game Screen basic
     let y = 1;
     this.game.root = this.game.grid[this.game.cols - x][this.game.rows - y];
 
-    this.cell = this.game.grid[this.game.cols - 1][this.game.rows - 1];
-
+    
     if (this.game.gameStateID === 4) {
       this.game.levelRender(level1Key);
       this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/level1.jpg')"
