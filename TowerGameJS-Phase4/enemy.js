@@ -124,7 +124,15 @@ class Enemy {
         }
       }
     }
+    for (let h = 0; h < towerGame.blades.length; h++) {
+      if (this.checkCollide(this, towerGame.blades[h])) {
+        if (towerGame.blades[h].ability == "bladeStorm") {
+            this.health -= 100;
 
+
+        }
+      }
+    }
 
 
     for (let h = 0; h < towerGame.bullets.length; h++) {
@@ -145,7 +153,8 @@ class Enemy {
         } else if (towerGame.bullets[h].ability == "cannon"){
           this.health -= 250;
         
-        } else if (towerGame.bullets[h].ability == "explosive") {
+        }
+        else if (towerGame.bullets[h].ability == "explosive") {
           this.health -= 100;
           if (this.health <= 0) {
             this.kill = true;
@@ -244,11 +253,11 @@ class Enemy {
         let topLeft = shape2.loc;
         let topRight = new vector2d(shape2.loc.x + shape2.w, shape2.loc.y);
         let bottomRight = new vector2d(shape2.loc.x + shape2.w, shape2.loc.y + shape2.w);
-        let bottomLeft = new vector2d(shape2.loc.x, shape2.loc.y + _shape2.w);
-        let dist1 = this.dist(topLeft, shape1.loc);
-        let dist2 = this.dist(topRight, shape1.loc);
-        let dist3 = this.dist(bottomRight, shape1.loc);
-        let dist4 = this.dist(bottomLeft, shape1.loc);
+        let bottomLeft = new vector2d(shape2.loc.x, shape2.loc.y + shape2.w);
+        let dist1 = vector2d.dist5(topLeft, shape1.loc);
+        let dist2 = vector2d.dist5(topRight, shape1.loc);
+        let dist3 = vector2d.dist5(bottomRight, shape1.loc);
+        let dist4 = vector2d.dist5(bottomLeft, shape1.loc);
         if (dist1 <= shape1.r || dist2 <= shape1.r || dist3 <= shape1.r || dist4 <= shape1.r) return true;
         return false;
       } else if (shape2.shape === "point") {
@@ -266,11 +275,11 @@ class Enemy {
         let topRight = new vector2d(shape1.loc.x + shape1.w, shape1.loc.y);
         let bottomRight = new vector2d(shape1.loc.x + shape1.w, shape1.loc.y + shape1.w);
         let bottomLeft = new vector2d(shape1.loc.x, shape1.loc.y + shape1.w);
-        let dist1 = this.dist(topLeft, shape2.loc);
-        let dist2 = this.dist(topRight, shape2.loc);
-        let dist3 = this.dist(bottomRight, shape2.loc);
-        let dist4 = this.dist(bottomLeft, shape2.loc);
-        if (dist1 <= shape2.r || dist2 <= shape2.r || dist3 <= shape2.r || dist4 <= shape2.r) return true;
+        let dist1 = vector2d.dist5(topLeft, shape2.loc);
+        let dist2 = vector2d.dist5(topRight, shape2.loc);
+        let dist3 = vector2d.dist5(bottomRight, shape2.loc);
+        let dist4 = vector2d.dist5(bottomLeft, shape2.loc);
+        if (dist1 <= shape2.r || vector2d.dist2 <= shape2.r || dist3 <= shape2.r || dist4 <= shape2.r) return true;
         return false;
       } else if (shape2.shape === "square") {
         //square-square

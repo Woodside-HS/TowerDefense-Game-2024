@@ -36,7 +36,7 @@ class Tower {
       this.coolDown = 100;
     }
     else if (ability == "bladeStorm"){
-      this.coolDown = 12;
+      this.coolDown = 1200;
     }
     else if (ability == "buffregen") {
       this.coolDown = 19622;//why is this such a random number
@@ -217,7 +217,7 @@ class Tower {
         towerGame.hands.push(h)
 
       }
-      if(this.ability == "bladeStorm"){
+      if(this.ability == "bladeStorm" && towerGame.blades.length === 0){
         for( let i = 0; i < 4; i ++){
           let s = new Blade(bulletLocation, this.bulletImg, (Math.PI/2)*i, this.ability);
           towerGame.blades.push(s);

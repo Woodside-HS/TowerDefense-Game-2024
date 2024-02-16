@@ -27,7 +27,6 @@ class Missile {
         ctx.save();
         ctx.fillStyle = this.clr;
         ctx.strokeStyle = this.clr;
-     //   ctx.rotate(this.angle+Math.PI/2);
         ctx.translate(this.loc.x, this.loc.y);
             ctx.drawImage(this.img, -this.img.width/2,-this.img.height/2);
         ctx.fill();
