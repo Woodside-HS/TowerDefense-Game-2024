@@ -6,7 +6,7 @@ class Enemy {
     this.loc = this.currentCell.center.copy();
     this.randomPath = 0;   //boolean to randomize or not
     this.radius = 15.0;
-    this.r = 3.0;
+    this.r = 15.0;
     this.vel = 3.0;
     this.slowed = 1.2;
     this.isLocked = false;
@@ -129,7 +129,6 @@ class Enemy {
         if (towerGame.blades[h].ability == "bladeStorm") {
             this.health -= 100;
 
-
         }
       }
     }
@@ -152,7 +151,14 @@ class Enemy {
           }, 5000);
         } else if (towerGame.bullets[h].ability == "cannon"){
           this.health -= 250;
-        
+          this.health -= 100;
+          if (this.health <= 0) {
+            this.kill = true;
+          }
+          this.locations = this.loc;
+          towerGame.explosiveBullets.push(new Explosives(towerGame.bullets[h].loc));
+
+          towerGame.bullets.splice(h, 1);
         }
         else if (towerGame.bullets[h].ability == "explosive") {
           this.health -= 100;
@@ -248,21 +254,21 @@ class Enemy {
         //console.log(this.dist(shape1.loc, shape2.loc) );
         if (shape1.r + shape2.r >= shape1.loc.copy().dist(shape2.loc)) return true;
         return false;
-      } else if (shape2.shape === "square") {
+      } else if (shape2.shape === "square") {//this does not work for rectangles but its close enought for a 57x50 thing
         //circle-square
         let topLeft = shape2.loc;
         let topRight = new vector2d(shape2.loc.x + shape2.w, shape2.loc.y);
         let bottomRight = new vector2d(shape2.loc.x + shape2.w, shape2.loc.y + shape2.w);
         let bottomLeft = new vector2d(shape2.loc.x, shape2.loc.y + shape2.w);
-        let dist1 = vector2d.dist(topLeft, shape1.loc);
-        let dist2 = vector2d.dist(topRight, shape1.loc);
-        let dist3 = vector2d.dist(bottomRight, shape1.loc);
-        let dist4 = vector2d.dist(bottomLeft, shape1.loc);
+        let dist1 = topLeft.dist(shape1.loc);
+        let dist2 = topRight.dist(shape1.loc);
+        let dist3 = bottomRight.dist(shape1.loc);
+        let dist4 = bottomLeft.dist(shape1.loc);
         if (dist1 <= shape1.r || dist2 <= shape1.r || dist3 <= shape1.r || dist4 <= shape1.r) return true;
         return false;
       } else if (shape2.shape === "point") {
         //circle-point
-        if (shape1.r >= this.dist(shape1.loc, shape2.loc)) return true;
+        if (shape1.r >= shape1.loc.dist(shape2.loc)) return true;
         return false;
       } else {
         throw "shape2 shape not acceptable.";
@@ -275,10 +281,10 @@ class Enemy {
         let topRight = new vector2d(shape1.loc.x + shape1.w, shape1.loc.y);
         let bottomRight = new vector2d(shape1.loc.x + shape1.w, shape1.loc.y + shape1.w);
         let bottomLeft = new vector2d(shape1.loc.x, shape1.loc.y + shape1.w);
-        let dist1 = dist(topLeft, shape2.loc);
-        let dist2 = dist(topRight, shape2.loc);
-        let dist3 = dist(bottomRight, shape2.loc);
-        let dist4 = dist(bottomLeft, shape2.loc);
+        let dist1 = topLeft.dist(shape2.loc);
+        let dist2 = topRight.dist(shape2.loc);
+        let dist3 = bottomRight.dist(shape2.loc);
+        let dist4 = bottomLeft.dist(shape2.loc);
         if (dist1 <= shape2.r || dist2 <= shape2.r || dist3 <= shape2.r || dist4 <= shape2.r) return true;
         return false;
       } else if (shape2.shape === "square") {
@@ -298,13 +304,13 @@ class Enemy {
     } else if (shape1.shape === "point") {
       if (shape2.shape === "circle") {
         //point-circle
-        if (shape2.r >= vector2d.dist(shape2.loc, shape1.loc)) return true;
+        if (shape2.r >= shape2.loc.dist(shape1.loc)) return true;
         return false;
       } else if (shape2.shape === "square") {
         //point-square
       } else if (shape2.shape === "point") {
         //point-point
-        if (vector2d.dist(shape2.loc, shape1.loc) < 1) return true;
+        if (shape2.loc.dist(shape1.loc) < 1) return true;
         return false;
       } else {
         throw "shape2 shape not acceptable.";

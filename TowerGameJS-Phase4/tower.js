@@ -19,6 +19,7 @@ class Tower {
     this.enemies = towerGame.enemies;
     this.range = 200;
     this.minRange = 0;
+    this.blades = 0;
     this.ability = ability;
     this.allowPlace = true;
 
@@ -35,8 +36,9 @@ class Tower {
     else if (ability == "cannon") {
       this.coolDown = 100;
     }
-    else if (ability == "bladeStorm"){
-      this.coolDown = 1200;
+    else if (ability == "bladeStorm") {
+      this.coolDown = 0;
+      this.range = 8000;
     }
     else if (ability == "buffregen") {
       this.coolDown = 19622;//why is this such a random number
@@ -68,6 +70,7 @@ class Tower {
       ctx.save();
       ctx.translate(this.loc.x, this.loc.y);
       ctx.strokeStyle = "rgba(0,250,210, 0.8)";
+      
       ctx.fillStyle = "rgba(0, 250, 210, 0.08)";
 
       ctx.beginPath();
@@ -94,15 +97,22 @@ class Tower {
       ctx.beginPath();
 
       // Draw the outer circle
+      if(this.ability != "bladeStorm"){
       ctx.arc(0, 0, this.range, 0, 2 * Math.PI, false);
+      }else{
+        ctx.arc(0, 0, 80, 0, 2 * Math.PI, false);//dont question it
+      }
 
       // Draw the inner circle for minRange
       ctx.moveTo(0 + this.minRange, 0); // Move to the starting point of the inner circle
       ctx.arc(0, 0, this.minRange, 0, 2 * Math.PI, false); // Draw the inner circle
+     
       ctx.fillStyle = 'rgba(192, 192, 192, 0.5)';
+     
       ctx.fill();
       ctx.lineWidth = 5;
       ctx.strokeStyle = '#003300';
+      
       ctx.stroke();
     }
 
@@ -183,6 +193,8 @@ class Tower {
 
 
 
+
+
   checkEnemies() {
     let dx = this.loc.x - this.target.x;
     let dy = this.loc.y - this.target.y;
@@ -213,17 +225,21 @@ class Tower {
         towerGame.missiles.push(q);
       }
       if (this.ability == "liquify") {
-
-        towerGame.hands.push(h)
-
+        towerGame.hands.push(h);
       }
-      if(this.ability == "bladeStorm" && towerGame.blades.length === 0){
-        for( let i = 0; i < 4; i ++){
-          let s = new Blade(bulletLocation, this.bulletImg, (Math.PI/2)*i, this.ability);
+      if (this.ability == "bladeStorm") {
+        if (this.blades != 4) {
+          let bulletLocation = vector2d(this.loc.x, this.loc.y);
+          let s = new Blade(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.blades);
           towerGame.blades.push(s);
+          this.blades++;
         }
       }
     }
+
+
+
+
     if (this.ability == "ray" && towerGame.enemies.length != 0) {//I will fix this code eventually
       var a3 = this.loc.x - this.target.x;
       var b3 = this.loc.y - this.target.y;
@@ -231,11 +247,12 @@ class Tower {
       if (k < 300 && towerGame.enemies.length != 0 && this.target.x != towerGame.canvas.mouseX) {
         var rys = new LockOn(this.loc, this.target);
         rys.run();
-        if (this.findEnemyIndex() < towerGame.enemies.length)
+        if (this.findEnemyIndex() < towerGame.enemies.length) {
 
           towerGame.enemies[this.findEnemyIndex()].isLocked = true;//health -=  10;
-      } else {
-        towerGame.rays = [];
+        } else {
+          towerGame.rays = [];
+        }
       }
     }
   }
