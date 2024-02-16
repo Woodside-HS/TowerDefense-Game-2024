@@ -21,7 +21,8 @@ class Tower {
     this.minRange = 0;
     this.blades = 0;
     this.ability = ability;
-    this.allowPlace = true;
+    this.chooseTargetArea = true;
+    this.mouseLoc;
 
     if (ability == "freeze") {
       this.coolDown = 100;
@@ -34,7 +35,9 @@ class Tower {
       this.coolDown = 500;
     }
     else if (ability == "cannon") {
-      this.coolDown = 100;
+      this.coolDown = 1000;
+      this.minRange = 60;
+      this.range = 300;
     }
     else if (ability == "bladeStorm") {
       this.coolDown = 0;
@@ -69,8 +72,7 @@ class Tower {
     if (this.ability == "buffregen") {
       ctx.save();
       ctx.translate(this.loc.x, this.loc.y);
-      ctx.strokeStyle = "rgba(0,250,210, 0.8)";
-      
+      ctx.strokeStyle = "rgba(0,250,210, 0.8)"; 
       ctx.fillStyle = "rgba(0, 250, 210, 0.08)";
 
       ctx.beginPath();
@@ -80,6 +82,21 @@ class Tower {
       ctx.stroke();
       ctx.fill();
 
+
+      ctx.restore();
+    }
+    if(this.ability == "cannon" && this.chooseTargetArea){
+      ctx.save();
+     // ctx.translate(this.loc.x, this.loc.y);
+      ctx.strokeStyle = "rgba(0,250,210, 0.8)"; 
+      ctx.fillStyle = "rgba(0, 250, 210, 0.08)";
+
+      ctx.beginPath();
+      this.target = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY)
+      ctx.arc(this.target.x, this.target.y, 160, 0, Math.PI * 2, false);
+      ctx.closePath();
+      ctx.stroke();
+      ctx.fill();
 
       ctx.restore();
     }
@@ -129,7 +146,7 @@ class Tower {
     this.enemy = this.findEnemy()
     if (this.enemy) {
       this.target = this.enemy.loc;
-      if (this.ability == "missile") {
+      if (this.ability == "missile" || this.ability == "cannon") {
         let dx = this.loc.x - this.target.x;
         let dy = this.loc.y - this.target.y;
         let dist = vector2d(dx, dy).length();
@@ -140,7 +157,7 @@ class Tower {
     } else {
       this.target = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY)
     }
-    if (this.ability != "missile") {
+    if (this.ability != "missile" && this.ability != "cannon") {
       let dx = this.loc.x - this.target.x;
       let dy = this.loc.y - this.target.y;
       this.towAngle = Math.atan2(dy, dx) - Math.PI;
@@ -150,12 +167,17 @@ class Tower {
 
       towerGame.canvas.addEventListener('click', () => {
         let mouseLoc = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY);
-        let dist = this.loc.dist(mouseLoc)
+        let dist = this.loc.dist(mouseLoc);
+        if(this.chooseTargetArea){
+          this.chooseTargetArea = false;
+          this.mouseLoc = mouseLoc;
+        }
         if (this.isInRange) {
           this.isInRange = false;
         }
-        if (dist < 80) {
+        if (dist < 40) {
           this.isInRange = true;
+          this.chooseTargetArea = true;
         }
         towerGame.canvas.addEventListener('mousemove', (event) => {
           if (this.isInRange) {
@@ -207,13 +229,14 @@ class Tower {
       // reset lastTime to current time
       this.lastTime = millis;
       let bulletLocation = vector2d(this.loc.x, this.loc.y);
-      let b = new Bullet(bulletLocation, this.bulletImg, this.towAngle, this.ability);
+      let b = new Bullet(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.mouseLoc);
       let q = new Missile(bulletLocation, this.bulletImg, this.towAngle, this.ability);//ya know Missile, Liqufy,
       // and Blade don't need a this.ability bc its unquie for only that tower but yeah
       let h = new Liquify(bulletLocation, this.bulletImg, this.towAngle, this.ability);
       if (this.ability == "fast" || this.ability == "normal"
         || this.ability == "freeze" || this.ability == "explosive" || this.ability == "cannon") {
         towerGame.bullets.push(b);
+        
       }
       if (this.ability == "buffregen") {
         if (towerGame.health < 150) {

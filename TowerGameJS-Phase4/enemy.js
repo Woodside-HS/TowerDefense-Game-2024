@@ -54,21 +54,21 @@ class Enemy {
       return (candidates[Math.floor(Math.random() * candidates.length)]);
     }
   }
-  oppositeNextTarget(){//idk
+  oppositeNextTarget() {//idk
 
-      if (!this.randomPath)
-        return (this.currentCell.parent);    // the parent cell is always the shortest path
-      else {  // else choose from cells with a lesser distance to the root
-        let candidates = [];
-        for (let i = 0; i < this.currentCell.neighbors.length; i++) {
-          if (this.currentCell.neighbors[i].dist > this.currentCell.dist)
-            candidates.push(this.currentCell.neighbors[i]);
-        }
-        // randomly pick one of the candidates
-        return (candidates[Math.floor(Math.random() * candidates.length)]);
+    if (!this.randomPath)
+      return (this.currentCell.parent);    // the parent cell is always the shortest path
+    else {  // else choose from cells with a lesser distance to the root
+      let candidates = [];
+      for (let i = 0; i < this.currentCell.neighbors.length; i++) {
+        if (this.currentCell.neighbors[i].dist > this.currentCell.dist)
+          candidates.push(this.currentCell.neighbors[i]);
       }
-    } 
-  
+      // randomly pick one of the candidates
+      return (candidates[Math.floor(Math.random() * candidates.length)]);
+    }
+  }
+
 
   // render()
   // Draw the enemy at its current location
@@ -118,7 +118,7 @@ class Enemy {
     for (let h = 0; h < towerGame.hands.length; h++) {
       if (this.checkCollide(this, towerGame.hands[h])) {
         if (towerGame.hands[h].ability == "liquify") {
-            this.health -= 10;
+          this.health -= 10;
 
 
         }
@@ -127,7 +127,7 @@ class Enemy {
     for (let h = 0; h < towerGame.blades.length; h++) {
       if (this.checkCollide(this, towerGame.blades[h])) {
         if (towerGame.blades[h].ability == "bladeStorm") {
-            this.health -= 100;
+          this.health -= 100;
 
         }
       }
@@ -149,14 +149,13 @@ class Enemy {
           setTimeout(() => {
             this.slowed = 1.2;
           }, 5000);
-        } else if (towerGame.bullets[h].ability == "cannon"){
-          this.health -= 250;
-          this.health -= 100;
+        } else if (towerGame.bullets[h].ability == "cannon") {
+          this.health -= 20;
           if (this.health <= 0) {
             this.kill = true;
           }
           this.locations = this.loc;
-          towerGame.explosiveBullets.push(new Explosives(towerGame.bullets[h].loc));
+          towerGame.explosiveBullets.push(new Explosives(towerGame.bullets[h].loc, towerGame.bullets[h].ability));
 
           towerGame.bullets.splice(h, 1);
         }
@@ -166,7 +165,7 @@ class Enemy {
             this.kill = true;
           }
           this.locations = this.loc;
-          towerGame.explosiveBullets.push(new Explosives(towerGame.bullets[h].loc));
+          towerGame.explosiveBullets.push(new Explosives(towerGame.bullets[h].loc, towerGame.bullets[h].ability));
 
           towerGame.bullets.splice(h, 1);
         }

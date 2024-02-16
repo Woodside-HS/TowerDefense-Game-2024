@@ -65,7 +65,7 @@ class Game {
     this.checkOnce = true;
     this.enemyNum = 20;
     this.wallCost = 2;
-this.gameStateID = 1;
+    this.gameStateID = 1;
     this.paused = false;
 
     this.loadEnemyImages();
@@ -217,62 +217,7 @@ this.gameStateID = 1;
 
     if (!this.paused) {
       this.gameState.run()
-    }     // let gt = this.updateGameTime();
-    // this.updateInfoElements(gt);
-    // this.removeBullets();
-    // this.removeEnemies();
-    // this.controlWaves()
-    // if (this.isRunning) {
-    //   this.render();
-    // }
-    //
-    // // draw the grid
-    // for(let i = 0; i < this.cols; i++){
-    //   for(let j = 0; j < this.rows; j++){
-    //     this.grid[i][j].render();
-    //   }
-    // }
-    //  // draw the towers
-    // for (let i = 0; i < this.towers.length; i++) {
-    //   this.towers[i].run();
-    // }
-    // for (let i = 0; i < this.enemies.length; i++) {
-    //   this.enemies[i].run();
-    // }
-    // for (let i = 0; i < this.bullets.length; i++) {
-    //   this.bullets[i].run();
-    // }
-    //
-    // // some help text in the bottom left of the canvas
-    // this.context.save();
-    // this.context.fillStyle = "white";
-    // this.context.font = "14px sans-serif";
-    // this.context.fillText("Press the E key to send enemies", 20, this.canvas.height-20);
-    // this.context.restore();
-    //
-    // //more panelthings
-    // if(this.panelStart){
-    //   this.panelStart.render()
-    // }
-    //
-    // if(this.panelInstructions){
-    //   this.panelInstructions.render()
-    // }
-    //
-    // if(this.panelQuit){
-    //   this.panelQuit.render()
-    // }
-    //
-    // //collision detection
-    // for(var i = 0; i < this.enemies.length; i++){
-    //   for(var j = 0; j < this.bullets.length; j++){
-    //     if(this.circlePointCollision(this.bullets[j].loc.x, this.bullets[j].loc.y, this.enemies[i].loc.x, this.enemies[i].loc.y, this.enemies[i].radius)){
-    //       this.bullets.splice(j, 1);
-    //       this.enemies.splice(i, 1);
-    //     }
-    //   }
-    // }
-
+    }    
   }
 
 
