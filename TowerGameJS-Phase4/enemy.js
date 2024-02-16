@@ -254,10 +254,10 @@ class Enemy {
         let topRight = new vector2d(shape2.loc.x + shape2.w, shape2.loc.y);
         let bottomRight = new vector2d(shape2.loc.x + shape2.w, shape2.loc.y + shape2.w);
         let bottomLeft = new vector2d(shape2.loc.x, shape2.loc.y + shape2.w);
-        let dist1 = vector2d.dist5(topLeft, shape1.loc);
-        let dist2 = vector2d.dist5(topRight, shape1.loc);
-        let dist3 = vector2d.dist5(bottomRight, shape1.loc);
-        let dist4 = vector2d.dist5(bottomLeft, shape1.loc);
+        let dist1 = vector2d.dist(topLeft, shape1.loc);
+        let dist2 = vector2d.dist(topRight, shape1.loc);
+        let dist3 = vector2d.dist(bottomRight, shape1.loc);
+        let dist4 = vector2d.dist(bottomLeft, shape1.loc);
         if (dist1 <= shape1.r || dist2 <= shape1.r || dist3 <= shape1.r || dist4 <= shape1.r) return true;
         return false;
       } else if (shape2.shape === "point") {
@@ -275,11 +275,11 @@ class Enemy {
         let topRight = new vector2d(shape1.loc.x + shape1.w, shape1.loc.y);
         let bottomRight = new vector2d(shape1.loc.x + shape1.w, shape1.loc.y + shape1.w);
         let bottomLeft = new vector2d(shape1.loc.x, shape1.loc.y + shape1.w);
-        let dist1 = vector2d.dist5(topLeft, shape2.loc);
-        let dist2 = vector2d.dist5(topRight, shape2.loc);
-        let dist3 = vector2d.dist5(bottomRight, shape2.loc);
-        let dist4 = vector2d.dist5(bottomLeft, shape2.loc);
-        if (dist1 <= shape2.r || vector2d.dist2 <= shape2.r || dist3 <= shape2.r || dist4 <= shape2.r) return true;
+        let dist1 = dist(topLeft, shape2.loc);
+        let dist2 = dist(topRight, shape2.loc);
+        let dist3 = dist(bottomRight, shape2.loc);
+        let dist4 = dist(bottomLeft, shape2.loc);
+        if (dist1 <= shape2.r || dist2 <= shape2.r || dist3 <= shape2.r || dist4 <= shape2.r) return true;
         return false;
       } else if (shape2.shape === "square") {
         //square-square

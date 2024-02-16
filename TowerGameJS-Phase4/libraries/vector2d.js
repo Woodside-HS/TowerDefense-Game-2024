@@ -43,11 +43,11 @@ var vector2d = function (vx, vy) {
         },
 
             // 2-20-17 added dist()
-        dist: function (vec2) {
-         return(vec2.copy().sub(this).length());
+        dist: function (v1, v2) {
+         return(Math.sqrt((v2.x-v2.x)*(v2.x-v1.x) + (v2.y-v1.y)*(v2.y-v1.y)));
         },
-        dist5: function (vec1, vec2){
-            return(new vector2d(vec2.x - vec1.x, vec2.y - vec1.y));
+        dist5: function (v1, v2){
+            return(Math.sqrt((v2.x-v2.x)*(v2.x-v1.x) + (v2.y-v1.y)*(v2.y-v1.y)));
         },
 
             // 2-20-17 added angleBetween()
