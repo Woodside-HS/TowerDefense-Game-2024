@@ -5,6 +5,6 @@ _Edited and Improved By:_
 
 Bryan Calder
 — John Gilbert
-— Yoann Renninger
+— Yoan Renninger
 — Logan Thomas
 — Patrick Van Hoven
