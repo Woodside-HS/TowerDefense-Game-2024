@@ -136,9 +136,7 @@ class Tower {
         if (towerGame.towers[i].ability != "buffregen") {
           let dist = this.loc.dist(towerGame.towers[i].loc);
           if (dist < this.range) {
-            towerGame.towers[i].coolDown = towerGame.towers[i].MaxCoolDown * this.buffConstant;
-            //this current system is non stackable
-            //will eventually
+            towerGame.towers[i].coolDown = towerGame.towers[i].MaxCoolDown * this.buffConstant ;
           }
         }
       }
