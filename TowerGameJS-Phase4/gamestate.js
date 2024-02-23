@@ -91,6 +91,7 @@ class GameState4 extends GameState { // Game Screen basic
       this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/level1.jpg')"
     } else if (this.game.gameStateID === 5) {
       this.game.levelRender(level2Key);
+      this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/level2.jpg')"
     } else if (this.game.gameStateID === 6) {
       this.game.levelRender(level3Key);
     } else if (this.game.gameStateID === 7) {

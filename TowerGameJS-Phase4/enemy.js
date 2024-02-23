@@ -2,7 +2,19 @@ class Enemy {
 
   constructor(game) {
     this.game = game;
-    this.currentCell = this.game.grid[0][0]; // start position of the enemies
+    // currentCell is the start position of the enemies
+    if (this.game.gameStateID === 4) {
+      this.currentCell = this.game.grid[0][0];
+    } else if (this.game.gameStateID === 5) {
+      this.currentCell = this.game.grid[13][0];
+    } else if (this.game.gameStateID === 6) {
+
+    } else if (this.game.gameStateID === 7) {
+
+    } else if (this.game.gameStateID === 8) {
+
+    }
+
     this.loc = this.currentCell.center.copy();
     this.randomPath = 0;   //boolean to randomize or not
     this.radius = 15.0;
