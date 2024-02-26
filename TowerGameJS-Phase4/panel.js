@@ -78,7 +78,7 @@ var panelJSON = [{
       pic: "resources/images/panels/end.png",
       picId: "exit",
       funk: function () {
-        towerGame.gameState = new GameState3(towerGame)
+        towerGame.gameState = new GameState4(towerGame)
         document.getElementById("firstPanel").parentNode.removeChild(document.getElementById("firstPanel"))
       }
     }]

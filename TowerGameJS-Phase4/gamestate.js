@@ -66,10 +66,23 @@ class GameState3 extends GameState { // end screen
   }
 }
 
+class GameState4 extends GameState{ //Catalog
+  constructor(game){
+    super(game);
+    towerGame.gameStateID = 4;
+    this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/endScreen.jpg')"
+
+    document.getElementById('infoDiv').style.visibility = 'hidden'; // Make info tiles invisible on start page
+    document.getElementById('menuDiv').style.visibility = 'hidden';
+  }
+
+}
+
+
 class GameState5 extends GameState { // Game Screen basic
   constructor(game) {
     super(game, 4)
-    this.game.gameStateID = 5;
+    this.game.gameStateID = 6;
     this.game.health = 100
     this.game.score = 0
     this.game.bankValue = 1000;
@@ -87,13 +100,16 @@ class GameState5 extends GameState { // Game Screen basic
     let y = 1;
     this.game.root = this.game.grid[this.game.cols - x][this.game.rows - y];
 
-    
+    // calls the grid created in level.js, creating the set path
+    // and loading in the correct background for that level.
+    // This is geared to be able to add more levels in the future, as
+    // there are currently only 3.
     if (this.game.gameStateID === 5) {
       this.game.levelRender(level1Key);
-      this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/level1.jpg')"
+      this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/levels/level1.jpg')"
     } else if (this.game.gameStateID === 6) {
       this.game.levelRender(level2Key);
-      this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/level2.jpg')"
+      this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/levels/level2.jpg')"
     } else if (this.game.gameStateID === 7) {
       this.game.levelRender(level3Key);
     } else if (this.game.gameStateID === 8) {

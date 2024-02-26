@@ -1,6 +1,6 @@
 //14 rows tall and 17 col wide, starting at 0
 // ' ' is an empty cell
-// 'b' stands for block, which will make that cell occupied.
+// 'b' stands for block, which will make that cell occupied with a wall.
 // 'e' stands for end, which is where the enemies need to end up.
 let level1Key = [
     [' ', 'b', 'b', ' ', ' ', ' ', ' ', 'b', 'b', ' ', ' ', ' ', ' ', ' ', ' ', 'b', 'b', 'b'],
@@ -22,7 +22,7 @@ let level1Key = [
 let level2Key = [
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'b', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
     [' ', ' ', ' ', ' ', ' ', 'b', 'b', 'b', ' ', ' ', ' ', 'b', ' ', ' ', 'b', ' ', ' ', ' '],
-    [' ', ' ', ' ', ' ', 'b', 'b', ' ', 'b', ' ', ' ', 'b', ' ', ' ', ' ', 'b', ' ', ' ', ' '],
+    [' ', ' ', ' ', ' ', 'b', 'b', ' ', 'b', ' ', ' ', 'b', 'b', ' ', ' ', 'b', ' ', ' ', ' '],
     [' ', ' ', ' ', ' ', 'b', 'b', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'b', 'b', ' ', ' ', ' '],
     [' ', ' ', ' ', 'b', 'b', ' ', ' ', ' ', 'b', ' ', 'b', ' ', ' ', 'b', 'b', ' ', ' ', ' '],
     [' ', ' ', 'b', 'b', ' ', ' ', ' ', 'b', 'b', 'b', 'b', 'b', ' ', ' ', ' ', 'b', 'b', ' '],
