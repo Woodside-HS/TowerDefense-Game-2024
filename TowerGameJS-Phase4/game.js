@@ -11,15 +11,21 @@ var bsImage;
 var ssImage;
 var load = document.getElementById('loader');
 var wrap;
-
+let imageSet = A;
 let gameStateID = 1;
-
 function loadImages() {
+  if (imageSet == A){
   bsImage = new Image();
   bsImage.src = "resources/images/spritesheets/buttons.png";
   ssImage = new Image();
   ssImage.src = "resources/images/spritesheets/sprites.png";
   window.setTimeout(setup, 1500);
+  } else if (imageSet == B){
+    bsImage.src = "resources/images/spritesheets/buttons.png";
+  ssImage = new Image();
+  ssImage.src = "resources/images/spritesheets/sprites.png";
+  window.setTimeout(setup, 1500);
+  }
 }
 function setup() {
   wrap = document.getElementById('wrapperDiv');
