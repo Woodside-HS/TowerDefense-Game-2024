@@ -25,16 +25,29 @@ class Bullet {
   run() {
     this.render();
     if (this.ability == "cannon") {
-      this.chooseExplosiveSpot();
+      // this.chooseExplosiveSpot();
+      //this.cannonMovement();
+    } else {
+      this.update();
     }
-    this.update();
   }
 
+  cannonMovement() {
+    //this.angleBetween(this.cannonMovement());
+    let can = this.chooseExplosiveSpot();
+    console.log(can)
+    //console.log(this.angleBetween(cannonMovement()));
+  }
+  //chooseExplosiveSpot()
+  // look through all grid spots
+  //if they are in the chossen towers range then add them to array
+  //pick a random one to fly towards and damage them
   chooseExplosiveSpot() {
+    this.spots = [];
     let count = 0;
     for (let i = 0; i < 18; i++) {
       for (let j = 0; j < 15; j++) {
-        let dist = towerGame.grid[i][j].loc.dist(this.mouseLoc)
+        let dist = towerGame.grid[i][j].loc.dist(this.mouseLoc);
         if (dist < 160) {
           count++;
           this.spots.push(towerGame.grid[i][j]);
@@ -42,9 +55,11 @@ class Bullet {
 
       }
     }
-    let j = Math.floor(Math.random() * this.spots.length);
-    if(j != 0)
-    return angle;
+    // let j = 
+    // if (j != 0) {
+    //   let choosenSpot = 
+    //   return j;
+    // }
 
   }
   render() {
