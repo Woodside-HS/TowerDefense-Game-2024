@@ -52,6 +52,8 @@ class GameState3 extends GameState { // end screen
     this.panelQuit = new Panel(this, 2)
     this.panelCredits = 0
     this.panelStart = 0
+    document.getElementById('infoDiv').style.visibility = 'hidden'; // Make info tiles invisible on start page
+    document.getElementById('menuDiv').style.visibility = 'hidden';
   }
   run() {
     this.game.render()
@@ -69,7 +71,7 @@ class GameState4 extends GameState { // Game Screen basic
     super(game, 4)
     gameStateID = 4;
     this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/play.png')";
-    this.game.health = 100
+    this.game.health = 100;
     this.game.score = 0
     this.game.bankValue = 500;
     this.game.gameTime = 0
