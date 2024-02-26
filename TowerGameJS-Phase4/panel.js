@@ -1,28 +1,28 @@
 "use strict"
 class Panel {
   constructor(game, number) {
-    this.game = game
-    this.temp = 0
-    this.y = -590
-    this.panel = document.createElement("div")
-    this.panel.id = panelJSON[number].id
-    this.panel.style.width = 450 + "px"
-    this.panel.style.height = 290 + "px"
-    this.panel.style.backgroundImage = 'url("' + panelJSON[number].pic + '")'
-    this.panel.style.position = "absolute"
-    this.panel.style.align = "center"
-    this.panel.style.top = -800 + "px"
+    this.game = game;
+    this.temp = 0;
+    this.y = -590;
+    this.panel = document.createElement("div");
+    this.panel.id = panelJSON[number].id;
+    this.panel.style.width = game.cnvMain + "px";
+    this.panel.style.height = 290 + "px";
+    this.panel.style.backgroundImage = 'url("' + panelJSON[number].pic + '")';
+    this.panel.style.position = "absolute";
+    this.panel.style.align = "center";
+    this.panel.style.top = -800 + "px";
     this.panel.style.left = 680 + "px";
-    this.panel.style.textAlign = "center"
-    this.wrapper = document.getElementById('wrapperDiv').appendChild(this.panel)
+    this.panel.style.textAlign = "center";;
+    this.wrapper = document.getElementById('wrapperDiv').appendChild(this.panel);
     for (let i = 0; i < panelJSON[number].buttonJSON.length; i++) {
       this.createButton(panelJSON[number], i)
     }
   }
 
   render() {
-    this.y = this.slideDown(this.y, 550, .05)
-    this.panel.style.top = this.y + "px"
+     this.y = this.slideDown(this.y, 550, .05)
+      this.panel.style.top = this.y + "px";
   }
 
   slideDown(start, end, incroment) {
@@ -32,19 +32,19 @@ class Panel {
   }
 
   createButton(JSON1, i) {
-    var button = document.createElement("div")
-    button.id = JSON1.buttonJSON[i].picId
-    button.style.width = 123 + "px"
-    button.style.height = 30 + "px"
-    button.style.position = "relative"
-    button.style.top = 5 + 21 * i + "%"
-    button.style.left = 50 + "px"
-    button.image = document.createElement("img")
-    button.image.id = JSON1.buttonJSON[i].picId
-    button.image.src = JSON1.buttonJSON[i].pic
-    button.image.addEventListener("click", JSON1.buttonJSON[i].funk, false)
-    button.appendChild(button.image)
-    this.panel.appendChild(button)
+    var button = document.createElement("div");
+    button.id = JSON1.buttonJSON[i].picId;
+    button.style.width = 123 + "px";
+    button.style.height = 30 + "px";
+    button.style.position = "relative";
+    button.style.top = 5 + 21 * i + "%";
+    button.style.left = 50 + "px";
+    button.image = document.createElement("img");
+    button.image.id = JSON1.buttonJSON[i].picId;
+    button.image.src = JSON1.buttonJSON[i].pic;
+    button.image.addEventListener("click", JSON1.buttonJSON[i].funk, false);
+    button.appendChild(button.image);
+    this.panel.appendChild(button);
   }
 }
 
@@ -150,23 +150,23 @@ var panelJSON = [{
         towerGame.gameState.panelQuit = new Panel(towerGame, 2)
         document.getElementById("creditesPanel").parentNode.removeChild(document.getElementById("creditesPanel"))
       }
-    }, ]
+    },]
 
-},{
+}, {
   name: "Switch Button",
   id: "switchButton",
   pic: "resources/images/panels/panel.png",
   picId: "pan",
   buttonJSON: [
-{
-    name: "More Towers",
-    // this is button for switches placeable towers
-    id: "towerSwitch",
-    pic: "resources/images/panels/towerChange.png",
-    picId:"switch",
-    funk: function(){
-      document.getElementById("towerSwitch").parentNode.removeChild(document.getElementById("towerSwitch"))
-    }
-}]
+    {
+      name: "More Towers",
+      // this is button for switches placeable towers
+      id: "towerSwitch",
+      pic: "resources/images/panels/towerChange.png",
+      picId: "switch",
+      funk: function () {
+        document.getElementById("towerSwitch").parentNode.removeChild(document.getElementById("towerSwitch"))
+      }
+    }]
 
 }]
