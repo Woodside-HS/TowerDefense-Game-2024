@@ -697,11 +697,11 @@ class Game {
     var col = Math.floor(event.offsetX / towerGame.w);
     var row = Math.floor(event.offsetY / towerGame.w);
     var cell = towerGame.grid[col][row];
-    if (towerGame.gameStateID === 4 //if the game is in any of these gamestates, it only
-      || towerGame.gameStateID === 5 // allows towers to be built, it does not include
-      || towerGame.gameStateID === 6 //the walls. gameStateID 4-8 are premade levels so
-      || towerGame.gameStateID === 7  //the player shouldn't be able to place/remove walls
-      || towerGame.gameStateID === 8) {
+    if (towerGame.gameStateID === 5 //if the game is in any of these gamestates, it only
+      || towerGame.gameStateID === 6 // allows towers to be built, it does not include
+      || towerGame.gameStateID === 7 //the walls. gameStateID 5-9 are premade levels so
+      || towerGame.gameStateID === 8  //the player shouldn't be able to place/remove walls
+      || towerGame.gameStateID === 9) {
       if (towerGame.placingTower && towerGame.canAddTower(cell)) {
         towerGame.placeTower(cell);
       }

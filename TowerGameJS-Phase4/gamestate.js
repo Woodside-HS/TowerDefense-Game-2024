@@ -66,10 +66,10 @@ class GameState3 extends GameState { // end screen
   }
 }
 
-class GameState4 extends GameState { // Game Screen basic
+class GameState5 extends GameState { // Game Screen basic
   constructor(game) {
     super(game, 4)
-    this.game.gameStateID = 4;
+    this.game.gameStateID = 5;
     this.game.health = 100
     this.game.score = 0
     this.game.bankValue = 1000;
@@ -88,17 +88,17 @@ class GameState4 extends GameState { // Game Screen basic
     this.game.root = this.game.grid[this.game.cols - x][this.game.rows - y];
 
     
-    if (this.game.gameStateID === 4) {
+    if (this.game.gameStateID === 5) {
       this.game.levelRender(level1Key);
       this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/level1.jpg')"
-    } else if (this.game.gameStateID === 5) {
+    } else if (this.game.gameStateID === 6) {
       this.game.levelRender(level2Key);
       this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/level2.jpg')"
-    } else if (this.game.gameStateID === 6) {
-      this.game.levelRender(level3Key);
     } else if (this.game.gameStateID === 7) {
-      this.game.levelRender(level4Key);
+      this.game.levelRender(level3Key);
     } else if (this.game.gameStateID === 8) {
+      this.game.levelRender(level4Key);
+    } else if (this.game.gameStateID === 9) {
       this.game.levelRender(level5Key);
     }
 
@@ -170,6 +170,4 @@ class GameState4 extends GameState { // Game Screen basic
   }
 
 }
-
-  
 
