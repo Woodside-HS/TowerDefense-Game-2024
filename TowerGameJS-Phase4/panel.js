@@ -6,7 +6,7 @@ class Panel {
     this.y = -590;
     this.panel = document.createElement("div");
     this.panel.id = panelJSON[number].id;
-    this.panel.style.width = game.cnvMain + "px";
+    this.panel.style.width = 450 + "px";
     this.panel.style.height = 290 + "px";
     this.panel.style.backgroundImage = 'url("' + panelJSON[number].pic + '")';
     this.panel.style.position = "absolute";
@@ -21,8 +21,8 @@ class Panel {
   }
 
   render() {
-     this.y = this.slideDown(this.y, 550, .05)
-      this.panel.style.top = this.y + "px";
+    this.y = this.slideDown(this.y, 550, .05)
+    this.panel.style.top = this.y + "px";
   }
 
   slideDown(start, end, incroment) {
@@ -150,23 +150,23 @@ var panelJSON = [{
         towerGame.gameState.panelQuit = new Panel(towerGame, 2)
         document.getElementById("creditesPanel").parentNode.removeChild(document.getElementById("creditesPanel"))
       }
-    },]
+    }, ]
 
-}, {
+},{
   name: "Switch Button",
   id: "switchButton",
   pic: "resources/images/panels/panel.png",
   picId: "pan",
   buttonJSON: [
-    {
-      name: "More Towers",
-      // this is button for switches placeable towers
-      id: "towerSwitch",
-      pic: "resources/images/panels/towerChange.png",
-      picId: "switch",
-      funk: function () {
-        document.getElementById("towerSwitch").parentNode.removeChild(document.getElementById("towerSwitch"))
-      }
-    }]
+{
+    name: "More Towers",
+    // this is button for switches placeable towers
+    id: "towerSwitch",
+    pic: "resources/images/panels/towerChange.png",
+    picId:"switch",
+    funk: function(){
+      document.getElementById("towerSwitch").parentNode.removeChild(document.getElementById("towerSwitch"))
+    }
+}]
 
 }]
