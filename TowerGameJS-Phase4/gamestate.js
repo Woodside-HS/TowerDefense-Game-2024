@@ -52,6 +52,8 @@ class GameState3 extends GameState { // end screen
     this.panelQuit = new Panel(this, 2)
     this.panelCredits = 0
     this.panelStart = 0
+    document.getElementById('infoDiv').style.visibility = 'hidden'; // Make info tiles invisible on start page
+    document.getElementById('menuDiv').style.visibility = 'hidden';
   }
   run() {
     this.game.render()
@@ -168,3 +170,6 @@ class GameState4 extends GameState { // Game Screen basic
   }
 
 }
+
+  
+
