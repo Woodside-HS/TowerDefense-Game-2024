@@ -1,9 +1,10 @@
-"use strict"
+"use strict";
+
 class Panel {
   constructor(game, number) {
     this.game = game;
     this.temp = 0;
-    this.y = -590;
+    this.y = 0;
     this.panel = document.createElement("div");
     this.panel.id = panelJSON[number].id;
     this.panel.style.width = 450 + "px";
@@ -11,13 +12,18 @@ class Panel {
     this.panel.style.backgroundImage = 'url("' + panelJSON[number].pic + '")';
     this.panel.style.position = "absolute";
     this.panel.style.align = "center";
-    this.panel.style.top = -800 + "px";
+    this.panel.style.top = -0 + "px";
     this.panel.style.left = 680 + "px";
-    this.panel.style.textAlign = "center";;
+    this.panel.style.textAlign = "center";
     this.wrapper = document.getElementById('wrapperDiv').appendChild(this.panel);
     for (let i = 0; i < panelJSON[number].buttonJSON.length; i++) {
-      this.createButton(panelJSON[number], i)
+      this.createButton(panelJSON[number], i);
     }
+
+    // Add event listener for window resize
+    window.addEventListener('resize', () => {
+      this.updatePanelPosition();
+    });
   }
 
   render() {
@@ -46,8 +52,21 @@ class Panel {
     button.appendChild(button.image);
     this.panel.appendChild(button);
   }
-}
 
+  // Function to update panel position on resize
+  updatePanelPosition() {
+
+    if (parseInt(this.panel.style.left) > 295) {
+      this.panel.style.left = (window.innerWidth / 2) - (this.panel.offsetWidth / 2) + 'px';
+    }else {
+      let j = parseInt(this.panel.style.left);
+      let t = (window.innerWidth / 2) - (this.panel.offsetWidth / 2);
+      if(t > j){
+        this.panel.style.left = (window.innerWidth / 2) - (this.panel.offsetWidth / 2) + 'px'
+      }
+    }
+  }
+}
 var panelJSON = [{
   name: "Start Panel",
   id: "firstPanel",
@@ -150,23 +169,23 @@ var panelJSON = [{
         towerGame.gameState.panelQuit = new Panel(towerGame, 2)
         document.getElementById("creditesPanel").parentNode.removeChild(document.getElementById("creditesPanel"))
       }
-    }, ]
+    },]
 
-},{
+}, {
   name: "Switch Button",
   id: "switchButton",
   pic: "resources/images/panels/panel.png",
   picId: "pan",
   buttonJSON: [
-{
-    name: "More Towers",
-    // this is button for switches placeable towers
-    id: "towerSwitch",
-    pic: "resources/images/panels/towerChange.png",
-    picId:"switch",
-    funk: function(){
-      document.getElementById("towerSwitch").parentNode.removeChild(document.getElementById("towerSwitch"))
-    }
-}]
+    {
+      name: "More Towers",
+      // this is button for switches placeable towers
+      id: "towerSwitch",
+      pic: "resources/images/panels/towerChange.png",
+      picId: "switch",
+      funk: function () {
+        document.getElementById("towerSwitch").parentNode.removeChild(document.getElementById("towerSwitch"))
+      }
+    }]
 
 }]

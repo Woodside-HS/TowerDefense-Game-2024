@@ -37,7 +37,7 @@ class Tower {
     else if (ability == "cannon") {
       this.coolDown = 1000;
       this.minRange = 60;
-      this.range = 300;
+      this.range = 3000;
     }
     else if (ability == "bladeStorm") {
       this.coolDown = 0;

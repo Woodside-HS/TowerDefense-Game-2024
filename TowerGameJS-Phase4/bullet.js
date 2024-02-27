@@ -17,7 +17,7 @@ class Bullet {
       this.speed = 10;
     }
     if (this.ability == "cannon") {
-      this.speed = 1;
+      this.speed = 10;
     }
 
   }
@@ -26,17 +26,20 @@ class Bullet {
     this.render();
     if (this.ability == "cannon") {
       // this.chooseExplosiveSpot();
-      //this.cannonMovement();
+      this.cannonMovement();
     } else {
       this.update();
     }
   }
 
   cannonMovement() {
-    //this.angleBetween(this.cannonMovement());
     let can = this.chooseExplosiveSpot();
-    console.log(can)
-    //console.log(this.angleBetween(cannonMovement()));
+    let angleOfTarget = Math.atan2(can.loc.y, can.loc.x);
+    let angleOfTower = Math.atan2(this.loc.y, this.loc.x);
+    let cannonAngle = angleOfTarget - angleOfTower;
+    this.loc.y += Math.sin(cannonAngle) * this.speed;
+    this.loc.x += Math.cos(cannonAngle) * this.speed;
+
   }
   //chooseExplosiveSpot()
   // look through all grid spots
@@ -55,20 +58,15 @@ class Bullet {
 
       }
     }
-    // let j = 
-    // if (j != 0) {
-    //   let choosenSpot = 
-    //   return j;
-    // }
-
+    let j = Math.ceil(Math.random() * (this.spots.length)) - 1;
+    return this.spots[j];
   }
   render() {
 
     var ctx = towerGame.context;
     ctx.save();
     ctx.translate(this.loc.x, this.loc.y);
-    ctx.rotate(this.angle + Math.PI / 2);
-
+    ctx.rotate(this.angle + Math.PI)
 
     ctx.drawImage(this.img, -this.img.width / 2, -this.img.height / 2);
 
