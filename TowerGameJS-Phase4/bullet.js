@@ -12,17 +12,19 @@ class Bullet {
     this.r = 30;
     this.choosenTarget = false;
     this.shape = "circle";
+    this.cannonBulletAngle = 0;
     this.angle = angle;
     this.img = bImg;
     this.ability = type;
     this.mouseLoc = mouseLoc;
     this.spots = [];
+    this.choosenTargetLoc = 0;
     this.cannonAngle;
     if (this.ability == "freeze") {
       this.speed = 10;
     }
     if (this.ability == "cannon") {
-      this.speed = 10;
+      this.speed = 5;
     }
 
   }
@@ -39,29 +41,36 @@ class Bullet {
   }
 
   cannonMovement() {
-    if(this.choosenTarget == false){
-    let can = this.chooseExplosiveSpot();
-    let angleOfTarget = Math.atan2(can.loc.y - this.loc.y, can.loc.x - this.loc.x);
-    this.cannonAngle = angleOfTarget;
-    this.choosenTarget = true;
-    return can;
+    if (this.choosenTarget == false) {
+      let can = this.chooseExplosiveSpot();
+      let angleOfTarget = Math.atan2(can.loc.y - this.loc.y, can.loc.x - this.loc.x);
+      this.cannonAngle = angleOfTarget;
+      this.choosenTarget = true;
+      this.choosenTargetLoc = new vector2d(can.loc.x, can.loc.y);
     }
-    if(this.spinny == false){
-    this.loc.y += Math.sin(this.cannonAngle) * this.speed;
-    this.loc.x += Math.cos(this.cannonAngle) * this.speed;
+    if (this.spinny == false) {
+      this.loc.y += Math.sin(this.cannonAngle) * this.speed;
+      this.loc.x += Math.cos(this.cannonAngle) * this.speed;
+      let bulletFromTowerDist = this.loc.dist(this.towerLoc);
+      let bulletToLocation = this.loc.dist(this.choosenTargetLoc);
+      if (bulletToLocation - bulletFromTowerDist < 0 || this.spinny == true) {
+        this.spinny = true;
+        this.cannonSpinny();
+      }
+    } else {
+      this.cannonSpinny();
     }
+
   }
 
-  cannonSpinny(){
-    let can = this.chooseExplosiveSpot();
-    let bulletFromTowerDist = this.towerLoc.dist(this.loc);
-    let bulletToLocation = can.loc.dist(this.loc);
-   if(bulletToLocation - bulletFromTowerDist < 0){
-    this.spinny = true;
-    let angularMovement = 0.05
+  cannonSpinny() {
+    let angularMovement = 0.05;
+    this.loc.x += Math.cos(this.cannonBulletAngle) * 2.5;//the * 2.5 does not really make sense idk
+    this.loc.y += Math.sin(this.cannonBulletAngle) * 2.5;
+    this.cannonBulletAngle += angularMovement;
 
-   }
   }
+
   //chooseExplosiveSpot()
   // look through all grid spots
   //if they are in the chossen towers range then add them to array
@@ -168,7 +177,7 @@ class Bullet {
         if (shape2.loc.dist(shape1.loc) < 1) return true;
         return false;
       } else {
-       
+
         throw "shape2 shape not acceptable.";
       }
     } else {
