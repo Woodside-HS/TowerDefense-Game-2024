@@ -93,7 +93,7 @@ class Tower {
 
       ctx.beginPath();
       this.target = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY)
-      ctx.arc(this.target.x, this.target.y, 160, 0, Math.PI * 2, false);
+      ctx.arc(this.target.x, this.target.y, 120, 0, Math.PI * 2, false);
       ctx.closePath();
       ctx.stroke();
       ctx.fill();
@@ -229,7 +229,7 @@ class Tower {
       // reset lastTime to current time
       this.lastTime = millis;
       let bulletLocation = vector2d(this.loc.x, this.loc.y);
-      let b = new Bullet(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.mouseLoc);
+      let b = new Bullet(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.mouseLoc, this.loc);
       let q = new Missile(bulletLocation, this.bulletImg, this.towAngle, this.ability);//ya know Missile, Liqufy,
       // and Blade don't need a this.ability bc its unquie for only that tower but yeah
       let h = new Liquify(bulletLocation, this.bulletImg, this.towAngle, this.ability);

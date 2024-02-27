@@ -2,17 +2,22 @@
 
 class Bullet {
 
-  constructor(location, bImg, angle, type, mouseLoc) {
+  constructor(location, bImg, angle, type, mouseLoc, towerLoc) {
     // issue#1 use preloaded bullet image instead of loadImage
+    this.spinny = false;
     this.loc = location;
+    this.towerLoc = towerLoc;
+    this.towerLocated = true;
     this.speed = 25;
-    this.r = 30
+    this.r = 30;
+    this.choosenTarget = false;
     this.shape = "circle";
     this.angle = angle;
     this.img = bImg;
     this.ability = type;
     this.mouseLoc = mouseLoc;
     this.spots = [];
+    this.cannonAngle;
     if (this.ability == "freeze") {
       this.speed = 10;
     }
@@ -27,19 +32,35 @@ class Bullet {
     if (this.ability == "cannon") {
       // this.chooseExplosiveSpot();
       this.cannonMovement();
+      this.cannonSpinny();
     } else {
       this.update();
     }
   }
 
   cannonMovement() {
+    if(this.choosenTarget == false){
     let can = this.chooseExplosiveSpot();
-    let angleOfTarget = Math.atan2(can.loc.y, can.loc.x);
-    let angleOfTower = Math.atan2(this.loc.y, this.loc.x);
-    let cannonAngle = angleOfTarget - angleOfTower;
-    this.loc.y += Math.sin(cannonAngle) * this.speed;
-    this.loc.x += Math.cos(cannonAngle) * this.speed;
+    let angleOfTarget = Math.atan2(can.loc.y - this.loc.y, can.loc.x - this.loc.x);
+    this.cannonAngle = angleOfTarget;
+    this.choosenTarget = true;
+    return can;
+    }
+    if(this.spinny == false){
+    this.loc.y += Math.sin(this.cannonAngle) * this.speed;
+    this.loc.x += Math.cos(this.cannonAngle) * this.speed;
+    }
+  }
 
+  cannonSpinny(){
+    let can = this.chooseExplosiveSpot();
+    let bulletFromTowerDist = this.towerLoc.dist(this.loc);
+    let bulletToLocation = can.loc.dist(this.loc);
+   if(bulletToLocation - bulletFromTowerDist < 0){
+    this.spinny = true;
+    let angularMovement = 0.05
+
+   }
   }
   //chooseExplosiveSpot()
   // look through all grid spots
@@ -51,7 +72,7 @@ class Bullet {
     for (let i = 0; i < 18; i++) {
       for (let j = 0; j < 15; j++) {
         let dist = towerGame.grid[i][j].loc.dist(this.mouseLoc);
-        if (dist < 160) {
+        if (dist < 120) {
           count++;
           this.spots.push(towerGame.grid[i][j]);
         }
@@ -147,6 +168,7 @@ class Bullet {
         if (shape2.loc.dist(shape1.loc) < 1) return true;
         return false;
       } else {
+       
         throw "shape2 shape not acceptable.";
       }
     } else {
