@@ -36,11 +36,11 @@ class Tower {
     }
     else if (ability == "cannon") {
       this.coolDown = 1000;
-      this.range = 300;
+      this.range = 3000;
     }
     else if (ability == "bladeStorm") {
       this.coolDown = 0;
-      this.range = 8000;
+      this.range = 3000;
     }
     else if (ability == "buffregen") {
       this.coolDown = 19622;//why is this such a random number

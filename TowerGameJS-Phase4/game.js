@@ -58,7 +58,8 @@ class Game {
     this.missiles = [];
     this.hands = [];
     this.blades = [];
-    this.allowPlace = true;
+    this.allowPlace = false;
+    this.pickingTargetLocation = false;
     this.explosiveBullets = [];
     this.bankValue = 500;
     this.rays = [];
@@ -137,10 +138,10 @@ class Game {
       }
     }, false);
 
-  
+
     document.getElementById('switchDiv').style.transform = "translate(" + 0 + "px, " + -52 + "px)";//idk this is clipping
     //I suck at editing png so yeah
-  
+
     towerSwitchButton.addEventListener('click', function () {
 
 
@@ -149,9 +150,9 @@ class Game {
       if (towerState == 1) {
         towerState = 2;//just switching positions + rotating to point arrow in correct directions
         d4k.style.transform = "translate(" + 0 + "px, " + -749 + "px) rotate(180deg)";//
-      } else if ( towerState == 2){
+      } else if (towerState == 2) {
         towerState = 1;
-       d4k.style.transform = "translate(" + 0 + "px, " + -50 + "px)";
+        d4k.style.transform = "translate(" + 0 + "px, " + -50 + "px)";
       }
     }, false);
 
@@ -201,7 +202,7 @@ class Game {
   run() { // called from draw()
     if (towerState == 1) {
       if (count == 1) {
-      //  this.createTileDivs();
+        //  this.createTileDivs();
         this.tileDivs = this.createTileDivs();
         this.loadDOMCallBacks(this.tileDivs);
         count--;
@@ -210,14 +211,14 @@ class Game {
     } else if (towerState == 2) {
       if (count == 0) {
         this.tileDivs = this.createTileDivs();
-       this.loadDOMCallBacks(this.tileDivs);
+        this.loadDOMCallBacks(this.tileDivs);
         count++;
       }
     }
 
     if (!this.paused) {
       this.gameState.run()
-    }    
+    }
   }
 
 
@@ -410,7 +411,7 @@ class Game {
         if (cell.occupied) {
           cell.occupied = false;
           towerGame.bankValue += towerGame.wallCost;
-        } else {
+        } else if (this.allowPlace) {
           cell.occupied = true;
           towerGame.bankValue -= towerGame.wallCost;
         }
@@ -473,11 +474,11 @@ class Game {
 
     }
   }
-  removePests(){
-  for(let i = this.hands.length - 1; i >= 0; i --){
-    if(this.hands[i].death == true){
-      this.hands.splice(i, 1);
-    }
+  removePests() {
+    for (let i = this.hands.length - 1; i >= 0; i--) {
+      if (this.hands[i].death == true) {
+        this.hands.splice(i, 1);
+      }
     }
   }
   removeMissiles() {
@@ -596,13 +597,13 @@ class Game {
   // parameters for creating towers to be drawn on the
   // canvas.
   createTileDivs() {
-   while(document.getElementById("menuDiv").hasChildNodes()){
+    while (document.getElementById("menuDiv").hasChildNodes()) {
 
-   document.getElementById("menuDiv").firstChild.remove();
-   }
+      document.getElementById("menuDiv").firstChild.remove();
+    }
 
     var buttons = ["B10000", "B20000", "B30000", "B40000", "B50000",
-    "B60000", "B70000", "B80000", "B90000", "B100000"];
+      "B60000", "B70000", "B80000", "B90000", "B100000"];
 
     if (towerState == 1) {
 
@@ -650,13 +651,13 @@ class Game {
         tiles[i] = mtd;
         this.createTowerBitmaps(ssImage, mtd, i)
 
-        if(firstRun == 0){//this is for loading all things the first frame
+        if (firstRun == 0) {//this is for loading all things the first frame
           towerState == 2;
-          firstRun ++;
+          firstRun++;
         }
-      
+
       }
-    } if(towerState == 2) {//tower state 2 gets called when you click the
+    } if (towerState == 2) {//tower state 2 gets called when you click the
       // button and changes back to 1 after you click it again
       for (var i = 5; i < 10; i++) {
         var mtd = document.createElement("div");
@@ -715,7 +716,7 @@ class Game {
     // Some money required but also cannot place tower on a cell
     // of the grid that is occupied or is the root cell
     if (towerGame.placingTower) {
-      if (!cell.occupied && !cell.hasTower && cell != towerGame.root && towerGame.allowPlace == true) {
+      if (!cell.occupied && !cell.hasTower && cell != towerGame.root) {
         return true;
       }
       return (false);

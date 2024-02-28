@@ -51,9 +51,9 @@ class Bullet {
       this.loc.y += Math.sin(this.cannonAngle) * this.speed;
       this.loc.x += Math.cos(this.cannonAngle) * this.speed;
       let bulletFromTowerDist = this.loc.dist(this.towerLoc);
-      let bulletToLocation = this.loc.dist(this.choosenTargetLoc);
-
-      if (bulletToLocation - bulletFromTowerDist < 0 || this.spinny == true) {
+      let towerToLocation = this.towerLoc.dist(this.choosenTargetLoc);
+      let total = towerToLocation - bulletFromTowerDist;
+      if (total < 0 || this.spinny == true) {
         this.spinny = true;
         this.cannonSpinny();
       }
