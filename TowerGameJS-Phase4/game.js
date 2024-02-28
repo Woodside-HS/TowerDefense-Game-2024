@@ -67,6 +67,7 @@ class Game {
     this.wave = 0;
     this.health = 100;
     this.canvas = document.createElement("canvas");
+    
     if (!this.canvas || !this.canvas.getContext)
       throw "No valid canvas found!";
     this.canvas.width = 900;
@@ -94,7 +95,7 @@ class Game {
     this.mouseY = 0;
     this.w = 50;
     this.done = false;
-    
+
     this.gameState = new GameState1(this);
 
     // container arrays for cells
@@ -593,7 +594,7 @@ class Game {
     if (towerGame.placingTower) {
       if (!cell.occupied && !cell.hasTower && cell != towerGame.root) {
         return true;
-      } 
+      }
       return (false);
     }
   }
@@ -697,15 +698,19 @@ class Game {
     var col = Math.floor(event.offsetX / towerGame.w);
     var row = Math.floor(event.offsetY / towerGame.w);
     var cell = towerGame.grid[col][row];
-    if (towerGame.gameStateID === 5 //if the game is in any of these gamestates, it only
-      || towerGame.gameStateID === 6 // allows towers to be built, it does not include
-      || towerGame.gameStateID === 7 //the walls. gameStateID 5-9 are premade levels so
-      || towerGame.gameStateID === 8  //the player shouldn't be able to place/remove walls
-      || towerGame.gameStateID === 9) {
-      if (towerGame.placingTower && towerGame.canAddTower(cell)) {
+    /*
+    if the game is in any of these gamestates, it only
+    allows towers to be built, it does not include
+    the walls. gameStateID 5-9 are premade levels so the player 
+    shouldn't be able to place/remove walls
+    */
+    if (towerGame.placingTower && towerGame.canAddTower(cell)) {
+      if (towerGame.gameStateID === 6
+        || towerGame.gameStateID === 7
+        || towerGame.gameStateID === 8) {
         towerGame.placeTower(cell);
       }
-    } else if (towerGame.gameStateID === 9) {
+    } else if (towerGame.gameStateID === 5) { // gameStateID 5 is the custom built map.
       if (towerGame.placingTower && towerGame.canAddTower(cell)) {
         towerGame.placeTower(cell);
       }
@@ -732,26 +737,26 @@ class Game {
     //they are called levels, but are really just maps. 
     //you don't have to complete the previous one to go to the next one
 
-      for(let row = 0; row < key.length; row++){
-        for(let col = 0; col < key[0].length; col++){
-          if(key[row][col] === 'b'){
-            if (towerGame.placingTower && towerGame.canAddTower(towerGame.grid[col][row])) {
-              towerGame.placeTower(towerGame.grid[col][row]);
-            }
-            else if (!towerGame.placingTower && !towerGame.grid[col][row].hasTower) {
-              // toggle the occupied property of the clicked cell
-              towerGame.grid[col][row].occupied = true;
-              towerGame.brushfire(towerGame.undo(towerGame.grid[col][row]));
-            }
-          } else if(key[row][col] === 'e'){
-            this.root = this.grid[col][row];
+    for (let row = 0; row < key.length; row++) {
+      for (let col = 0; col < key[0].length; col++) {
+        if (key[row][col] === 'b') {
+          if (towerGame.placingTower && towerGame.canAddTower(towerGame.grid[col][row])) {
+            towerGame.placeTower(towerGame.grid[col][row]);
           }
+          else if (!towerGame.placingTower && !towerGame.grid[col][row].hasTower) {
+            // toggle the occupied property of the clicked cell
+            towerGame.grid[col][row].occupied = true;
+            towerGame.brushfire(towerGame.undo(towerGame.grid[col][row]));
+          }
+        } else if (key[row][col] === 'e') {
+          this.root = this.grid[col][row];
         }
       }
-    
+    }
 
 
- 
+
+
   }
 
 
