@@ -160,14 +160,6 @@ var panelJSON = [{
         document.getElementById("creditesPanel").parentNode.removeChild(document.getElementById("creditesPanel"))
       }
     }]
-}, {
-  name: "Enemy Select",
-  id: "enemySelect",
-  pic: "resources/iamges/panels/restart.png",
-  picId: "enemy",
-  funk: function(){
-    document.getElementById("enemySelect").parentNode.removeChild(document.getElementById("enemySelect"))
-  }
 }]
 
 

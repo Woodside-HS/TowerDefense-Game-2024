@@ -82,7 +82,7 @@ class GameState4 extends GameState{ //Catalog
 class GameState5 extends GameState { // 
   constructor(game) {
     super(game)
-    this.game.gameStateID = 6;
+    this.game.gameStateID = 7;
     this.game.health = 100
     this.game.score = 0
     this.game.bankValue = 1000;
