@@ -32,7 +32,6 @@ class Bullet {
   run() {
     this.render();
     if (this.ability == "cannon") {
-      // this.chooseExplosiveSpot();
       this.cannonMovement();
       this.cannonSpinny();
     } else {
@@ -53,6 +52,7 @@ class Bullet {
       this.loc.x += Math.cos(this.cannonAngle) * this.speed;
       let bulletFromTowerDist = this.loc.dist(this.towerLoc);
       let bulletToLocation = this.loc.dist(this.choosenTargetLoc);
+
       if (bulletToLocation - bulletFromTowerDist < 0 || this.spinny == true) {
         this.spinny = true;
         this.cannonSpinny();

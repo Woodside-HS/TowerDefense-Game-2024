@@ -36,8 +36,7 @@ class Tower {
     }
     else if (ability == "cannon") {
       this.coolDown = 1000;
-      this.minRange = 60;
-      this.range = 3000;
+      this.range = 300;
     }
     else if (ability == "bladeStorm") {
       this.coolDown = 0;
@@ -118,6 +117,7 @@ class Tower {
       ctx.arc(0, 0, this.range, 0, 2 * Math.PI, false);
       }else{
         ctx.arc(0, 0, 80, 0, 2 * Math.PI, false);//dont question it
+        //you got questioned this just look 
       }
 
       // Draw the inner circle for minRange
