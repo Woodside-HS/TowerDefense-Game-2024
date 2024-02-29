@@ -55,12 +55,11 @@ class Game {
     this.towers = [];
     this.enemies = [];
     this.bullets = [];
-    this.missiles = [];
-    this.hands = [];
-    this.blades = [];
-    this.allowPlace = true;
-    this.pickingTargetLocation = false;
-    this.explosiveBullets = [];
+    this.missiles = [];//added with same logic as bullets
+    this.hands = [];//added with same logic as bullets (this is the minion guy idk)
+    this.blades = [];//added with same logic as bullets
+    this.allowPlace = true;//to not place when picking a spot to target for two of the towers
+    this.explosiveBullets = [];//added with same logic as bullets
     this.bankValue = 500;
     this.rays = [];
     this.checkOnce = true;
@@ -88,7 +87,7 @@ class Game {
     //select everything of type/class and set call backs
 
     this.tileDivs = this.createTileDivs();
-    var towerSwitchButton = document.getElementById('switchDiv');
+    var towerSwitchButton = document.getElementById('switchDiv');//switch visable towers 
 
     this.loadDOMCallBacks(this.tileDivs);
     // select canvas for callbacks

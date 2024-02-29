@@ -38,7 +38,7 @@ class Missile {
         this.loc.x += Math.cos(this.angle) * this.speed;
     }
 randomNess(){
-    let randomNum = Math.floor(Math.random()*4+1);
+    let randomNum = Math.floor(Math.random()*4+1);//don't want all the missiles to be straight so implementing some sort of randomness to the missiles
     if(randomNum < 3){
     this.loc.x += Math.random()*25-12.5;
     this.loc.y += Math.random()*25-12.5;

@@ -86,7 +86,6 @@ class Tower {
     }
     if(this.ability == "cannon" && this.chooseTargetArea){
       ctx.save();
-     // ctx.translate(this.loc.x, this.loc.y);
       ctx.strokeStyle = "rgba(0,250,210, 0.8)"; 
       ctx.fillStyle = "rgba(0, 250, 210, 0.08)";
 
@@ -206,7 +205,7 @@ class Tower {
     this.checkEnemies();
     this.checkBuffandHeal();
   }
-  checkBuffandHeal() {
+  checkBuffandHeal() {//buffregen tower stackable currently 
     let count = 0;
     if (this.ability != "buffregen") {
       for (let i = 0; i < towerGame.towers.length; i++) {
@@ -240,8 +239,7 @@ class Tower {
       this.lastTime = millis;
       let bulletLocation = vector2d(this.loc.x, this.loc.y);
       let b = new Bullet(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.mouseLoc, this.loc);
-      let q = new Missile(bulletLocation, this.bulletImg, this.towAngle, this.ability);//ya know Missile, Liqufy,
-      // and Blade don't need a this.ability bc its unquie for only that tower but yeah
+      let q = new Missile(bulletLocation, this.bulletImg, this.towAngle, this.ability);
       let h = new Liquify(bulletLocation, this.bulletImg, this.towAngle, this.ability);
       if (this.ability == "fast" || this.ability == "normal"
         || this.ability == "freeze" || this.ability == "explosive" || this.ability == "cannon") {
@@ -250,7 +248,7 @@ class Tower {
       }
       if (this.ability == "buffregen") {
         if (towerGame.health < 150) {
-          towerGame.health++;
+          towerGame.health++;//the tower that buff sorrunding towers also ups healing bc idk why
         }
 
       }
@@ -261,7 +259,7 @@ class Tower {
         towerGame.hands.push(h);
       }
       if (this.ability == "bladeStorm") {
-        if (this.blades != 4) {
+        if (this.blades != 4) {//creating the four blades 
           let bulletLocation = vector2d(this.loc.x, this.loc.y);
           let s = new Blade(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.blades);
           towerGame.blades.push(s);

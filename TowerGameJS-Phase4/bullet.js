@@ -66,7 +66,7 @@ class Bullet {
   cannonSpinny() {
     let angularMovement = 0.05;
     this.loc.x += Math.cos(this.cannonBulletAngle) * 2.5;//the * 2.5 does not really make sense idk
-    this.loc.y += Math.sin(this.cannonBulletAngle) * 2.5;
+    this.loc.y += Math.sin(this.cannonBulletAngle) * 2.5;//The number should be orbital radius and it technically is.
     this.cannonBulletAngle += angularMovement;
 
   }
@@ -115,7 +115,6 @@ class Bullet {
     if (shape1.shape === "circle") {
       if (shape2.shape === "circle") {
         //circle-circle
-        //console.log(this.dist(shape1.loc, shape2.loc) );
         if (shape1.r + shape2.r >= shape1.loc.copy().dist(shape2.loc)) return true;
         return false;
       } else if (shape2.shape === "square") {//this does not work for rectangles but its close enought for a 57x50 thing
