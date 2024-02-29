@@ -23,7 +23,7 @@ class Tower {
     this.ability = ability;
     this.chooseTargetArea = true;
     this.mouseLoc;
-
+    this.count = 0;
     if (ability == "freeze") {
       this.coolDown = 100;
       this.range = 150;
@@ -166,11 +166,18 @@ class Tower {
 
 
       towerGame.canvas.addEventListener('click', () => {
+        if(this.count == 0){
+          this.count += 1;
+    return;
+        }
+    
+        
         let mouseLoc = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY);
         let dist = this.loc.dist(mouseLoc);
         if(this.chooseTargetArea){
           this.chooseTargetArea = false;
           this.mouseLoc = mouseLoc;
+          towerGame.allowPlace = true;
         }
         if (this.isInRange) {
           this.isInRange = false;
@@ -178,12 +185,15 @@ class Tower {
         if (dist < 40) {
           this.isInRange = true;
           this.chooseTargetArea = true;
+          towerGame.allowPlace = false;
+
         }
-        towerGame.canvas.addEventListener('mousemove', (event) => {
+        towerGame.canvas.addEventListener('mousemove', () => {
           if (this.isInRange) {
             let mouseX = this.loc.x - towerGame.canvas.mouseX;
             let mouseY = this.loc.y - towerGame.canvas.mouseY;
             this.towAngle = Math.atan2(mouseY, mouseX) - Math.PI;
+            
           }
         });
       });

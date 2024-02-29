@@ -58,7 +58,7 @@ class Game {
     this.missiles = [];
     this.hands = [];
     this.blades = [];
-    this.allowPlace = false;
+    this.allowPlace = true;
     this.pickingTargetLocation = false;
     this.explosiveBullets = [];
     this.bankValue = 500;
@@ -411,7 +411,7 @@ class Game {
         if (cell.occupied) {
           cell.occupied = false;
           towerGame.bankValue += towerGame.wallCost;
-        } else if (this.allowPlace) {
+        } else {
           cell.occupied = true;
           towerGame.bankValue -= towerGame.wallCost;
         }
@@ -821,11 +821,11 @@ class Game {
     var row = Math.floor(event.offsetY / towerGame.w);
     var col = Math.floor(event.offsetX / towerGame.w);
     var cell = towerGame.grid[col][row];
-    if (towerGame.placingTower && towerGame.canAddTower(cell)) {
+    if (towerGame.placingTower && towerGame.canAddTower(cell) && towerGame.allowPlace) {
       towerGame.placeTower(cell);
     }
 
-    else if (!towerGame.placingTower && !cell.hasTower) {
+    else if (!towerGame.placingTower && !cell.hasTower && towerGame.allowPlace) {
       // toggle the occupied property of the clicked cell
       if (!cell.occupied && towerGame.bankValue >= towerGame.wallCost) {
         towerGame.bankValue -= towerGame.wallCost;

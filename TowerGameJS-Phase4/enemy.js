@@ -108,7 +108,6 @@ class Enemy {
     let millis = Date.now();
     for (let h = 0; h < towerGame.missiles.length; h++) {
       if (this.checkCollide(this, towerGame.missiles[h])) {
-        console.log(towerGame.missiles[h].ability)
         if (towerGame.missiles[h].ability == "missile") {
           this.health -= 800;//this does not current work
           towerGame.missiles.splice(h, 1);
