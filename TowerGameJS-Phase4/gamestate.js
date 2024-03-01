@@ -78,11 +78,14 @@ class GameState4 extends GameState{ //Catalog
 
 }
 
+class GameState5 extends GameState { // Win Screen
+  
+}
 
-class GameState5 extends GameState { // 
+class GameState6 extends GameState { // game itself
   constructor(game) {
     super(game)
-    this.game.gameStateID = 6;
+    this.game.gameStateID = 7;
     this.game.health = 100
     this.game.score = 0
     this.game.bankValue = 1000;
