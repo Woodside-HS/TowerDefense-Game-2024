@@ -109,14 +109,16 @@ body{
   margin-top: 50px;
   margin-left: 8px;
   margin-right: 8px;
+  height: 100px;
 }
 #towImgDiv1, #towImgDiv2, #towImgDiv3,#towImgDiv4, #towImgDiv6,#towImgDiv7, #towImgDiv8, #towImgDiv9, #towImgDiv10{
   border:solid black 2px;
   border-radius: 5px;
   background-color: #DDD;
-  margin-top: 20px;
+  margin-top: 30px;
   margin-left: 8px;
   margin-right: 8px;
+  height:100px;
 }
 
  #panelStart{
