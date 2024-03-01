@@ -82,7 +82,7 @@ class GameState4 extends GameState{ //Catalog
 class GameState5 extends GameState { // 
   constructor(game) {
     super(game)
-    this.game.gameStateID = 7;
+    this.game.gameStateID = 6;
     this.game.health = 100
     this.game.score = 0
     this.game.bankValue = 1000;
@@ -106,17 +106,16 @@ class GameState5 extends GameState { //
     // there are currently only 3.
     if (this.game.gameStateID === 6) {
       this.game.levelRender(level1Key);
-      this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/levels/level1.jpg')"
+      this.game.levelKey = level1Key
+      this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/levels/level1.png')"
     } else if (this.game.gameStateID === 7) {
       this.game.levelRender(level2Key);
+      this.game.levelKey = level2Key
       this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/levels/level2.jpg')"
     } else if (this.game.gameStateID === 8) {
       this.game.levelRender(level3Key);
+      this.game.levelKey = level3Key
       this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/levels/level3.jpg')"
-    } else if (this.game.gameStateID === 9) { //Has nothing loaded in, but for easy level creation in future
-      this.game.levelRender(level4Key);
-    } else if (this.game.gameStateID === 10) {
-      this.game.levelRender(level5Key);
     }
 
     document.getElementById('infoDiv').style.visibility = 'visible'; // Make info tiles invisible on start page

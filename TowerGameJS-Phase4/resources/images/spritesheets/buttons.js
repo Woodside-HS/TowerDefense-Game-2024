@@ -47,7 +47,18 @@ buttonsJSON = {"frames": {
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":92,"h":92},
 	"sourceSize": {"w":92,"h":92}
-}},
+}, 
+"B70000":
+{
+	"frame": {"x":92,"y":423,"w":92,"h":92},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":92,"h":92},
+	"sourceSize": {"w":92,"h":92}
+}, 
+
+
+},
 "meta": {
 	"app": "Adobe Flash CS6",
 	"version": "12.0.2.529",

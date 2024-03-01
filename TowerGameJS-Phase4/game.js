@@ -57,10 +57,12 @@ class Game {
     this.rays = [];
     this.checkOnce = true;
     this.gameStateID = 1;
+    this.levelKey;
     this.enemyNum = 20;
     this.wallCost = 2;
 
     this.paused = false;
+    this.loadEmptyImage();
 
     this.loadEnemyImages();
     this.score = 0;
@@ -144,6 +146,19 @@ class Game {
       });
 
   }
+
+  loadEmptyImage(){
+    let propName = "B70000";
+    var f = buttonsJSON.frames[propName].frame;
+    createImageBitmap(bsImage, f.x, f.y, f.w, f.h).then(function (emptyImage) {
+      Cell.emptyImage = emptyImage;
+      //console.log(f);
+    },
+    function () {
+      alert('failed to make wallImage');
+    }); 
+  }
+
 
 
   loadEnemyImages() {
@@ -747,7 +762,7 @@ class Game {
             // toggle the occupied property of the clicked cell
             towerGame.grid[col][row].occupied = true;
             towerGame.brushfire(towerGame.undo(towerGame.grid[col][row]));
-          }
+          } 
         } else if (key[row][col] === 'e') {
           this.root = this.grid[col][row];
         }
