@@ -66,6 +66,12 @@ class Tower {
     this.update();
   }
 
+  damageUpgrade(){
+    for(let i=0;i<this.enemies.length;i++){
+    this.enemies[i].damageMult = this.enemies[i].damageMult*1.2;
+    }
+  }
+
   render() {
     var ctx = towerGame.context;
     if (this.ability == "buffregen") {
