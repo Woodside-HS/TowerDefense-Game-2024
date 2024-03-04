@@ -10,7 +10,7 @@ class Panel {
     this.panel.style.height = 290 + "px"
     this.panel.style.backgroundImage = 'url("' + panelJSON[number].pic + '")'
     this.panel.style.position = "absolute"
-    this.panel.style.align = "center"
+    this.panel.style.align = "center";
     this.panel.style.top = -800 + "px"
     this.panel.style.left = 680 + "px";
     this.panel.style.textAlign = "center"
