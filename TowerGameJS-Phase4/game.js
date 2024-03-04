@@ -216,7 +216,7 @@ class Game {
     }
 
     if (!this.paused) {
-      this.gameState.run()
+      towerGame.gameState.run()
     }
   }
 
