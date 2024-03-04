@@ -24,6 +24,9 @@ class Tower {
     this.chooseTargetArea = true;
     this.mouseLoc;
     this.count = 0;
+    this.upgradedDamage = false;
+    this.upgradedRange = false;
+    this.upgradedCoolDown = false;
     if (ability == "freeze") {
       this.coolDown = 100;
       this.range = 150;
@@ -66,18 +69,27 @@ class Tower {
     this.update();
   }
 
-  damageUpgrade(){
-    for(let i=0;i<this.enemies.length;i++){
-    this.enemies[i].damageMult = this.enemies[i].damageMult*1.2;
+  damageUpgrade() {
+    this.upgradedDamage = true;
+    for (let i = 0; i < this.enemies.length; i++) {
+      this.enemies[i].damageMult = this.enemies[i].damageMult * 1.2;
     }
   }
+  coolDownUpgrade() {
+    this.coolDown *= 0.8;
+    this.upgradedCoolDown = true;
+  }
+  rangeUpgrade() {
+    this.range *= 1.2;
+    this.upgradedRange = true;
 
+  }
   render() {
     var ctx = towerGame.context;
     if (this.ability == "buffregen") {
       ctx.save();
       ctx.translate(this.loc.x, this.loc.y);
-      ctx.strokeStyle = "rgba(0,250,210, 0.8)"; 
+      ctx.strokeStyle = "rgba(0,250,210, 0.8)";
       ctx.fillStyle = "rgba(0, 250, 210, 0.08)";
 
       ctx.beginPath();
@@ -90,9 +102,9 @@ class Tower {
 
       ctx.restore();
     }
-    if(this.ability == "cannon" && this.chooseTargetArea){
+    if (this.ability == "cannon" && this.chooseTargetArea) {
       ctx.save();
-      ctx.strokeStyle = "rgba(0,250,210, 0.8)"; 
+      ctx.strokeStyle = "rgba(0,250,210, 0.8)";
       ctx.fillStyle = "rgba(0, 250, 210, 0.08)";
 
       ctx.beginPath();
@@ -118,9 +130,9 @@ class Tower {
       ctx.beginPath();
 
       // Draw the outer circle
-      if(this.ability != "bladeStorm"){
-      ctx.arc(0, 0, this.range, 0, 2 * Math.PI, false);
-      }else{
+      if (this.ability != "bladeStorm") {
+        ctx.arc(0, 0, this.range, 0, 2 * Math.PI, false);
+      } else {
         ctx.arc(0, 0, 80, 0, 2 * Math.PI, false);//dont question it
         //you got questioned this just look 
       }
@@ -128,13 +140,13 @@ class Tower {
       // Draw the inner circle for minRange
       ctx.moveTo(0 + this.minRange, 0); // Move to the starting point of the inner circle
       ctx.arc(0, 0, this.minRange, 0, 2 * Math.PI, false); // Draw the inner circle
-     
+
       ctx.fillStyle = 'rgba(192, 192, 192, 0.5)';
-     
+
       ctx.fill();
       ctx.lineWidth = 5;
       ctx.strokeStyle = '#003300';
-      
+
       ctx.stroke();
     }
 
@@ -171,15 +183,15 @@ class Tower {
 
 
       towerGame.canvas.addEventListener('click', () => {
-        if(this.count == 0){
+        if (this.count == 0) {
           this.count += 1;
-    return;
+          return;
         }
-    
-        
+
+
         let mouseLoc = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY);
         let dist = this.loc.dist(mouseLoc);
-        if(this.chooseTargetArea){
+        if (this.chooseTargetArea) {
           this.chooseTargetArea = false;
           this.mouseLoc = mouseLoc;
           towerGame.allowPlace = true;
@@ -198,7 +210,7 @@ class Tower {
             let mouseX = this.loc.x - towerGame.canvas.mouseX;
             let mouseY = this.loc.y - towerGame.canvas.mouseY;
             this.towAngle = Math.atan2(mouseY, mouseX) - Math.PI;
-            
+
           }
         });
       });
@@ -250,7 +262,7 @@ class Tower {
       if (this.ability == "fast" || this.ability == "normal"
         || this.ability == "freeze" || this.ability == "explosive" || this.ability == "cannon") {
         towerGame.bullets.push(b);
-        
+
       }
       if (this.ability == "buffregen") {
         if (towerGame.health < 150) {

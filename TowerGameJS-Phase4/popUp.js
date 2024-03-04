@@ -8,6 +8,7 @@ class Popup {
     //this.upgradePopup;
     this.show();
     this.tower = tower;
+
   }
 
   createButton(id, text, onClickCallback) {
@@ -33,19 +34,19 @@ class Popup {
 
     const refundButton = this.createButton('refundButton', 'Refund', () => {
       console.log('Refund button clicked');
-      
+
     });
     const upgradeButton = this.createButton('upgradeButton', 'Upgrade', () => {
-      if(towerGame.bankValue > this.tower.cost){
+      if (towerGame.bankValue > this.tower.cost) {
         this.upgradeElement = this.createUpgradePopup();
-        } else {
-          alert("Insufficient Funds!");
-        }
+      } else {
+        alert("Insufficient Funds!");
+      }
     });
 
     const cancleButton = this.createButton('cancleButton', 'X', () => {
-      console.log('Cancle button clicked');
-    //  this.hide();
+      console.log('Cancel button clicked');
+      this.hide();
     });
 
     popup.appendChild(refundButton);
@@ -56,6 +57,7 @@ class Popup {
   }
 
   createUpgradePopup() {
+    console.log(this.tower.upgradedDamage)
     const upgradePopup = document.createElement('div');
     upgradePopup.style.position = 'absolute';
     upgradePopup.style.left = `${this.x + 100}px`;
@@ -70,42 +72,55 @@ class Popup {
     upgradePopup.style.zIndex = '1000';
 
     // Creating buttons for the upgrade popup
+    if(this.tower.upgradedDamage == false){
     const rangeButton = this.createButton('rangeButton', 'Range', () => {
-      this.tower.range = this.tower.range*1.2;
+      this.tower.rangeUpgrade();
       console.log("Range increased by 20%");
+     
       towerGame.bankValue -= this.tower.cost;
       this.hideUpgrade();
-      
+
     });
+  }
+  if(this.tower.upgradedCoolDown == false){
     const cooldownButton = this.createButton('cooldownButton', 'Cooldown', () => {
-      this.tower.cooldown = this.tower.cooldown*0.8;
-console.log("Cooldown decreased by 20%");
-towerGame.bankValue -= this.tower.cost;
-this.hideUpgrade();
+      this.tower.coolDownUpgrade();
+      console.log("Cooldown decreased by 20%");
+
+      towerGame.bankValue -= this.tower.cost;
+      this.hideUpgrade();
     });
-   
+  }
+  if(this.tower.upgradedRange == false){
     const damageButton = this.createButton('damageButton', 'Damage', () => {
       console.log("Damage increased by 20%");
+      this.upgradedDamage = true;
       towerGame.bankValue -= this.tower.cost;
       this.tower.damageUpgrade();
       this.hideUpgrade();
     });
-    
+  }
     const cancleButton = this.createButton('cancleButton', 'X', () => {
-      console.log("Cancle button clicked");
+      console.log("Cancel button clicked");
       this.hideUpgrade();
     });
 
 
     // Adding buttons to the upgrade popup
+    if(this.tower.upgradedRange == false){
     upgradePopup.appendChild(rangeButton);
+    }
+    if(this.tower.upgradedCoolDown == false){
     upgradePopup.appendChild(cooldownButton);
+    }
+    if(this.tower.upgradedDamage == false){
     upgradePopup.appendChild(damageButton);
+    }
     upgradePopup.appendChild(cancleButton);
-   
+
     // Show the upgrade popup
     document.body.appendChild(upgradePopup);
-return upgradePopup;
+    return upgradePopup;
 
     // Optionally, you can add a close button or a method to remove this popup
   }
@@ -118,9 +133,8 @@ return upgradePopup;
     document.body.removeChild(this.popupElement);
   }
 
-  hideUpgrade(){
+  hideUpgrade() {
     document.body.removeChild(this.upgradeElement);
   }
 
 }
-    

@@ -13,6 +13,7 @@ var ssImage;
 var tiles = [];
 var load = document.getElementById('loader');
 var wrap;
+var towerState = 1;
 
  function loadImages(){
    bsImage = new Image();
@@ -66,7 +67,7 @@ class Game {
     this.wallCost = 2;
     this.gameStateID = 1;
     this.paused = false;
-
+    this.towerState = 1;
     this.loadEnemyImages();
     this.score = 0;
     this.wave = 0;
