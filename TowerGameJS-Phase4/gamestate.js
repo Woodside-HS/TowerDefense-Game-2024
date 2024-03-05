@@ -38,7 +38,17 @@ class GameState1 extends GameState { // Start Screen
 }
 class GameState2 extends GameState { // Level screen
   constructor(game) {
-    towerGame.gameStateID = 2;
+    super(game);
+    towerGame.gameStateID = 6;
+    this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/levelSelector.jpg')"
+    this.panelLvlSelector = new Panel(this, 3);
+  
+  }
+
+  run(){
+    this.game.render();
+    this.panelLvlSelector.render();
+
   }
 
 }
@@ -46,7 +56,7 @@ class GameState2 extends GameState { // Level screen
 class GameState3 extends GameState { // end screen
   constructor(game) {
     super(game)
-    towerGame.gameStateID = 3
+    this.game.gameStateID = 3
     this.game.enemies = []
     this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/endScreen.jpg')"
     this.panelQuit = new Panel(this, 2)
@@ -85,7 +95,6 @@ class GameState5 extends GameState { // Win Screen
 class GameState6 extends GameState { // game itself
   constructor(game) {
     super(game)
-    this.game.gameStateID = 7;
     this.game.health = 100
     this.game.score = 0
     this.game.bankValue = 1000;
@@ -99,9 +108,14 @@ class GameState6 extends GameState { // game itself
     this.game.backgroundMusic = new Audio('resources/sounds/Elevator-music.mp3')
     this.game.loadGrid();
     this.game.brushfire();
-    let x = 1;
-    let y = 1;
-    this.game.root = this.game.grid[this.game.cols - x][this.game.rows - y];
+    this.game.root = this.game.grid[this.game.cols - 1][this.game.rows - 1];
+    if(this.game.buttonTracker === 1){
+      this.game.gameStateID = 6;
+    } else if(this.game.buttonTracker === 2){
+      this.game.gameStateID = 7;
+    } else if(this.game.buttonTracker === 3){
+      this.game.gameStateID = 8;
+    }
 
     // calls the grid created in level.js, creating the set path
     // and loading in the correct background for that level.
@@ -109,15 +123,15 @@ class GameState6 extends GameState { // game itself
     // there are currently only 3.
     if (this.game.gameStateID === 6) {
       this.game.levelRender(level1Key);
-      this.game.levelKey = level1Key
+      this.game.levelKey = level1Key;
       this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/levels/level1.png')"
     } else if (this.game.gameStateID === 7) {
       this.game.levelRender(level2Key);
-      this.game.levelKey = level2Key
+      this.game.levelKey = level2Key;
       this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/levels/level2.jpg')"
     } else if (this.game.gameStateID === 8) {
       this.game.levelRender(level3Key);
-      this.game.levelKey = level3Key
+      this.game.levelKey = level3Key;
       this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/levels/level3.jpg')"
     }
 

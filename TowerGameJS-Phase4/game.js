@@ -60,6 +60,7 @@ class Game {
     this.levelKey;
     this.enemyNum = 20;
     this.wallCost = 2;
+    this.buttonTracker = 0;
 
     this.paused = false;
     this.loadEmptyImage();
