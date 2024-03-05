@@ -8,6 +8,7 @@ class Enemy {
     this.radius = 15.0;
     this.r = 15.0;
     this.vel = 3.0;
+    this.count = 0;
     this.slowed = 1.2;
     this.isLocked = false;
     this.isTarget = false;
@@ -145,8 +146,8 @@ class Enemy {
           //  console.log(this.health)
           towerGame.bullets.splice(h, 1);
         } else if (towerGame.bullets[h].ability == "freeze") {
-          this.health = this.health - 1000*this.damageMult;
-          this.slowed -= 0.1;
+          this.health = this.health - 25*this.damageMult;
+          this.slowed -= 1;
           setTimeout(() => {
             this.slowed = 1.2;
           }, 5000);

@@ -28,7 +28,7 @@ class Tower {
     this.upgradedRange = false;
     this.upgradedCoolDown = false;
     if (ability == "freeze") {
-      this.coolDown = 100;
+      this.coolDown = 1000;
       this.range = 150;
     }
     else if (ability == "normal" || ability == "explosive") {
@@ -70,18 +70,15 @@ class Tower {
   }
 
   damageUpgrade() {
-    this.upgradedDamage = true;
     for (let i = 0; i < this.enemies.length; i++) {
       this.enemies[i].damageMult = this.enemies[i].damageMult * 1.2;
     }
   }
   coolDownUpgrade() {
     this.coolDown *= 0.8;
-    this.upgradedCoolDown = true;
   }
   rangeUpgrade() {
     this.range *= 1.2;
-    this.upgradedRange = true;
 
   }
   render() {

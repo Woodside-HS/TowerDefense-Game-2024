@@ -27,14 +27,14 @@ class Panel {
   }
 
   render() {
-    this.y = this.slideDown(this.y, 550, .05)
+    this.y = this.slideDown(this.y, 550, .03)
     this.panel.style.top = this.y + "px";
   }
 
   slideDown(start, end, incroment) {
     if ((incroment * (end - start)) > 1)
       return start + incroment * (end - start)
-    return start
+    return start;
   }
 
   createButton(JSON1, i) {
