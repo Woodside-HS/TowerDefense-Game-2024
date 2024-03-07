@@ -714,12 +714,10 @@ class Game {
     var col = Math.floor(event.offsetX / towerGame.w);
     var row = Math.floor(event.offsetY / towerGame.w);
     var cell = towerGame.grid[col][row];
-    /*
-    if the game is in any of these gamestates, it only
+    /* if the game is in any of these gamestates, it only
     allows towers to be built, it does not include
-    the walls. gameStateID 5-9 are premade levels so the player 
-    shouldn't be able to place/remove walls
-    */
+    the walls. gameStateID 6-8 are premade levels so the player 
+    shouldn't be able to place/remove walls */
     if (towerGame.placingTower && towerGame.canAddTower(cell)) {
       if (towerGame.gameStateID === 6
         || towerGame.gameStateID === 7
@@ -730,7 +728,6 @@ class Game {
       if (towerGame.placingTower && towerGame.canAddTower(cell)) {
         towerGame.placeTower(cell);
       }
-
       else if (!towerGame.placingTower && !cell.hasTower) {
         // toggle the occupied property of the clicked cell
         if (!cell.occupied && towerGame.bankValue >= towerGame.wallCost) {
@@ -745,14 +742,10 @@ class Game {
         towerGame.brushfire(towerGame.undo(cell));   // all new distances and parents
       }
     }
-
-
   }
-
   levelRender(key) { //premade level render
     //they are called levels, but are really just maps. 
     //you don't have to complete the previous one to go to the next one
-
     for (let row = 0; row < key.length; row++) {
       for (let col = 0; col < key[0].length; col++) {
         if (key[row][col] === 'b') {
