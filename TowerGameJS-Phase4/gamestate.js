@@ -88,14 +88,8 @@ class GameState4 extends GameState { //Catalog
 
 }
 
-class GameState5 extends GameState { // Win Screen
-   constructor(game){
-    super(game);
-    this.game.gameStateID = 5;
-   }
-}
 
-class GameState6 extends GameState { // game itself
+class GameState5 extends GameState { // game itself
   constructor(game, levelSel) {
     super(game)
     this.game.health = 100
@@ -118,13 +112,19 @@ class GameState6 extends GameState { // game itself
       this.game.gameStateID = 7;
     } else if (levelSel === 3) {
       this.game.gameStateID = 8;
+    } else if (levelSel === 4){
+      this.game.gameStateID = 5;
     }
 
     // calls the grid created in level.js, creating the set path
     // and loading in the correct background for that level.
     // This is geared to be able to add more levels in the future, as
     // there are currently only 3.
-    if (this.game.gameStateID === 6) {
+    if (this.game.gameStateID === 5) {
+      this.game.levelRender(customLevel);
+      this.game.levelKey = customLevel;
+      this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/levels/level1.png')"
+    } else if (this.game.gameStateID === 6) {
       this.game.levelRender(level1Key);
       this.game.levelKey = level1Key;
       this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/levels/level1.png')"

@@ -110,7 +110,7 @@ var panelJSON = [{
       pic: "resources/images/panels/restart.png",
       picId: "wframe",
       funk: function () {
-        towerGame.gameState = new GameState6(towerGame);
+        towerGame.gameState = new GameState5(towerGame, 5);
         towerGame.currentWaveNum = 0; // Reset the current wave number to 0
         towerGame.wave = new Wave(towerGame, AllWaves[towerGame.currentWaveNum]); // Create a new Wave instance with the first wave
         towerGame.wave.referenceTime = 20;
@@ -156,7 +156,7 @@ var panelJSON = [{
       pic: "resources/images/panels/credits.png",
       picId: "frame1",
       funk: function (){
-        towerGame.gameState = new GameState6(towerGame, 1)
+        towerGame.gameState = new GameState5(towerGame, 1)
         document.getElementById("levelSelector").parentNode.removeChild(document.getElementById("levelSelector"))
       }
     }, {
@@ -165,7 +165,7 @@ var panelJSON = [{
       pic: "resources/images/panels/restart.png",
       picId: "frame2",
       funk: function (){
-        towerGame.gameState = new GameState6(towerGame, 2)
+        towerGame.gameState = new GameState5(towerGame, 2)
         document.getElementById("levelSelector").parentNode.removeChild(document.getElementById("levelSelector"))
         
       }
@@ -175,8 +175,18 @@ var panelJSON = [{
       pic: "resources/images/panels/credits.png",
       picId: "frame3",
       funk: function (){
-        towerGame.gameState = new GameState6(towerGame, 3)
+        towerGame.gameState = new GameState5(towerGame, 3)
         document.getElementById("levelSelector").parentNode.removeChild(document.getElementById("levelSelector"))
+      }
+    }, {
+      name: "Level 4 Button",
+      id: "level4Button",
+      pic: "resources/images/panels/credits.png",
+      picId: "frame4",
+      funk: function (){
+        towerGame.gameState = new GameState5(towerGame, 4)
+        document.getElementById("levelSelector").parentNode.removeChild(document.getElementById("levelSelector"))
+        
       }
     }, 
   ]
