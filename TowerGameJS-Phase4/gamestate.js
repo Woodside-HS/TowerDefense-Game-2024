@@ -89,7 +89,10 @@ class GameState4 extends GameState { //Catalog
 }
 
 class GameState5 extends GameState { // Win Screen
-
+   constructor(game){
+    super(game);
+    this.game.gameStateID = 5;
+   }
 }
 
 class GameState6 extends GameState { // game itself
@@ -108,7 +111,6 @@ class GameState6 extends GameState { // game itself
     this.game.backgroundMusic = new Audio('resources/sounds/Elevator-music.mp3')
     this.game.loadGrid();
     this.game.brushfire();
-    // this.game.gameStateID = 0;
     this.game.root = this.game.grid[this.game.cols - 1][this.game.rows - 1];
     if (levelSel === 1) {
       this.game.gameStateID = 6;
@@ -117,8 +119,7 @@ class GameState6 extends GameState { // game itself
     } else if (levelSel === 3) {
       this.game.gameStateID = 8;
     }
-    console.log(this.game.gameStateID);
-    console.log(this.game.buttonTracker);
+
     // calls the grid created in level.js, creating the set path
     // and loading in the correct background for that level.
     // This is geared to be able to add more levels in the future, as
