@@ -32,6 +32,7 @@ class Tower {
     this.liquifylFinal = false;
     this.creatures = [];
     this.maxSurroundingHands = 0;
+
     if (ability == "freeze") {
       this.coolDown = 1000;
       this.range = 150;
@@ -129,19 +130,19 @@ class Tower {
       }
 
       if (this.surroundingHands > 5) {
-       
+
         let distToCell = 100000;
         let checkDistToCell = 0;
         for (let i = 0; i < 18; i++) {
           for (let j = 0; j < 15; j++) {
-             checkDistToCell = this.creatures[0].loc.dist(towerGame.grid[i][j].center);
-             let legalSpot = towerGame.canAddTower(towerGame.grid[i][j]);
-            if(checkDistToCell < distToCell && legalSpot){
+            checkDistToCell = this.creatures[0].loc.dist(towerGame.grid[i][j].center);
+            let legalSpot = towerGame.canAddTower(towerGame.grid[i][j]);
+            if (checkDistToCell < distToCell && legalSpot) {
               let closestCell = towerGame.grid[i][j];
             }
           }
         }
-        towerGame.createTower();
+
       }
     }
 

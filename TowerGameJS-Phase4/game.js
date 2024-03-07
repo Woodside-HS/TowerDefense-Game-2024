@@ -465,21 +465,7 @@ class Game {
 
     }
   }
-
-  removeBullets() {
-    if (this.bullets.length < 1) return;
-    for (let i = this.bullets.length - 1; i >= 0; i--) {
-
-      if (this.bullets[i].loc.x < 0 ||
-        this.bullets[i].loc.x > this.canvas.width ||
-        this.bullets[i].loc.y < 0 ||
-        this.bullets[i].loc.y > this.canvas.height) {
-        this.bullets.splice(i, 1);
-      }
-
-    }
-  }
-
+  
   removeBullets() {
     if (this.bullets.length < 1) return;
     for (let i = this.bullets.length - 1; i >= 0; i--) {
