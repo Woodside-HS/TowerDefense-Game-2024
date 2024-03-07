@@ -73,10 +73,10 @@ var panelJSON = [{
         document.getElementById("firstPanel").parentNode.removeChild(document.getElementById("firstPanel"))
       }
     }, {
-      name: "Quit Button",
-      id: "quitButton",
+      name: "Catalog Button",
+      id: "catlogButton",
       pic: "resources/images/panels/end.png",
-      picId: "exit",
+      picId: "catalog",
       funk: function () {
         towerGame.gameState = new GameState4(towerGame)
         document.getElementById("firstPanel").parentNode.removeChild(document.getElementById("firstPanel"))
@@ -179,8 +179,8 @@ var panelJSON = [{
         document.getElementById("levelSelector").parentNode.removeChild(document.getElementById("levelSelector"))
       }
     }, {
-      name: "Level 4 Button",
-      id: "level4Button",
+      name: "Custom Level Button",
+      id: "customLvlButton",
       pic: "resources/images/panels/credits.png",
       picId: "frame4",
       funk: function (){

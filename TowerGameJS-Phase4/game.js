@@ -60,7 +60,7 @@ class Game {
     this.levelKey;
     this.enemyNum = 20;
     this.wallCost = 2;
-    
+
 
     this.paused = false;
     this.loadEmptyImage();
@@ -70,7 +70,7 @@ class Game {
     this.wave = 0;
     this.health = 100;
     this.canvas = document.createElement("canvas");
-    
+
     if (!this.canvas || !this.canvas.getContext)
       throw "No valid canvas found!";
     this.canvas.width = 900;
@@ -148,16 +148,16 @@ class Game {
 
   }
 
-  loadEmptyImage(){
+  loadEmptyImage() {
     let propName = "B70000";
     var f = buttonsJSON.frames[propName].frame;
     createImageBitmap(bsImage, f.x, f.y, f.w, f.h).then(function (emptyImage) {
       Cell.emptyImage = emptyImage;
       //console.log(f);
     },
-    function () {
-      alert('failed to make wallImage');
-    }); 
+      function () {
+        alert('failed to make wallImage');
+      });
   }
 
 
@@ -718,10 +718,10 @@ class Game {
     allows towers to be built, it does not include
     the walls. gameStateID 6-8 are premade levels so the player 
     shouldn't be able to place/remove walls */
-    if (towerGame.placingTower && towerGame.canAddTower(cell)) {
-      if (towerGame.gameStateID === 6
-        || towerGame.gameStateID === 7
-        || towerGame.gameStateID === 8) {
+    if (towerGame.gameStateID === 6
+      || towerGame.gameStateID === 7
+      || towerGame.gameStateID === 8) {
+      if (towerGame.placingTower && towerGame.canAddTower(cell)) {
         towerGame.placeTower(cell);
       }
     } else if (towerGame.gameStateID === 5) { // gameStateID 5 is the custom built map.
@@ -756,7 +756,7 @@ class Game {
             // toggle the occupied property of the clicked cell
             towerGame.grid[col][row].occupied = true;
             towerGame.brushfire(towerGame.undo(towerGame.grid[col][row]));
-          } 
+          }
         } else if (key[row][col] === 'e') {
           this.root = this.grid[col][row];
         }
