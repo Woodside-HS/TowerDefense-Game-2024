@@ -30,6 +30,8 @@ class Tower {
     this.upgradedCoolDown = false;
     this.surroundingHands = 0;
     this.liquifylFinal = false;
+    this.creatures = [];
+    this.maxSurroundingHands = 0;
     if (ability == "freeze") {
       this.coolDown = 1000;
       this.range = 150;
@@ -70,13 +72,13 @@ class Tower {
   run() {
     this.render();
     this.update();
-    if(this.liquifylFinal == false){
+    if (this.liquifylFinal == false) {
       this.liquifylFinalUpgrade();
     }
   }
 
   damageUpgrade() {
-    this.damageMult *=1.2;
+    this.damageMult *= 1.2;
   }
   coolDownUpgrade() {
     this.coolDown *= 0.8;
@@ -112,19 +114,37 @@ class Tower {
   normalFinalUpgrade() {
 
   }
-  liquifylFinalUpgrade(){
-    this.surroundingHands = 0;
-    for(let i = 0; i < towerGame.hands.length; i ++){
-     for(let j = 1; j < towerGame.hands.length-1; j ++){
-      if(!(j==i)){
-      let dist = towerGame.hands[i].loc.dist(towerGame.hands[j].loc);
-      if(dist < 80){
-        this.surroundingHands++;
+  liquifylFinalUpgrade() {
+    for (let i = 0; i < towerGame.hands.length; i++) {
+      this.surroundingHands = 0;
+      this.creatures.push(towerGame.hands[i]);
+      for (let j = 0; j < towerGame.hands.length; j++) {
+        if (!(j == i)) {
+          let dist = towerGame.hands[i].loc.dist(towerGame.hands[j].loc);
+          if (dist < 80) {
+            this.surroundingHands++;
+            this.creatures.push(towerGame.hands.push(j));
+          }
+        }
       }
+
+      if (this.surroundingHands > 5) {
+       
+        let distToCell = 100000;
+        let checkDistToCell = 0;
+        for (let i = 0; i < 18; i++) {
+          for (let j = 0; j < 15; j++) {
+             checkDistToCell = this.creatures[0].loc.dist(towerGame.grid[i][j].center);
+             let legalSpot = towerGame.canAddTower(towerGame.grid[i][j]);
+            if(checkDistToCell < distToCell && legalSpot){
+              let closestCell = towerGame.grid[i][j];
+            }
+          }
+        }
+        towerGame.createTower();
       }
-     }
     }
-    //let legalSpot = towerGame.canAddTower();
+
   }
 
   render() {
@@ -222,8 +242,6 @@ class Tower {
       let dy = this.loc.y - this.target.y;
       this.towAngle = Math.atan2(dy, dx) - Math.PI;
     } else {
-
-
 
       towerGame.canvas.addEventListener('click', () => {
         if (this.count == 0) {
