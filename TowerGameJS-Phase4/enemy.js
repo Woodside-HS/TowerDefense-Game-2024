@@ -26,7 +26,6 @@ class Enemy {
     this.velVec = targetVec.copy().normalize().scale(this.vel);      // initial velocity vector
     this.kill = false;
     this.angle = this.velVec.angle()
-  this.damageMult = 1;
     this.img = Enemy.image3;// image for enemy
 
 
@@ -329,35 +328,35 @@ class Enemy {
 } // end class ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 class Enemy1 extends Enemy {
   constructor(game) {
-    super(game)
-    this.randomPath = 1
-    this.img = Enemy.image1
+    super(game);
+    this.randomPath = 1;
+    this.img = Enemy.image1;
   }
 }
 class Enemy2 extends Enemy {
   constructor(game) {
-    super(game)
-    this.img = Enemy.image2
+    super(game);
+    this.img = Enemy.image2;
   }
 }
 class Enemy3 extends Enemy {
   constructor(game) {
-    super(game)
-    this.img = Enemy.image3
-    this.health = 5000
+    super(game);
+    this.img = Enemy.image3;
+    this.health = 5000;
   }
 }
 class Enemy4 extends Enemy {
   constructor(game) {
-    super(game)
-    this.img = Enemy.image4
-    this.health = 15000
+    super(game);
+    this.img = Enemy.image4;
+    this.health = 15000;
   }
 }
 class Enemy5 extends Enemy {
   constructor(game) {
     super(game)
     this.img = Enemy.image5
-    this.health = 1000000000000000000
+    this.health = 1000000000000000000;
   }
 }

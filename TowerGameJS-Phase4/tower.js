@@ -24,9 +24,12 @@ class Tower {
     this.chooseTargetArea = true;
     this.mouseLoc;
     this.count = 0;
+    this.healthPulse = false;
     this.upgradedDamage = false;
     this.upgradedRange = false;
     this.upgradedCoolDown = false;
+    this.surroundingHands = 0;
+    this.liquifylFinal = false;
     if (ability == "freeze") {
       this.coolDown = 1000;
       this.range = 150;
@@ -67,12 +70,13 @@ class Tower {
   run() {
     this.render();
     this.update();
+    if(this.liquifylFinal == false){
+      this.liquifylFinalUpgrade();
+    }
   }
 
   damageUpgrade() {
-    for (let i = 0; i < this.enemies.length; i++) {
-      this.enemies[i].damageMult = this.enemies[i].damageMult * 1.2;
-    }
+    this.damageMult *=1.2;
   }
   coolDownUpgrade() {
     this.coolDown *= 0.8;
@@ -81,6 +85,48 @@ class Tower {
     this.range *= 1.2;
 
   }
+  finalUpgrade(ability) {
+    if (ability == "normal") {
+      this.normalFinalUpgrade();
+    } else if (ability == "fast") {
+
+    } else if (ability == "freeze") {
+
+    } else if (ability == "explosive") {
+
+    } else if (ability == "ray") {
+
+    } else if (ability == "cannon") {
+
+    } else if (ability == "bladeStorm") {
+
+    } else if (ability == "liquify") {
+      this.liquifylFinal = true;
+    } else if (ability == "missile") {
+      towerGame.straighterShooting = true;
+      towerGame.damageMult *= 1.3;
+    } else if (ability == "buffregen") {
+      this.healthPulse = true;
+    }
+  }
+  normalFinalUpgrade() {
+
+  }
+  liquifylFinalUpgrade(){
+    this.surroundingHands = 0;
+    for(let i = 0; i < towerGame.hands.length; i ++){
+     for(let j = 1; j < towerGame.hands.length-1; j ++){
+      if(!(j==i)){
+      let dist = towerGame.hands[i].loc.dist(towerGame.hands[j].loc);
+      if(dist < 80){
+        this.surroundingHands++;
+      }
+      }
+     }
+    }
+    //let legalSpot = towerGame.canAddTower();
+  }
+
   render() {
     var ctx = towerGame.context;
     if (this.ability == "buffregen") {
@@ -261,7 +307,7 @@ class Tower {
         towerGame.bullets.push(b);
 
       }
-      if (this.ability == "buffregen") {
+      if (this.ability == "buffregen" && this.healthPulse) {
         if (towerGame.health < 150) {
           towerGame.health++;//the tower that buff sorrunding towers also ups healing bc idk why
         }

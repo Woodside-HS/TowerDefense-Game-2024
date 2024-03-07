@@ -72,7 +72,9 @@ class Game {
     this.score = 0;
     this.wave = 0;
     this.health = 100;
+    this.damageMult = 1;
     this.shownBase = false;
+    this.straighterShooting = false;
     this.canvas = document.createElement("canvas");
     if (!this.canvas || !this.canvas.getContext)
       throw "No valid canvas found!";
@@ -103,29 +105,7 @@ class Game {
     this.w = 50;
     this.done = false;
     this.gameState = new GameState1(this)
-    //panelthings
-    // this.panelStart.ceatebutton("Start",
-    //   function(){
-    //     document.getElementById("panelStart").style.display = 'none'
-    //     towerGame.panelStart.go = true
-    //   }, "panelStartStartButton")
-    //
-    // this.panelStart.ceatebutton("Instructions",
-    //   function(){
-    //     document.getElementById("panelStart").style.display = 'none'
-    //     towerGame.panelInstructions = new Panel(this,100,-500, "panelInstructions")
-    //     towerGame.panelInstructions.ceatebutton("Back",
-    //       function(){
-    //         document.getElementById("panelStart").style.display = 'block'
-    //         document.getElementById("panelInstructions").parentNode.removeChild(document.getElementById("panelInstructions"))
-    //       }, "panelInstructionsButton")
-    //   }, "panelStartInstructionButton")
-    //
-    // this.panelStart.ceatebutton("Quit",
-    //   function(){
-    //     towerGame.panelQuit = new Panel(this,100,-500,"panelQuit")
-    //     document.getElementById("panelStart").style.display = 'none'
-    //   }, "panelStartQuitButton")
+
 
 
 
@@ -140,16 +120,6 @@ class Game {
     this.root = this.grid[this.cols - 1][this.rows - 1];
     this.brushfire();
     this.loadWallImage();
-
-    //   towerGame.addEventListener('click', function(event) {
-    //     // Update mouseX and mouseY based on the click event
-    //     towerGame.mouseX = event.offsetX;
-    //     towerGame.mouseY = event.offsetY;
-
-    //     // Call removeTower
-    //     towerGame.removeTower();
-
-    // }, false);
 
     var button = document.getElementById('pauseButton');
     button.addEventListener('click', this.pause, false);
@@ -232,7 +202,6 @@ class Game {
   hideImgElement() { this.style.display = "none"; }
 
   run() { // called from draw()
-    console.log(this.shownBase)
     if (towerState == 1) {
       if (count == 1) {
         //  this.createTileDivs();
@@ -773,7 +742,7 @@ class Game {
       if (!cell.occupied && !cell.hasTower && cell != towerGame.root) {
         return true;
       }
-      return (false);
+      return false;
     }
   }
 
@@ -913,7 +882,6 @@ class Game {
             // Set popupOpen to true as we are now opening a popup
 
             // Instantiate Popup near the tower location
-            console.log(towerGame.shownBase + "  916")
             if (towerGame.shownBase === false) {
               const popup = new Popup(popupX, popupY, tower);
               towerGame.shownBase = true;
@@ -921,7 +889,7 @@ class Game {
 
 
               document.getElementById('refundButton').addEventListener('click', () => {
-                towerGame.setBankValue(Math.floor(tower.cost / 3)); // Refund the cost of the tower
+                towerGame.setBankValue(Math.floor(popup.sellPrice)); // Refund the cost of the tower
                 towerGame.towers.splice(i, 1); // Remove the tower from the array
                 cell.hasTower = false; // Update the cell's state
                 console.log("Tower removed and cost refunded.");
@@ -936,7 +904,6 @@ class Game {
               });
 
               document.getElementById('cancleButton').addEventListener('click', () => {
-                console.log("cancelClick")
                 towerGame.showBase = false;
                 popup.hide(); // Close the popup
               });
