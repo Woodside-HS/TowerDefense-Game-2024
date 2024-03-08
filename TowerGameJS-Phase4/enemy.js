@@ -19,6 +19,7 @@ class Enemy {
     this.increasedDamg = 20;
     this.health = 1000;
     this.damages = 0;
+    this.hasBeenHit = false;
     this.targetCell = this.nextTarget();
     this.target = this.targetCell.center;
     this.shape = "circle";
@@ -136,16 +137,19 @@ class Enemy {
     for (let h = 0; h < towerGame.bullets.length; h++) {
       if (this.checkCollide(this, towerGame.bullets[h])) {
         if (towerGame.bullets[h].ability == "normal") {
-          this.health = this.health - 500*this.damageMult;
           if(!towerGame.piercingArrow){
+            this.health = this.health - 500*towerGame.damageMult;
           towerGame.bullets.splice(h, 1);
+          }else{
+            console.log(this.health)
+            this.health = this.health - 100*towerGame.damageMult;
           }
         } else if (towerGame.bullets[h].ability == "fast") {
-          this.health = this.health - 350*this.damageMult;
+          this.health = this.health - 350*towerGame.damageMult; 
           //  console.log(this.health)
           towerGame.bullets.splice(h, 1);
         } else if (towerGame.bullets[h].ability == "freeze") {
-          this.health = this.health - 25*this.damageMult;
+          this.health = this.health - 25*towerGame.damageMult;
           this.slowed -= 1;
           setTimeout(() => {
             this.slowed = 1.2;
@@ -153,7 +157,7 @@ class Enemy {
           //  this.vel = this.initialVel - .8;
         } else if (towerGame.bullets[h].ability == "explosive") {
 
-          this.health = this.health - 100*this.damageMult;
+          this.health = this.health - 100*towerGame.damageMult;
           //this.health = this.health - 10;
           if (this.health <= 0) {
             this.kill = true;

@@ -28,6 +28,7 @@ class Tower {
     this.upgradedDamage = false;
     this.upgradedRange = false;
     this.upgradedCoolDown = false;
+    this.upgradedFinal = false;
     this.surroundingHands = 0;
     this.liquifylFinal = false;
     this.creatures = [];
@@ -113,7 +114,7 @@ class Tower {
     }
   }
   normalFinalUpgrade() {
-
+    towerGame.piercingArrow = true;
   }
   liquifylFinalUpgrade() {
     for (let i = 0; i < towerGame.hands.length; i++) {
@@ -339,7 +340,7 @@ class Tower {
         towerGame.hands.push(h);
       }
       if (this.ability == "bladeStorm") {
-        if (this.blades != 4) {//creating the four blades 
+        if (this.blades < 4) {//creating the four blades 
           let bulletLocation = vector2d(this.loc.x, this.loc.y);
           let s = new Blade(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.blades);
           towerGame.blades.push(s);

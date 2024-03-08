@@ -75,6 +75,8 @@ class Game {
     this.damageMult = 1;
     this.shownBase = false;
     this.straighterShooting = false;
+    this.piercingArrow = false;
+
     this.canvas = document.createElement("canvas");
     if (!this.canvas || !this.canvas.getContext)
       throw "No valid canvas found!";
@@ -465,7 +467,7 @@ class Game {
 
     }
   }
-  
+
   removeBullets() {
     if (this.bullets.length < 1) return;
     for (let i = this.bullets.length - 1; i >= 0; i--) {

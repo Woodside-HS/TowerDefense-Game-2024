@@ -85,13 +85,13 @@ class Popup {
     console.log(this.tower.upgradedRange + "    " + this.tower.upgradedCoolDown + "    " + this.tower.upgradedDamage);
     let cost = Math.ceil(this.tower.cost*4)
     const finalUpgrade = this.createButton(cost, 'finalUpgrade', 'Final', () => {
-      towerGame.shownBase = false;
       this.tower.finalUpgrade(this.tower.ability);
       console.log("Final Upgrade");
+      this.tower.upgradedFinal = true;
       this.hideUpgrade();
-      towerGame.shownBase = false;
       towerGame.bankValue -= Math.ceil(this.tower.cost*4);
       this.sellPrice+=this.tower.cost*4;
+      towerGame.shownBase = false;
     });
     cost = Math.ceil(this.tower.cost*1.2);
     const rangeButton = this.createButton(cost, 'rangeButton', 'Range', () => {
@@ -141,7 +141,7 @@ class Popup {
     if (this.tower.upgradedDamage == false) {
       upgradePopup.appendChild(damageButton);
     }
-    if (this.tower.upgradedRange && this.tower.upgradedCoolDown && this.tower.upgradedDamage) {
+    if (this.tower.upgradedRange && this.tower.upgradedCoolDown && this.tower.upgradedDamage && !this.tower.upgradedFinal) {
       upgradePopup.appendChild(finalUpgrade);
     }
     upgradePopup.appendChild(cancleButton);
