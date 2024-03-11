@@ -85,7 +85,7 @@ var panelJSON = [{
 }, {
   name: "Instruction Panel",
   id: "instructionPanel",
-  pic: "resources/images/panels/panel.png",
+  pic: "resources/images/panels/instructions.png",
   picId: "pan",
   buttonJSON: [
     {
