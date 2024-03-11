@@ -38,7 +38,7 @@ class Panel {
     button.style.height = 30 + "px"
     button.style.position = "relative"
     button.style.top = 5 + 21 * i + "%"
-    button.style.left = 50 + "px"
+    button.style.left = 35 + "px"
     button.image = document.createElement("img")
     button.image.id = JSON1.buttonJSON[i].picId
     button.image.src = JSON1.buttonJSON[i].pic
@@ -57,7 +57,7 @@ var panelJSON = [{
     {
       name: "Start Button",
       id: "start",
-      pic: "resources/images/panels/start.png",
+      pic: "resources/images/panels/play.png",
       picId: "play",
       funk: function () {
         towerGame.gameState = new GameState2(towerGame)
