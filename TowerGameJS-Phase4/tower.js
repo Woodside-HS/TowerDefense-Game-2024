@@ -30,10 +30,12 @@ class Tower {
     this.upgradedCoolDown = false;
     this.upgradedFinal = false;
     this.surroundingHands = 0;
-    this.liquifylFinal = false;
+    this.liquifyFinal = false;
     this.creatures = [];
     this.maxSurroundingHands = 0;
-
+    this.damageMult = 1;
+    this.straighterShooting = false;
+    this.piercingArrow = false;
     if (ability == "freeze") {
       this.coolDown = 1000;
       this.range = 150;
@@ -74,8 +76,8 @@ class Tower {
   run() {
     this.render();
     this.update();
-    if (this.liquifylFinal == false) {
-      this.liquifylFinalUpgrade();
+    if (this.liquifyFinal == false) {
+      this.liquifyFinalUpgrade();
     }
   }
 
@@ -105,10 +107,10 @@ class Tower {
     } else if (ability == "bladeStorm") {
 
     } else if (ability == "liquify") {
-      this.liquifylFinal = true;
+      this.liquifyFinal = true;
     } else if (ability == "missile") {
       towerGame.straighterShooting = true;
-      towerGame.damageMult *= 1.3;
+      this.damageMult *= 1.3;
     } else if (ability == "buffregen") {
       this.healthPulse = true;
     }
@@ -116,7 +118,7 @@ class Tower {
   normalFinalUpgrade() {
     towerGame.piercingArrow = true;
   }
-  liquifylFinalUpgrade() {
+  liquifyFinalUpgrade() {
     for (let i = 0; i < towerGame.hands.length; i++) {
       this.surroundingHands = 0;
       this.creatures.push(towerGame.hands[i]);
@@ -320,7 +322,7 @@ class Tower {
       this.lastTime = millis;
       let bulletLocation = vector2d(this.loc.x, this.loc.y);
       let b = new Bullet(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.mouseLoc, this.loc);
-      let q = new Missile(bulletLocation, this.bulletImg, this.towAngle, this.ability);
+      let q = new Missile(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.liquifyFinal);
       let h = new Liquify(bulletLocation, this.bulletImg, this.towAngle, this.ability);
       if (this.ability == "fast" || this.ability == "normal"
         || this.ability == "freeze" || this.ability == "explosive" || this.ability == "cannon") {

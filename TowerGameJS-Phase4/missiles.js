@@ -1,7 +1,7 @@
 'use strict'
 
 class Missile {
-    constructor(location, bImg, angle, type) {
+    constructor(location, bImg, angle, type, finalUpgrade) {
         this.loc = location;
         this.r = 16;
         let red = Math.floor(Math.random() * 256);
@@ -9,6 +9,7 @@ class Missile {
         let blue = Math.floor(Math.random() * 256);
         this.clr = 'rgba(' + red + ',' + green + ',' + blue + ',' + 0.5 + ')';
         this.speed = 8;
+        this.finalUpgrade = finalUpgrade;
         this.shape = "circle";
         this.angle = angle;
         this.img = bImg;
@@ -38,7 +39,7 @@ class Missile {
         this.loc.x += Math.cos(this.angle) * this.speed;
     }
     randomNess() {
-        if (!towerGame.straighterShooting) {
+        if (!this.finalUpgrade) {
             let randomNum = Math.round(Math.random() * 4 + 1);//don't want all the missiles to be straight so implementing some sort of randomness to the missiles
             if (randomNum < 4) {
                 this.loc.x += Math.random() * 25 - 12.5;

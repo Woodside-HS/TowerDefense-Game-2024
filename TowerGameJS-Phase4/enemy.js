@@ -110,7 +110,7 @@ class Enemy {
     for (let h = 0; h < towerGame.missiles.length; h++) {
       if (this.checkCollide(this, towerGame.missiles[h])) {
         if (towerGame.missiles[h].ability == "missile") {
-          this.health -= 800;//this does not current work
+          this.health -= 800*towerGame.missiles[h].damageMult;//this does not current work
           towerGame.missiles.splice(h, 1);
         }
       }
@@ -118,7 +118,7 @@ class Enemy {
     for (let h = 0; h < towerGame.hands.length; h++) {
       if (this.checkCollide(this, towerGame.hands[h])) {
         if (towerGame.hands[h].ability == "liquify") {
-          this.health -= 10;
+          this.health -= 10*towerGame.missiles[h].damageMult;
 
 
         }
@@ -127,7 +127,7 @@ class Enemy {
     for (let h = 0; h < towerGame.blades.length; h++) {
       if (this.checkCollide(this, towerGame.blades[h])) {
         if (towerGame.blades[h].ability == "bladeStorm") {
-          this.health -= 100;
+          this.health -= 100*towerGame.missiles[h].damageMult;
 
         }
       }
@@ -138,18 +138,18 @@ class Enemy {
       if (this.checkCollide(this, towerGame.bullets[h])) {
         if (towerGame.bullets[h].ability == "normal") {
           if(!towerGame.piercingArrow){
-            this.health = this.health - 500*towerGame.damageMult;
+            this.health = this.health - 500*towerGame.bullets[h].damageMult;
           towerGame.bullets.splice(h, 1);
           }else{
             console.log(this.health)
-            this.health = this.health - 100*towerGame.damageMult;
+            this.health = this.health - 100*towerGame.bullets[h].damageMult;
           }
         } else if (towerGame.bullets[h].ability == "fast") {
-          this.health = this.health - 350*towerGame.damageMult; 
+          this.health = this.health - 350*towerGame.bullets[h].damageMult; 
           //  console.log(this.health)
           towerGame.bullets.splice(h, 1);
         } else if (towerGame.bullets[h].ability == "freeze") {
-          this.health = this.health - 25*towerGame.damageMult;
+          this.health = this.health - 25*towerGame.bullets[h].damageMult;
           this.slowed -= 1;
           setTimeout(() => {
             this.slowed = 1.2;
@@ -157,7 +157,7 @@ class Enemy {
           //  this.vel = this.initialVel - .8;
         } else if (towerGame.bullets[h].ability == "explosive") {
 
-          this.health = this.health - 100*towerGame.damageMult;
+          this.health = this.health - 100*towerGame.bullets[h].damageMult;
           //this.health = this.health - 10;
           if (this.health <= 0) {
             this.kill = true;
@@ -168,7 +168,7 @@ class Enemy {
           towerGame.bullets.splice(h, 1);
         }
         else if (towerGame.bullets[h].ability == "explosive") {
-          this.health -= 100;
+          this.health -= 100*towerGame.bullets[h].damageMult;
           if (this.health <= 0) {
             this.kill = true;
           }

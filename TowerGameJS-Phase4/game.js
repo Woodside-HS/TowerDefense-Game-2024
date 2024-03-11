@@ -72,10 +72,8 @@ class Game {
     this.score = 0;
     this.wave = 0;
     this.health = 100;
-    this.damageMult = 1;
     this.shownBase = false;
-    this.straighterShooting = false;
-    this.piercingArrow = false;
+  
 
     this.canvas = document.createElement("canvas");
     if (!this.canvas || !this.canvas.getContext)
