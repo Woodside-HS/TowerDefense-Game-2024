@@ -47,6 +47,9 @@ class Game {
 
   //  This is a test
   constructor() { // from setup()
+    this.displayOverDraftBanner = false;
+    this.invalidGridBanner = false;
+    this.towerErrorBanner = false;
     this.isRunning = true;
     this.placingTower = false;
     this.currentTower = 0;
@@ -430,7 +433,7 @@ class Game {
       return function () {
         cell.hasTower = false;
         towerGame.towers.splice(towerGame.towers.indexOf(tower))
-        alert("you cannot place a tower here")
+       towerGame.towerErrorBanner = true;
       }
     } else {
       return function () {
@@ -441,7 +444,7 @@ class Game {
           cell.occupied = true;
           towerGame.bankValue -= towerGame.wallCost;
         }
-        alert("performing that action would create an invalid grid")
+        towerGame.invalidGridBanner = true;
       }
     }
   }
@@ -767,7 +770,10 @@ class Game {
         println('failed to make tower');
       }
     }
-    else alert("Insufficient Funds!");
+    else {
+      this.displayOverDraftBanner = true;
+    }
+
     return (false);
   }
 
