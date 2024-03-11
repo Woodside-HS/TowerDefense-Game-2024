@@ -10,8 +10,8 @@ class Panel {
     this.panel.style.height = 290 + "px"
     this.panel.style.backgroundImage = 'url("' + panelJSON[number].pic + '")'
     this.panel.style.position = "absolute"
-    this.panel.style.align = "center"
-    this.panel.style.top = -800 + "px"
+    this.panel.style.align = "center";
+    this.panel.style.top = -800 + "px";
     this.panel.style.left = 680 + "px";
     this.panel.style.textAlign = "center"
     this.wrapper = document.getElementById('wrapperDiv').appendChild(this.panel)
@@ -85,7 +85,7 @@ var panelJSON = [{
 }, {
   name: "Instruction Panel",
   id: "instructionPanel",
-  pic: "resources/images/panels/panel.png",
+  pic: "resources/images/panels/instructions.png",
   picId: "pan",
   buttonJSON: [
     {
