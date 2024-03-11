@@ -25,6 +25,7 @@ class GameState1 extends GameState { // Start Screen
     this.panelQuit = 0
     document.getElementById('infoDiv').style.visibility = 'hidden'; // Make info tiles invisible on start page
     document.getElementById('menuDiv').style.visibility = 'hidden';
+    document.getElementById('switchDiv').style.visibility = 'hidden';
   }
   run() {
     if (this.panelStart) {
@@ -64,6 +65,7 @@ class GameState3 extends GameState { // end screen
     this.panelStart = 0
     document.getElementById('infoDiv').style.visibility = 'hidden'; // Make info tiles invisible on start page
     document.getElementById('menuDiv').style.visibility = 'hidden';
+    document.getElementById('switchDiv').style.visibility = 'hidden';
   }
   run() {
     this.game.render()
@@ -140,6 +142,7 @@ class GameState5 extends GameState { // game itself
 
     document.getElementById('infoDiv').style.visibility = 'visible'; // Make info tiles invisible on start page
     document.getElementById('menuDiv').style.visibility = 'visible';
+    document.getElementById('switchDiv').style.visibility = 'visible';
   }
   init() {
 
