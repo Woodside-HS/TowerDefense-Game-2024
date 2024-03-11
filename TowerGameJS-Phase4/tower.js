@@ -321,9 +321,9 @@ class Tower {
       // reset lastTime to current time
       this.lastTime = millis;
       let bulletLocation = vector2d(this.loc.x, this.loc.y);
-      let b = new Bullet(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.mouseLoc, this.loc);
-      let q = new Missile(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.liquifyFinal);
-      let h = new Liquify(bulletLocation, this.bulletImg, this.towAngle, this.ability);
+      let b = new Bullet(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.mouseLoc, this.loc, this.damageMult);
+      let q = new Missile(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.damageMult);
+      let h = new Liquify(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.damageMult);
       if (this.ability == "fast" || this.ability == "normal"
         || this.ability == "freeze" || this.ability == "explosive" || this.ability == "cannon") {
         towerGame.bullets.push(b);

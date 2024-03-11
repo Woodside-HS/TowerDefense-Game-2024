@@ -141,12 +141,10 @@ class Enemy {
             this.health = this.health - 500*towerGame.bullets[h].damageMult;
           towerGame.bullets.splice(h, 1);
           }else{
-            console.log(this.health)
             this.health = this.health - 100*towerGame.bullets[h].damageMult;
           }
         } else if (towerGame.bullets[h].ability == "fast") {
           this.health = this.health - 350*towerGame.bullets[h].damageMult; 
-          //  console.log(this.health)
           towerGame.bullets.splice(h, 1);
         } else if (towerGame.bullets[h].ability == "freeze") {
           this.health = this.health - 25*towerGame.bullets[h].damageMult;

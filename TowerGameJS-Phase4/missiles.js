@@ -1,7 +1,7 @@
 'use strict'
 
 class Missile {
-    constructor(location, bImg, angle, type, finalUpgrade) {
+    constructor(location, bImg, angle, type, damageMult) {
         this.loc = location;
         this.r = 16;
         let red = Math.floor(Math.random() * 256);
@@ -9,11 +9,11 @@ class Missile {
         let blue = Math.floor(Math.random() * 256);
         this.clr = 'rgba(' + red + ',' + green + ',' + blue + ',' + 0.5 + ')';
         this.speed = 8;
-        this.finalUpgrade = finalUpgrade;
         this.shape = "circle";
         this.angle = angle;
         this.img = bImg;
         this.ability = type;
+        this.damageMult = damageMult;
     }
 
     run() {

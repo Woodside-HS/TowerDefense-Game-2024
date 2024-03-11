@@ -2,7 +2,7 @@
 
 class Bullet {
 
-  constructor(location, bImg, angle, type, mouseLoc, towerLoc) {
+  constructor(location, bImg, angle, type, mouseLoc, towerLoc, damageMult) {
     // issue#1 use preloaded bullet image instead of loadImage
     this.spinny = false;
     this.loc = location;
@@ -20,6 +20,7 @@ class Bullet {
     this.spots = [];
     this.choosenTargetLoc = 0;
     this.cannonAngle;
+    this.damageMult = damageMult;
     if (this.ability == "freeze") {
       this.speed = 10;
     }

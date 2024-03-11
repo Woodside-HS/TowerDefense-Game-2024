@@ -2,7 +2,7 @@
 
 class Liquify {
 
-  constructor(location, bImg, angle, type) {
+  constructor(location, bImg, angle, type, damageMult) {
     // issue#1 use preloaded bullet image instead of loadImage
     this.loc = location;
     this.vel = vector2d(0, 0);
@@ -17,6 +17,7 @@ class Liquify {
     this.nearestEnemy = 100000;
     this.lifeSpan = 500;
     this.death = false;
+    this.damageMult = damageMult;
   }
 
   run() {
