@@ -12,7 +12,7 @@ var ssImage;
 var load = document.getElementById('loader');
 var wrap;
 
-let gameStateID = 1;
+
 
 function loadImages() {
   bsImage = new Image();
@@ -54,19 +54,23 @@ class Game {
     this.enemies = [];
     this.bullets = [];
     this.explosiveBullets = [];
-    this.bankValue = 500;
     this.rays = [];
     this.checkOnce = true;
+    this.gameStateID = 1;
+    this.levelKey;
     this.enemyNum = 20;
     this.wallCost = 2;
 
+
     this.paused = false;
+    this.loadEmptyImage();
 
     this.loadEnemyImages();
     this.score = 0;
     this.wave = 0;
     this.health = 100;
     this.canvas = document.createElement("canvas");
+
     if (!this.canvas || !this.canvas.getContext)
       throw "No valid canvas found!";
     this.canvas.width = 900;
@@ -85,6 +89,8 @@ class Game {
     this.canvas.addEventListener('mousemove', this.handleCNVMouseMoved, false);
     this.canvas.addEventListener('mouseover', this.handleCNVMouseOver, false);
     this.canvas.addEventListener('click', this.handleCNVMouseClicked, false);
+
+
     this.currentWaveNum = 0
     this.wave = new Wave(this, AllWaves[this.currentWaveNum])
 
@@ -92,19 +98,17 @@ class Game {
     this.mouseY = 0;
     this.w = 50;
     this.done = false;
+
     this.gameState = new GameState1(this);
 
-
-
-
-
-
-    // containerarrays for cells
+    // container arrays for cells
     this.grid = [];
     this.cols = Math.floor(this.canvas.width / this.w);
     this.rows = Math.floor(this.canvas.height / this.w);
 
     this.loadGrid();
+    this.rootX = 1;
+    this.rootY = 1;
     this.root = this.grid[this.cols - 1][this.rows - 1];
     this.brushfire();
     this.loadWallImage();
@@ -143,6 +147,19 @@ class Game {
       });
 
   }
+
+  loadEmptyImage() {
+    let propName = "B70000";
+    var f = buttonsJSON.frames[propName].frame;
+    createImageBitmap(bsImage, f.x, f.y, f.w, f.h).then(function (emptyImage) {
+      Cell.emptyImage = emptyImage;
+      //console.log(f);
+    },
+      function () {
+        alert('failed to make wallImage');
+      });
+  }
+
 
 
   loadEnemyImages() {
@@ -529,7 +546,7 @@ class Game {
     var buttons = ["B10000", "B20000", "B30000", "B40000", "B50000", "B60000"];
     //  loop through the towers and DO NOT include wall element
     for (var i = 0; i < 5; i++) {
-      var mtd = document.createElement("div"); // createDiv("");
+      var mtd = document.createElement("div"); // createDiv("");//  mtd = menu-tile-div
       if (i == 0) {
         mtd.ability = "normal";
         //        this.bankValue = 200;
@@ -584,6 +601,7 @@ class Game {
   getBankValue() {
     return this.bankValue;
   }
+
   //  Logic to add tower +++++++++++++++++++++++
   canAddTower(cell) {
     // add conditions before allowing user to place turret
@@ -687,41 +705,71 @@ class Game {
       //follow mouse
       towerGame.towers[towerGame.towers.length - 1].loc.x = this.mouseX;
       towerGame.towers[towerGame.towers.length - 1].loc.y = this.mouseY;
-      //        console.log(this.mouseX + ", " + this.mouseY + ", " + towerGame.towers[towerGame.towers.length-1].loc.toString());
+
     }
   }
 
-  handleCNVMouseClicked(event) { // places grid (the walls)
-    //14 rows and 17 col
-    var row = Math.floor(event.offsetY / towerGame.w);
+  handleCNVMouseClicked(event) { // places the walls
+
     var col = Math.floor(event.offsetX / towerGame.w);
+    var row = Math.floor(event.offsetY / towerGame.w);
     var cell = towerGame.grid[col][row];
-
-    if (towerGame.placingTower && towerGame.canAddTower(cell)) {
-      towerGame.placeTower(cell);
-    }
-
-    else if (!towerGame.placingTower && !cell.hasTower) {
-      // toggle the occupied property of the clicked cell
-      if (!cell.occupied && towerGame.bankValue >= towerGame.wallCost) {
-        towerGame.bankValue -= towerGame.wallCost;
-        cell.occupied = true;
-      } else if (!cell.occupied) {
-        alert("Insufficient Funds!");
-      }
-      else {
-        towerGame.bankValue += towerGame.wallCost;
-        cell.occupied = false;
-      }
-      towerGame.brushfire(towerGame.undo(cell));   // all new distances and parents
-    }
-
-    if (gameStateID === 4) {
+    /* if the game is in any of these gamestates, it only
+    allows towers to be built, it does not include
+    the walls. gameStateID 6-8 are premade levels so the player 
+    shouldn't be able to place/remove walls */
+    if (towerGame.gameStateID === 6
+      || towerGame.gameStateID === 7
+      || towerGame.gameStateID === 8) {
       if (towerGame.placingTower && towerGame.canAddTower(cell)) {
-        towerGame.placeTower(towerGame);
+        towerGame.placeTower(cell);
+      }
+    } else if (towerGame.gameStateID === 5) { // gameStateID 5 is the custom built map.
+      if (towerGame.placingTower && towerGame.canAddTower(cell)) {
+        towerGame.placeTower(cell);
+      }
+      else if (!towerGame.placingTower && !cell.hasTower) {
+        // toggle the occupied property of the clicked cell
+        if (!cell.occupied && towerGame.bankValue >= towerGame.wallCost) {
+          towerGame.bankValue -= towerGame.wallCost;
+          cell.occupied = true;
+        } else if (!cell.occupied) {
+          alert("Insufficient Funds!");
+        } else {
+          towerGame.bankValue += towerGame.wallCost;
+          cell.occupied = false;
+        }
+        towerGame.brushfire(towerGame.undo(cell));   // all new distances and parents
       }
     }
   }
+  levelRender(key) { //premade level render
+    //they are called levels, but are really just maps. 
+    //you don't have to complete the previous one to go to the next one
+    for (let row = 0; row < key.length; row++) {
+      for (let col = 0; col < key[0].length; col++) {
+        if (key[row][col] === 'b') {
+          if (towerGame.placingTower && towerGame.canAddTower(towerGame.grid[col][row])) {
+            towerGame.placeTower(towerGame.grid[col][row]);
+          }
+          else if (!towerGame.placingTower && !towerGame.grid[col][row].hasTower) {
+            // toggle the occupied property of the clicked cell
+            towerGame.grid[col][row].occupied = true;
+            towerGame.brushfire(towerGame.undo(towerGame.grid[col][row]));
+          }
+        } else if (key[row][col] === 'e') {
+          this.root = this.grid[col][row];
+        }
+      }
+    }
+
+
+
+
+  }
+
+
+
 
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   //collision detection utilities
@@ -749,7 +797,7 @@ class Game {
     return value >= Math.min(min, max) && Math.max(min, max) <= Math.max(min, max);
   }
 
-  //parameters:
+
   //loc1 = location vector of first circle
   //loc2 = location vector of second circle
   //rad1 = radius of first circle
@@ -798,33 +846,3 @@ class Game {
 
   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Other
 } // end Game class +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-
-//Rate and range adjustments
-// window.onkeydown = function (e) {
-//   var code = e.keyCode ? e.keyCode : e.which;
-
-//   if (code == 85) { // u key
-//     if (towerGame.bankValue >= 800) {
-//       var upgrade = prompt("Type rate to increase fire rate (costs 1000)\nType range to increase range (Costs 800)").toLowerCase();
-
-//       if ((upgrade == "range" && towerGame.bankValue >= 800) || (upgrade == "rate" && towerGame.bankValue >= 1000)) {
-//         for (var i = 0; i < towerGame.towers.length; i++) {
-//           var tower = towerGame.towers[i];
-//           if (upgrade === "rate") {
-//             tower.coolDown -= 200;
-//             towerGame.bankValue -= 1000;
-//           } else if (upgrade === "range") {
-//             tower.range += 200;
-//             towerGame.bankValue -= 800;
-//           } else {
-//             alert("Other options are invalid!");
-//           }
-//         }
-//       }
-//     } else {
-//       alert("Insufficient Funds!");
-//     }
-//   }
-// }
-

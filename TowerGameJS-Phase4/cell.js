@@ -19,20 +19,20 @@ class Cell {
   // draw cells that are occupied and the root cell
   render() {
     let ctx = this.game.context;
-    ctx.strokeStyle = 'white';
+
+    // ctx.strokeStyle = 'white';
     //   ctx.strokeRect(this.loc.x, this.loc.y, this.game.w, this.game.w);
+
     if (this.occupied) {
-      ctx.drawImage(Cell.wallImage, 0, 0, Cell.wallImage.width, Cell.wallImage.height, this.loc.x, this.loc.y, this.game.w, this.game.w);
-    }
-    else if (this == this.game.root) {
+        ctx.drawImage(Cell.wallImage, 0, 0, Cell.wallImage.width, Cell.wallImage.height, this.loc.x, this.loc.y, this.game.w, this.game.w);
+      } 
+    else if (this === this.game.root) {
       ctx.fillStyle = "yellow";
       ctx.beginPath();
       ctx.ellipse(this.center.x, this.center.y, this.game.w / 2, this.game.w / 2, 0, 2 * Math.PI, false);
       ctx.fill();
       ctx.stroke();
     }
-
-
 
   }
 
