@@ -20,7 +20,7 @@ class GameState1 extends GameState { // Start Screen
     super(game, 1)
     this.game.gameStateID = 1;
     this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/startScreen.jpg')"
-    this.panelStart = new Panel(this, 0)
+    this.panelStart = new Panel(this, 0, true)
     this.panelInstructions = 0
     this.panelQuit = 0
     document.getElementById('infoDiv').style.visibility = 'hidden'; // Make info tiles invisible on start page
@@ -28,11 +28,11 @@ class GameState1 extends GameState { // Start Screen
   }
   run() {
     if (this.panelStart) {
-      this.panelStart.render(true)
+      this.panelStart.render()
     }
 
     if (this.panelInstructions) {
-      this.panelInstructions.render(true)
+      this.panelInstructions.render()
     }
   }
 }
@@ -41,13 +41,13 @@ class GameState2 extends GameState { // Level screen
     super(game);
     towerGame.gameStateID = 6;
     this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/levelSelector.jpg')"
-    this.panelLvlSelector = new Panel(this, 3);
+    this.panelLvlSelector = new Panel(this, 3, true);
 
   }
 
   run() {
     this.game.render();
-    this.panelLvlSelector.render(true);
+    this.panelLvlSelector.render();
 
   }
 
@@ -59,7 +59,7 @@ class GameState3 extends GameState { // end screen
     this.game.gameStateID = 3
     this.game.enemies = []
     this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/endScreen.jpg')"
-    this.panelQuit = new Panel(this, 2)
+    this.panelQuit = new Panel(this, 2, true)
     this.panelCredits = 0
     this.panelStart = 0
     document.getElementById('infoDiv').style.visibility = 'hidden'; // Make info tiles invisible on start page
@@ -68,10 +68,10 @@ class GameState3 extends GameState { // end screen
   run() {
     this.game.render()
     document.getElementById("infoDiv").getElementsByClassName("infoTileDiv")[4].innerHTML = ("Health </br>" + 0); if (this.panelQuit) {
-      this.panelQuit.render(true)
+      this.panelQuit.render()
     }
     if (this.panelCredits) {
-      this.panelCredits.render(true)
+      this.panelCredits.render()
     }
   }
 }
