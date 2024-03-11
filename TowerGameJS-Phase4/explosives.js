@@ -1,46 +1,42 @@
 class Explosives{
 
-  constructor(location, ability, mouseLocation){
+  constructor(location){
     // issue#1 use preloaded bullet image instead of loadImage
 
     this.loc = location;
     this.start = 5.0;
     this.radius = this.start;
     this.kills = false;
-    this.ability = ability;
-    if(this.ability = "cannon"){
-    this.growthSpeed = 3;
-    }else{
-      this.growthSpeed = 4;
-    }
+
   }
 
   run(){
+    //console.log("running");
     this.render();
     this.update();
-
   }
-
   render(){
     var ctx = towerGame.context;
     ctx.fillStyle = 'orange';
+   // console.log(this.loc);
     ctx.beginPath();
+    if(this.radius <= 40){
+     this.radius += 7;
+     console.log("sss");
 
+    }  else {
+
+      this.kills = true;
+    }
 
     ctx.ellipse(this.loc.x, this.loc.y, this.radius, this.radius, 0, 2*Math.PI, false);
     ctx.fill();
 
     ctx.restore();
-    
   }
 
   update(){
 
-    if(this.radius <= 30){
-      this.radius += this.growthSpeed;
-     }  else {
- 
-       this.kills = true;
-     }
+
   }
 }//  end Bullet class
