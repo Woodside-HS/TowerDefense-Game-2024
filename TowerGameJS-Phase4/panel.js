@@ -20,8 +20,10 @@ class Panel {
     }
   }
 
-  render() {
-    this.y = this.slideDown(this.y, 550, .05)
+  render(slidecheck = false) {
+    if (slidecheck === true) {
+      this.y = this.slideDown(this.y, 550, .05);
+    }
     this.panel.style.top = this.y + "px"
   }
 
@@ -38,7 +40,7 @@ class Panel {
     button.style.height = 30 + "px"
     button.style.position = "relative"
     button.style.top = 5 + 21 * i + "%"
-    button.style.left = 35 + "px"
+    button.style.left = 50 + "px"
     button.image = document.createElement("img")
     button.image.id = JSON1.buttonJSON[i].picId
     button.image.src = JSON1.buttonJSON[i].pic
@@ -78,7 +80,7 @@ var panelJSON = [{
       pic: "resources/images/panels/end.png",
       picId: "catalog",
       funk: function () {
-        towerGame.gameState = new GameState4(towerGame)
+        towerGame.gameState = new GameState4(towerGame, 4)
         document.getElementById("firstPanel").parentNode.removeChild(document.getElementById("firstPanel"))
       }
     }]
@@ -155,7 +157,7 @@ var panelJSON = [{
       id: "level1Button",
       pic: "resources/images/panels/credits.png",
       picId: "frame1",
-      funk: function (){
+      funk: function () {
         towerGame.gameState = new GameState5(towerGame, 1)
         document.getElementById("levelSelector").parentNode.removeChild(document.getElementById("levelSelector"))
       }
@@ -164,17 +166,17 @@ var panelJSON = [{
       id: "level2Button",
       pic: "resources/images/panels/restart.png",
       picId: "frame2",
-      funk: function (){
+      funk: function () {
         towerGame.gameState = new GameState5(towerGame, 2)
         document.getElementById("levelSelector").parentNode.removeChild(document.getElementById("levelSelector"))
-        
+
       }
     }, {
       name: "Level 3 Button",
       id: "level3Button",
       pic: "resources/images/panels/credits.png",
       picId: "frame3",
-      funk: function (){
+      funk: function () {
         towerGame.gameState = new GameState5(towerGame, 3)
         document.getElementById("levelSelector").parentNode.removeChild(document.getElementById("levelSelector"))
       }
@@ -183,12 +185,12 @@ var panelJSON = [{
       id: "customLvlButton",
       pic: "resources/images/panels/credits.png",
       picId: "frame4",
-      funk: function (){
+      funk: function () {
         towerGame.gameState = new GameState5(towerGame, 4)
         document.getElementById("levelSelector").parentNode.removeChild(document.getElementById("levelSelector"))
-        
+
       }
-    }, 
+    },
   ]
 }, {
   name: "Credites Panel",
