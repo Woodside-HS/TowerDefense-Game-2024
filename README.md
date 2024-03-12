@@ -6,7 +6,7 @@ with its enemy class.
 
 _Edited and Improved By:_
 
-— Bryan Calder
+Bryan Calder
 — John Gilbert
 — Yoan Renninger
 — Logan Thomas
