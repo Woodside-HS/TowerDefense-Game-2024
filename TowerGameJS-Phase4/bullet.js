@@ -2,14 +2,14 @@
 
 class Bullet {
 
-  constructor(location, bImg, angle, type, mouseLoc, towerLoc, damageMult, finalCannon) {
+  constructor(location, bImg, angle, type, mouseLoc, towerLoc, damageMult, finalCannon, finalFast) {
     // issue#1 use preloaded bullet image instead of loadImage
     this.cannonUpgradeFinal = finalCannon;
+    this.fastUpgradeFinal = finalFast;
     this.spinny = false;
     this.loc = location;
     this.towerLoc = towerLoc;
-    this.towerLocated = true;
-    this.speed = 25;
+    this.speed = 0;
     this.r = 30;
     this.choosenTarget = false;
     this.shape = "circle";
@@ -22,6 +22,7 @@ class Bullet {
     this.choosenTargetLoc = 0;
     this.cannonAngle;
     this.damageMult = damageMult;
+    this.slashArc = 200;
     if (this.ability == "freeze") {
       this.speed = 10;
     }
@@ -66,11 +67,16 @@ class Bullet {
   }
 
   cannonSpinny() {
-    if(this.cannonUpgradeFinal){
-    let angularMovement = 0.05;
-    this.loc.x += Math.cos(this.cannonBulletAngle) * 2.5;//the * 2.5 does not really make sense idk
-    this.loc.y += Math.sin(this.cannonBulletAngle) * 2.5;//The number should be orbital radius and it technically is.
-    this.cannonBulletAngle += angularMovement;
+    if (this.cannonUpgradeFinal) {
+      let angularMovement = 0.05;
+      this.loc.x += Math.cos(this.cannonBulletAngle) * 2.5;//the * 2.5 does not really make sense idk
+      this.loc.y += Math.sin(this.cannonBulletAngle) * 2.5;//The number should be orbital radius and it technically is.
+      this.cannonBulletAngle += angularMovement;
+    }
+  }
+  fastSwipe() {
+    if (this.fastUpgradeFinal) {
+
     }
   }
 
@@ -99,11 +105,23 @@ class Bullet {
     var ctx = towerGame.context;
     ctx.save();
     ctx.translate(this.loc.x, this.loc.y);
-    ctx.rotate(this.angle + Math.PI/2)
+    ctx.rotate(this.angle + Math.PI / 2)
 
     ctx.drawImage(this.img, -this.img.width / 2, -this.img.height / 2);
 
     ctx.restore();
+
+    if (!this.fastUpgradeFinal && this.slashArc > 0) {
+      var ctx = towerGame.context;
+      ctx.save();
+      ctx.translate(this.loc.x, this.loc.y);
+      ctx.rotate(this.angle + Math.PI / 2);
+      ctx.moveTo(-this.slashArc/2,0);
+      ctx.lineTo(this.slashArc/2, 0);
+      ctx.stroke();
+      ctx.restore();
+      this.slashArc-=3;
+    }
   }
 
   update() {

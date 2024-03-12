@@ -149,7 +149,7 @@ class Enemy {
             this.health = this.health - 500*towerGame.bullets[h].damageMult;
           towerGame.bullets.splice(h, 1);
           }else{
-            this.health = this.health - 100*towerGame.bullets[h].damageMult;
+            this.health = this.health - 150*towerGame.bullets[h].damageMult;
           }
         } else if (towerGame.bullets[h].ability == "fast") {
           this.health = this.health - 350*towerGame.bullets[h].damageMult; 

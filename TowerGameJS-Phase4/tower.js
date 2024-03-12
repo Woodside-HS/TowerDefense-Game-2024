@@ -99,7 +99,7 @@ class Tower {
     if (ability == "normal") {
       this.normalFinalUpgrade();
     } else if (ability == "fast") {
-
+      this.finalFast = true;//slashing ability
     } else if (ability == "freeze") {
 
     } else if (ability == "explosive") {
@@ -120,7 +120,7 @@ class Tower {
     }
   }
   normalFinalUpgrade() {
-    towerGame.piercingArrow = true;
+    this.piercingArrow = true;
   }
   liquifyFinalUpgrade() {
     for (let i = 0; i < towerGame.hands.length; i++) {
@@ -254,7 +254,7 @@ class Tower {
       towerGame.canvas.addEventListener('click', () => {
         if (this.count == 0) {
           this.count += 1;
-          return;
+          return;//what is this even for
         }
 
 
@@ -263,7 +263,6 @@ class Tower {
         if (this.chooseTargetArea) {
           this.chooseTargetArea = false;
           this.mouseLoc = mouseLoc;
-          //towerGame.allowPlace = false;
         }
         if (this.isInRange) {
           this.isInRange = false;
@@ -272,8 +271,6 @@ class Tower {
         if (dist < 40) {
           this.isInRange = true;
           this.chooseTargetArea = true;
-          //towerGame.allowPlace = true;
-
         }
         towerGame.canvas.addEventListener('mousemove', () => {
           if (this.isInRange) {
@@ -326,7 +323,7 @@ class Tower {
       // reset lastTime to current time
       this.lastTime = millis;
       let bulletLocation = vector2d(this.loc.x, this.loc.y);
-      let b = new Bullet(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.mouseLoc, this.loc, this.damageMult, this.finalCannon);
+      let b = new Bullet(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.mouseLoc, this.loc, this.damageMult, this.finalCannon, this.finalFast);
       let q = new Missile(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.damageMult);
       let h = new Liquify(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.damageMult);
       if (this.ability == "fast" || this.ability == "normal"

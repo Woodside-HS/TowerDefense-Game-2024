@@ -870,7 +870,7 @@ class Game {
       } else if (!cell.occupied && towerGame.allowPlace) {
         alert("Insufficient Funds!");
       }
-      else {
+      else if (towerGame.allowPlace){
         towerGame.bankValue += towerGame.wallCost;
         cell.occupied = false;
       }
