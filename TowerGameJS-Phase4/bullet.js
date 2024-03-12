@@ -2,8 +2,9 @@
 
 class Bullet {
 
-  constructor(location, bImg, angle, type, mouseLoc, towerLoc, damageMult) {
+  constructor(location, bImg, angle, type, mouseLoc, towerLoc, damageMult, finalCannon) {
     // issue#1 use preloaded bullet image instead of loadImage
+    this.cannonUpgradeFinal = finalCannon;
     this.spinny = false;
     this.loc = location;
     this.towerLoc = towerLoc;
@@ -65,11 +66,12 @@ class Bullet {
   }
 
   cannonSpinny() {
+    if(this.cannonUpgradeFinal){
     let angularMovement = 0.05;
     this.loc.x += Math.cos(this.cannonBulletAngle) * 2.5;//the * 2.5 does not really make sense idk
     this.loc.y += Math.sin(this.cannonBulletAngle) * 2.5;//The number should be orbital radius and it technically is.
     this.cannonBulletAngle += angularMovement;
-
+    }
   }
 
   //chooseExplosiveSpot()

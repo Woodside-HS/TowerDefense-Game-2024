@@ -855,17 +855,19 @@ class Game {
     let row = Math.floor(event.offsetY / towerGame.w);
     let col = Math.floor(event.offsetX / towerGame.w);
     let cell = towerGame.grid[col][row];
-
+   
     if (towerGame.placingTower && towerGame.canAddTower(cell)) {
+
       towerGame.placeTower(cell);
     }
 
     else if (!towerGame.placingTower && !cell.hasTower) {
       // toggle the occupied property of the clicked cell
-      if (!cell.occupied && towerGame.bankValue >= towerGame.wallCost) {
+      if (!cell.occupied && towerGame.bankValue >= towerGame.wallCost && towerGame.allowPlace) {
+        console.log(towerGame.allowPlace)
         towerGame.bankValue -= towerGame.wallCost;
         cell.occupied = true;
-      } else if (!cell.occupied) {
+      } else if (!cell.occupied && towerGame.allowPlace) {
         alert("Insufficient Funds!");
       }
       else {

@@ -37,6 +37,7 @@ class Tower {
     this.straighterShooting = false;
     this.piercingArrow = false;
     this.bladeFinal = false;
+    this.finalCannon = false;
     if (ability == "freeze") {
       this.coolDown = 1000;
       this.range = 150;
@@ -67,6 +68,8 @@ class Tower {
     } else if (ability == "liquify") {
       this.range = 800;
       this.coolDown = 1000;
+    }else if (ability == "ray"){
+      this.range = 200;
     }
     this.MaxCoolDown = this.coolDown;
 
@@ -102,9 +105,9 @@ class Tower {
     } else if (ability == "explosive") {
 
     } else if (ability == "ray") {
-
+      this.range *= 3;
     } else if (ability == "cannon") {
-
+      this.finalCannon = true;
     } else if (ability == "bladeStorm") {
       this.bladeFinal = true;
     } else if (ability == "liquify") {
@@ -260,15 +263,16 @@ class Tower {
         if (this.chooseTargetArea) {
           this.chooseTargetArea = false;
           this.mouseLoc = mouseLoc;
-          towerGame.allowPlace = true;
+          //towerGame.allowPlace = false;
         }
         if (this.isInRange) {
           this.isInRange = false;
+          towerGame.allowPlace = true;
         }
         if (dist < 40) {
           this.isInRange = true;
           this.chooseTargetArea = true;
-          towerGame.allowPlace = false;
+          //towerGame.allowPlace = true;
 
         }
         towerGame.canvas.addEventListener('mousemove', () => {
@@ -276,7 +280,7 @@ class Tower {
             let mouseX = this.loc.x - towerGame.canvas.mouseX;
             let mouseY = this.loc.y - towerGame.canvas.mouseY;
             this.towAngle = Math.atan2(mouseY, mouseX) - Math.PI;
-
+            towerGame.allowPlace = false;
           }
         });
       });
@@ -322,7 +326,7 @@ class Tower {
       // reset lastTime to current time
       this.lastTime = millis;
       let bulletLocation = vector2d(this.loc.x, this.loc.y);
-      let b = new Bullet(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.mouseLoc, this.loc, this.damageMult);
+      let b = new Bullet(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.mouseLoc, this.loc, this.damageMult, this.finalCannon);
       let q = new Missile(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.damageMult);
       let h = new Liquify(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.damageMult);
       if (this.ability == "fast" || this.ability == "normal"
@@ -375,7 +379,7 @@ class Tower {
       var a3 = this.loc.x - this.target.x;
       var b3 = this.loc.y - this.target.y;
       var k = Math.sqrt(a3 * a3 + b3 * b3);
-      if (k < 300 && towerGame.enemies.length != 0 && this.target.x != towerGame.canvas.mouseX) {
+      if (k < this.range && towerGame.enemies.length != 0 && this.target.x != towerGame.canvas.mouseX) {
         var rys = new LockOn(this.loc, this.target);
         rys.run();
         if (this.findEnemyIndex() < towerGame.enemies.length) {
