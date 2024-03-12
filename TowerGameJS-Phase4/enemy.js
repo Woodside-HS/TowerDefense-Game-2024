@@ -126,7 +126,7 @@ class Enemy {
     for (let h = 0; h < towerGame.hands.length; h++) {
       if (this.checkCollide(this, towerGame.hands[h])) {
         if (towerGame.hands[h].ability == "liquify") {
-          this.health -= 10*towerGame.missiles[h].damageMult;
+          this.health -= 10*towerGame.hands[h].damageMult;
 
 
         }
@@ -135,7 +135,7 @@ class Enemy {
     for (let h = 0; h < towerGame.blades.length; h++) {
       if (this.checkCollide(this, towerGame.blades[h])) {
         if (towerGame.blades[h].ability == "bladeStorm") {
-          this.health -= 100*towerGame.missiles[h].damageMult;
+          this.health -= 100*towerGame.blades[h].damageMult;
 
         }
       }

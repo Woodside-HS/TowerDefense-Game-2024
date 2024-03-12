@@ -36,6 +36,7 @@ class Tower {
     this.damageMult = 1;
     this.straighterShooting = false;
     this.piercingArrow = false;
+    this.bladeFinal = false;
     if (ability == "freeze") {
       this.coolDown = 1000;
       this.range = 150;
@@ -105,7 +106,7 @@ class Tower {
     } else if (ability == "cannon") {
 
     } else if (ability == "bladeStorm") {
-
+      this.bladeFinal = true;
     } else if (ability == "liquify") {
       this.liquifyFinal = true;
     } else if (ability == "missile") {
@@ -342,11 +343,27 @@ class Tower {
         towerGame.hands.push(h);
       }
       if (this.ability == "bladeStorm") {
-        if (this.blades < 4) {//creating the four blades 
+        if (this.blades < 4 && !this.bladeFinal) {//creating the four blades 
           let bulletLocation = vector2d(this.loc.x, this.loc.y);
-          let s = new Blade(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.blades);
+          let s = new Blade(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.blades, this.damageMult, "first");
           towerGame.blades.push(s);
           this.blades++;
+        } else if (this.blades < 8 && this.bladeFinal) {
+          if(!this.replaced){
+          for(let i = 4; i > 0; i--){
+          towerGame.blades.splice(i, 1);
+          this.replaced = true;
+          this.blades = 0;
+          }
+        }else{
+          if(this.blades < 8){
+            console.log("a")
+          let bulletLocation = vector2d(this.loc.x, this.loc.y);
+          let s = new Blade(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.blades, this.damageMult, "second");
+          towerGame.blades.push(s);
+          this.blades++;
+          }
+        }
         }
       }
     }
