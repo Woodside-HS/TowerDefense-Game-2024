@@ -151,6 +151,8 @@ class GameState5 extends GameState { // game itself
     let gt = this.game.updateGameTime();
     this.game.updateInfoElements(gt);
     this.game.removeBullets();
+    this.game.removePests();
+    this.game.removeMissiles();
     this.game.removeEnemies();
     this.game.controlWaves()
     this.game.backgroundMusic.play();
@@ -180,8 +182,8 @@ class GameState5 extends GameState { // game itself
     for (let i = 0; i < this.game.blades.length; i++) {
       this.game.blades[i].run();
     }
-    for (let i = 0; i < this.game.bullets.length; i++) {
-      //    this.game.lockon[i].run();
+    for (let i = 0; i < this.game.hands.length; i++) {
+      this.game.hands[i].run();
     }
 
 

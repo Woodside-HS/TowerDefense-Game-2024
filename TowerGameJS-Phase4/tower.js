@@ -38,13 +38,18 @@ class Tower {
     this.piercingArrow = false;
     this.bladeFinal = false;
     this.finalCannon = false;
+    this.finalFreeze = false;
     if (ability == "freeze") {
       this.coolDown = 1000;
       this.range = 150;
     }
     else if (ability == "normal" || ability == "explosive") {
       this.coolDown = 750;
+     
+    }if(ability == "explosive"){
+      this.range = 1000;
     }
+    
     else if (ability == "fast") {
       this.coolDown = 500;
     }
@@ -80,7 +85,7 @@ class Tower {
   run() {
     this.render();
     this.update();
-    if (this.liquifyFinal == false) {
+    if (this.liquifyFinal == true) {
       this.liquifyFinalUpgrade();
     }
   }
@@ -100,10 +105,12 @@ class Tower {
       this.normalFinalUpgrade();
     } else if (ability == "fast") {
       this.finalFast = true;//slashing ability
+      this.coolDown *= 0.8;
+      this.damageMult *= 1.5
     } else if (ability == "freeze") {
-
+      this.finalFreeze = true;
     } else if (ability == "explosive") {
-
+      this.coolDown *= 0.5;
     } else if (ability == "ray") {
       this.range *= 3;
     } else if (ability == "cannon") {
@@ -142,10 +149,13 @@ class Tower {
         let checkDistToCell = 0;
         for (let i = 0; i < 18; i++) {
           for (let j = 0; j < 15; j++) {
-            checkDistToCell = this.creatures[0].loc.dist(towerGame.grid[i][j].center);
+            
+            checkDistToCell = this.creatures[i].loc.dist(towerGame.grid[i][j].center);
             let legalSpot = towerGame.canAddTower(towerGame.grid[i][j]);
             if (checkDistToCell < distToCell && legalSpot) {
               let closestCell = towerGame.grid[i][j];
+              let h = new Liquify(closestCell.loc, this.bulletImg, this.towAngle, this.ability, "advanced", this.damageMult);
+              hands.push(h);
             }
           }
         }
@@ -323,9 +333,9 @@ class Tower {
       // reset lastTime to current time
       this.lastTime = millis;
       let bulletLocation = vector2d(this.loc.x, this.loc.y);
-      let b = new Bullet(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.mouseLoc, this.loc, this.damageMult, this.finalCannon, this.finalFast);
+      let b = new Bullet(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.mouseLoc, this.loc, this.damageMult, this.finalCannon, this.finalFast, this.finalFreeze);
       let q = new Missile(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.damageMult);
-      let h = new Liquify(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.damageMult);
+      let h = new Liquify(bulletLocation, this.bulletImg, this.towAngle, this.ability, "basic", this.damageMult);
       if (this.ability == "fast" || this.ability == "normal"
         || this.ability == "freeze" || this.ability == "explosive" || this.ability == "cannon") {
         towerGame.bullets.push(b);
@@ -358,7 +368,6 @@ class Tower {
           }
         }else{
           if(this.blades < 8){
-            console.log("a")
           let bulletLocation = vector2d(this.loc.x, this.loc.y);
           let s = new Blade(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.blades, this.damageMult, "second");
           towerGame.blades.push(s);
