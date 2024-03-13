@@ -1,14 +1,9 @@
 "use strict"
 class Panel {
-  constructor(game, number, slidecheck) {
+  constructor(game, number) {
     this.game = game
     this.temp = 0
-    this.slidecheck = slidecheck;
-    if (this.slidecheck === true) {
-      this.y = -590
-    } else {
-      this.y = 550
-    }
+    this.y = -590
     this.panel = document.createElement("div")
     this.panel.id = panelJSON[number].id
     this.panel.style.width = 450 + "px"
@@ -25,10 +20,12 @@ class Panel {
     }
   }
 
-  render() {
-
-    this.y = this.slideDown(this.y, 550, .05);
-
+  render(slideCheck) {
+    if (slideCheck === true) {
+      this.y = this.slideDown(this.y, 550, .05);
+    } else if (slideCheck === false) {
+      this.y = 550;
+    }
     this.panel.style.top = this.y + "px"
   }
 
@@ -56,7 +53,7 @@ class Panel {
 }
 
 var panelJSON = [{
-  name: "Start Panel",
+  name: "Start Panel", // panel 0
   id: "firstPanel",
   pic: "resources/images/panels/panel.png",
   picId: "pan",
@@ -76,22 +73,22 @@ var panelJSON = [{
       pic: "resources/images/panels/other.png",
       picId: "wframe",
       funk: function () {
-        towerGame.gameState.panelInstructions = new Panel(towerGame, 1, true)
+        towerGame.gameState.panelInstructions = new Panel(towerGame, 1)
         document.getElementById("firstPanel").parentNode.removeChild(document.getElementById("firstPanel"))
       }
     }, {
       name: "Catalog Button",
-      id: "catlogButton",
-      pic: "resources/images/panels/end.png",
+      id: "catalogButton",
+      pic: "resources/images/panels/catalog.png",
       picId: "catalog",
       funk: function () {
         towerGame.gameState = new GameState4(towerGame, 4)
-        towerGame.gameState.panelInstructions = new Panel(towerGame, 5, false)
+        towerGame.gameState.panelInstructions = new Panel(towerGame, 5)
         document.getElementById("firstPanel").parentNode.removeChild(document.getElementById("firstPanel"))
       }
     }]
 }, {
-  name: "Instruction Panel",
+  name: "Instruction Panel", // panel 1
   id: "instructionPanel",
   pic: "resources/images/panels/instructions.png",
   picId: "pan",
@@ -102,12 +99,12 @@ var panelJSON = [{
       pic: "resources/images/panels/back.png",
       picId: "back",
       funk: function () {
-        towerGame.gameState.panelStart = new Panel(towerGame, 0, true)
+        towerGame.gameState.panelStart = new Panel(towerGame, 0)
         document.getElementById("instructionPanel").parentNode.removeChild(document.getElementById("instructionPanel"))
       }
     }]
 }, {
-  name: "End Panel",
+  name: "End Panel", // panel 2
   id: "endPanel",
   pic: "resources/images/panels/panel.png",
   picId: "pan",
@@ -133,7 +130,7 @@ var panelJSON = [{
       picId: "exit",
       funk: function () {
         document.getElementById("endPanel").parentNode.removeChild(document.getElementById("endPanel"))
-        towerGame.gameState.panelQuit = new Panel(towerGame, 2, true)
+        towerGame.gameState.panelQuit = new Panel(towerGame, 2)
         towerGame.gameState = new GameState1(towerGame)
         towerGame.currentWaveNum = 0; // Reset the current wave number to 0
         towerGame.wave = new Wave(towerGame, AllWaves[towerGame.currentWaveNum]); // Create a new Wave instance with the first wave
@@ -148,12 +145,12 @@ var panelJSON = [{
       pic: "resources/images/panels/credits.png",
       picId: "wframe",
       funk: function () {
-        towerGame.gameState.panelCredits = new Panel(towerGame, 4, true)
+        towerGame.gameState.panelCredits = new Panel(towerGame, 4)
         document.getElementById("endPanel").parentNode.removeChild(document.getElementById("endPanel"))
       }
     }]
 }, {
-  name: "Level Selector",
+  name: "Level Selector", // panel 3
   id: "levelSelector",
   pic: "resources/images/panels/pan.png",
   picId: "pan",
@@ -196,10 +193,10 @@ var panelJSON = [{
         document.getElementById("levelSelector").parentNode.removeChild(document.getElementById("levelSelector"))
 
       }
-    },
+    }
   ]
 }, {
-  name: "Credites Panel",
+  name: "Credites Panel", //panel 4
   id: "creditesPanel",
   pic: "resources/images/panels/pan.png",
   picId: "pan",
@@ -210,29 +207,36 @@ var panelJSON = [{
       pic: "resources/images/panels/back.png",
       picId: "back",
       funk: function () {
-        towerGame.gameState.panelQuit = new Panel(towerGame, 2, true)
+        towerGame.gameState.panelQuit = new Panel(towerGame, 2)
         document.getElementById("creditesPanel").parentNode.removeChild(document.getElementById("creditesPanel"))
       }
     }]
 }, {
-  name: "Catalog Panel",
+  name: "Catalog Panel", //panel 5
   id: "catalogPanel",
   pic: "",
+  picId: "pan",
   buttonJSON: [
     {
-      name: "Back Button",
-      id: "back",
-      pic: "resources/images/panels/back.png",
-      picId: "back",
-      funk: function () {
-        towerGame.gameState.panelQuit = new Panel(towerGame, 2, true)
-        document.getElementById("creditesPanel").parentNode.removeChild(document.getElementById("creditesPanel"))
-      }
+        name: "Quit Button",
+        id: "quitButton",
+        pic: "resources/images/panels/end.png",
+        picId: "exit",
+        funk: function () {
+          document.getElementById("catalogPanel").parentNode.removeChild(document.getElementById("catalogPanel"))
+          towerGame.gameState.panelQuit = new Panel(towerGame, 2)
+          towerGame.gameState = new GameState1(towerGame)
+          towerGame.currentWaveNum = 0; // Reset the current wave number to 0
+          towerGame.wave = new Wave(towerGame, AllWaves[towerGame.currentWaveNum]); // Create a new Wave instance with the first wave
+          towerGame.wave.referenceTime = 20;
+          document.getElementById('fastForward').innerHTML = "Start";
+          FRAME_RATE = 30;
+          document.getElementById("catalogPanel").parentNode.removeChild(document.getElementById("catalogPanel"))
+        }
+      
     }
   ]
 }
-
-
 
 ]
 

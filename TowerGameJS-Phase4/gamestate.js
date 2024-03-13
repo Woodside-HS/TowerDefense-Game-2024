@@ -20,7 +20,7 @@ class GameState1 extends GameState { // Start Screen
     super(game, 1)
     this.game.gameStateID = 1;
     this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/startScreen.jpg')"
-    this.panelStart = new Panel(this, 0, true)
+    this.panelStart = new Panel(this, 0)
     this.panelInstructions = 0
     this.panelQuit = 0
     document.getElementById('infoDiv').style.visibility = 'hidden'; // Make info tiles invisible on start page
@@ -28,11 +28,11 @@ class GameState1 extends GameState { // Start Screen
   }
   run() {
     if (this.panelStart) {
-      this.panelStart.render()
+      this.panelStart.render(true)
     }
 
     if (this.panelInstructions) {
-      this.panelInstructions.render()
+      this.panelInstructions.render(true)
     }
   }
 }
@@ -41,14 +41,13 @@ class GameState2 extends GameState { // Level screen
     super(game);
     towerGame.gameStateID = 6;
     this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/levelSelector.jpg')"
-    this.panelLvlSelector = new Panel(this, 3, true);
+    this.panelLvlSelector = new Panel(this, 3);
 
   }
 
   run() {
     this.game.render();
-    this.panelLvlSelector.render();
-
+    this.panelLvlSelector.render(true);
   }
 
 }
@@ -59,7 +58,7 @@ class GameState3 extends GameState { // end screen
     this.game.gameStateID = 3
     this.game.enemies = []
     this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/endScreen.jpg')"
-    this.panelQuit = new Panel(this, 2, true)
+    this.panelQuit = new Panel(this, 2)
     this.panelCredits = 0
     this.panelStart = 0
     document.getElementById('infoDiv').style.visibility = 'hidden'; // Make info tiles invisible on start page
@@ -68,10 +67,10 @@ class GameState3 extends GameState { // end screen
   run() {
     this.game.render()
     document.getElementById("infoDiv").getElementsByClassName("infoTileDiv")[4].innerHTML = ("Health </br>" + 0); if (this.panelQuit) {
-      this.panelQuit.render()
+      this.panelQuit.render(true)
     }
     if (this.panelCredits) {
-      this.panelCredits.render()
+      this.panelCredits.render(true)
     }
   }
 }
@@ -80,14 +79,16 @@ class GameState4 extends GameState { //Catalog
   constructor(game) {
     super(game);
     towerGame.gameStateID = 4;
-    this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/endScreen.jpg')"
+    this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/catalog.jpg')"
+    this.catalogPanel = new Panel(this, 5);
 
     document.getElementById('infoDiv').style.visibility = 'hidden'; // Make info tiles invisible on start page
     document.getElementById('menuDiv').style.visibility = 'hidden';
   }
 
   run(){
-    
+    this.game.render();
+    this.catalogPanel.render(false);
   }
 
 }
