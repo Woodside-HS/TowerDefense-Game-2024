@@ -39,6 +39,7 @@ class Tower {
     this.bladeFinal = false;
     this.finalCannon = false;
     this.finalFreeze = false;
+    this.closestCell = 0;
     if (ability == "freeze") {
       this.coolDown = 1000;
       this.range = 150;
@@ -85,7 +86,7 @@ class Tower {
   run() {
     this.render();
     this.update();
-    if (this.liquifyFinal == true) {
+    if (!this.liquifyFinal) {
       this.liquifyFinalUpgrade();
     }
   }
@@ -132,38 +133,41 @@ class Tower {
   liquifyFinalUpgrade() {
     for (let i = 0; i < towerGame.hands.length; i++) {
       this.surroundingHands = 0;
-      this.creatures.push(towerGame.hands[i]);
       for (let j = 0; j < towerGame.hands.length; j++) {
-        if (!(j == i)) {
           let dist = towerGame.hands[i].loc.dist(towerGame.hands[j].loc);
           if (dist < 80) {
             this.surroundingHands++;
-            this.creatures.push(towerGame.hands.push(j));
+            this.creatures.push(towerGame.hands[i].push);
           }
-        }
       }
-
-      if (this.surroundingHands > 5) {
+      console.log(this.surroundingHands)
+      if (this.surroundingHands > 2) {
 
         let distToCell = 100000;
-        let checkDistToCell = 0;
+        this.checkDistToCell = 0;
         for (let i = 0; i < 18; i++) {
           for (let j = 0; j < 15; j++) {
-            
-            checkDistToCell = this.creatures[i].loc.dist(towerGame.grid[i][j].center);
             let legalSpot = towerGame.canAddTower(towerGame.grid[i][j]);
-            if (checkDistToCell < distToCell && legalSpot) {
-              let closestCell = towerGame.grid[i][j];
-              let h = new Liquify(closestCell.loc, this.bulletImg, this.towAngle, this.ability, "advanced", this.damageMult);
-              hands.push(h);
+            for(let k = 0; k < this.creatures.length; i ++){
+              checkDistToCell = this.creatures[k].loc.dist(towerGame.grid[i][j].center);
+              if (checkDistToCell < distToCell && legalSpot) {
+                this.closestCell = towerGame.grid[i][j];
+              }
+            }
+
             }
           }
+          let h = new Liquify(this.closestCell.center, this.bulletImg, this.towAngle, this.ability, "advanced", this.damageMult);
+          towerGame.hands.push(h);
+
+          towerGame.hands.splice(i, 1);
+          i--; 
         }
 
       }
     }
 
-  }
+  
 
   render() {
     var ctx = towerGame.context;
