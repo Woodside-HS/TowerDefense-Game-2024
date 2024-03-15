@@ -134,24 +134,27 @@ class Tower {
     for (let i = 0; i < towerGame.hands.length; i++) {
       this.surroundingHands = 0;
       for (let j = 0; j < towerGame.hands.length; j++) {
+       console.log( towerGame.grid[i][j].center)
           let dist = towerGame.hands[i].loc.dist(towerGame.hands[j].loc);
           if (dist < 80) {
             this.surroundingHands++;
-            this.creatures.push(towerGame.hands[i].push);
+            if(this.surroundingHands < 2){
+            this.creatures.push(towerGame.hands[i]);
+            }
           }
       }
-      console.log(this.surroundingHands)
       if (this.surroundingHands > 2) {
 
-        let distToCell = 100000;
-        this.checkDistToCell = 0;
-        for (let i = 0; i < 18; i++) {
-          for (let j = 0; j < 15; j++) {
-            let legalSpot = towerGame.canAddTower(towerGame.grid[i][j]);
-            for(let k = 0; k < this.creatures.length; i ++){
-              checkDistToCell = this.creatures[k].loc.dist(towerGame.grid[i][j].center);
-              if (checkDistToCell < distToCell && legalSpot) {
-                this.closestCell = towerGame.grid[i][j];
+        for (let p = 0; p < 18; p++) {
+            let distToCell = 100000;
+            let checkDistToCell = 0;
+          for (let l = 0; l< 15; l++) {
+            for(let k = 0; k < this.creatures.length-1; i ++){
+                console.log(p + " " + l)
+              checkDistToCell = this.newDist(this.creatures[k].loc, towerGame.grid[p][l].center);
+              console.log(checkDistToCell)
+              if (checkDistToCell < distToCell) {
+                this.closestCell = towerGame.grid[p][l];
               }
             }
 
@@ -160,15 +163,16 @@ class Tower {
           let h = new Liquify(this.closestCell.center, this.bulletImg, this.towAngle, this.ability, "advanced", this.damageMult);
           towerGame.hands.push(h);
 
-          towerGame.hands.splice(i, 1);
-          i--; 
+        
         }
 
       }
     }
 
   
-
+newDist(v1, v2){
+    return(Math.sqrt((v2.x-v2.x)*(v2.x-v1.x) + (v2.y-v1.y)*(v2.y-v1.y)));
+}
   render() {
     var ctx = towerGame.context;
     if (this.ability == "buffregen") {
