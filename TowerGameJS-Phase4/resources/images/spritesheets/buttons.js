@@ -35,7 +35,7 @@ buttonsJSON = {
 		},
 		"B50000":
 		{
-			"frame": { "x": 1, "y": 323, "w": 90, "h": 130 },
+			"frame": { "x": 1, "y": 300, "w": 90, "h": 130 },
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": { "x": 0, "y": 0, "w": 90, "h": 130 },
