@@ -5,7 +5,6 @@ class Cell {
     this.loc = loc;     // top left pixel location
     this.center = vector2d(loc.x + (game.w) / 2, loc.y + (game.w) / 2);
     this.color = 'pink';
-    this.shape = "square";
     this.id = id;
     this.neighbors = [];
     this.occupied = false;
@@ -37,13 +36,7 @@ class Cell {
 
   }
 
-  // addNeighbors()
-  // Find all the neighbors of this cell that exist and are not occupied
-  // and do not have a tower.
-  // Diagonal neighbors must not be blocked diagonally.
-  // For example, a southeast neighbor might not be occupied
-  // but if east and south are both occupied then southeast is blocked
-  // and not considered to be a neighbor.
+
 
   addNeighbors(game, grid) {
     this.neighbors = [];    // start with empty neighbors

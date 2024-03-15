@@ -25,7 +25,6 @@ class GameState1 extends GameState { // Start Screen
     this.panelQuit = 0
     document.getElementById('infoDiv').style.visibility = 'hidden'; // Make info tiles invisible on start page
     document.getElementById('menuDiv').style.visibility = 'hidden';
-    document.getElementById('switchDiv').style.visibility = 'hidden';
   }
   run() {
     if (this.panelStart) {
@@ -65,7 +64,6 @@ class GameState3 extends GameState { // end screen
     this.panelStart = 0
     document.getElementById('infoDiv').style.visibility = 'hidden'; // Make info tiles invisible on start page
     document.getElementById('menuDiv').style.visibility = 'hidden';
-    document.getElementById('switchDiv').style.visibility = 'hidden';
   }
   run() {
     this.game.render()
@@ -142,7 +140,6 @@ class GameState5 extends GameState { // game itself
 
     document.getElementById('infoDiv').style.visibility = 'visible'; // Make info tiles invisible on start page
     document.getElementById('menuDiv').style.visibility = 'visible';
-    document.getElementById('switchDiv').style.visibility = 'visible';
   }
   init() {
 
@@ -151,8 +148,6 @@ class GameState5 extends GameState { // game itself
     let gt = this.game.updateGameTime();
     this.game.updateInfoElements(gt);
     this.game.removeBullets();
-    this.game.removePests();
-    this.game.removeMissiles();
     this.game.removeEnemies();
     this.game.controlWaves()
     this.game.backgroundMusic.play();
@@ -179,11 +174,9 @@ class GameState5 extends GameState { // game itself
     for (let i = 0; i < this.game.explosiveBullets.length; i++) {
       this.game.explosiveBullets[i].run();
     }
-    for (let i = 0; i < this.game.blades.length; i++) {
-      this.game.blades[i].run();
-    }
-    for (let i = 0; i < this.game.hands.length; i++) {
-      this.game.hands[i].run();
+
+    for (let i = 0; i < this.game.bullets.length; i++) {
+      //    this.game.lockon[i].run();
     }
 
 
