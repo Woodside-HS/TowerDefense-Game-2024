@@ -186,7 +186,7 @@ var panelJSON = [{
     }, {
       name: "Custom Level Button",
       id: "customLvlButton",
-      pic: "resources/images/panels/credits.png",
+      pic: "resources/images/panels/custom.png",
       picId: "frame4",
       funk: function () {
         towerGame.gameState = new GameState5(towerGame, 4)
@@ -218,6 +218,12 @@ var panelJSON = [{
   picId: "pan",
   buttonJSON: [
     {
+      name: "Tower Button",
+      id: " towerButton",
+      pic: "",
+      picId: "tower",
+      
+    }, {
         name: "Quit Button",
         id: "quitButton",
         pic: "resources/images/panels/end.png",
