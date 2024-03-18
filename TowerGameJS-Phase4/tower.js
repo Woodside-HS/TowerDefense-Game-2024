@@ -3,6 +3,7 @@
 class Tower {
   // issue#1 use preloaded images
   constructor(cost, tImg, bImg, ability) {
+    this.isInRange = false;
     this.loc = vector2d(0, 0);
     this.placed = false;
     this.visible = false;
@@ -18,9 +19,16 @@ class Tower {
     this.enemies = towerGame.enemies;
     this.range = 200;
     this.minRange = 0;
+    this.blades = 0;
     this.ability = ability;
+    this.chooseTargetArea = true;
+    this.mouseLoc;
+    this.count = 0;
+    this.upgradedDamage = false;
+    this.upgradedRange = false;
+    this.upgradedCoolDown = false;
     if (ability == "freeze") {
-      this.coolDown = 100;
+      this.coolDown = 1000;
       this.range = 150;
     }
     else if (ability == "normal" || ability == "explosive") {
@@ -29,15 +37,26 @@ class Tower {
     else if (ability == "fast") {
       this.coolDown = 500;
     }
+    else if (ability == "cannon") {
+      this.coolDown = 1000;
+      this.range = 3000;
+    }
+    else if (ability == "bladeStorm") {
+      this.coolDown = 0;
+      this.range = 3000;
+    }
     else if (ability == "buffregen") {
       this.coolDown = 19622;//why is this such a random number
       this.buffConstant = 0.8; //multiply cooldown by buffConstant
     }
     else if (ability == "missile") {
-      this.range = 600;
-      this.minRange = 240;
+      this.range = 800;
+      this.minRange = this.range / 3;
       this.coolDown = 1000 / 6;
 
+    } else if (ability == "liquify") {
+      this.range = 800;
+      this.coolDown = 1000;
     }
     this.MaxCoolDown = this.coolDown;
 
@@ -50,13 +69,25 @@ class Tower {
     this.update();
   }
 
+  damageUpgrade() {
+    for (let i = 0; i < this.enemies.length; i++) {
+      this.enemies[i].damageMult = this.enemies[i].damageMult * 1.2;
+    }
+  }
+  coolDownUpgrade() {
+    this.coolDown *= 0.8;
+  }
+  rangeUpgrade() {
+    this.range *= 1.2;
+
+  }
   render() {
     var ctx = towerGame.context;
     if (this.ability == "buffregen") {
       ctx.save();
-      ctx.translate(this.loc.x, this.loc.y)
-      ctx.strokeStyle = "rgba(0,250,210, 0.8)"
-      ctx.fillStyle = "rgba(0, 250, 210, 0.08)"
+      ctx.translate(this.loc.x, this.loc.y);
+      ctx.strokeStyle = "rgba(0,250,210, 0.8)";
+      ctx.fillStyle = "rgba(0, 250, 210, 0.08)";
 
       ctx.beginPath();
       ctx.arc(0, 0, this.range, 0, Math.PI * 2, false);
@@ -65,6 +96,20 @@ class Tower {
       ctx.stroke();
       ctx.fill();
 
+
+      ctx.restore();
+    }
+    if (this.ability == "cannon" && this.chooseTargetArea) {
+      ctx.save();
+      ctx.strokeStyle = "rgba(0,250,210, 0.8)";
+      ctx.fillStyle = "rgba(0, 250, 210, 0.08)";
+
+      ctx.beginPath();
+      this.target = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY)
+      ctx.arc(this.target.x, this.target.y, 120, 0, Math.PI * 2, false);
+      ctx.closePath();
+      ctx.stroke();
+      ctx.fill();
 
       ctx.restore();
     }
@@ -82,15 +127,23 @@ class Tower {
       ctx.beginPath();
 
       // Draw the outer circle
-      ctx.arc(0, 0, this.range, 0, 2 * Math.PI, false);
+      if (this.ability != "bladeStorm") {
+        ctx.arc(0, 0, this.range, 0, 2 * Math.PI, false);
+      } else {
+        ctx.arc(0, 0, 80, 0, 2 * Math.PI, false);//dont question it
+        //you got questioned this just look 
+      }
 
       // Draw the inner circle for minRange
       ctx.moveTo(0 + this.minRange, 0); // Move to the starting point of the inner circle
       ctx.arc(0, 0, this.minRange, 0, 2 * Math.PI, false); // Draw the inner circle
+
       ctx.fillStyle = 'rgba(192, 192, 192, 0.5)';
+
       ctx.fill();
       ctx.lineWidth = 5;
       ctx.strokeStyle = '#003300';
+
       ctx.stroke();
     }
 
@@ -107,42 +160,87 @@ class Tower {
     this.enemy = this.findEnemy()
     if (this.enemy) {
       this.target = this.enemy.loc;
-      if (this.ability == "missile") {
+      if (this.ability == "missile" || this.ability == "cannon") {
         let dx = this.loc.x - this.target.x;
         let dy = this.loc.y - this.target.y;
         let dist = vector2d(dx, dy).length();
-        if(dist < this.minRange){
+        if (dist < this.minRange) {
           this.target = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY)
         }
       }
     } else {
       this.target = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY)
     }
-    if (this.ability != "missile") {
+    if (this.ability != "missile" && this.ability != "cannon") {
       let dx = this.loc.x - this.target.x;
       let dy = this.loc.y - this.target.y;
       this.towAngle = Math.atan2(dy, dx) - Math.PI;
     } else {
-      let mouseX = towerGame.canvas.mouseX;
-      let mouseY = towerGame.canvas.mouseY;
-      this.towAngle = Math.atan2(mouseY, mouseX) ;
+
+
+
+      towerGame.canvas.addEventListener('click', () => {
+        if (this.count == 0) {
+          this.count += 1;
+          return;
+        }
+
+
+        let mouseLoc = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY);
+        let dist = this.loc.dist(mouseLoc);
+        if (this.chooseTargetArea) {
+          this.chooseTargetArea = false;
+          this.mouseLoc = mouseLoc;
+          towerGame.allowPlace = true;
+        }
+        if (this.isInRange) {
+          this.isInRange = false;
+        }
+        if (dist < 40) {
+          this.isInRange = true;
+          this.chooseTargetArea = true;
+          towerGame.allowPlace = false;
+
+        }
+        towerGame.canvas.addEventListener('mousemove', () => {
+          if (this.isInRange) {
+            let mouseX = this.loc.x - towerGame.canvas.mouseX;
+            let mouseY = this.loc.y - towerGame.canvas.mouseY;
+            this.towAngle = Math.atan2(mouseY, mouseX) - Math.PI;
+
+          }
+        });
+      });
+
     }
+
+
+
+
     this.checkEnemies();
     this.checkBuffandHeal();
   }
-  checkBuffandHeal() {
-    if (this.ability == "buffregen") {
+  checkBuffandHeal() {//buffregen tower stackable currently 
+    let count = 0;
+    if (this.ability != "buffregen") {
       for (let i = 0; i < towerGame.towers.length; i++) {
-        if (towerGame.towers[i].ability != "buffregen") {
+        if (towerGame.towers[i].ability == "buffregen") {
           let dist = this.loc.dist(towerGame.towers[i].loc);
           if (dist < this.range) {
-            towerGame.towers[i].coolDown = towerGame.towers[i].MaxCoolDown * this.buffConstant ;
+            count++;
           }
+        }
+        if (count > 0) {
+          towerGame.towers[i].coolDown = towerGame.towers[i].MaxCoolDown * this.buffConstant ^ (count);
         }
       }
     }
-
   }
+
+
+
+
+
   checkEnemies() {
     let dx = this.loc.x - this.target.x;
     let dy = this.loc.y - this.target.y;
@@ -155,22 +253,39 @@ class Tower {
       // reset lastTime to current time
       this.lastTime = millis;
       let bulletLocation = vector2d(this.loc.x, this.loc.y);
-      let b = new Bullet(bulletLocation, this.bulletImg, this.towAngle, this.ability);
+      let b = new Bullet(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.mouseLoc, this.loc);
       let q = new Missile(bulletLocation, this.bulletImg, this.towAngle, this.ability);
+      let h = new Liquify(bulletLocation, this.bulletImg, this.towAngle, this.ability);
       if (this.ability == "fast" || this.ability == "normal"
-        || this.ability == "freeze" || this.ability == "explosive") {
-        towerGame.bullets.push(b);//first four use this
+        || this.ability == "freeze" || this.ability == "explosive" || this.ability == "cannon") {
+        towerGame.bullets.push(b);
+
       }
       if (this.ability == "buffregen") {
         if (towerGame.health < 150) {
-          towerGame.health++;
+          towerGame.health++;//the tower that buff sorrunding towers also ups healing bc idk why
         }
 
       }
       if (this.ability == "missile") {
         towerGame.missiles.push(q);
       }
+      if (this.ability == "liquify") {
+        towerGame.hands.push(h);
+      }
+      if (this.ability == "bladeStorm") {
+        if (this.blades != 4) {//creating the four blades 
+          let bulletLocation = vector2d(this.loc.x, this.loc.y);
+          let s = new Blade(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.blades);
+          towerGame.blades.push(s);
+          this.blades++;
+        }
+      }
     }
+
+
+
+
     if (this.ability == "ray" && towerGame.enemies.length != 0) {//I will fix this code eventually
       var a3 = this.loc.x - this.target.x;
       var b3 = this.loc.y - this.target.y;
@@ -178,11 +293,12 @@ class Tower {
       if (k < 300 && towerGame.enemies.length != 0 && this.target.x != towerGame.canvas.mouseX) {
         var rys = new LockOn(this.loc, this.target);
         rys.run();
-        if (this.findEnemyIndex() < towerGame.enemies.length)
+        if (this.findEnemyIndex() < towerGame.enemies.length) {
 
           towerGame.enemies[this.findEnemyIndex()].isLocked = true;//health -=  10;
-      } else {
-        towerGame.rays = [];
+        } else {
+          towerGame.rays = [];
+        }
       }
     }
   }
@@ -196,8 +312,8 @@ class Tower {
   findEnemy() {
     for (let i = 0; i < this.enemies.length; i++) {
       if (this.enemies[i].loc.dist(this.loc) < this.range &&
-       this.enemies[i].loc.dist(this.loc) > this.minRange) {
-        return this.enemies[i]
+        this.enemies[i].loc.dist(this.loc) > this.minRange) {
+        return this.enemies[i];
       }
     }
   }

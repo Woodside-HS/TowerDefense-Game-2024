@@ -4,8 +4,7 @@
 window.addEventListener('load', loadImages, false);
 
 var towerGame;   // the global game object
-var FRAME_RATE = 30;
-var towerState = 1;
+var FRAME_RATE=30;
 var cellId = 0;
 var count = 0;
 var firstRun = 0;
@@ -14,15 +13,17 @@ var ssImage;
 var tiles = [];
 var load = document.getElementById('loader');
 var wrap;
+var towerState = 1;
 
-function loadImages() {
-  bsImage = new Image();
-  bsImage.src = "resources/images/spritesheets/buttons.png";
-  ssImage = new Image();
-  ssImage.src = "resources/images/spritesheets/sprites.png";
-  window.setTimeout(setup, 1500);
-}
+ function loadImages(){
+   bsImage = new Image();
+   bsImage.src = "resources/images/spritesheets/buttons.png";
+   ssImage = new Image();
+   ssImage.src = "resources/images/spritesheets/sprites.png";
+   window.setTimeout(setup, 1500);
+ }
 function setup() {
+  
   wrap = document.getElementById('wrapperDiv');
 
   load.style.display = 'none';
@@ -33,19 +34,19 @@ function setup() {
 
   //panelthings
 
+
 }
 
 function draw() {   // the animation loop
-  towerGame.run();
-  window.setTimeout(draw, 1000 / FRAME_RATE);  // come back here every interval
+    towerGame.run();
+    window.setTimeout(draw, 1000/FRAME_RATE);  // come back here every interval
 }
 
-// Game is the top gamestate object and it contains the gamestates
+// Game is the top level object and it contains the levels
 class Game {
+  
   //  This is a test
   constructor() { // from setup()
-    this.displayOverDraftBanner = false;
-    this.invalidGridBanner = false;
     this.isRunning = true;
     this.placingTower = false;
     this.currentTower = 0;
@@ -54,41 +55,44 @@ class Game {
     this.towers = [];
     this.enemies = [];
     this.bullets = [];
-    this.missiles = [];
-    this.explosiveBullets = [];
+    this.missiles = [];//added with same logic as bullets
+    this.hands = [];//added with same logic as bullets (this is the minion guy idk)
+    this.blades = [];//added with same logic as bullets
+    this.allowPlace = true;//to not place when picking a spot to target for two of the towers
+    this.explosiveBullets = [];//added with same logic as bullets
     this.bankValue = 500;
     this.rays = [];
     this.checkOnce = true;
     this.enemyNum = 20;
     this.wallCost = 2;
-this.gameStateID = 1;
+    this.gameStateID = 1;
     this.paused = false;
-
+    this.towerState = 1;
     this.loadEnemyImages();
     this.score = 0;
     this.wave = 0;
     this.health = 100;
     this.canvas = document.createElement("canvas");
-    if (!this.canvas || !this.canvas.getContext)
-      throw "No valid canvas found!";
+    if(!this.canvas || !this.canvas.getContext)
+        throw "No valid canvas found!";
     this.canvas.width = 900;
     this.canvas.height = 750;
-    this.canvas.canDiv = document.getElementById('canDiv')
+    this.canvas.canDiv=document.getElementById('canDiv')
     this.canvas.canDiv.appendChild(this.canvas);
 
     this.context = this.canvas.getContext("2d");
-    if (!this.context)
-      throw "No valid context found!";
+    if(!this.context)
+        throw "No valid context found!";
     this.lastTime = Date.now();
     //select everything of type/class and set call backs
 
     this.tileDivs = this.createTileDivs();
-    var towerSwitchButton = document.getElementById('switchDiv');
+    var towerSwitchButton = document.getElementById('switchDiv');//switch visable towers 
 
     this.loadDOMCallBacks(this.tileDivs);
     // select canvas for callbacks
-    this.canvas.addEventListener('mousemove', this.handleCNVMouseMoved, false);
-    this.canvas.addEventListener('mouseover', this.handleCNVMouseOver, false);
+    this.canvas.addEventListener('mousemove',this.handleCNVMouseMoved,false);
+    this.canvas.addEventListener('mouseover',this.handleCNVMouseOver, false);
     this.canvas.addEventListener('click', this.handleCNVMouseClicked, false);
     this.currentWaveNum = 0;
     this.wave = new Wave(this, AllWaves[this.currentWaveNum])
@@ -97,8 +101,30 @@ this.gameStateID = 1;
     this.mouseY = 0;
     this.w = 50;
     this.done = false;
-    this.gameState = new GameState1(this);
-
+    this.gameState= new GameState1(this)
+    //panelthings
+    // this.panelStart.ceatebutton("Start",
+    //   function(){
+    //     document.getElementById("panelStart").style.display = 'none'
+    //     towerGame.panelStart.go = true
+    //   }, "panelStartStartButton")
+    //
+    // this.panelStart.ceatebutton("Instructions",
+    //   function(){
+    //     document.getElementById("panelStart").style.display = 'none'
+    //     towerGame.panelInstructions = new Panel(this,100,-500, "panelInstructions")
+    //     towerGame.panelInstructions.ceatebutton("Back",
+    //       function(){
+    //         document.getElementById("panelStart").style.display = 'block'
+    //         document.getElementById("panelInstructions").parentNode.removeChild(document.getElementById("panelInstructions"))
+    //       }, "panelInstructionsButton")
+    //   }, "panelStartInstructionButton")
+    //
+    // this.panelStart.ceatebutton("Quit",
+    //   function(){
+    //     towerGame.panelQuit = new Panel(this,100,-500,"panelQuit")
+    //     document.getElementById("panelStart").style.display = 'none'
+    //   }, "panelStartQuitButton")
 
 
 
@@ -110,9 +136,19 @@ this.gameStateID = 1;
     this.rows = Math.floor(this.canvas.height / this.w);
 
     this.loadGrid();
-    this.root = this.grid[this.cols - 1][this.rows - 1];//its defined here but is always overrun by gamestate.js
+    this.root = this.grid[this.cols - 1][this.rows -1];
     this.brushfire();
     this.loadWallImage();
+
+  //   towerGame.addEventListener('click', function(event) {
+  //     // Update mouseX and mouseY based on the click event
+  //     towerGame.mouseX = event.offsetX;
+  //     towerGame.mouseY = event.offsetY;
+  
+  //     // Call removeTower
+  //     towerGame.removeTower();
+
+  // }, false);
 
     var button = document.getElementById('pauseButton');
     button.addEventListener('click', this.pause, false);
@@ -128,15 +164,15 @@ this.gameStateID = 1;
           FRAME_RATE = 30; //make it slow
         }
       } else { //if the game has not started sending enemies
-        towerGame.gameTime = 20; //change gameTime to the point when it starts sending enemies
+        towerGame.gameTime = towerGame.wave.referenceTime; //change gameTime to the point when it starts sending enemies
         fastForwardButton.innerHTML = "Fast Forward"; //change the button to say "Fast Forward"
       }
     }, false);
 
-  
+
     document.getElementById('switchDiv').style.transform = "translate(" + 0 + "px, " + -52 + "px)";//idk this is clipping
     //I suck at editing png so yeah
-  
+
     towerSwitchButton.addEventListener('click', function () {
 
 
@@ -145,9 +181,9 @@ this.gameStateID = 1;
       if (towerState == 1) {
         towerState = 2;//just switching positions + rotating to point arrow in correct directions
         d4k.style.transform = "translate(" + 0 + "px, " + -749 + "px) rotate(180deg)";//
-      } else if ( towerState == 2){
+      } else if (towerState == 2) {
         towerState = 1;
-       d4k.style.transform = "translate(" + 0 + "px, " + -50 + "px)";
+        d4k.style.transform = "translate(" + 0 + "px, " + -50 + "px)";
       }
     }, false);
 
@@ -155,7 +191,7 @@ this.gameStateID = 1;
 
 
   //load wall stuff
-  loadWallImage() {
+  loadWallImage(){
     // grab the wall image from the buttons stprite sheet
     var propName = "B110000";
     var f = buttonsJSON.frames[propName].frame;
@@ -170,24 +206,24 @@ this.gameStateID = 1;
   }
 
 
-  loadEnemyImages() {
+  loadEnemyImages(){
     var enemyData = [];
 
-    for (var i = 1; i <= 6; i++) {
+    for (var i = 1; i <= 6; i++){
       var propName = "E" + i + "0000";
       var f = json.frames[propName].frame;
       enemyData.push(createImageBitmap(ssImage, f.x, f.y, f.w, f.h));
     }
 
-    Promise.all(enemyData).then(function (enemies) {
-      Enemy.image1 = enemies[0];
-      Enemy.image2 = enemies[1];
-      Enemy.image3 = enemies[2];
-      Enemy.image4 = enemies[3];
-      Enemy.image5 = enemies[4];
-      Enemy.image6 = enemies[5];
-    });
-  }
+      Promise.all(enemyData).then(function(enemies){
+        Enemy.image1 = enemies[0];
+        Enemy.image2 = enemies[1];
+        Enemy.image3 = enemies[2];
+        Enemy.image4 = enemies[3];
+        Enemy.image5 = enemies[4];
+        Enemy.image6 = enemies[5];
+      });
+   }
 
   // The success callback when a tower canvas image
   // or bullet image has loaded.  Hide them from
@@ -197,7 +233,7 @@ this.gameStateID = 1;
   run() { // called from draw()
     if (towerState == 1) {
       if (count == 1) {
-      //  this.createTileDivs();
+        //  this.createTileDivs();
         this.tileDivs = this.createTileDivs();
         this.loadDOMCallBacks(this.tileDivs);
         count--;
@@ -206,78 +242,26 @@ this.gameStateID = 1;
     } else if (towerState == 2) {
       if (count == 0) {
         this.tileDivs = this.createTileDivs();
-       this.loadDOMCallBacks(this.tileDivs);
+        this.loadDOMCallBacks(this.tileDivs);
         count++;
       }
     }
+    if (!this.paused){
+      this.gameState.run()
+    } 
 
     if (!this.paused) {
-      this.gameState.run()
-    }     // let gt = this.updateGameTime();
-    // this.updateInfoElements(gt);
-    // this.removeBullets();
-    // this.removeEnemies();
-    // this.controlWaves()
-    // if (this.isRunning) {
-    //   this.render();
-    // }
-    //
-    // // draw the grid
-    // for(let i = 0; i < this.cols; i++){
-    //   for(let j = 0; j < this.rows; j++){
-    //     this.grid[i][j].render();
-    //   }
-    // }
-    //  // draw the towers
-    // for (let i = 0; i < this.towers.length; i++) {
-    //   this.towers[i].run();
-    // }
-    // for (let i = 0; i < this.enemies.length; i++) {
-    //   this.enemies[i].run();
-    // }
-    // for (let i = 0; i < this.bullets.length; i++) {
-    //   this.bullets[i].run();
-    // }
-    //
-    // // some help text in the bottom left of the canvas
-    // this.context.save();
-    // this.context.fillStyle = "white";
-    // this.context.font = "14px sans-serif";
-    // this.context.fillText("Press the E key to send enemies", 20, this.canvas.height-20);
-    // this.context.restore();
-    //
-    // //more panelthings
-    // if(this.panelStart){
-    //   this.panelStart.render()
-    // }
-    //
-    // if(this.panelInstructions){
-    //   this.panelInstructions.render()
-    // }
-    //
-    // if(this.panelQuit){
-    //   this.panelQuit.render()
-    // }
-    //
-    // //collision detection
-    // for(var i = 0; i < this.enemies.length; i++){
-    //   for(var j = 0; j < this.bullets.length; j++){
-    //     if(this.circlePointCollision(this.bullets[j].loc.x, this.bullets[j].loc.y, this.enemies[i].loc.x, this.enemies[i].loc.y, this.enemies[i].radius)){
-    //       this.bullets.splice(j, 1);
-    //       this.enemies.splice(i, 1);
-    //     }
-    //   }
-    // }
-
+      towerGame.gameState.run()
+    }
   }
 
 
-  pause() {
+  pause(){
     var butt = document.getElementById('pauseButton');
-    towerGame.paused = !towerGame.paused;
-    if (towerGame.paused) butt.innerHTML = "Play";
-    if (!towerGame.paused) butt.innerHTML = "Pause";
-  }
+  towerGame.paused = !towerGame.paused;
+  if (towerGame.paused) butt.innerHTML = "Play";
+  if (!towerGame.paused) butt.innerHTML = "Pause";
+}
 
 
   render() { // draw game stuff
@@ -286,6 +270,7 @@ this.gameStateID = 1;
   }
 
   banner() {
+    //overdraft banner
     if (this.displayOverDraftBanner == true) {
       this.context.beginPath();
       this.context.rect(150, 210, 600, 250);
@@ -294,8 +279,6 @@ this.gameStateID = 1;
       this.context.fill();
       this.context.stroke();
       this.context.closePath();
-
-
       const text = "Too expensive!";
       this.context.font = "italic 100px Garamond"; // Set the font size and type
       this.context.fillStyle = "white"; // Set the text color
@@ -318,8 +301,6 @@ this.gameStateID = 1;
       this.context.fill();
       this.context.stroke();
       this.context.closePath();
-
-
       const text = "Invalid grid!";
       this.context.font = "italic 120px Garamond"; // Set the font size and type
       this.context.fillStyle = "white"; // Set the text color
@@ -327,35 +308,58 @@ this.gameStateID = 1;
       const tx = 150 + (600 - tw) / 2; // Center the text horizontally
       const ty = 200 + 350 / 2; // Center the text vertically
       this.context.fillText(text, tx, ty);
-
-
-
       setTimeout(() => {
         this.invalidGridBanner = false;
       }, 600);
-
-
     }
+
+    //invalid tower placement banner
+    if (this.towerErrorBanner == true) {
+      console.log("working");
+      this.context.beginPath();
+      this.context.rect(180, 220, 580, 250);
+      this.context.strokeStyle = "#3B6C8E";
+      this.context.fillStyle = "#3B6C8E";
+      this.context.fill();
+      this.context.stroke();
+      this.context.closePath();
+      const textLine1 = "You can't place";
+      const textLine2 = "a tower there!";
+      this.context.font = "italic 100px Garamond"; // Adjusted font size to fit the text in two lines
+      this.context.fillStyle = "white";
+      const tw1 = this.context.measureText(textLine1).width;
+      const tw2 = this.context.measureText(textLine2).width;
+      const tx1 = 180 + (580 - tw1) / 2; // Center the first line horizontally
+      const tx2 = 180 + (580 - tw2) / 2; // Center the second line horizontally
+      const ty1 = 220 + (250 / 2) - 25; // Position for the first line (slightly above the middle)
+      const ty2 = 220 + (250 / 2) + 75; // Position for the second line (slightly below the middle)
+      this.context.fillText(textLine1, tx1, ty1);
+      this.context.fillText(textLine2, tx2, ty2);
+      setTimeout(() => {
+        this.towerErrorBanner = false;
+      }, 600);
+    }
+
   }
 
-  // brushfire()
-  // starting with the 'root' cell, which is the bottom right cell of the grid
-  // assign a "distance" to all other cells where the distance is the
-  // accumulated steps from that cell to the root cell.
-  // An adjacent neighbor has a step of 10
-  // and a diagonal neighbor has a step of 14.
+      // brushfire()
+    // starting with the 'root' cell, which is the bottom right cell of the grid
+    // assign a "distance" to all other cells where the distance is the
+    // accumulated steps from that cell to the root cell.
+    // An adjacent neighbor has a step of 10
+    // and a diagonal neighbor has a step of 14.
 
   brushfire(undo) { //if brushfire fails to make a valid map undo will be called
     // Initialize each cell in the grid to have a distance that
     // is the greatest possible.  Initialize each cell to
     // have no parent and populate it's array of neighbors
-    for (var i = 0; i < this.cols; i++) {
-      for (var j = 0; j < this.rows; j++) {
+    for(var i = 0; i < this.cols; i++){
+      for(var j = 0; j < this.rows; j++){
         var cell = this.grid[i][j];
         cell.dist = this.cols * this.rows * 5;     // set distance to max
         cell.vec = null;    // clear parent vector
         cell.parent = 0;    // clear parent
-        cell.addNeighbors(this, this.grid); // fill the neighbors array
+        cell.addNeighbors(this,  this.grid); // fill the neighbors array
       }
     }
     // Initialize the fifo queue with the root cell
@@ -410,82 +414,97 @@ this.gameStateID = 1;
 
   }
   //check the map to see if there are cells without parents
-  validMap() {
-    if (this.grid[0][0].occupied || this.grid[0][0].hasTower) {
-      return false;
-    }
-    else {
-      for (var i = 0; i < this.cols; i++) {
-        for (var j = 0; j < this.rows; j++) {
-          var cell = this.grid[i][j];
-          if (!cell.parent && !(cell.occupied || cell.hasTower) && cell != this.root) {
-            return false;
 
+    //check the map to see if there are cells without parents
+    validMap() {
+      if(this.grid[0][0].occupied || this.grid[0][0].hasTower){
+        return false;
+      }
+      else{
+        for(var i = 0; i < this.cols; i++){
+          for(var j = 0; j < this.rows; j++){
+            var cell = this.grid[i][j];
+            if(!cell.parent && !(cell.occupied || cell.hasTower)&& cell!=this.root){
+              return false;
+
+            }
           }
         }
+        return true;
       }
-      return true;
     }
-  }
-  //undo an invalid map action
-  undo(cell, tower) {
-    if (tower) {
-      return function () {
-        cell.hasTower = false;
-        towerGame.towers.splice(towerGame.towers.indexOf(tower))
-        alert("you cannot place a tower here");
-      }
-    } else {
-      return function () {
-        if (cell.occupied) {
-          cell.occupied = false;
-          towerGame.bankValue += towerGame.wallCost;
-        } else {
-          cell.occupied = true;
-          towerGame.bankValue -= towerGame.wallCost;
+    //undo an invalid map action
+    undo(cell,tower) {
+      if(tower){
+        return function() {
+          cell.hasTower=false;
+          towerGame.towers.splice(towerGame.towers.indexOf(tower))
+          alert("you cannot place a tower here")
         }
-        //    alert("performing that action would create an invalid grid")
-        towerGame.invalidGridBanner = true;
+      }else{
+        return function() {
+          if (cell.occupied){
+            cell.occupied = false;
+            towerGame.bankValue += towerGame.wallCost;
+          } else {
+            cell.occupied = true;
+            towerGame.bankValue -= towerGame.wallCost;
+          }
+          alert("performing that action would create an invalid grid")
+        }
       }
     }
-  }
-  // sendEnemies()
-  // Send a random number of enemies, up to 5, each from a random location
-  // in the top half of the grid.  About half of the enemies will take the
-  // optimal path simply by following the parent chain and about half will
-  // take a path of randomly choosing cells to be next on the path
-  // from all those cells with a distance to the root that is
-  // less than its current location.
-  // A valid cell to start the enemy must have a parent because lack
-  // of a parent means either it is occupied or it is blocked from any path.
-  sendEnemies() {
-    var numEnemies = Math.random() * 5;     // up to 5 enemies
-    var row, col, startCell, i, j;
-    for (i = 0; i < numEnemies; i++) {
-      for (j = 0; j < 3; j++) { // try 3 times to find valid start cell
-        startCell = this.grid[0][0];
-        if (startCell && startCell.parent)   // must have a parent to have any path
-          break;
-      }
-      if (j < 3) { // if we found a valid cell to start the enemy
-        let randomPath = Math.floor(Math.random() * 2);    // about half
-        this.enemies.push(new Enemy(this, startCell, randomPath));
+    // sendEnemies()
+    // Send a random number of enemies, up to 5, each from a random location
+    // in the top half of the grid.  About half of the enemies will take the
+    // optimal path simply by following the parent chain and about half will
+    // take a path of randomly choosing cells to be next on the path
+    // from all those cells with a distance to the root that is
+    // less than its current location.
+    // A valid cell to start the enemy must have a parent because lack
+    // of a parent means either it is occupied or it is blocked from any path.
+    sendEnemies() {
+        var numEnemies = Math.random() * 5;     // up to 5 enemies
+        var row, col, startCell, i, j;
+        for( i = 0; i < numEnemies; i++) {
+            for(j = 0; j < 3; j++) { // try 3 times to find valid start cell
+                startCell = this.grid[0][0];
+                if(startCell && startCell.parent)   // must have a parent to have any path
+                    break;
+                }
+            if(j < 3) { // if we found a valid cell to start the enemy
+                let randomPath = Math.floor(Math.random() * 2);    // about half
+                this.enemies.push(new Enemy(this, startCell, randomPath));
+                }
+            }
+    }
+    controlWaves() {
+      if(this.wave.isWaveOver()){
+        this.currentWaveNum+=1
+        this.wave=new Wave(this,AllWaves[this.currentWaveNum])
+      }else{
+        this.wave.run()
       }
     }
-  }
-  controlWaves() {
-    if (this.wave.isWaveOver()) {
-      this.currentWaveNum += 1
-      this.wave = new Wave(this, AllWaves[this.currentWaveNum])
-    } else {
-      this.wave.run()
+    // Delete any enemies that have died
+    removeEnemies() {
+      for(let i = this.enemies.length-1; i >= 0; i--) {
+        if(this.enemies[i].kill)
+            this.enemies.splice(i,1);   // delete this dead enemy
+
+        }
     }
-  }
-  // Delete any enemies that have died
-  removeEnemies() {
-    for (let i = this.enemies.length - 1; i >= 0; i--) {
-      if (this.enemies[i].kill)
-        this.enemies.splice(i, 1);   // delete this dead enemy
+
+  removeBullets(){
+    if(this.bullets.length < 1) return;
+    for(let i = this.bullets.length-1; i >= 0; i--){
+
+       if( this.bullets[i].loc.x < 0 ||
+           this.bullets[i].loc.x > this.canvas.width ||
+           this.bullets[i].loc.y < 0 ||
+           this.bullets[i].loc.y > this.canvas.height ){
+             this.bullets.splice(i, 1);
+           }
 
     }
   }
@@ -501,6 +520,13 @@ this.gameStateID = 1;
         this.bullets.splice(i, 1);
       }
 
+    }
+  }
+  removePests() {
+    for (let i = this.hands.length - 1; i >= 0; i--) {
+      if (this.hands[i].death == true) {
+        this.hands.splice(i, 1);
+      }
     }
   }
   removeMissiles() {
@@ -519,40 +545,40 @@ this.gameStateID = 1;
 
   updateInfoElements(time) {
     let infoElements = document.getElementById('infoDiv').getElementsByClassName('infoTileDiv');
-    for (let i = 0; i < infoElements.length - 1; i++) {
+    for(let i = 0; i < infoElements.length-1; i++){
       let info = infoElements[i];
       // change the html content after condition--use indexOf
-      if (info.innerHTML.indexOf('Bank') != -1) {
+      if(info.innerHTML.indexOf('Bank') != -1){
         info.innerHTML = 'Bank <br/>';
         var value = document.createElement('p');
         value.style.fontSize = '10pt';
         value.innerHTML = this.bankValue;
         info.appendChild(value)
-        if (this.bankValue < 0) {
+        if(this.bankValue < 0){
           this.bankValue == 0;
         }
-      } else if (info.innerHTML.indexOf('Time') != -1) {
+      }else if(info.innerHTML.indexOf('Time') != -1){
         info.innerHTML = 'Time <br/>';
         var value = document.createElement('p');
         value.style.fontSize = '10pt';
         value.innerHTML = time;
         info.appendChild(value);
       }
-      if (info.innerHTML.indexOf('Score') != -1) {
+      if(info.innerHTML.indexOf('Score') != -1){
         info.innerHTML = 'Score <br/>';
         var value = document.createElement('p');
         value.style.fontSize = '10pt';
         value.innerHTML = this.score;
         info.appendChild(value);
       }
-      if (info.innerHTML.indexOf('Wave') != -1) {
+      if(info.innerHTML.indexOf('Wave') != -1){
         info.innerHTML = 'Wave <br/>';
         var value = document.createElement('p');
         value.style.fontSize = '10pt';
         value.innerHTML = this.wave.waveJson.name;
         info.appendChild(value);
       }
-      if (info.innerHTML.indexOf('Health') != -1) {
+      if(info.innerHTML.indexOf('Health') != -1){
         info.innerHTML = 'Health <br/>';
         var value = document.createElement('p');
         value.style.fontSize = '12pt';
@@ -562,26 +588,26 @@ this.gameStateID = 1;
     }
   }
   updateCostInfoElement(value) {
-    let infoElements = document.getElementById('infoDiv').getElementsByClassName('infoTileDiv');
-    let info = infoElements[infoElements.length - 3];
-    info.innerHTML = 'Cost <br/>' + value;
+  let infoElements = document.getElementById('infoDiv').getElementsByClassName('infoTileDiv');
+  let info = infoElements[infoElements.length-3];
+  info.innerHTML = 'Cost <br/>' + value;
   }
 
-  updateGameTime() {
+  updateGameTime(){
     var millis = Date.now();
-    if (millis - this.lastTime >= 1000) {
+    if(millis - this.lastTime >= 1000 ) {
       this.gameTime++;
       this.lastTime = millis;
     }
     return this.gameTime;
   }
 
-  // +++++++++++++++++++++++++++++++++++++++++++  load a 2D array with cells
-  loadGrid() {
-    for (var i = 0; i < this.cols; i++) {     // columns of rows
+   // +++++++++++++++++++++++++++++++++++++++++++  load a 2D array with cells
+  loadGrid(){
+    for(var i = 0; i < this.cols; i++){     // columns of rows
       this.grid[i] = [];
-      for (var j = 0; j < this.rows; j++) {
-        this.grid[i][j] = new Cell(this, vector2d((i * this.w), (j * this.w)), ++cellId);
+      for(var j = 0; j < this.rows; j++){
+        this.grid[i][j] = new Cell(this, vector2d((i*this.w), (j*this.w)), ++cellId);
 
       }
     }
@@ -612,20 +638,20 @@ this.gameStateID = 1;
           alert("Error in creating bitmap");
         });
 
-  }
+    }
 
   // Create the divs to hold the menu of towers with
   // the large images.  This divs also contain the
   // parameters for creating towers to be drawn on the
   // canvas.
   createTileDivs() {
-   while(document.getElementById("menuDiv").hasChildNodes()){
+    while (document.getElementById("menuDiv").hasChildNodes()) {
 
-   document.getElementById("menuDiv").firstChild.remove();
-   }
+      document.getElementById("menuDiv").firstChild.remove();
+    }
 
     var buttons = ["B10000", "B20000", "B30000", "B40000", "B50000",
-    "B60000", "B70000", "B80000", "B90000", "B100000"];
+      "B60000", "B70000", "B80000", "B90000", "B100000"];
 
     if (towerState == 1) {
 
@@ -673,22 +699,22 @@ this.gameStateID = 1;
         tiles[i] = mtd;
         this.createTowerBitmaps(ssImage, mtd, i)
 
-        if(firstRun == 0){//this is for loading all things the first frame
+        if (firstRun == 0) {//this is for loading all things the first frame
           towerState == 2;
-          firstRun ++;
+          firstRun++;
         }
-      
+
       }
-    } if(towerState == 2) {//tower state 2 gets called when you click the
+    } if (towerState == 2) {//tower state 2 gets called when you click the
       // button and changes back to 1 after you click it again
       for (var i = 5; i < 10; i++) {
         var mtd = document.createElement("div");
         if (i == 5) {
           mtd.ability = "cannon";
         } else if (i == 6) {
-          mtd.ability = "temp7";
+          mtd.ability = "bladeStorm";
         } else if (i == 7) {
-          mtd.ability = "temp8";
+          mtd.ability = "liquify";
         } else if (i == 8) {
           mtd.ability = "missile";
         } else if (i == 9) {
@@ -729,19 +755,23 @@ this.gameStateID = 1;
 
   }
 
-  getBankValue() {
+  getBankValue(){
     return this.bankValue;
+  }
+
+  setBankValue(refund){
+    this.bankValue += refund;
   }
   //  Logic to add tower +++++++++++++++++++++++
   canAddTower(cell) {
     // add conditions before allowing user to place turret
     // Some money required but also cannot place tower on a cell
     // of the grid that is occupied or is the root cell
-    if (towerGame.placingTower) {
-      if (!cell.occupied && !cell.hasTower && cell != towerGame.root) {
-        return true;
-      }
-      return (false);
+    if(towerGame.placingTower) {
+        if(!cell.occupied && !cell.hasTower && cell != towerGame.root){
+          return true;
+        }
+      return(false);
     }
   }
 
@@ -750,46 +780,44 @@ this.gameStateID = 1;
     // the menu tower div contains the parameters for the tower
     console.log("Bankvalue = " + this.bankValue);
     console.log("Cost = " + mtd.cost);
-    if (this.bankValue >= mtd.cost) {
-      var tower = new Tower(mtd.cost, mtd.cnvTurImg, mtd.cnvBulImg, mtd.ability);
-      if (tower) {
+    if(this.bankValue >= mtd.cost){
+      var tower = new Tower( mtd.cost, mtd.cnvTurImg, mtd.cnvBulImg, mtd.ability);
+      if(tower) {
         this.towers.push(tower); // add tower to the end of the array of towers
-        return (true);
-      }
+        return(true);
+        }
       else {
         println('failed to make tower');
       }
-    } else {
-      //alert("Insufficient Funds!");
-      this.displayOverDraftBanner = true;
     }
-    return (false);
+    else alert("Insufficient Funds!");
+    return(false);
   }
 
   placeTower(cell) {
     //  place tower into play area at center of cell
-    towerGame.towers[towerGame.towers.length - 1].loc = cell.center.copy();
-    //    console.log(towerGame.towers[towerGame.towers.length-1].loc.toString());
+    towerGame.towers[towerGame.towers.length-1].loc = cell.center.copy();
+//    console.log(towerGame.towers[towerGame.towers.length-1].loc.toString());
     //  tower needs to know if it is placed
-    towerGame.towers[towerGame.towers.length - 1].placed = true;
+    towerGame.towers[towerGame.towers.length-1].placed = true;
     cell.hasTower = true;
     //  only one tower placed at a time
     towerGame.placingTower = false;
     // placing a tower makes the cell containing the tower
     // unavailable to enemies the same as if it were
     // occupied (blocked)
-    towerGame.brushfire(towerGame.undo(cell, towerGame.towers[towerGame.towers.length - 1]));   // all new distances and parents
+    towerGame.brushfire(towerGame.undo(cell,towerGame.towers[towerGame.towers.length-1]));   // all new distances and parents
   }
 
-  //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ load callbacks
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ load callbacks
   loadDOMCallBacks(menuTiles) {
     //  load tile menu callbacks
     for (var i = 0; i < menuTiles.length; i++) {
-      var mtd = menuTiles[i];
-      mtd.addEventListener('mouseover', this.tileRollOver, false);
-      mtd.addEventListener('mouseout', this.tileRollOut, false);
-      mtd.addEventListener('mousedown', this.tilePressed, false);
-      mtd.addEventListener('click', this.tileClicked, false);
+        var mtd = menuTiles[i];
+        mtd.addEventListener('mouseover',this.tileRollOver,false);
+        mtd.addEventListener('mouseout', this.tileRollOut, false);
+        mtd.addEventListener('mousedown', this.tilePressed, false);
+        mtd.addEventListener('click', this.tileClicked, false);
     }
 
   }
@@ -812,154 +840,198 @@ this.gameStateID = 1;
   tileClicked() {
     //if user clicks tile and not placing tile change placing to true
     // can add Tower checks cost and other conditions
-    if (towerGame.placingTower === true) return;
-    if (towerGame.createTower(this))
-      towerGame.placingTower = true;
+    if(towerGame.placingTower === true) return;
+    if(towerGame.createTower(this))
+        towerGame.placingTower = true;
 
 
 
   }
-  //  ++++++++++++++++++++++++++++++++++++++++++++++++++    mouse handlers
+//  ++++++++++++++++++++++++++++++++++++++++++++++++++    mouse handlers
+
   handleCNVMouseOver() {
-    if (towerGame.towers.length < 1) return;
-    towerGame.towers[towerGame.towers.length - 1].visible = true;
+    if(towerGame.towers.length < 1) return;
+    towerGame.towers[towerGame.towers.length-1].visible = true;
   }
 
   handleCNVMouseMoved(event) {
     // add some properties to the canvas to track the mouse.
     this.mouseX = event.offsetX;
     this.mouseY = event.offsetY;
-    if (towerGame.towers.length < 1) return;
-    if (!towerGame.towers[towerGame.towers.length - 1].placed &&
-      towerGame.placingTower === true) {
-      //follow mouse
-      towerGame.towers[towerGame.towers.length - 1].loc.x = this.mouseX;
-      towerGame.towers[towerGame.towers.length - 1].loc.y = this.mouseY;
-      //        console.log(this.mouseX + ", " + this.mouseY + ", " + towerGame.towers[towerGame.towers.length-1].loc.toString());
-    }
+    if(towerGame.towers.length < 1) return;
+    if(!towerGame.towers[towerGame.towers.length-1].placed &&
+      towerGame.placingTower === true ){
+        //follow mouse
+        towerGame.towers[towerGame.towers.length-1].loc.x = this.mouseX;
+        towerGame.towers[towerGame.towers.length-1].loc.y = this.mouseY;
+//        console.log(this.mouseX + ", " + this.mouseY + ", " + towerGame.towers[towerGame.towers.length-1].loc.toString());
+      }
   }
 
   handleCNVMouseClicked(event) {
-    var row = Math.floor(event.offsetY / towerGame.w);
-    var col = Math.floor(event.offsetX / towerGame.w);
-    var cell = towerGame.grid[col][row];
+    let row = Math.floor(event.offsetY/towerGame.w);
+    let col = Math.floor(event.offsetX/towerGame.w);
+    let cell = towerGame.grid[col][row];
 
-    if (towerGame.placingTower && towerGame.canAddTower(cell)) {
+    if(towerGame.placingTower && towerGame.canAddTower(cell)){
       towerGame.placeTower(cell);
     }
 
-    else if (!towerGame.placingTower && !cell.hasTower) {
-      // toggle the occupied property of the clicked cell
-      if (!cell.occupied && towerGame.bankValue >= towerGame.wallCost) {
-        towerGame.bankValue -= towerGame.wallCost;
-        cell.occupied = true;
-      } else if (!cell.occupied) {
-        alert("Insufficient Funds!");
-      }
-      else {
-        towerGame.bankValue += towerGame.wallCost;
-        cell.occupied = false;
-      }
-      towerGame.brushfire(towerGame.undo(cell));   // all new distances and parents
-    }
+    else if(!towerGame.placingTower && !cell.hasTower) {
+        // toggle the occupied property of the clicked cell
+        if (!cell.occupied && towerGame.bankValue >= towerGame.wallCost){
+            towerGame.bankValue -= towerGame.wallCost;
+            cell.occupied = true;
+        } else if(!cell.occupied) {
+            alert("Insufficient Funds!");
+            }
+        else {
+            towerGame.bankValue += towerGame.wallCost;
+            cell.occupied = false;
+        }
+        towerGame.brushfire(towerGame.undo(cell));   // all new distances and parents
+        }else if (!towerGame.placingTower && cell.hasTower) {
+          console.log("Clicked cell at column: " + col + ", row: " + row);
+      
+          if (col < 0 || col >= this.cols || row < 0 || row >= this.rows) {
+              console.log("Clicked outside of grid bounds.");
+              return; // Clicked outside the grid
+          }
+      
+          console.log("Cell has tower: " + cell.hasTower); // Debugging
+      
+          if (cell.hasTower) {
+              for (let i = 0; i < towerGame.towers.length; i++) {
+                  let tower = towerGame.towers[i];
+                  console.log("Tower " + i + " at: " + tower.loc.x + ", " + tower.loc.y); // Debugging
+                  if (Math.abs(tower.loc.x - cell.center.x) < 1 && Math.abs(tower.loc.y - cell.center.y) < 1) {
+                      // Instantiate Popup near the tower location
+                      const popupX = event.offsetX + 375; // Adjust based on your canvas or element positioning
+                      const popupY = event.offsetY + 45; // Adjust based on your canvas or element positioning
+                     // Set popupOpen to true as we are now opening a popup
+            
+                             // Instantiate Popup near the tower location
+                          const popup = new Popup(popupX, popupY, tower);
+                         
+                      // Refund and remove tower logic moved to button event listener
+                      document.getElementById('refundButton').addEventListener('click', () => {
+                          towerGame.setBankValue(tower.cost); // Refund the cost of the tower
+                          towerGame.towers.splice(i, 1); // Remove the tower from the array
+                          cell.hasTower = false; // Update the cell's state
+                          console.log("Tower removed and cost refunded.");
+                          towerGame.brushfire(); // Re-run the pathfinding algorithm
+                          popup.hide(); // Close the popup
+                      });
+      
+                      // Upgrade tower logic (You'll need to define it)
+                      document.getElementById('upgradeButton').addEventListener('click', () => {
+                          console.log("Upgrade button clicked");
+                          popup.hide(); // Close the popup
+                      });
 
-    if (this.gameStateID === 4) {
-      if (towerGame.placingTower && towerGame.canAddTower(cell)) {
-        towerGame.placeTower(towerGame);
+                      document.getElementById('cancleButton').addEventListener('click', () => {
+                        popup.hide(); // Close the popup
+                    });
+      
+                       return;
+                  }
+              }
+          }
       }
-    }
+      //removeTower ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
   }
 
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   //collision detection utilities
-  distance(c0, c1) {
-    this.x0 = c0.x;
-    this.y0 = c0.y;
-    this.x1 = c1.x;
-    this.y1 = c1.y;
+  distance(c0, c1){
+      this.x0 = c0.x;
+      this.y0 = c0.y;
+      this.x1 = c1.x;
+      this.y1 = c1.y;
 
-    var dx = this.x1 - this.x0;
-    var dy = this.y1 - this.y0;
+      var dx = this.x1 - this.x0;
+      var dy = this.y1 - this.y0;
 
-    return Math.sqrt(dx * dx + dy * dy);
+      return Math.sqrt(dx * dx + dy * dy);
 
-  }
+    }
 
-  distanceXY(x0, y0, x1, y1) {
-    var dx = x1 - x0;
-    var dy = y1 - y0;
+    distanceXY(x0, y0, x1, y1){
+      var dx = x1 - x0;
+      var dy = y1 - y0;
 
-    return Math.sqrt(dx * dx + dy * dy);
-  }
+      return Math.sqrt(dx * dx + dy * dy);
+    }
 
-  inRange(value, min, max) {
-    return value >= Math.min(min, max) && Math.max(min, max) <= Math.max(min, max);
-  }
+    inRange(value, min, max){
+      return value >= Math.min(min, max) && Math.max(min, max) <= Math.max(min, max);
+    }
 
   //parameters:
   //loc1 = location vector of first circle
   //loc2 = location vector of second circle
   //rad1 = radius of first circle
   //rad2 = radius of second circle
-  circleCollision(loc1, loc2, rad1, rad2) {
-    if (this.distance(loc1, loc2) <= rad1 + rad2) {
-      return true;
+    circleCollision(loc1, loc2, rad1, rad2){
+      if(this.distance(loc1, loc2) <= rad1 + rad2){
+        return true;
+      }
     }
-  }
 
-  //parameters:
-  //x, y = locations of point
-  //circx, circy = locations of circle
-  //radius = radius of circle
-  circlePointCollision(x, y, circx, circy, radius) {
-    if (this.distanceXY(x, y, circx, circy) < radius) {
-      return true;
+    //parameters:
+    //x, y = locations of point
+    //circx, circy = locations of circle
+    //radius = radius of circle
+    circlePointCollision(x, y, circx, circy, radius){
+      if(this.distanceXY(x, y, circx, circy) < radius){
+        return true;
+      }
     }
-  }
 
-  //parameters:
-  //x, y = locations of point
-  //loc = location vector of rectangle
-  //rect width, height = width and height of rectangle
-  rectanglePointCollision(x, y, loc, rectWidth, rectHeight) {
-    if (this.inRange(x, loc.x, loc.x + rectWidth) && inRange(y, loc.y, loc.y + rectHeight)) {
-      return true;
+    //parameters:
+    //x, y = locations of point
+    //loc = location vector of rectangle
+    //rect width, height = width and height of rectangle
+    rectanglePointCollision(x, y, loc, rectWidth, rectHeight){
+      if(this.inRange(x, loc.x, loc.x + rectWidth) && inRange(y, loc.y, loc.y + rectHeight)){
+        return true;
+      }
     }
-  }
 
 
-  range(min0, max0, min1, max1) {
-    return Math.max(min0, max0) >= Math.min(min1, max1) && Math.min(min0, max0) <= Math.max(min1, max1);
-  }
-
-
-  //parameters:
-  //loc1 = location vector of first rectangle
-  //loc2 = location vector of second rectangle
-  rectangleCollision(loc1, rectWidth1, rectHeight1, loc2, rectWidth2, rectHeight2) {
-    if (this.range(loc1.x, loc1.x + rectWidth1, loc2.x, loc2.x + rectWidth2) &&
-      this.range(loc1.y, loc1.y + rectHeight1, loc2.y, loc2.y + rectHeight2)) {
-      return true;
+    range(min0, max0, min1, max1){
+      return Math.max(min0, max0) >= Math.min(min1, max1) && Math.min(min0, max0) <= Math.max(min1, max1);
     }
+
+
+    //parameters:
+    //loc1 = location vector of first rectangle
+    //loc2 = location vector of second rectangle
+    rectangleCollision(loc1, rectWidth1, rectHeight1, loc2, rectWidth2, rectHeight2){
+      if(this.range(loc1.x, loc1.x + rectWidth1, loc2.x, loc2.x + rectWidth2) &&
+      this.range(loc1.y, loc1.y + rectHeight1, loc2.y, loc2.y + rectHeight2)){
+    return true;
   }
+    }
 
   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Other
 } // end Game class +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-window.onkeydown = function (e) {
+window.onkeydown = function(e) {
   var code = e.keyCode ? e.keyCode : e.which;
 
   if (code == 85) { // u key
-    if (towerGame.bankValue >= 800) {
+    if (towerGame.bankValue >= 800){
       var upgrade = prompt("Type rate to increase fire rate (costs 1000)\nType range to increase range (Costs 800)").toLowerCase();
 
-      if ((upgrade == "range" && towerGame.bankValue >= 800) || (upgrade == "rate" && towerGame.bankValue >= 1000)) {
-        for (var i = 0; i < towerGame.towers.length; i++) {
+      if ((upgrade == "range" && towerGame.bankValue >= 800) || (upgrade == "rate" && towerGame.bankValue >= 1000)){
+        for (var i = 0; i < towerGame.towers.length; i++){
           var tower = towerGame.towers[i];
-          if (upgrade === "rate") {
+          if (upgrade === "rate"){
             tower.coolDown -= 200;
             towerGame.bankValue -= 1000;
-          } else if (upgrade === "range") {
+          } else if (upgrade === "range"){
             tower.range += 200;
             towerGame.bankValue -= 800;
           } else {
@@ -972,4 +1044,3 @@ window.onkeydown = function (e) {
     }
   }
 }
-

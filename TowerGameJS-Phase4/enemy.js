@@ -6,8 +6,9 @@ class Enemy {
     this.loc = this.currentCell.center.copy();
     this.randomPath = 0;   //boolean to randomize or not
     this.radius = 15.0;
-    this.r = 3.0;
+    this.r = 15.0;
     this.vel = 3.0;
+    this.count = 0;
     this.slowed = 1.2;
     this.isLocked = false;
     this.isTarget = false;
@@ -25,7 +26,7 @@ class Enemy {
     this.velVec = targetVec.copy().normalize().scale(this.vel);      // initial velocity vector
     this.kill = false;
     this.angle = this.velVec.angle()
-
+  this.damageMult = 1;
     this.img = Enemy.image3;// image for enemy
 
 
@@ -54,19 +55,34 @@ class Enemy {
       return (candidates[Math.floor(Math.random() * candidates.length)]);
     }
   }
-//make 10 a niche tower
+  oppositeNextTarget() {//idk
+
+    if (!this.randomPath)
+      return (this.currentCell.parent);    // the parent cell is always the shortest path
+    else {  // else choose from cells with a lesser distance to the root
+      let candidates = [];
+      for (let i = 0; i < this.currentCell.neighbors.length; i++) {
+        if (this.currentCell.neighbors[i].dist > this.currentCell.dist)
+          candidates.push(this.currentCell.neighbors[i]);
+      }
+      // randomly pick one of the candidates
+      return (candidates[Math.floor(Math.random() * candidates.length)]);
+    }
+  }
+
+
   // render()
   // Draw the enemy at its current location
   // Enemies with a randomized path are blue and
   // enemies with an optimal path are green
   render() {
     var ctx = this.game.context
-    if(this.slowed < 1){
+    if (this.slowed < 1) {
       ctx.save();
       ctx.translate(this.loc.x, this.loc.y)
       ctx.strokeStyle = "rgba(0,0,100,0.4)";
       ctx.beginPath();
-      ctx.arc(0, 0, (this.img.width+this.img.height)/4, 0, Math.PI * 2, false);
+      ctx.arc(0, 0, (this.img.width + this.img.height) / 4, 0, Math.PI * 2, false);
 
       ctx.closePath();
       ctx.stroke();
@@ -91,34 +107,72 @@ class Enemy {
   // of the new target.
   update() {
     let millis = Date.now();
+    for (let h = 0; h < towerGame.missiles.length; h++) {
+      if (this.checkCollide(this, towerGame.missiles[h])) {
+        if (towerGame.missiles[h].ability == "missile") {
+          this.health -= 800;//this does not current work
+          towerGame.missiles.splice(h, 1);
+        }
+      }
+    }
+    for (let h = 0; h < towerGame.hands.length; h++) {
+      if (this.checkCollide(this, towerGame.hands[h])) {
+        if (towerGame.hands[h].ability == "liquify") {
+          this.health -= 10;
+
+
+        }
+      }
+    }
+    for (let h = 0; h < towerGame.blades.length; h++) {
+      if (this.checkCollide(this, towerGame.blades[h])) {
+        if (towerGame.blades[h].ability == "bladeStorm") {
+          this.health -= 100;
+
+        }
+      }
+    }
+
+
     for (let h = 0; h < towerGame.bullets.length; h++) {
       if (this.checkCollide(this, towerGame.bullets[h])) {
         if (towerGame.bullets[h].ability == "normal") {
-          this.health = this.health - 500;
+          //this.health = this.health - 100;
+          this.health = this.health - 500*this.damageMult;
+          //console.log(this.health)
           towerGame.bullets.splice(h, 1);
         } else if (towerGame.bullets[h].ability == "fast") {
-          this.health = this.health - 350;
-          
+          this.health = this.health - 350*this.damageMult;
+          //  console.log(this.health)
           towerGame.bullets.splice(h, 1);
         } else if (towerGame.bullets[h].ability == "freeze") {
-          this.health = this.health - 10;
-          this.slowed -= 0.1;
+          this.health = this.health - 25*this.damageMult;
+          this.slowed -= 1;
           setTimeout(() => {
             this.slowed = 1.2;
-        }, 5000);
-
+          }, 5000);
+          //  this.vel = this.initialVel - .8;
         } else if (towerGame.bullets[h].ability == "explosive") {
-          this.health = this.health - 100;
+
+          this.health = this.health - 100*this.damageMult;
+          //this.health = this.health - 10;
           if (this.health <= 0) {
             this.kill = true;
           }
           this.locations = this.loc;
-          towerGame.explosiveBullets.push(new Explosives(towerGame.bullets[h].loc));
+          towerGame.explosiveBullets.push(new Explosives(towerGame.bullets[h].loc, towerGame.bullets[h].ability));
 
           towerGame.bullets.splice(h, 1);
-        } else if (towerGame.bullets[h].ability == "missile") {
-          this.health -= 800;//this does not current work
-          towerGame.missiles.splice(h, 1);
+        }
+        else if (towerGame.bullets[h].ability == "explosive") {
+          this.health -= 100;
+          if (this.health <= 0) {
+            this.kill = true;
+          }
+          this.locations = this.loc;
+          towerGame.explosiveBullets.push(new Explosives(towerGame.bullets[h].loc, towerGame.bullets[h].ability));
+
+          towerGame.bullets.splice(h, 1);
         }
 
 
@@ -150,7 +204,6 @@ class Enemy {
       this.kill = true;
 
       this.deathSound.play();
-      console.log("play");
       towerGame.bankValue += 10;
 
       //console.log("kills");
@@ -186,13 +239,13 @@ class Enemy {
     }
     if (this.slowed < 1) {//the third guy does this
       this.count++;
-      if(this.count == 3){
-          this.loc.add(this.velVec)//this make it look extremely jittery 
-          //I will eventually do a complete overhaul of the velocity to get with better.
-          //(proboly after all the other towers are decent)
-          this.count = 0;
+      if (this.count == 3) {
+        this.loc.add(this.velVec)//this make it look extremely jittery 
+        //I will eventually do a complete overhaul of the velocity to get with better.
+        //(proboly after all the other towers are decent)
+        this.count = 0;
       }
-    } else if(this.slowed > 1){
+    } else if (this.slowed > 1) {
       this.loc.add(this.velVec);
     }          // apply velocity to location
   }
@@ -205,21 +258,21 @@ class Enemy {
         //console.log(this.dist(shape1.loc, shape2.loc) );
         if (shape1.r + shape2.r >= shape1.loc.copy().dist(shape2.loc)) return true;
         return false;
-      } else if (shape2.shape === "square") {
+      } else if (shape2.shape === "square") {//this does not work for rectangles but its close enought for a 57x50 thing
         //circle-square
         let topLeft = shape2.loc;
         let topRight = new vector2d(shape2.loc.x + shape2.w, shape2.loc.y);
         let bottomRight = new vector2d(shape2.loc.x + shape2.w, shape2.loc.y + shape2.w);
-        let bottomLeft = new vector2d(shape2.loc.x, shape2.loc.y + _shape2.w);
-        let dist1 = this.dist(topLeft, shape1.loc);
-        let dist2 = this.dist(topRight, shape1.loc);
-        let dist3 = this.dist(bottomRight, shape1.loc);
-        let dist4 = this.dist(bottomLeft, shape1.loc);
+        let bottomLeft = new vector2d(shape2.loc.x, shape2.loc.y + shape2.w);
+        let dist1 = topLeft.dist(shape1.loc);
+        let dist2 = topRight.dist(shape1.loc);
+        let dist3 = bottomRight.dist(shape1.loc);
+        let dist4 = bottomLeft.dist(shape1.loc);
         if (dist1 <= shape1.r || dist2 <= shape1.r || dist3 <= shape1.r || dist4 <= shape1.r) return true;
         return false;
       } else if (shape2.shape === "point") {
         //circle-point
-        if (shape1.r >= this.dist(shape1.loc, shape2.loc)) return true;
+        if (shape1.r >= shape1.loc.dist(shape2.loc)) return true;
         return false;
       } else {
         throw "shape2 shape not acceptable.";
@@ -232,10 +285,10 @@ class Enemy {
         let topRight = new vector2d(shape1.loc.x + shape1.w, shape1.loc.y);
         let bottomRight = new vector2d(shape1.loc.x + shape1.w, shape1.loc.y + shape1.w);
         let bottomLeft = new vector2d(shape1.loc.x, shape1.loc.y + shape1.w);
-        let dist1 = this.dist(topLeft, shape2.loc);
-        let dist2 = this.dist(topRight, shape2.loc);
-        let dist3 = this.dist(bottomRight, shape2.loc);
-        let dist4 = this.dist(bottomLeft, shape2.loc);
+        let dist1 = topLeft.dist(shape2.loc);
+        let dist2 = topRight.dist(shape2.loc);
+        let dist3 = bottomRight.dist(shape2.loc);
+        let dist4 = bottomLeft.dist(shape2.loc);
         if (dist1 <= shape2.r || dist2 <= shape2.r || dist3 <= shape2.r || dist4 <= shape2.r) return true;
         return false;
       } else if (shape2.shape === "square") {
@@ -255,13 +308,13 @@ class Enemy {
     } else if (shape1.shape === "point") {
       if (shape2.shape === "circle") {
         //point-circle
-        if (shape2.r >= vector2d.dist(shape2.loc, shape1.loc)) return true;
+        if (shape2.r >= shape2.loc.dist(shape1.loc)) return true;
         return false;
       } else if (shape2.shape === "square") {
         //point-square
       } else if (shape2.shape === "point") {
         //point-point
-        if (vector2d.dist(shape2.loc, shape1.loc) < 1) return true;
+        if (shape2.loc.dist(shape1.loc) < 1) return true;
         return false;
       } else {
         throw "shape2 shape not acceptable.";
