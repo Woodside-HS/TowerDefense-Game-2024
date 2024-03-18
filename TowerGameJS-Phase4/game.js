@@ -459,16 +459,10 @@ class Game {
   // of a parent means either it is occupied or it is blocked from any path.
   sendEnemies() {
     var numEnemies = Math.random() * 5;     // up to 5 enemies
-    var row, col, startCell, i, j;
+
     for (i = 0; i < numEnemies; i++) {
       for (j = 0; j < 3; j++) { // try 3 times to find valid start cell
-        startCell = this.grid[0][0];
-        if (startCell && startCell.parent)   // must have a parent to have any path
-          break;
-      }
-      if (j < 3) { // if we found a valid cell to start the enemy
-        let randomPath = Math.floor(Math.random() * 2);    // about half
-        this.enemies.push(new Enemy(this, startCell, randomPath));
+        this.enemies.push(new Enemy(this));
       }
     }
   }

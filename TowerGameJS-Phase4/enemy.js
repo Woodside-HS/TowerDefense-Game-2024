@@ -24,10 +24,7 @@ class Enemy {
     this.lastTime = Date.now();
     this.coolDown = 1000;
     this.towerLoc = vector2d(0, 0);
-    this.increasedDamg = 20;
     this.health = 1000;
-    this.damages = 0;
-    this.hasBeenHit = false;
     this.targetCell = this.nextTarget();
     this.target = this.targetCell.center;
     this.shape = "circle";
@@ -192,10 +189,7 @@ class Enemy {
       }
     }
 
-    if (this.isLocked) {
-      this.damages = this.damages + this.increasedDamg;
-      this.health = this.health - this.increasedDamg;
-    }
+
 
 
 
