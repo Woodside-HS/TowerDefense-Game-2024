@@ -1,6 +1,6 @@
 class Explosives{
 
-  constructor(location, ability, mouseLocation){
+  constructor(location, ability){
     // issue#1 use preloaded bullet image instead of loadImage
 
     this.loc = location;
@@ -11,7 +11,7 @@ class Explosives{
     if(this.ability = "cannon"){
     this.growthSpeed = 3;
     }else{
-      this.growthSpeed = 4;
+      this.growthSpeed = 6;
     }
   }
 
@@ -39,7 +39,7 @@ class Explosives{
     if(this.radius <= 30){
       this.radius += this.growthSpeed;
      }  else {
- 
+
        this.kills = true;
      }
   }

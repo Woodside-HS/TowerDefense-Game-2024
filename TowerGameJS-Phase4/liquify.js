@@ -2,12 +2,13 @@
 
 class Liquify {
 
-  constructor(location, bImg, angle, type) {
+  constructor(location, bImg, angle, type, tier, damageMult) {
     // issue#1 use preloaded bullet image instead of loadImage
     this.loc = location;
     this.vel = vector2d(0, 0);
     this.acc = vector2d(0, 0);
-    this.towerLoc = location
+    this.towerLoc = location;
+    this.tier = tier;
     this.speed = 3;
     this.r = 30;
     this.shape = "circle";
@@ -15,8 +16,15 @@ class Liquify {
     this.img = bImg;
     this.ability = type;
     this.nearestEnemy = 100000;
-    this.lifeSpan = 500;
     this.death = false;
+    this.damageMult = damageMult;
+    if(this.tier == "basic"){
+      this.lifeSpan = 500;
+    }else if (this.tier == "advanced"){
+      this.lifeSpan = 5000;
+    }else if (this.tier == "maxxed"){
+      this.lifeSpan = 50000;
+    }
   }
 
   run() {

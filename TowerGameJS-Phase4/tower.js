@@ -24,16 +24,33 @@ class Tower {
     this.chooseTargetArea = true;
     this.mouseLoc;
     this.count = 0;
+    this.healthPulse = false;
     this.upgradedDamage = false;
     this.upgradedRange = false;
     this.upgradedCoolDown = false;
+    this.upgradedFinal = false;
+    this.surroundingHands = 0;
+    this.liquifyFinal = false;
+    this.creatures = [];
+    this.maxSurroundingHands = 0;
+    this.damageMult = 1;
+    this.straighterShooting = false;
+    this.piercingArrow = false;
+    this.bladeFinal = false;
+    this.finalCannon = false;
+    this.finalFreeze = false;
+    this.closestCell = 0;
     if (ability == "freeze") {
       this.coolDown = 1000;
       this.range = 150;
     }
     else if (ability == "normal" || ability == "explosive") {
       this.coolDown = 750;
+     
+    }if(ability == "explosive"){
+      this.range = 1000;
     }
+    
     else if (ability == "fast") {
       this.coolDown = 500;
     }
@@ -57,6 +74,8 @@ class Tower {
     } else if (ability == "liquify") {
       this.range = 800;
       this.coolDown = 1000;
+    }else if (ability == "ray"){
+      this.range = 200;
     }
     this.MaxCoolDown = this.coolDown;
 
@@ -67,12 +86,13 @@ class Tower {
   run() {
     this.render();
     this.update();
+    if (!this.liquifyFinal) {
+      this.liquifyFinalUpgrade();
+    }
   }
 
   damageUpgrade() {
-    for (let i = 0; i < this.enemies.length; i++) {
-      this.enemies[i].damageMult = this.enemies[i].damageMult * 1.2;
-    }
+    this.damageMult *= 1.2;
   }
   coolDownUpgrade() {
     this.coolDown *= 0.8;
@@ -81,6 +101,78 @@ class Tower {
     this.range *= 1.2;
 
   }
+  finalUpgrade(ability) {
+    if (ability == "normal") {
+      this.normalFinalUpgrade();
+    } else if (ability == "fast") {
+      this.finalFast = true;//slashing ability
+      this.coolDown *= 0.8;
+      this.damageMult *= 1.5
+    } else if (ability == "freeze") {
+      this.finalFreeze = true;
+    } else if (ability == "explosive") {
+      this.coolDown *= 0.5;
+    } else if (ability == "ray") {
+      this.range *= 3;
+    } else if (ability == "cannon") {
+      this.finalCannon = true;
+    } else if (ability == "bladeStorm") {
+      this.bladeFinal = true;
+    } else if (ability == "liquify") {
+      this.liquifyFinal = true;
+    } else if (ability == "missile") {
+      towerGame.straighterShooting = true;
+      this.damageMult *= 1.3;
+    } else if (ability == "buffregen") {
+      this.healthPulse = true;
+    }
+  }
+  normalFinalUpgrade() {
+    this.piercingArrow = true;
+  }
+  liquifyFinalUpgrade() {
+    for (let i = 0; i < towerGame.hands.length; i++) {
+      this.surroundingHands = 0;
+      for (let j = 0; j < towerGame.hands.length; j++) {
+       console.log( towerGame.grid[i][j].center)
+          let dist = towerGame.hands[i].loc.dist(towerGame.hands[j].loc);
+          if (dist < 80) {
+            this.surroundingHands++;
+            if(this.surroundingHands < 2){
+            this.creatures.push(towerGame.hands[i]);
+            }
+          }
+      }
+      if (this.surroundingHands > 2) {
+
+        for (let p = 0; p < 18; p++) {
+            let distToCell = 100000;
+            let checkDistToCell = 0;
+          for (let l = 0; l< 15; l++) {
+            for(let k = 0; k < this.creatures.length-1; i ++){
+                console.log(p + " " + l)
+              checkDistToCell = this.newDist(this.creatures[k].loc, towerGame.grid[p][l].center);
+              console.log(checkDistToCell)
+              if (checkDistToCell < distToCell) {
+                this.closestCell = towerGame.grid[p][l];
+              }
+            }
+
+            }
+          }
+          let h = new Liquify(this.closestCell.center, this.bulletImg, this.towAngle, this.ability, "advanced", this.damageMult);
+          towerGame.hands.push(h);
+
+        
+        }
+
+      }
+    }
+
+  
+newDist(v1, v2){
+    return(Math.sqrt((v2.x-v2.x)*(v2.x-v1.x) + (v2.y-v1.y)*(v2.y-v1.y)));
+}
   render() {
     var ctx = towerGame.context;
     if (this.ability == "buffregen") {
@@ -177,12 +269,10 @@ class Tower {
       this.towAngle = Math.atan2(dy, dx) - Math.PI;
     } else {
 
-
-
       towerGame.canvas.addEventListener('click', () => {
         if (this.count == 0) {
           this.count += 1;
-          return;
+          return;//what is this even for
         }
 
 
@@ -191,23 +281,21 @@ class Tower {
         if (this.chooseTargetArea) {
           this.chooseTargetArea = false;
           this.mouseLoc = mouseLoc;
-          towerGame.allowPlace = true;
         }
         if (this.isInRange) {
           this.isInRange = false;
+          towerGame.allowPlace = true;
         }
         if (dist < 40) {
           this.isInRange = true;
           this.chooseTargetArea = true;
-          towerGame.allowPlace = false;
-
         }
         towerGame.canvas.addEventListener('mousemove', () => {
           if (this.isInRange) {
             let mouseX = this.loc.x - towerGame.canvas.mouseX;
             let mouseY = this.loc.y - towerGame.canvas.mouseY;
             this.towAngle = Math.atan2(mouseY, mouseX) - Math.PI;
-
+            towerGame.allowPlace = false;
           }
         });
       });
@@ -253,15 +341,15 @@ class Tower {
       // reset lastTime to current time
       this.lastTime = millis;
       let bulletLocation = vector2d(this.loc.x, this.loc.y);
-      let b = new Bullet(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.mouseLoc, this.loc);
-      let q = new Missile(bulletLocation, this.bulletImg, this.towAngle, this.ability);
-      let h = new Liquify(bulletLocation, this.bulletImg, this.towAngle, this.ability);
+      let b = new Bullet(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.mouseLoc, this.loc, this.damageMult, this.finalCannon, this.finalFast, this.finalFreeze);
+      let q = new Missile(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.damageMult);
+      let h = new Liquify(bulletLocation, this.bulletImg, this.towAngle, this.ability, "basic", this.damageMult);
       if (this.ability == "fast" || this.ability == "normal"
         || this.ability == "freeze" || this.ability == "explosive" || this.ability == "cannon") {
         towerGame.bullets.push(b);
 
       }
-      if (this.ability == "buffregen") {
+      if (this.ability == "buffregen" && this.healthPulse) {
         if (towerGame.health < 150) {
           towerGame.health++;//the tower that buff sorrunding towers also ups healing bc idk why
         }
@@ -274,11 +362,26 @@ class Tower {
         towerGame.hands.push(h);
       }
       if (this.ability == "bladeStorm") {
-        if (this.blades != 4) {//creating the four blades 
+        if (this.blades < 4 && !this.bladeFinal) {//creating the four blades 
           let bulletLocation = vector2d(this.loc.x, this.loc.y);
-          let s = new Blade(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.blades);
+          let s = new Blade(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.blades, this.damageMult, "first");
           towerGame.blades.push(s);
           this.blades++;
+        } else if (this.blades < 8 && this.bladeFinal) {
+          if(!this.replaced){
+          for(let i = 4; i > 0; i--){
+          towerGame.blades.splice(i, 1);
+          this.replaced = true;
+          this.blades = 0;
+          }
+        }else{
+          if(this.blades < 8){
+          let bulletLocation = vector2d(this.loc.x, this.loc.y);
+          let s = new Blade(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.blades, this.damageMult, "second");
+          towerGame.blades.push(s);
+          this.blades++;
+          }
+        }
         }
       }
     }
@@ -290,7 +393,7 @@ class Tower {
       var a3 = this.loc.x - this.target.x;
       var b3 = this.loc.y - this.target.y;
       var k = Math.sqrt(a3 * a3 + b3 * b3);
-      if (k < 300 && towerGame.enemies.length != 0 && this.target.x != towerGame.canvas.mouseX) {
+      if (k < this.range && towerGame.enemies.length != 0 && this.target.x != towerGame.canvas.mouseX) {
         var rys = new LockOn(this.loc, this.target);
         rys.run();
         if (this.findEnemyIndex() < towerGame.enemies.length) {

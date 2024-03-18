@@ -4,24 +4,38 @@ class Popup {
   constructor(x, y, tower) {
     this.x = x;
     this.y = y;
-    this.popupElement = this.createPopup();
-    //this.upgradePopup;
-    this.show();
     this.tower = tower;
-
+    this.sellPrice = this.tower.cost/3;
+    this.popupElement = this.createPopup();
+    this.show();
   }
 
-  createButton(id, text, onClickCallback) {
+
+
+  createButton(cost, id, text, onClickCallback) {
+    towerGame.shownBase = true;
     const button = document.createElement('button');
     button.id = id;
     button.textContent = text;
     button.style.margin = '0 5px';
     button.onclick = onClickCallback; // Assign the callback function to the click event
+
+    button.addEventListener('mouseover', () => {
+      button.style.backgroundColor = 'lightgray'; // Change background color on hover
+    towerGame.updateCostInfoElement(cost);
+
+    });
+
+    button.addEventListener('mouseout', () => {
+      button.style.backgroundColor = ''; // Revert to original background color when not hovered
+      towerGame.updateCostInfoElement('');
+    }); 
+    
     return button;
   }
 
   createPopup() {
-    const popup = document.createElement('div');
+    const popup = document.createElement('popupDiv');
     popup.style.position = 'absolute';
     popup.style.left = `${this.x}px`;
     popup.style.top = `${this.y}px`;
@@ -32,21 +46,17 @@ class Popup {
     popup.style.backgroundSize = 'cover'; // Ensure the background covers the whole popup
     popup.style.boxShadow = '0 2px 5px rgba(0,0,0,0.2)';
 
-    const refundButton = this.createButton('refundButton', 'Refund', () => {
+    const refundButton = this.createButton(this.sellPrice, 'refundButton', 'Refund', () => {
       console.log('Refund button clicked');
-
+      towerGame.shownBase = false;
     });
-    const upgradeButton = this.createButton('upgradeButton', 'Upgrade', () => {
-      if (towerGame.bankValue > this.tower.cost) {
+    const upgradeButton = this.createButton('', 'upgradeButton', 'Upgrade', () => {
         this.upgradeElement = this.createUpgradePopup();
-      } else {
-        alert("Insufficient Funds!");
-      }
     });
 
-    const cancleButton = this.createButton('cancleButton', 'X', () => {
+    const cancleButton = this.createButton('', 'cancleButton', 'X', () => {
+      towerGame.shownBase = false;
       console.log('Cancle button clicked');
-      this.hide();
     });
 
     popup.appendChild(refundButton);
@@ -54,10 +64,10 @@ class Popup {
     popup.appendChild(cancleButton);
 
     return popup;
+
   }
 
   createUpgradePopup() {
-
     const upgradePopup = document.createElement('div');
     upgradePopup.style.position = 'absolute';
     upgradePopup.style.left = `${this.x + 100}px`;
@@ -73,41 +83,51 @@ class Popup {
 
     // Creating buttons for the upgrade popup
     console.log(this.tower.upgradedRange + "    " + this.tower.upgradedCoolDown + "    " + this.tower.upgradedDamage);
-
-    const finalUpgrade = this.createButton('finalUpgrade', 'Final', () => {
-      this.tower.finalUpgrade();
+    let cost = Math.ceil(this.tower.cost*4)
+    const finalUpgrade = this.createButton(cost, 'finalUpgrade', 'Final', () => {
+      this.tower.finalUpgrade(this.tower.ability);
       console.log("Final Upgrade");
+      this.tower.upgradedFinal = true;
       this.hideUpgrade();
+      towerGame.bankValue -= Math.ceil(this.tower.cost*4);
+      this.sellPrice+=this.tower.cost*4;
+      towerGame.shownBase = false;
     });
-
-    const rangeButton = this.createButton('rangeButton', 'Range', () => {
+    cost = Math.ceil(this.tower.cost*1.2);
+    const rangeButton = this.createButton(cost, 'rangeButton', 'Range', () => {
       this.tower.rangeUpgrade();
       console.log("Range increased by 20%");
       this.tower.upgradedRange = true;
-      towerGame.bankValue -= this.tower.cost;
+      towerGame.bankValue -= Math.ceil(this.tower.cost*1.2);
+      this.sellPrice +=this.tower.cost*1.2;
       this.hideUpgrade();
-
+      towerGame.shownBase = false;
     });
-
-    const cooldownButton = this.createButton('cooldownButton', 'Cooldown', () => {
+    cost = Math.ceil(this.tower.cost*1.35)
+    const cooldownButton = this.createButton(cost, 'cooldownButton', 'Cooldown', () => {
       this.tower.coolDownUpgrade();
       console.log("Cooldown decreased by 20%");
       this.tower.upgradedCoolDown = true;
-      towerGame.bankValue -= this.tower.cost;
+      towerGame.bankValue -= Math.ceil(this.tower.cost*1.35);
+      this.sellPrice +=this.tower.cost*1.35;
       this.hideUpgrade();
+      towerGame.shownBase = false;
     });
-
-    const damageButton = this.createButton('damageButton', 'Damage', () => {
+    cost = Math.ceil(this.tower.cost*1.5)
+    const damageButton = this.createButton(cost, 'damageButton', 'Damage', () => {
       console.log("Damage increased by 20%");
       this.tower.upgradedDamage = true;
-      towerGame.bankValue -= this.tower.cost;
+      towerGame.bankValue -= Math.ceil(this.tower.cost*1.5);
+      this.sellPrice +=this.tower.cost*1.5;
       this.tower.damageUpgrade();
       this.hideUpgrade();
+      towerGame.shownBase = false;
     });
 
-    const cancleButton = this.createButton('cancleButton', 'X', () => {//the spelling tho
+    const cancleButton = this.createButton('', 'cancleButton', 'X', () => {//the spelling tho
       console.log("Cancel button clicked");
       this.hideUpgrade();
+      towerGame.shownBase = false;
     });
 
 
@@ -121,7 +141,7 @@ class Popup {
     if (this.tower.upgradedDamage == false) {
       upgradePopup.appendChild(damageButton);
     }
-    if (this.tower.upgradedRange && this.tower.upgradedCoolDown && this.tower.upgradedDamage) {
+    if (this.tower.upgradedRange && this.tower.upgradedCoolDown && this.tower.upgradedDamage && !this.tower.upgradedFinal) {
       upgradePopup.appendChild(finalUpgrade);
     }
     upgradePopup.appendChild(cancleButton);
@@ -136,12 +156,16 @@ class Popup {
     document.body.appendChild(this.popupElement);
   }
 
+
   hide() {
     document.body.removeChild(this.popupElement);
+
   }
 
   hideUpgrade() {
     document.body.removeChild(this.upgradeElement);
+
+
   }
 
 }

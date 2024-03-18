@@ -2,13 +2,15 @@
 
 class Bullet {
 
-  constructor(location, bImg, angle, type, mouseLoc, towerLoc) {
+  constructor(location, bImg, angle, type, mouseLoc, towerLoc, damageMult, finalCannon, finalFast, finalFreeze) {
     // issue#1 use preloaded bullet image instead of loadImage
+    this.cannonUpgradeFinal = finalCannon;
+    this.fastUpgradeFinal = finalFast;
+    this.freezeUpgradeFinal = finalFreeze;
     this.spinny = false;
     this.loc = location;
     this.towerLoc = towerLoc;
-    this.towerLocated = true;
-    this.speed = 25;
+    this.speed = 15;
     this.r = 30;
     this.choosenTarget = false;
     this.shape = "circle";
@@ -20,13 +22,14 @@ class Bullet {
     this.spots = [];
     this.choosenTargetLoc = 0;
     this.cannonAngle;
+    this.damageMult = damageMult;
+    this.slashArc = 80;
     if (this.ability == "freeze") {
       this.speed = 10;
     }
     if (this.ability == "cannon") {
-      this.speed = 5;
+      this.speed = 50;
     }
-
   }
 
   run() {
@@ -34,14 +37,47 @@ class Bullet {
     if (this.ability == "cannon") {
       this.cannonMovement();
       this.cannonSpinny();
+    } else if (this.ability == "explosive") {
+      this.explosiveRandom();
     } else {
       this.update();
+
     }
   }
-
+  explosiveRandom() {
+    if(!this.randomChoosenTarget){
+    let can = this.chooseRandomExplosiveSpot();
+    let angleOfTarget = Math.atan2(can.loc.y - this.loc.y, can.loc.x - this.loc.x);
+      this.randomChoosenTarget = true;
+      this.cannonAngle = angleOfTarget;
+      this.choosenTarget = true;
+      this.choosenTargetLoc = new vector2d(can.loc.x, can.loc.y);
+    }
+      this.loc.y += Math.sin(this.cannonAngle) * this.speed;
+      this.loc.x += Math.cos(this.cannonAngle) * this.speed;
+      let bulletFromTowerDist = this.loc.dist(this.towerLoc);
+      let towerToLocation = this.towerLoc.dist(this.choosenTargetLoc);
+      let total = towerToLocation - bulletFromTowerDist;
+      if(total < 0){
+        this.speed = 0;
+      
+    }
+  }
+  chooseRandomExplosiveSpot() {
+    this.spots = [];
+    let count = 0;
+    for (let i = 0; i < 18; i++) {
+      for (let j = 0; j < 15; j++) {
+        count++;
+        this.spots.push(towerGame.grid[i][j]);
+      }
+    }
+    let j = Math.ceil(Math.random() * (this.spots.length)) - 1;
+    return this.spots[j];
+  }
   cannonMovement() {
     if (this.choosenTarget == false) {
-      let can = this.chooseExplosiveSpot();
+      let can = this.chooseCannonSpot();
       let angleOfTarget = Math.atan2(can.loc.y - this.loc.y, can.loc.x - this.loc.x);
       this.cannonAngle = angleOfTarget;
       this.choosenTarget = true;
@@ -64,18 +100,24 @@ class Bullet {
   }
 
   cannonSpinny() {
-    let angularMovement = 0.05;
-    this.loc.x += Math.cos(this.cannonBulletAngle) * 2.5;//the * 2.5 does not really make sense idk
-    this.loc.y += Math.sin(this.cannonBulletAngle) * 2.5;//The number should be orbital radius and it technically is.
-    this.cannonBulletAngle += angularMovement;
+    if (this.cannonUpgradeFinal) {
+      let angularMovement = 0.05;
+      this.loc.x += Math.cos(this.cannonBulletAngle) * 2.5;//the * 2.5 does not really make sense idk
+      this.loc.y += Math.sin(this.cannonBulletAngle) * 2.5;//The number should be orbital radius and it technically is.
+      this.cannonBulletAngle += angularMovement;
+    }
+  }
+  fastSwipe() {
+    if (this.fastUpgradeFinal) {
 
+    }
   }
 
   //chooseExplosiveSpot()
   // look through all grid spots
   //if they are in the chossen towers range then add them to array
   //pick a random one to fly towards and damage them
-  chooseExplosiveSpot() {
+  chooseCannonSpot() {
     this.spots = [];
     let count = 0;
     for (let i = 0; i < 18; i++) {
@@ -96,11 +138,26 @@ class Bullet {
     var ctx = towerGame.context;
     ctx.save();
     ctx.translate(this.loc.x, this.loc.y);
-    ctx.rotate(this.angle + Math.PI/2)
+    ctx.rotate(this.angle + Math.PI / 2)
 
     ctx.drawImage(this.img, -this.img.width / 2, -this.img.height / 2);
 
     ctx.restore();
+
+    if (this.fastUpgradeFinal && this.slashArc > 0) {
+      let clr = 'rgba(0, 100, 0, 0.12)'
+      var ctx = towerGame.context;
+      ctx.save();
+      ctx.strokeStyle = clr;
+      ctx.fillStyle = clr;
+      ctx.translate(this.loc.x, this.loc.y);
+      ctx.moveTo(0, 0);
+      ctx.ellipse(0, 0, this.slashArc, this.slashArc / 2, this.angle, 0, Math.PI * 2, true)
+      ctx.stroke();
+      ctx.fill();
+      ctx.restore();
+      this.slashArc -= 0.3;
+    }
   }
 
   update() {

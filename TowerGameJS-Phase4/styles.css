@@ -81,7 +81,7 @@ body{
 .infoTileDiv{
   background-color: white;
   width:80px;
-  height:60px;
+  height:80px;
   border-radius:50%;
   float:left;
   margin-left:4%;
@@ -145,4 +145,19 @@ body{
      /*border is optional*/
      border-bottom:1px solid #444;
      cursor: pointer;
+}
+
+#enemySelect{
+  position: absolute;
+  margin-top: 30px;
+}
+
+button {
+  color: inherit;
+  border: none;
+  padding: 0 !important;
+  font: inherit;
+  /*border is optional*/
+  border-bottom: 1px solid #444;
+  cursor: pointer;
 }

@@ -2,7 +2,15 @@ class Enemy {
 
   constructor(game) {
     this.game = game;
-    this.currentCell = this.game.grid[0][0];
+    // currentCell is the start position of the enemies
+    this.currentCell = [1][1];
+    for (let row = 0; row < this.game.levelKey.length; row++) {
+      for (let col = 0; col < this.game.levelKey[0].length; col++) {
+        if (this.game.levelKey[row][col] === 's') {
+          this.currentCell = this.game.grid[col][row];
+        }
+      }
+    }
     this.loc = this.currentCell.center.copy();
     this.randomPath = 0;   //boolean to randomize or not
     this.radius = 15.0;
@@ -19,6 +27,7 @@ class Enemy {
     this.increasedDamg = 20;
     this.health = 1000;
     this.damages = 0;
+    this.hasBeenHit = false;
     this.targetCell = this.nextTarget();
     this.target = this.targetCell.center;
     this.shape = "circle";
@@ -26,10 +35,8 @@ class Enemy {
     this.velVec = targetVec.copy().normalize().scale(this.vel);      // initial velocity vector
     this.kill = false;
     this.angle = this.velVec.angle()
-  this.damageMult = 1;
     this.img = Enemy.image3;// image for enemy
-
-
+    this.hitByFreezeUpgraded = false;
   }
 
   run() {
@@ -110,7 +117,7 @@ class Enemy {
     for (let h = 0; h < towerGame.missiles.length; h++) {
       if (this.checkCollide(this, towerGame.missiles[h])) {
         if (towerGame.missiles[h].ability == "missile") {
-          this.health -= 800;//this does not current work
+          this.health -= 800 * towerGame.missiles[h].damageMult;//this does not current work
           towerGame.missiles.splice(h, 1);
         }
       }
@@ -118,7 +125,7 @@ class Enemy {
     for (let h = 0; h < towerGame.hands.length; h++) {
       if (this.checkCollide(this, towerGame.hands[h])) {
         if (towerGame.hands[h].ability == "liquify") {
-          this.health -= 10;
+          this.health -= 10 * towerGame.hands[h].damageMult;
 
 
         }
@@ -127,7 +134,7 @@ class Enemy {
     for (let h = 0; h < towerGame.blades.length; h++) {
       if (this.checkCollide(this, towerGame.blades[h])) {
         if (towerGame.blades[h].ability == "bladeStorm") {
-          this.health -= 100;
+          this.health -= 100 * towerGame.blades[h].damageMult;
 
         }
       }
@@ -137,25 +144,31 @@ class Enemy {
     for (let h = 0; h < towerGame.bullets.length; h++) {
       if (this.checkCollide(this, towerGame.bullets[h])) {
         if (towerGame.bullets[h].ability == "normal") {
-          //this.health = this.health - 100;
-          this.health = this.health - 500*this.damageMult;
-          //console.log(this.health)
-          towerGame.bullets.splice(h, 1);
+          if (!towerGame.piercingArrow) {
+            this.health = this.health - 500 * towerGame.bullets[h].damageMult;
+            towerGame.bullets.splice(h, 1);
+          } else {
+            this.health = this.health - 150 * towerGame.bullets[h].damageMult;
+          }
         } else if (towerGame.bullets[h].ability == "fast") {
-          this.health = this.health - 350*this.damageMult;
-          //  console.log(this.health)
+          this.health = this.health - 350 * towerGame.bullets[h].damageMult;
           towerGame.bullets.splice(h, 1);
         } else if (towerGame.bullets[h].ability == "freeze") {
-          this.health = this.health - 25*this.damageMult;
+          this.health = this.health - 25 * towerGame.bullets[h].damageMult;
           this.slowed -= 1;
+          if (towerGame.bullets[h].finalFreeze) {
+            this.hitByFreezeUpgraded = true;
+          }
           setTimeout(() => {
             this.slowed = 1.2;
-          }, 5000);
-          //  this.vel = this.initialVel - .8;
+            this.hitByFreezeUpgraded = false;
+          }, 2000);
+        } else if (towerGame.bullets[h].ability == "cannon") {
+          this.health = this.health - 500 * towerGame.bullets[h].damageMult;
+          towerGame.bullets.splice(h, 1);
         } else if (towerGame.bullets[h].ability == "explosive") {
 
-          this.health = this.health - 100*this.damageMult;
-          //this.health = this.health - 10;
+          this.health = this.health - 100 * towerGame.bullets[h].damageMult;
           if (this.health <= 0) {
             this.kill = true;
           }
@@ -165,7 +178,7 @@ class Enemy {
           towerGame.bullets.splice(h, 1);
         }
         else if (towerGame.bullets[h].ability == "explosive") {
-          this.health -= 100;
+          this.health -= 100 * towerGame.bullets[h].damageMult;
           if (this.health <= 0) {
             this.kill = true;
           }
@@ -192,7 +205,6 @@ class Enemy {
       }
       if (towerGame.explosiveBullets[i].kills == true) {
         towerGame.explosiveBullets.splice(i, 1);
-        console.log("die");
       }
     }
 
@@ -216,7 +228,16 @@ class Enemy {
         towerGame.health = towerGame.health - 1;
         return;
       }
-      this.targetCell = this.nextTarget();                  // set a new target
+      if (!this.hitByFreezeUpgraded) {
+        this.targetCell = this.nextTarget();// set a new target
+      } else {
+        let random = Math.floor(Math.random() * 5);
+        if (random < 3) {
+          this.targetCell = this.oppositeNextTarget();
+        } else {
+          this.targetCell = this.nextTarget();
+        }
+      }
       if (!this.targetCell) {
         this.kill = true;   // can happen if user blocks cells while enemies are attacking
         return;
@@ -329,35 +350,35 @@ class Enemy {
 } // end class ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 class Enemy1 extends Enemy {
   constructor(game) {
-    super(game)
-    this.randomPath = 1
-    this.img = Enemy.image1
+    super(game);
+    this.randomPath = 1;
+    this.img = Enemy.image1;
   }
 }
 class Enemy2 extends Enemy {
   constructor(game) {
-    super(game)
-    this.img = Enemy.image2
+    super(game);
+    this.img = Enemy.image2;
   }
 }
 class Enemy3 extends Enemy {
   constructor(game) {
-    super(game)
-    this.img = Enemy.image3
-    this.health = 5000
+    super(game);
+    this.img = Enemy.image3;
+    this.health = 5000;
   }
 }
 class Enemy4 extends Enemy {
   constructor(game) {
-    super(game)
-    this.img = Enemy.image4
-    this.health = 15000
+    super(game);
+    this.img = Enemy.image4;
+    this.health = 15000;
   }
 }
 class Enemy5 extends Enemy {
   constructor(game) {
     super(game)
     this.img = Enemy.image5
-    this.health = 1000000000000000000
+    this.health = 1000000000000000000;
   }
 }
