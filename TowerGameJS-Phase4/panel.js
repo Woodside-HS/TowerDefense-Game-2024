@@ -21,14 +21,14 @@ class Panel {
     }
 
     // Add event listener for window resize
+    window.addEventListener('resize', () => {
+      this.updatePanelPosition();
+    });
   }
 
   render() {
     this.y = this.slideDown(this.y, 550, .03)
     this.panel.style.top = this.y + "px";
-    this.updatePanelPosition();
-    const newPosition = updatePanelPosition(elementWidth, elementHeight);
-console.log("New position of the element:", newPosition.x, newPosition.y);
   }
 
   slideDown(start, end, incroment) {
@@ -54,13 +54,18 @@ console.log("New position of the element:", newPosition.x, newPosition.y);
   }
 
   // Function to update panel position on resize
-  updatePanelPosition(elementWidth, elementHeight, containerWidth = 900, containerHeight = 750) {
-    // Calculate the position to place the element at the middle of the container
-    const x = Math.floor((containerWidth - elementWidth) / 2);
-    const y = Math.floor((containerHeight - elementHeight) / 2);
+  updatePanelPosition() {
 
-    return { x, y };
-}
+    if (parseInt(this.panel.style.left) > 295) {
+      this.panel.style.left = (window.innerWidth / 2) - (this.panel.offsetWidth / 2) + 'px';
+    }else {
+      let j = parseInt(this.panel.style.left);
+      let t = (window.innerWidth / 2) - (this.panel.offsetWidth / 2);
+      if(t > j){
+        this.panel.style.left = (window.innerWidth / 2) - (this.panel.offsetWidth / 2) + 'px'
+      }
+    }
+  }
 }
 var panelJSON = [{
   name: "Start Panel",
