@@ -21,9 +21,7 @@ class Panel {
     }
 
     // Add event listener for window resize
-    window.addEventListener('resize', () => {
-      this.updatePanelPosition();
-    });
+
   }
 
   render() {
@@ -54,18 +52,7 @@ class Panel {
   }
 
   // Function to update panel position on resize
-  updatePanelPosition() {
 
-    if (parseInt(this.panel.style.left) > 295) {
-      this.panel.style.left = (window.innerWidth / 2) - (this.panel.offsetWidth / 2) + 'px';
-    }else {
-      let j = parseInt(this.panel.style.left);
-      let t = (window.innerWidth / 2) - (this.panel.offsetWidth / 2);
-      if(t > j){
-        this.panel.style.left = (window.innerWidth / 2) - (this.panel.offsetWidth / 2) + 'px'
-      }
-    }
-  }
 }
 var panelJSON = [{
   name: "Start Panel",
