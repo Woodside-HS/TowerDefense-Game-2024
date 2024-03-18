@@ -12,13 +12,17 @@ class Panel {
     this.panel.style.backgroundImage = 'url("' + panelJSON[number].pic + '")';
     this.panel.style.position = "absolute";
     this.panel.style.align = "center";
-    this.panel.style.top = -0 + "px";
-    this.panel.style.left = 680 + "px";
+    this.panel.style.top = 0 + "px";
+    this.panel.style.left = 0 + "px";
+    this.panel.style.right = 0 + "px";
     this.panel.style.textAlign = "center";
+    
     this.wrapper = document.getElementById('wrapperDiv').appendChild(this.panel);
     for (let i = 0; i < panelJSON[number].buttonJSON.length; i++) {
       this.createButton(panelJSON[number], i);
     }
+    this.updatePanelPosition();
+
 
     // Add event listener for window resize
     window.addEventListener('resize', () => {
@@ -55,17 +59,17 @@ class Panel {
 
   // Function to update panel position on resize
   updatePanelPosition() {
+    let panelLeft = this.panel.offsetLeft; // Get the left position of the panel
 
-    if (parseInt(this.panel.style.left) > 295) {
-      this.panel.style.left = (window.innerWidth / 2) - (this.panel.offsetWidth / 2) + 'px';
-    }else {
-      let j = parseInt(this.panel.style.left);
-      let t = (window.innerWidth / 2) - (this.panel.offsetWidth / 2);
-      if(t > j){
-        this.panel.style.left = (window.innerWidth / 2) - (this.panel.offsetWidth / 2) + 'px'
-      }
+    if (panelLeft > 260) {
+        this.panel.style.left = (window.innerWidth / 2 - 40) - (this.panel.offsetWidth / 2) + 'px';
+    } else {
+        let centeredPosition = (window.innerWidth / 2 - 40) - (this.panel.offsetWidth / 2);
+        if (centeredPosition > panelLeft) {
+            this.panel.style.left = centeredPosition + 'px';
+        }
     }
-  }
+}
 }
 var panelJSON = [{
   name: "Start Panel",
