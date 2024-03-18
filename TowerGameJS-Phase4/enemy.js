@@ -203,16 +203,12 @@ class Enemy {
     }
 
 
-
-
-    //  console.log(this.health);
     if (this.health <= 0) {
       this.kill = true;
 
       this.deathSound.play();
       towerGame.bankValue += 10;
 
-      //console.log("kills");
     }
 
     if (this.loc.dist(this.target) <= this.vel) {    // if we have reached the current target
