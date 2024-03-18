@@ -12,7 +12,7 @@ class Enemy {
       }
     }
     this.loc = this.currentCell.center.copy();
-    this.randomPath = 0;   //boolean to randomize or not
+    this.randomPath = 1;   //boolean to randomize or not
     this.radius = 15.0;
     this.r = 15.0;
     this.vel = 3.0;
@@ -341,7 +341,6 @@ class Enemy {
 class Enemy1 extends Enemy {
   constructor(game) {
     super(game);
-    this.randomPath = 1;
     this.img = Enemy.image1;
   }
 }
@@ -368,7 +367,8 @@ class Enemy4 extends Enemy {
 class Enemy5 extends Enemy {
   constructor(game) {
     super(game)
-    this.img = Enemy.image5
+    this.img = Enemy.image5;
+    this.randomPath = 0;
     this.health = 1000000000000000000;
   }
 }
