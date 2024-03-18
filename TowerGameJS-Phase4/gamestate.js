@@ -182,6 +182,9 @@ class GameState5 extends GameState { // game itself
     for (let i = 0; i < this.game.blades.length; i++) {
       this.game.blades[i].run();
     }
+    for (let i = 0; i < this.game.missiles.length; i++) {
+      this.game.missiles[i].run();
+    }
     for (let i = 0; i < this.game.hands.length; i++) {
       this.game.hands[i].run();
     }

@@ -660,7 +660,7 @@ class Game {
         var innerDiv = document.createElement("div");
         innerDiv.id = "innerDiv" + i;
         innerDiv.style.width = "90px";
-        innerDiv.style.height = "100px";
+        innerDiv.style.height = "90px";
         // Not using imageBitmaps for the buttons
         // As they are not on the canvas
         innerDiv.style.backgroundImage = "url(resources/images/spritesheets/buttons.png)";
@@ -708,7 +708,7 @@ class Game {
         var innerDiv = document.createElement("div");
         innerDiv.id = "innerDiv" + (i);
         innerDiv.style.width = "90px";
-        innerDiv.style.height = "100px";
+        innerDiv.style.height = "90px";
         // Not using imageBitmaps for the buttons
         // As they are not on the canvas
         innerDiv.style.backgroundImage = "url(resources/images/spritesheets/buttons.png)";
