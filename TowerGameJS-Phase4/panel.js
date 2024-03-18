@@ -21,12 +21,14 @@ class Panel {
     }
 
     // Add event listener for window resize
-
   }
 
   render() {
     this.y = this.slideDown(this.y, 550, .03)
     this.panel.style.top = this.y + "px";
+    this.updatePanelPosition();
+    const newPosition = updatePanelPosition(elementWidth, elementHeight);
+console.log("New position of the element:", newPosition.x, newPosition.y);
   }
 
   slideDown(start, end, incroment) {
@@ -52,7 +54,13 @@ class Panel {
   }
 
   // Function to update panel position on resize
+  updatePanelPosition(elementWidth, elementHeight, containerWidth = 900, containerHeight = 750) {
+    // Calculate the position to place the element at the middle of the container
+    const x = Math.floor((containerWidth - elementWidth) / 2);
+    const y = Math.floor((containerHeight - elementHeight) / 2);
 
+    return { x, y };
+}
 }
 var panelJSON = [{
   name: "Start Panel",
