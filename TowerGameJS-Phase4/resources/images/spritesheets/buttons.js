@@ -67,7 +67,7 @@ buttonsJSON = {
 		},
 		"B90000":
 		{
-			"frame": { "x": 92, "y": 323, "w": 92, "h": 92 },
+			"frame": { "x": 104, "y": 196, "w": 90, "h": 90 },
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": { "x": 0, "y": 0, "w": 92, "h": 92 },
@@ -75,11 +75,11 @@ buttonsJSON = {
 		},
 		"B100000":
 		{
-			"frame": { "x": 92, "y": 323, "w": 92, "h": 92 },
+			"frame": { "x": 218, "y": 196, "w": 90, "h": 90 },
 			"rotated": false,
 			"trimmed": false,
-			"spriteSourceSize": { "x": 0, "y": 0, "w": 92, "h": 92 },
-			"sourceSize": { "w": 92, "h": 92 }
+			"spriteSourceSize": { "x": 0, "y": 0, "w": 90, "h": 90 },
+			"sourceSize": { "w": 90, "h": 90 }
 		},
 		"B110000":
 		{
