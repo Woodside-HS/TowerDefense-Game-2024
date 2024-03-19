@@ -361,7 +361,6 @@ class Enemy {
 } // end class ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 class Enemy1 extends Enemy {
   constructor(game) {
-    let immunities = [];
     super(game);
     this.img = Enemy.image1;
   }
