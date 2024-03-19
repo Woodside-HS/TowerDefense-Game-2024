@@ -36,16 +36,26 @@ class Enemy {
     this.img = Enemy.image3;// image for enemy
     this.hitByFreezeUpgraded = false;
 
-    this.normalImmunities = false;
-    this.normalUpgradedImmunities = false;
-    this.fastImmunities = false;
-    this.fastUpgradedImmunities = false;
-    this.freezeImmunities = false;
-    this.freezeUpgradedImmunities = false;
-    this.normalImmunities = false;
-    this.normalUpgradedImmunities = false;
-    this.normalImmunities = false;
-    this.normalUpgradedImmunities = false;
+    this.normalImmunities = [false, "targetable"];
+    this.normalUpgradedImmunities = [false, "targetable"];
+    this.fastImmunities = [false, "targetable"];
+    this.fastUpgradedImmunities = [false, "targetable"];
+    this.freezeImmunities = [false, "targetable"];
+    this.freezeUpgradedImmunities = [false, "targetable"];
+    this.explosivelImmunities = [false, "targetable"];
+    this.explosiveUpgradedImmunities = [false, "targetable"];
+    this.rayImmunities = [false, "targetable"];
+    this.rayUpgradedImmunities = [false, "targetable"];
+    this.cannonImmunities = [false, "targetable"];
+    this.cannonUpgradedImmunities = [false, "targetable"];
+    this.bladeStormImmunities = [false, "targetable"];
+    this.bladeStormUpgradedImmunities = [false, "targetable"];
+    this.liquifyImmunities = [false, "targetable"];
+    this.liquifyUpgradedImmunities = [false, "targetable"];
+    this.missileImmunities = [false, "targetable"];
+    this.missileUpgradedImmunities = [false, "targetable"];
+    this.buffregenImmunities = [false, "targetable"];
+    this.buffregenUpgradedImmunities = [false, "targetable"];
   }
 
   run() {
@@ -122,7 +132,6 @@ class Enemy {
   // find a new target and rotate the velocity in the direaction
   // of the new target.
   update() {
-    let millis = Date.now();
     for (let h = 0; h < towerGame.missiles.length; h++) {
       if (this.checkCollide(this, towerGame.missiles[h])) {
         if (towerGame.missiles[h].ability == "missile") {
@@ -353,7 +362,6 @@ class Enemy {
 class Enemy1 extends Enemy {
   constructor(game) {
     let immunities = [];
-    immunities.push()
     super(game);
     this.img = Enemy.image1;
   }
