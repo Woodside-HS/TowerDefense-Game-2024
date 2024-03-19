@@ -86,7 +86,7 @@ var panelJSON = [{
     {
       name: "Start Button",
       id: "start",
-      pic: "resources/images/panels/play.png",
+      pic: "resources/images/panels/homePanel/play.png",
       picId: "play",
       funk: function () {
         towerGame.gameState = new GameState2(towerGame)
@@ -104,7 +104,7 @@ var panelJSON = [{
     }, {
       name: "Catalog Button",
       id: "catalogButton",
-      pic: "resources/images/panels/catalog.png",
+      pic: "resources/images/panels/homePanel/catalog.png",
       picId: "catalog",
       funk: function () {
         towerGame.gameState = new GameState4(towerGame, 4)
@@ -116,7 +116,7 @@ var panelJSON = [{
 }, {
   name: "Instruction Panel", // panel 1
   id: "instructionPanel",
-  pic: "resources/images/panels/instructions.png",
+  pic: "resources/images/panels/homePanel/instructions.png",
   picId: "pan",
   buttonJSON: [
     {
@@ -138,7 +138,7 @@ var panelJSON = [{
     {
       name: "Replay Button",
       id: "replayButton",
-      pic: "resources/images/panels/restart.png",
+      pic: "resources/images/panels/endPanel/restart.png",
       picId: "wframe",
       funk: function () {
         towerGame.gameState = new GameState2(towerGame, 5);
@@ -163,7 +163,7 @@ var panelJSON = [{
     }, {
       name: "Credits Button",
       id: "creditsButton",
-      pic: "resources/images/panels/credits.png",
+      pic: "resources/images/panels/endPanel/credits.png",
       picId: "wframe",
       funk: function () {
         towerGame.gameState.panelCredits = new Panel(towerGame, 4)
@@ -179,7 +179,7 @@ var panelJSON = [{
     {
       name: "Level 1 Button",
       id: "level1Button",
-      pic: "resources/images/panels/credits.png",
+      pic: "resources/images/panels/levelSelPanel/level1Butt.png",
       picId: "frame1",
       funk: function () {
         towerGame.gameState = new GameState5(towerGame, 1)
@@ -188,7 +188,7 @@ var panelJSON = [{
     }, {
       name: "Level 2 Button",
       id: "level2Button",
-      pic: "resources/images/panels/restart.png",
+      pic: "resources/images/panels/levelSelPanel/level2Butt.png",
       picId: "frame2",
       funk: function () {
         towerGame.gameState = new GameState5(towerGame, 2)
@@ -198,7 +198,7 @@ var panelJSON = [{
     }, {
       name: "Level 3 Button",
       id: "level3Button",
-      pic: "resources/images/panels/credits.png",
+      pic: "resources/images/panels/endPanel/credits.png",
       picId: "frame3",
       funk: function () {
         towerGame.gameState = new GameState5(towerGame, 3)
@@ -207,7 +207,7 @@ var panelJSON = [{
     }, {
       name: "Custom Level Button",
       id: "customLvlButton",
-      pic: "resources/images/panels/custom.png",
+      pic: "resources/images/panels/levelSelPanel/custom.png",
       picId: "frame4",
       funk: function () {
         towerGame.gameState = new GameState5(towerGame, 4)
