@@ -5,7 +5,8 @@ class Popup {
     this.x = x;
     this.y = y;
     this.tower = tower;
-    this.sellPrice = this.tower.cost/3;
+    this.baseSellPrice = this.tower.cost/3;
+    this.sellPrice = this.baseSellPrice;
     this.popupElement = this.createPopup();
     this.show();
   }

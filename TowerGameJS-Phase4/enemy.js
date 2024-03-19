@@ -132,33 +132,28 @@ class Enemy {
   // find a new target and rotate the velocity in the direaction
   // of the new target.
   update() {
-  
-    if (!this.missileImmunities[0]) {
-      for (let h = 0; h < towerGame.missiles.length; h++) {
-        if (this.checkCollide(this, towerGame.missiles[h])) {
-          if (towerGame.missiles[h].ability == "missile") {
-            this.health -= 800 * towerGame.missiles[h].damageMult;
-          }
-          towerGame.missiles.splice(h, 1);
-        }
-      }
-    }
-    if (!this.liquifyImmunities[0]) {
-      for (let h = 0; h < towerGame.hands.length; h++) {
-        if (this.checkCollide(this, towerGame.hands[h])) {
-          if (towerGame.hands[h].ability == "liquify") {
-            this.health -= 10 * towerGame.hands[h].damageMult;
-          }
-        }
-      }
-    }
-    if (!this.bladeStormImmunities[0]) {
-      for (let h = 0; h < towerGame.blades.length; h++) {
-        if (this.checkCollide(this, towerGame.blades[h])) {
-          if (towerGame.blades[h].ability == "bladeStorm") {
-            this.health -= 100 * towerGame.blades[h].damageMult;
 
-          }
+    for (let h = 0; h < towerGame.missiles.length; h++) {
+      if (this.checkCollide(this, towerGame.missiles[h])) {
+        if (towerGame.missiles[h].ability == "missile" && !this.missileImmunities[0]) {
+          this.health -= 800 * towerGame.missiles[h].damageMult;
+        }
+        towerGame.missiles.splice(h, 1);
+      }
+    }
+
+    for (let h = 0; h < towerGame.hands.length; h++) {
+      if (this.checkCollide(this, towerGame.hands[h])) {
+        if (towerGame.hands[h].ability == "liquify" && !this.liquifyImmunities[0]) {
+          this.health -= 10 * towerGame.hands[h].damageMult;
+        }
+      }
+    }
+    for (let h = 0; h < towerGame.blades.length; h++) {
+      if (this.checkCollide(this, towerGame.blades[h])) {
+        if (towerGame.blades[h].ability == "bladeStorm" && !this.bladeStormImmunities[0]) {
+          this.health -= 100 * towerGame.blades[h].damageMult;
+
         }
       }
     }
@@ -175,58 +170,65 @@ class Enemy {
               this.health = this.health - 150 * towerGame.bullets[h].damageMult;
             }
           }
-        }
-        if (!this.fastImmunities[0]) {
-          if (towerGame.bullets[h].ability == "fast") {
-            this.health = this.health - 350 * towerGame.bullets[h].damageMult;
-            towerGame.bullets.splice(h, 1);
-          }
-        }
-        if (!this.freezeImmunities[0]) {
-          if (towerGame.bullets[h].ability == "freeze") {
-            this.health = this.health - 25 * towerGame.bullets[h].damageMult;
-            this.slowed -= 1;
-            if (towerGame.bullets[h].finalFreeze) {
-              this.hitByFreezeUpgraded = true;
+        } else {
+          if (!this.fastImmunities[0]) {
+            if (towerGame.bullets[h].ability == "fast") {
+              this.health = this.health - 350 * towerGame.bullets[h].damageMult;
+              towerGame.bullets.splice(h, 1);
             }
-            setTimeout(() => {
-              this.slowed = 1.2;
-              this.hitByFreezeUpgraded = false;
-            }, 2000);
+
+          } else {
+            if (!this.freezeImmunities[0]) {
+              if (towerGame.bullets[h].ability == "freeze") {
+                this.health = this.health - 25 * towerGame.bullets[h].damageMult;
+                this.slowed -= 1;
+                if (towerGame.bullets[h].finalFreeze) {
+                  this.hitByFreezeUpgraded = true;
+                }
+                setTimeout(() => {
+                  this.slowed = 1.2;
+                  this.hitByFreezeUpgraded = false;
+                }, 2000);
+              }
+            } else {
+              if (!this.cannonImmunities[0]) {
+                if (towerGame.bullets[h].ability == "cannon") {
+                  this.health = this.health - 500 * towerGame.bullets[h].damageMult;
+                  towerGame.bullets.splice(h, 1);
+                }
+
+              } else {
+                if (!this.explosiveImmunities[0]) {
+                  if (towerGame.bullets[h].ability == "explosive") {
+
+                    this.health = this.health - 100 * towerGame.bullets[h].damageMult;
+                    if (this.health <= 0) {
+                      this.kill = true;
+                    }
+                    this.locations = this.loc;
+                    towerGame.explosiveBullets.push(new Explosives(towerGame.bullets[h].loc, towerGame.bullets[h].ability));
+
+                    towerGame.bullets.splice(h, 1);
+                  }
+                }
+              }
+            }
+            if (towerGame.bullets[h].ability == "explosive") {
+              this.health -= 100 * towerGame.bullets[h].damageMult;
+              if (this.health <= 0) {
+                this.kill = true;
+              }
+              this.locations = this.loc;
+              towerGame.explosiveBullets.push(new Explosives(towerGame.bullets[h].loc, towerGame.bullets[h].ability));
+
+              towerGame.bullets.splice(h, 1);
+
+            }
           }
         }
-        if (!this.cannonImmunities[0]) {
-          if (towerGame.bullets[h].ability == "cannon") {
-            this.health = this.health - 500 * towerGame.bullets[h].damageMult;
-            towerGame.bullets.splice(h, 1);
-          }
-        } if (!this.explosiveImmunities[0]) {
-          if (towerGame.bullets[h].ability == "explosive") {
-
-            this.health = this.health - 100 * towerGame.bullets[h].damageMult;
-            if (this.health <= 0) {
-              this.kill = true;
-            }
-            this.locations = this.loc;
-            towerGame.explosiveBullets.push(new Explosives(towerGame.bullets[h].loc, towerGame.bullets[h].ability));
-
-            towerGame.bullets.splice(h, 1);
-          }
-
-          if (towerGame.bullets[h].ability == "explosive") {
-            this.health -= 100 * towerGame.bullets[h].damageMult;
-            if (this.health <= 0) {
-              this.kill = true;
-            }
-            this.locations = this.loc;
-            towerGame.explosiveBullets.push(new Explosives(towerGame.bullets[h].loc, towerGame.bullets[h].ability));
-
-            towerGame.bullets.splice(h, 1);
-          }
-        }
-
       }
     }
+
 
 
 

@@ -255,11 +255,11 @@ newDist(v1, v2){
         let dy = this.loc.y - this.target.y;
         let dist = vector2d(dx, dy).length();
         if (dist < this.minRange) {
-          this.target = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY)
+          this.target = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY);
         }
       }
     } else {
-      this.target = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY)
+      this.target = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY);
     }
     if (this.ability != "missile" && this.ability != "cannon") {
       let dx = this.loc.x - this.target.x;
@@ -270,7 +270,7 @@ newDist(v1, v2){
       towerGame.canvas.addEventListener('click', () => {
         if (this.count == 0) {
           this.count += 1;
-          return;//what is this even for
+          return;
         }
 
 
