@@ -1,9 +1,9 @@
 "use strict"
 class Panel {
-  constructor(game, number) {
+  constructor(game, number, ) {
     this.game = game
     this.temp = 0
-    this.y = -590
+    this.y = -590;
     this.panel = document.createElement("div")
     this.panel.id = panelJSON[number].id
     this.panel.style.width = 450 + "px"
@@ -20,11 +20,11 @@ class Panel {
     }
   }
 
-  render(slideCheck) {
+  render(slideCheck, y = 550) {
     if (slideCheck === true) {
       this.y = this.slideDown(this.y, 550, .05);
     } else if (slideCheck === false) {
-      this.y = 550;
+      this.y = y;
     }
     this.panel.style.top = this.y + "px"
   }
@@ -34,6 +34,8 @@ class Panel {
       return start + incroment * (end - start)
     return start
   }
+
+
 
   createButton(JSON1, i) {
     var button = document.createElement("div")
@@ -152,7 +154,7 @@ var panelJSON = [{
 }, {
   name: "Level Selector", // panel 3
   id: "levelSelector",
-  pic: "resources/images/panels/pan.png",
+  pic: "resources/images/panels/panel.png",
   picId: "pan",
   buttonJSON: [
     {
@@ -212,8 +214,8 @@ var panelJSON = [{
       }
     }]
 }, {
-  name: "Catalog Panel", //panel 5
-  id: "catalogPanel",
+  name: "Catalog Home Panel", //panel 5
+  id: "catalogHomePanel",
   pic: "",
   picId: "pan",
   buttonJSON: [
@@ -222,6 +224,9 @@ var panelJSON = [{
       id: " towerButton",
       pic: "",
       picId: "tower",
+      funk: function(){
+        // towerGame.gameState.panelCredits = new Panel(towerGame, 4)
+      }
       
     }, {
         name: "Quit Button",
