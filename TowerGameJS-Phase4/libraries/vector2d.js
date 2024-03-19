@@ -36,18 +36,10 @@ var vector2d = function (vx, vy) {
             vec.y -= vec2.y;
             return(this);
         },
-        multiply: function (scalar){
-            vec.x *= scalar;
-            vec.y *= scalar;
-            return(this);
-        },
 
             // 2-20-17 added dist()
         dist: function (vec2) {
-            return(vec2.copy().sub(this).length());
-        },
-        dist5: function (v1, v2){
-            return(Math.sqrt((v2.x-v2.x)*(v2.x-v1.x) + (v2.y-v1.y)*(v2.y-v1.y)));
+         return(vec2.copy().sub(this).length());
         },
 
             // 2-20-17 added angleBetween()
@@ -162,15 +154,6 @@ function Vector2d()
 		return Math.sqrt(this.x*this.x + this.y*this.y);
 	};
 
-    Vector2d.addGetNew = function (v1, v2) {
-        return new JSVector(v1.x + v2.x, v1.y + v2.y);
-      }
-      
-      // Class method to return a new vector that is the difference of two vectors
-      Vector2d.subGetNew = function (v1, v2) {
-        return new JSVector(v1.x - v2.x, v1.y - v2.y);
-      }
-    
 	// Normalize (unit length). Also returns length before normalisation.
 	// 2-20-17 normalize the spelling of normalise to normalize
 	Vector2d.prototype.normalize = function()
