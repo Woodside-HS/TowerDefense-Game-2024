@@ -245,26 +245,38 @@ newDist(v1, v2){
   }
 
   update() {
-
+ 
     //  Rotate turret to follow mouse
     this.enemy = this.findEnemy()
     if (this.enemy) {
       this.target = this.enemy.loc;
       if (this.ability == "missile" || this.ability == "cannon") {
+       
         let dx = this.loc.x - this.target.x;
         let dy = this.loc.y - this.target.y;
         let dist = vector2d(dx, dy).length();
         if (dist < this.minRange) {
           this.target = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY);
         }
-      }
+      
+    }
     } else {
       this.target = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY);
     }
     if (this.ability != "missile" && this.ability != "cannon") {
+      if((this.ability == "normal" &&  this.normalImmunities == "targetable") ||
+      (this.ability == "fast" &&  this.fastImmunities == "targetable") ||
+      (this.ability == "freeze" &&  this.freezeImmunities == "targetable") ||
+      (this.ability == "explosive" &&  this.explosiveImmunities == "targetable") ||
+      (this.ability == "ray" &&  this.rayImmunities == "targetable") ||
+      (this.ability == "bladeStorm" &&  this.bladeStormImmunities == "targetable") ||
+      (this.ability == "liquify" &&  this.liquifyImmunities == "targetable") ||
+      (this.ability == "buffregen" &&  this.buffregenImmunities == "targetable") ){
+        //the buffing tower does not attack why do you have this as it does not attack
       let dx = this.loc.x - this.target.x;
       let dy = this.loc.y - this.target.y;
       this.towAngle = Math.atan2(dy, dx) - Math.PI;
+    }
     } else {
 
       towerGame.canvas.addEventListener('click', () => {

@@ -225,6 +225,7 @@ class Game {
   hideImgElement() { this.style.display = "none"; }
 
   run() { // called from draw()
+
     if (towerState == 1) {
       if (count == 1) {
         //  this.createTileDivs();
