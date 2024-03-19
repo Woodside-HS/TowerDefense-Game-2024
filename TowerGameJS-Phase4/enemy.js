@@ -2,6 +2,7 @@ class Enemy {
 
   constructor(game) {
     this.game = game;
+
     // currentCell is the start position of the enemies
     this.currentCell = [1][1];
     for (let row = 0; row < this.game.levelKey.length; row++) {
@@ -12,7 +13,7 @@ class Enemy {
       }
     }
     this.loc = this.currentCell.center.copy();
-    this.randomPath = 0;   //boolean to randomize or not
+    this.randomPath = 1;   //boolean to randomize or not
     this.radius = 15.0;
     this.r = 3.0;
     this.vel = 3.0;
@@ -23,6 +24,7 @@ class Enemy {
     this.lastTime = Date.now();
     this.coolDown = 1000;
     this.towerLoc = vector2d(0, 0);
+    this.health = 1000;
     this.velVec;
     this.increasedDamg = 20;
     this.health = 1000;
@@ -30,6 +32,7 @@ class Enemy {
     // velocity factor
     this.damages = 0;
     this.vel = 3.0;       // velocity factor
+
     this.targetCell = this.nextTarget();
     this.target = this.targetCell.center;
     this.shape = "circle";
@@ -39,8 +42,18 @@ class Enemy {
     this.angle = this.velVec.angle()
 
     this.img = Enemy.image3;// image for enemy
+    this.hitByFreezeUpgraded = false;
 
-
+    this.normalImmunities = false;
+    this.normalUpgradedImmunities = false;
+    this.fastImmunities = false;
+    this.fastUpgradedImmunities = false;
+    this.freezeImmunities = false;
+    this.freezeUpgradedImmunities = false;
+    this.normalImmunities = false;
+    this.normalUpgradedImmunities = false;
+    this.normalImmunities = false;
+    this.normalUpgradedImmunities = false;
   }
 
   run() {
@@ -125,10 +138,7 @@ class Enemy {
       }
     }
 
-    if (this.isLocked) {
-      this.damages = this.damages + this.increasedDamg;
-      this.health = this.health - this.increasedDamg;
-    }
+
 
 
 
@@ -143,9 +153,6 @@ class Enemy {
     }
 
 
-
-
-    //  console.log(this.health);
     if (this.health <= 0) {
       this.kill = true;
 
@@ -153,7 +160,6 @@ class Enemy {
       console.log("play");
       towerGame.bankValue += 10;
 
-      //console.log("kills");
     }
 
     if (this.loc.dist(this.target) <= this.vel) {    // if we have reached the current target
@@ -269,9 +275,15 @@ class Enemy {
 } // end class ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 class Enemy1 extends Enemy {
   constructor(game) {
+    let immunities = [];
+    immunities.push()
+    super(game);
+    this.img = Enemy.image1;
+
     super(game)
     this.randomPath = 1
     this.img = Enemy.image1
+
   }
 }
 class Enemy2 extends Enemy {
@@ -300,7 +312,8 @@ class Enemy4 extends Enemy {
 class Enemy5 extends Enemy {
   constructor(game) {
     super(game)
-    this.img = Enemy.image5
+    this.img = Enemy.image5;
+    this.randomPath = 0;
     this.health = 1000000000000000000;
   }
 }
