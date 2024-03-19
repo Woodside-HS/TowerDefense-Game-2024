@@ -1,23 +1,33 @@
-"use strict"
+"use strict";
+
 class Panel {
-  constructor(game, number, ) {
-    this.game = game
-    this.temp = 0
+  constructor(game, number) {
+    this.game = game;
+    this.temp = 0;
     this.y = -590;
-    this.panel = document.createElement("div")
-    this.panel.id = panelJSON[number].id
-    this.panel.style.width = 450 + "px"
-    this.panel.style.height = 290 + "px"
-    this.panel.style.backgroundImage = 'url("' + panelJSON[number].pic + '")'
-    this.panel.style.position = "absolute"
-    this.panel.style.align = "center"
-    this.panel.style.top = -800 + "px"
-    this.panel.style.left = 725 + "px";
-    this.panel.style.textAlign = "center"
-    this.wrapper = document.getElementById('wrapperDiv').appendChild(this.panel)
+    this.panel = document.createElement("div");
+    this.panel.id = panelJSON[number].id;
+    this.panel.style.width = 450 + "px";
+    this.panel.style.height = 290 + "px";
+    this.panel.style.backgroundImage = 'url("' + panelJSON[number].pic + '")';
+    this.panel.style.position = "absolute";
+    this.panel.style.align = "center";
+    this.panel.style.top = 0 + "px";
+    this.panel.style.left = 0 + "px";
+    this.panel.style.right = 0 + "px";
+    this.panel.style.textAlign = "center";
+    
+    this.wrapper = document.getElementById('wrapperDiv').appendChild(this.panel);
     for (let i = 0; i < panelJSON[number].buttonJSON.length; i++) {
-      this.createButton(panelJSON[number], i)
+      this.createButton(panelJSON[number], i);
     }
+    this.updatePanelPosition();
+
+
+    // Add event listener for window resize
+    window.addEventListener('resize', () => {
+      this.updatePanelPosition();
+    });
   }
 
   render(slideCheck, y = 550) {
@@ -32,28 +42,41 @@ class Panel {
   slideDown(start, end, incroment) {
     if ((incroment * (end - start)) > 1)
       return start + incroment * (end - start)
-    return start
+    return start;
   }
 
 
 
   createButton(JSON1, i) {
-    var button = document.createElement("div")
-    button.id = JSON1.buttonJSON[i].picId
-    button.style.width = 123 + "px"
-    button.style.height = 30 + "px"
-    button.style.position = "relative"
-    button.style.top = 5 + 21 * i + "%"
-    button.style.left = 50 + "px"
-    button.image = document.createElement("img")
-    button.image.id = JSON1.buttonJSON[i].picId
-    button.image.src = JSON1.buttonJSON[i].pic
-    button.image.addEventListener("click", JSON1.buttonJSON[i].funk, false)
-    button.appendChild(button.image)
-    this.panel.appendChild(button)
+    var button = document.createElement("div");
+    button.id = JSON1.buttonJSON[i].picId;
+    button.style.width = 123 + "px";
+    button.style.height = 30 + "px";
+    button.style.position = "relative";
+    button.style.top = 5 + 21 * i + "%";
+    button.style.left = 50 + "px";
+    button.image = document.createElement("img");
+    button.image.id = JSON1.buttonJSON[i].picId;
+    button.image.src = JSON1.buttonJSON[i].pic;
+    button.image.addEventListener("click", JSON1.buttonJSON[i].funk, false);
+    button.appendChild(button.image);
+    this.panel.appendChild(button);
   }
-}
 
+  // Function to update panel position on resize
+  updatePanelPosition() {
+    let panelLeft = this.panel.offsetLeft; // Get the left position of the panel
+
+    if (panelLeft > 260) {
+        this.panel.style.left = (window.innerWidth / 2 - 40) - (this.panel.offsetWidth / 2) + 'px';
+    } else {
+        let centeredPosition = (window.innerWidth / 2 - 40) - (this.panel.offsetWidth / 2);
+        if (centeredPosition > panelLeft) {
+            this.panel.style.left = centeredPosition + 'px';
+        }
+    }
+}
+}
 var panelJSON = [{
   name: "Start Panel", // panel 0
   id: "firstPanel",
@@ -88,6 +111,7 @@ var panelJSON = [{
         towerGame.gameState.panelInstructions = new Panel(towerGame, 5)
         document.getElementById("firstPanel").parentNode.removeChild(document.getElementById("firstPanel"))
       }
+
     }]
 }, {
   name: "Instruction Panel", // panel 1
@@ -134,11 +158,6 @@ var panelJSON = [{
         document.getElementById("endPanel").parentNode.removeChild(document.getElementById("endPanel"))
         towerGame.gameState.panelQuit = new Panel(towerGame, 2)
         towerGame.gameState = new GameState1(towerGame)
-        towerGame.currentWaveNum = 0; // Reset the current wave number to 0
-        towerGame.wave = new Wave(towerGame, AllWaves[towerGame.currentWaveNum]); // Create a new Wave instance with the first wave
-        towerGame.wave.referenceTime = 20;
-        document.getElementById('fastForward').innerHTML = "Start";
-        FRAME_RATE = 30;
         document.getElementById("endPanel").parentNode.removeChild(document.getElementById("endPanel"))
       }
     }, {
@@ -211,6 +230,23 @@ var panelJSON = [{
       funk: function () {
         towerGame.gameState.panelQuit = new Panel(towerGame, 2)
         document.getElementById("creditesPanel").parentNode.removeChild(document.getElementById("creditesPanel"))
+      }
+    },]
+
+}, {
+  name: "Switch Button",
+  id: "switchButton",
+  pic: "resources/images/panels/panel.png",
+  picId: "pan",
+  buttonJSON: [
+    {
+      name: "More Towers",
+      // this is button for switches placeable towers
+      id: "towerSwitch",
+      pic: "resources/images/panels/towerChange.png",
+      picId: "switch",
+      funk: function () {
+        document.getElementById("towerSwitch").parentNode.removeChild(document.getElementById("towerSwitch"))
       }
     }]
 }, {
