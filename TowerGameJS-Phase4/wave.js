@@ -11,20 +11,22 @@ class Wave {
 
   run() {
 
+
     while (this.game.gameTime > this.referenceTime && !this.spawnOver) {
       if (this.enemyId[0] < this.waveJson.packets.length) {
         if (this.enemyId[1] < this.waveJson.packets[this.enemyId[0]].num) {
           this.game.enemies.push(this.enemySelector(this.game, this.waveJson.packets[this.enemyId[0]].enemy))
           this.referenceTime += this.waveJson.packets[this.enemyId[0]].enemyIncrement
-          this.enemyId[1] += 1;
+          this.enemyId[1] += 1
         } else {
           this.referenceTime += this.waveJson.packets[this.enemyId[0]].packetIncrement
-          this.enemyId[1] = 0;
-          this.enemyId[0] += 1;
+          this.enemyId[1] = 0
+          this.enemyId[0] += 1
         }
       } else {
-        this.spawnOver = true;
-        break;
+        this.spawnOver = true
+        break
+
       }
     }
 
@@ -32,19 +34,22 @@ class Wave {
 
   isWaveOver() {
     if (!this.game.enemies[0] && this.spawnOver) {
-      return true;
+
+      return true
     } else {
-      return false;
+      return false
     }
   }
   //parses JSON
   enemySelector(game, enemyJSON) {
     // if we found a valid cell to start the enemy
     //create an array of the arguments for the enemy class
-    var args = [null, game].concat(enemyJSON.additionalEnemyArguments);
+
+    var args = [null, game].concat(enemyJSON.additionalEnemyArguments)
     //apply the argument array to the specified enemy class
-    var tempEnemy = enemyJSON.enemy.bind.apply(enemyJSON.enemy, args);
-    return new tempEnemy;
+    var tempEnemy = enemyJSON.enemy.bind.apply(enemyJSON.enemy, args)
+    return new tempEnemy
+
 
   }
 }
@@ -123,11 +128,6 @@ AllWaves = generateWaves();
 //enemyPosition is a 2d array that spefies the area in whicch an enemt will be randomly spawned
 //the numbers are formated as fractions of the total grid with the smaller number coming first
 //additionalEnemyArguments specifies any additional arguments that might be added to an enemy class
-
-
-
-
-
 AllWaves = [
   {
     "packets": [
