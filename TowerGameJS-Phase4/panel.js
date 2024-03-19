@@ -234,43 +234,18 @@ var panelJSON = [{
     },]
 
 }, {
-  name: "Switch Button",
-  id: "switchButton",
-  pic: "resources/images/panels/panel.png",
-  picId: "pan",
-  buttonJSON: [
-    {
-      name: "More Towers",
-      // this is button for switches placeable towers
-      id: "towerSwitch",
-      pic: "resources/images/panels/towerChange.png",
-      picId: "switch",
-      funk: function () {
-        document.getElementById("towerSwitch").parentNode.removeChild(document.getElementById("towerSwitch"))
-      }
-    }]
-}, {
   name: "Catalog Home Panel", //panel 5
   id: "catalogHomePanel",
   pic: "",
   picId: "pan",
   buttonJSON: [
     {
-      name: "Tower Button",
-      id: " towerButton",
-      pic: "",
-      picId: "tower",
-      funk: function(){
-        // towerGame.gameState.panelCredits = new Panel(towerGame, 4)
-      }
-      
-    }, {
         name: "Quit Button",
         id: "quitButton",
         pic: "resources/images/panels/end.png",
         picId: "exit",
         funk: function () {
-          document.getElementById("catalogPanel").parentNode.removeChild(document.getElementById("catalogPanel"))
+          // document.getElementById("catalogPanel").parentNode.removeChild(document.getElementById("catalogPanel"))
           towerGame.gameState.panelQuit = new Panel(towerGame, 2)
           towerGame.gameState = new GameState1(towerGame)
           towerGame.currentWaveNum = 0; // Reset the current wave number to 0
@@ -278,7 +253,7 @@ var panelJSON = [{
           towerGame.wave.referenceTime = 20;
           document.getElementById('fastForward').innerHTML = "Start";
           FRAME_RATE = 30;
-          document.getElementById("catalogPanel").parentNode.removeChild(document.getElementById("catalogPanel"))
+          document.getElementById("catalogHomePanel").parentNode.removeChild(document.getElementById("catalogHomePanel"))
         }
       
     }

@@ -86,6 +86,7 @@ class GameState4 extends GameState { //Catalog
 
     document.getElementById('infoDiv').style.visibility = 'hidden'; // Make info tiles invisible on start page
     document.getElementById('menuDiv').style.visibility = 'hidden';
+    document.getElementById('switchDiv').style.visibility = 'hidden';
   }
 
   run(){
