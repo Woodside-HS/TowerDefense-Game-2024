@@ -245,7 +245,7 @@ var panelJSON = [{
         pic: "resources/images/panels/end.png",
         picId: "exit",
         funk: function () {
-          // document.getElementById("catalogPanel").parentNode.removeChild(document.getElementById("catalogPanel"))
+          document.getElementById("catalogHomePanel").parentNode.removeChild(document.getElementById("catalogHomePanel"))
           towerGame.gameState.panelQuit = new Panel(towerGame, 2)
           towerGame.gameState = new GameState1(towerGame)
           towerGame.currentWaveNum = 0; // Reset the current wave number to 0
