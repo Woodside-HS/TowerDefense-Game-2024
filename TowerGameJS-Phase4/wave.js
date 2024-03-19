@@ -1,12 +1,12 @@
 
 class Wave {
 
-  constructor(game, waveJson) {
-    this.game = game;
-    this.waveJson = waveJson;
-    this.enemyId = [0, 0];
-    this.referenceTime = this.game.gameTime + this.waveJson.waveIncrement;
-    this.spawnOver = false;
+  constructor(game,waveJson) {
+    this.game=game;
+    this.waveJson=waveJson;
+    this.enemyId=[0,0];
+    this.referenceTime=this.game.gameTime+this.waveJson.waveIncrement;
+    this.spawnOver=false;
   }
 
   run() {
@@ -28,7 +28,6 @@ class Wave {
         break
 
       }
-    }
 
   }
 
