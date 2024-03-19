@@ -1,8 +1,7 @@
 class Enemy {
 
-  constructor(game, immunities) {
+  constructor(game) {
     this.game = game;
-    this.immunities = immunities;
 
     // currentCell is the start position of the enemies
     this.currentCell = [1][1];
@@ -36,6 +35,17 @@ class Enemy {
     this.angle = this.velVec.angle()
     this.img = Enemy.image3;// image for enemy
     this.hitByFreezeUpgraded = false;
+
+    this.normalImmunities = false;
+    this.normalUpgradedImmunities = false;
+    this.fastImmunities = false;
+    this.fastUpgradedImmunities = false;
+    this.freezeImmunities = false;
+    this.freezeUpgradedImmunities = false;
+    this.normalImmunities = false;
+    this.normalUpgradedImmunities = false;
+    this.normalImmunities = false;
+    this.normalUpgradedImmunities = false;
   }
 
   run() {
@@ -342,6 +352,8 @@ class Enemy {
 } // end class ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 class Enemy1 extends Enemy {
   constructor(game) {
+    let immunities = [];
+    immunities.push()
     super(game);
     this.img = Enemy.image1;
   }
