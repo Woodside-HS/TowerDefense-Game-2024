@@ -1,7 +1,9 @@
 class Enemy {
 
-  constructor(game) {
+  constructor(game, immunities) {
     this.game = game;
+    this.immunities = immunities;
+
     // currentCell is the start position of the enemies
     this.currentCell = [1][1];
     for (let row = 0; row < this.game.levelKey.length; row++) {
