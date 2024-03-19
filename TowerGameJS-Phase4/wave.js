@@ -771,7 +771,6 @@ AllWaves = generateWaves();
 //     "info": "this wave should always be the last wave"
 //   }
 // ]
-=======
 AllWaves = [
   {
     "packets": [
