@@ -849,14 +849,12 @@ class Game {
     let row = Math.floor(event.offsetY / towerGame.w);
     let col = Math.floor(event.offsetX / towerGame.w);
     let cell = towerGame.grid[col][row];
-    if (this.gameStateID === 6 ||
-        this.gameStateID === 7 ||
-        this.gameStateID === 8){
+
+    if (this.gameStateID === 6) {
       if (towerGame.placingTower && towerGame.canAddTower(cell)) {
         towerGame.placeTower(cell);
       }
-    } else if(this.gameStateID === 5){
-       if (!towerGame.placingTower && !cell.hasTower) {
+      else if (!towerGame.placingTower && !cell.hasTower) {
         // toggle the occupied property of the clicked cell
         if (!cell.occupied && towerGame.bankValue >= towerGame.wallCost && towerGame.allowPlace) {
           console.log(towerGame.allowPlace)
@@ -922,7 +920,78 @@ class Game {
           }
         }
       }
+    } else if (this.gameStateID === 5) {
+      if (towerGame.placingTower && towerGame.canAddTower(cell)) {
+        
+        towerGame.placeTower(cell);
       }
+      else if (!towerGame.placingTower && !cell.hasTower) {
+        // toggle the occupied property of the clicked cell
+        if (!cell.occupied && towerGame.bankValue >= towerGame.wallCost && towerGame.allowPlace) {
+          console.log(towerGame.allowPlace)
+          towerGame.bankValue -= towerGame.wallCost;
+          cell.occupied = true;
+        } else if (!cell.occupied && towerGame.allowPlace) {
+          alert("Insufficient Funds!");
+        }
+        else if (towerGame.allowPlace) {
+          towerGame.bankValue += towerGame.wallCost;
+          cell.occupied = false;
+        }
+        towerGame.brushfire(towerGame.undo(cell));   // all new distances and parents
+      } else if (!towerGame.placingTower && cell.hasTower) {
+        console.log("Clicked cell at column: " + col + ", row: " + row);
+
+        if (col < 0 || col >= this.cols || row < 0 || row >= this.rows) {
+          console.log("Clicked outside of grid bounds.");
+          return; // Clicked outside the grid
+        }
+
+        console.log("Cell has tower: " + cell.hasTower); // Debugging
+
+        if (cell.hasTower) {
+          for (let i = 0; i < towerGame.towers.length; i++) {
+            let tower = towerGame.towers[i];
+            console.log("Tower " + i + " at: " + tower.loc.x + ", " + tower.loc.y); // Debugging
+            if (Math.abs(tower.loc.x - cell.center.x) < 1 && Math.abs(tower.loc.y - cell.center.y) < 1) {
+              // Instantiate Popup near the tower location
+              const popupX = event.offsetX + 375; // Adjust based on your canvas or element positioning
+              const popupY = event.offsetY + 45; // Adjust based on your canvas or element positioning
+              // Set popupOpen to true as we are now opening a popup
+
+              // Instantiate Popup near the tower location
+              if (towerGame.shownBase === false) {
+                const popup = new Popup(popupX, popupY, tower);
+                towerGame.shownBase = true;
+                // Refund and remove tower logic moved to button event listener
+
+
+                document.getElementById('refundButton').addEventListener('click', () => {
+                  towerGame.setBankValue(Math.floor(popup.sellPrice)); // Refund the cost of the tower
+                  towerGame.towers.splice(i, 1); // Remove the tower from the array
+                  cell.hasTower = false; // Update the cell's state
+                  console.log("Tower removed and cost refunded.");
+                  towerGame.brushfire(); // Re-run the pathfinding algorithm
+                  popup.hide(); // Close the popup
+                });
+
+                // Upgrade tower logic (You'll need to define it)
+                document.getElementById('upgradeButton').addEventListener('click', () => {
+                  console.log("Upgrade button clicked");
+                  popup.hide(); // Close the popup
+                });
+
+                document.getElementById('cancleButton').addEventListener('click', () => {
+                  towerGame.showBase = false;
+                  popup.hide(); // Close the popup
+                });
+                return;
+              }
+            }
+          }
+        }
+      }
+    }
     //removeTower ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
   }
