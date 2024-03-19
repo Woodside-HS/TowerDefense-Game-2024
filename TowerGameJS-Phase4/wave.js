@@ -1,12 +1,12 @@
 
 class Wave {
 
-  constructor(game,waveJson) {
-    this.game=game;
-    this.waveJson=waveJson;
-    this.enemyId=[0,0];
-    this.referenceTime=this.game.gameTime+this.waveJson.waveIncrement;
-    this.spawnOver=false;
+  constructor(game, waveJson) {
+    this.game = game;
+    this.waveJson = waveJson;
+    this.enemyId = [0, 0];
+    this.referenceTime = this.game.gameTime + this.waveJson.waveIncrement;
+    this.spawnOver = false;
   }
 
   run() {
@@ -29,6 +29,7 @@ class Wave {
 
       }
 
+    }
   }
 
   isWaveOver() {
@@ -62,6 +63,22 @@ function generateWaves() {
   let basePacketIncrement = 1; // Base time between packets (a packet is a small group of enemies appearing at once within a wave
   //waves have multiple packets
   let waveIncrement = 20; //time between start of game and first wave (can be skipped w/ start button)
+  let enemyNumArray = [
+    [10, 15, 1, 0, 0],
+    [10, 0, 3, 0, 0],
+    [10, 5, 1, 0, 0],
+    [10, 5, 1, 0, 0],
+    [10, 5, 1, 0, 0],
+    [10, 5, 1, 0, 0],
+    [1, 1, 1, 1, 1],
+    [100, 600, 100, 0, 0],
+    [70, 0, 0, 120, 60],
+    [6660, 660, 66660, 0, 0],
+    [1, 0, 0, 0, 0],
+    [0, 0, 1500, 3500, 0],
+    [0, 0, 0, 0, 100000],
+    [0, 0, 0, 0, 1000000]
+  ]
 
   for (let waveIndex = 1; waveIndex <= 14; waveIndex++) { //loops through waves
     let packets = []; //each wave has an array of packets, each of which will be filled w/ a few enemies
@@ -127,652 +144,652 @@ AllWaves = generateWaves();
 //enemyPosition is a 2d array that spefies the area in whicch an enemt will be randomly spawned
 //the numbers are formated as fractions of the total grid with the smaller number coming first
 //additionalEnemyArguments specifies any additional arguments that might be added to an enemy class
-AllWaves = [
-  {
-    "packets": [
-      {
-        "enemy": {//this specifies the information about the enemy
-          "enemy": Enemy1,
-          "additionalEnemyArguments": [//
-            1
-          ]
-        },
-        "num": 10,
-        "enemyIncrement": 1,
-        "packetIncrement": 1
-      },
-      {
-        "enemy": {//this specifies the information about the enemy
-          "enemy": Enemy2,
-          "additionalEnemyArguments": [//
-            1
-          ]
-        },
-        "num": 15,
-        "enemyIncrement": 1,
-        "packetIncrement": 1
-      },
-      {
-        "enemy": {//this specifies the information about the enemy
-          "enemy": Enemy3,
-          "additionalEnemyArguments": [//
-            1
-          ]
-        },
-        "num": 1,
-        "enemyIncrement": 1,
-        "packetIncrement": 1
-      }
-    ],
-    "name": "Rookie Rampage (1)",
-    "waveIncrement": 20
-  },
-  {
-    "packets": [
-      {
-        "enemy": {
-          "enemy": Enemy1,
-          "enemyPosition": [
-            [
-              0, 1
-            ],
-            [
-              0, .5
-            ]
-          ],
-          "additionalEnemyArguments": [
-            1
-          ]
-        },
-        "num": 10,
-        "enemyIncrement": .25,
-        "packetIncrement": 2
-      },
-      {
-        "enemy": {
-          "enemy": Enemy3,
-          "enemyPosition": [
-            [
-              0, 1
-            ],
-            [
-              0, .5
-            ]
-          ],
-          "additionalEnemyArguments": [
-            0
-          ]
-        },
-        "num": 3,
-        "enemyIncrement": .75,
-        "packetIncrement": 1
-      }
-    ],
-    "name": "Novice Nemesis (2)",
-    "waveIncrement": 6
-  },
-  {
-    "packets": [
-      {
-        "enemy": {//this specifies the information about the enemy
-          "enemy": Enemy1,
-          "additionalEnemyArguments": [//
-            1
-          ]
-        },
-        "num": 10,
-        "enemyIncrement": 1,
-        "packetIncrement": 1
-      },
-      {
-        "enemy": {//this specifies the information about the enemy
-          "enemy": Enemy2,
-          "additionalEnemyArguments": [//
-            1
-          ]
-        },
-        "num": 5,
-        "enemyIncrement": 1,
-        "packetIncrement": 1
-      },
-      {
-        "enemy": {//this specifies the information about the enemy
-          "enemy": Enemy3,
-          "additionalEnemyArguments": [//
-            1
-          ]
-        },
-        "num": 1,
-        "enemyIncrement": 1,
-        "packetIncrement": 1
-      }
-    ],
-    "name": "Apprentice Assault (3)",
-    "waveIncrement": 6
-  },
-  {
-    "packets": [
-      {
-        "enemy": {//this specifies the information about the enemy
-          "enemy": Enemy1,
-          "additionalEnemyArguments": [//
-            1
-          ]
-        },
-        "num": 10,
-        "enemyIncrement": 1,
-        "packetIncrement": 1
-      },
-      {
-        "enemy": {//this specifies the information about the enemy
-          "enemy": Enemy2,
-          "additionalEnemyArguments": [//
-            1
-          ]
-        },
-        "num": 5,
-        "enemyIncrement": 1,
-        "packetIncrement": 1
-      },
-      {
-        "enemy": {//this specifies the information about the enemy
-          "enemy": Enemy3,
-          "additionalEnemyArguments": [//
-            1
-          ]
-        },
-        "num": 1,
-        "enemyIncrement": 1,
-        "packetIncrement": 1
-      }
-    ],
-    "name": "Skillful Skirmish (4)",
-    "waveIncrement": 6
-  },
-  {
-    "packets": [
-      {
-        "enemy": {//this specifies the information about the enemy
-          "enemy": Enemy1,
-          "additionalEnemyArguments": [//
-            1
-          ]
-        },
-        "num": 10,
-        "enemyIncrement": 1,
-        "packetIncrement": 1
-      },
-      {
-        "enemy": {//this specifies the information about the enemy
-          "enemy": Enemy2,
-          "additionalEnemyArguments": [//
-            1
-          ]
-        },
-        "num": 5,
-        "enemyIncrement": 1,
-        "packetIncrement": 1
-      },
-      {
-        "enemy": {//this specifies the information about the enemy
-          "enemy": Enemy3,
-          "additionalEnemyArguments": [//
-            1
-          ]
-        },
-        "num": 1,
-        "enemyIncrement": 1,
-        "packetIncrement": 1
-      }
-    ],
-    "name": "Adept Annihilation (5)",
-    "waveIncrement": 6
-  },
-  {
-    "packets": [
-      {
-        "enemy": {//this specifies the information about the enemy
-          "enemy": Enemy1,
-          "additionalEnemyArguments": [//
-            1
-          ]
-        },
-        "num": 10,
-        "enemyIncrement": 1,
-        "packetIncrement": 1
-      },
-      {
-        "enemy": {//this specifies the information about the enemy
-          "enemy": Enemy2,
-          "additionalEnemyArguments": [//
-            1
-          ]
-        },
-        "num": 5,
-        "enemyIncrement": 1,
-        "packetIncrement": 1
-      },
-      {
-        "enemy": {//this specifies the information about the enemy
-          "enemy": Enemy3,
-          "additionalEnemyArguments": [//
-            1
-          ]
-        },
-        "num": 1,
-        "enemyIncrement": 1,
-        "packetIncrement": 1
-      }
-    ],
-    "name": "Elite Eruption (6)",
-    "waveIncrement": 6
-  },
-  {
-    "packets": [
-      {
-        "enemy": {
-          "enemy": Enemy1,
-          "enemyPosition": [
-            [
-              0, 1
-            ],
-            [
-              0, .5
-            ]
-          ],
-          "additionalEnemyArguments": [
-            1
-          ]
-        },
-        "num": 1,
-        "enemyIncrement": .01,
-        "packetIncrement": .01
-      },
-      {
-        "enemy": {
-          "enemy": Enemy2,
-          "enemyPosition": [
-            [
-              0, 1
-            ],
-            [
-              0, .5
-            ]
-          ],
-          "additionalEnemyArguments": [
-            1
-          ]
-        },
-        "num": 1,
-        "enemyIncrement": .01,
-        "packetIncrement": .01
-      },
-      {
-        "enemy": {
-          "enemy": Enemy3,
-          "enemyPosition": [
-            [
-              0, 1
-            ],
-            [
-              0, .5
-            ]
-          ],
-          "additionalEnemyArguments": [
-            1
-          ]
-        },
-        "num": 1,
-        "enemyIncrement": .01,
-        "packetIncrement": .01
-      },
-      {
-        "enemy": {
-          "enemy": Enemy4,
-          "enemyPosition": [
-            [
-              0, 1
-            ],
-            [
-              0, .5
-            ]
-          ],
-          "additionalEnemyArguments": [
-            1
-          ]
-        },
-        "num": 1,
-        "enemyIncrement": .01,
-        "packetIncrement": .01
-      },
-      {
-        "enemy": {
-          "enemy": Enemy5,
-          "enemyPosition": [
-            [
-              0, 1
-            ],
-            [
-              0, .5
-            ]
-          ],
-          "additionalEnemyArguments": [
-            0
-          ]
-        },
-        "num": 1,
-        "enemyIncrement": .01,
-        "packetIncrement": .01
-      }
-    ],
-    "name": "Masterful Mayhem (7)",
-    "waveIncrement": 6
-  },
-  {
-    "packets": [
-      {
-        "enemy": {//this specifies the information about the enemy
-          "enemy": Enemy2,
-          "additionalEnemyArguments": [//
-            1
-          ]
-        },
-        "num": 600,
-        "enemyIncrement": .03 * 5,
-        "packetIncrement": 3
-      },
-      {
-        "enemy": {//this specifies the information about the enemy
-          "enemy": Enemy1,
-          "additionalEnemyArguments": [//
-            1
-          ]
-        },
-        "num": 100,
-        "enemyIncrement": .05,
-        "packetIncrement": 1
-      },
-      {
-        "enemy": {//this specifies the information about the enemy
-          "enemy": Enemy3,
-          "additionalEnemyArguments": [//
-            1
-          ]
-        },
-        "num": 100,
-        "enemyIncrement": .1,
-        "packetIncrement": 1
-      }
-    ],
-    "name": "Prodigy Pandemonium (8)",
-    "waveIncrement": 6
-  },
-  {
-    "packets": [
-      {
-        "enemy": {//this specifies the information about the enemy
-          "enemy": Enemy4,
-          "additionalEnemyArguments": [//
-            1
-          ]
-        },
-        "num": 120,
-        "enemyIncrement": .05,
-        "packetIncrement": 3
-      },
-      {
-        "enemy": {//this specifies the information about the enemy
-          "enemy": Enemy5,
-          "additionalEnemyArguments": [//
-            1
-          ]
-        },
-        "num": 60,
-        "enemyIncrement": .025,
-        "packetIncrement": 1
-      },
-      {
-        "enemy": {//this specifies the information about the enemy
-          "enemy": Enemy1,
-          "additionalEnemyArguments": [//
-            1
-          ]
-        },
-        "num": 70,
-        "enemyIncrement": .2,
-        "packetIncrement": 1
-      }
-    ],
-    "name": "Virtuoso Vortex (9)",
-    "waveIncrement": 0
-  },
-  {
-    "packets": [
-      {
-        "enemy": {//this specifies the information about the enemy
-          "enemy": Enemy1,
-          "additionalEnemyArguments": [//
-            1
-          ]
-        },
-        "num": 6660,
-        "enemyIncrement": .006,
-        "packetIncrement": 1
-      },
-      {
-        "enemy": {//this specifies the information about the enemy
-          "enemy": Enemy2,
-          "additionalEnemyArguments": [//
-            1
-          ]
-        },
-        "num": 660,
-        "enemyIncrement": .06,
-        "packetIncrement": 2
-      },
-      {
-        "enemy": {//this specifies the information about the enemy
-          "enemy": Enemy3,
-          "additionalEnemyArguments": [//
-            1
-          ]
-        },
-        "num": 60,
-        "enemyIncrement": .6,
-        "packetIncrement": 3
-      },
-      {
-        "enemy": {//this specifies the information about the enemy
-          "enemy": Enemy2,
-          "additionalEnemyArguments": [//
-            1
-          ]
-        },
-        "num": 660,
-        "enemyIncrement": .06,
-        "packetIncrement": 2
-      },
-      {
-        "enemy": {//this specifies the information about the enemy
-          "enemy": Enemy1,
-          "additionalEnemyArguments": [//
-            1
-          ]
-        },
-        "num": 6660,
-        "enemyIncrement": .006,
-        "packetIncrement": 1
-      },
-      {
-        "enemy": {//this specifies the information about the enemy
-          "enemy": Enemy3,
-          "additionalEnemyArguments": [//
-            1
-          ]
-        },
-        "num": 66660,
-        "enemyIncrement": .006,
-        "packetIncrement": 1
-      }
-    ],
-    "name": "Supreme Siege (10)",
-    "waveIncrement": 0
-  },
-  {
-    "packets": [
-      {
-        "enemy": {//this specifies the information about the enemy
-          "enemy": Enemy1,
-          "additionalEnemyArguments": [//
-            1
-          ]
-        },
-        "num": 1,
-        "enemyIncrement": 10,
-        "packetIncrement": 10
-      }
-    ],
-    "name": "Legendary Laceration (11)",
-    "waveIncrement": 10
-  },
-  {
-    "packets": [
-      {
-        "enemy": {//this specifies the information about the enemy
-          "enemy": Enemy4,
-          "additionalEnemyArguments": [//
-            1
-          ]
-        },
-        "num": 500,
-        "enemyIncrement": .07,
-        "packetIncrement": 1
-      },
-      {
-        "enemy": {//this specifies the information about the enemy
-          "enemy": Enemy3,
-          "additionalEnemyArguments": [//
-            1
-          ]
-        },
-        "num": 500,
-        "enemyIncrement": .07,
-        "packetIncrement": 1
-      },
-      {
-        "enemy": {//this specifies the information about the enemy
-          "enemy": Enemy4,
-          "additionalEnemyArguments": [//
-            1
-          ]
-        },
-        "num": 1000,
-        "enemyIncrement": .005,
-        "packetIncrement": 1
-      },
-      {
-        "enemy": {//this specifies the information about the enemy
-          "enemy": Enemy3,
-          "additionalEnemyArguments": [//
-            1
-          ]
-        },
-        "num": 1000,
-        "enemyIncrement": .005,
-        "packetIncrement": 1
-      },
-      {
-        "enemy": {//this specifies the information about the enemy
-          "enemy": Enemy4,
-          "additionalEnemyArguments": [//
-            1
-          ]
-        },
-        "num": 2000,
-        "enemyIncrement": .003,
-        "packetIncrement": 1
-      }
-    ],
-    "name": "Mythical Maelstrom (12)",
-    "waveIncrement": 7
-  },
-  {
-    "packets": [
-      {
-        "enemy": {//this specifies the information about the enemy
-          "enemy": Enemy5,
-          "additionalEnemyArguments": [//
-            1
-          ]
-        },
-        "num": 100000,
-        "enemyIncrement": .001,
-        "packetIncrement": 0
-      }
-    ],
-    "name": "Cosmic Cataclysm (13)",
-    "waveIncrement": 2
-  },
-  {
-    "packets": [
-      {
-        "enemy": {//this specifies the information about the enemy
-          "enemy": Enemy5,
-          "additionalEnemyArguments": [//
-            1
-          ]
-        },
-        "num": 1000000,
-        "enemyIncrement": .0001,
-        "packetIncrement": 0
-      }
-    ],
-    "name": "Galactic Gambit (14)",
-    "waveIncrement": 2
-  },
-  {
-    "packets": [
-      {
-        "enemy": {
-          "enemy": Enemy5,
-          "enemyPosition": [
-            [
-              0, 1
-            ],
-            [
-              0, 1
-            ]
-          ],
-          "additionalEnemyArguments": [
-            1
-          ]
-        },
-        "num": Infinity,
-        "enemyIncrement": .000001,
-        "packetIncrement": 1
-      },
-      {
-        "enemy": {
-          "enemy": Enemy,
-          "enemyPosition": [
-            [
-              0, 1
-            ],
-            [
-              0, .5
-            ]
-          ],
-          "additionalEnemyArguments": [
-            0
-          ]
-        },
-        "num": 10,
-        "enemyIncrement": 1,
-        "packetIncrement": 1
-      }
-    ],
-    "name": "Eternal Celestial Showdown (∞)",
-    "waveIncrement": 30,
-    "info": "this wave should always be the last wave"
-  }
-]
+// AllWaves = [
+//   {
+//     "packets": [
+//       {
+//         "enemy": {//this specifies the information about the enemy
+//           "enemy": Enemy1,
+//           "additionalEnemyArguments": [//
+//             1
+//           ]
+//         },
+//         "num": 10,
+//         "enemyIncrement": 1,
+//         "packetIncrement": 1
+//       },
+//       {
+//         "enemy": {//this specifies the information about the enemy
+//           "enemy": Enemy2,
+//           "additionalEnemyArguments": [//
+//             1
+//           ]
+//         },
+//         "num": 15,
+//         "enemyIncrement": 1,
+//         "packetIncrement": 1
+//       },
+//       {
+//         "enemy": {//this specifies the information about the enemy
+//           "enemy": Enemy3,
+//           "additionalEnemyArguments": [//
+//             1
+//           ]
+//         },
+//         "num": 1,
+//         "enemyIncrement": 1,
+//         "packetIncrement": 1
+//       }
+//     ],
+//     "name": "Rookie Rampage (1)",
+//     "waveIncrement": 20
+//   },
+//   {
+//     "packets": [
+//       {
+//         "enemy": {
+//           "enemy": Enemy1,
+//           "enemyPosition": [
+//             [
+//               0, 1
+//             ],
+//             [
+//               0, .5
+//             ]
+//           ],
+//           "additionalEnemyArguments": [
+//             1
+//           ]
+//         },
+//         "num": 10,
+//         "enemyIncrement": .25,
+//         "packetIncrement": 2
+//       },
+//       {
+//         "enemy": {
+//           "enemy": Enemy3,
+//           "enemyPosition": [
+//             [
+//               0, 1
+//             ],
+//             [
+//               0, .5
+//             ]
+//           ],
+//           "additionalEnemyArguments": [
+//             0
+//           ]
+//         },
+//         "num": 3,
+//         "enemyIncrement": .75,
+//         "packetIncrement": 1
+//       }
+//     ],
+//     "name": "Novice Nemesis (2)",
+//     "waveIncrement": 6
+//   },
+//   {
+//     "packets": [
+//       {
+//         "enemy": {//this specifies the information about the enemy
+//           "enemy": Enemy1,
+//           "additionalEnemyArguments": [//
+//             1
+//           ]
+//         },
+//         "num": 10,
+//         "enemyIncrement": 1,
+//         "packetIncrement": 1
+//       },
+//       {
+//         "enemy": {//this specifies the information about the enemy
+//           "enemy": Enemy2,
+//           "additionalEnemyArguments": [//
+//             1
+//           ]
+//         },
+//         "num": 5,
+//         "enemyIncrement": 1,
+//         "packetIncrement": 1
+//       },
+//       {
+//         "enemy": {//this specifies the information about the enemy
+//           "enemy": Enemy3,
+//           "additionalEnemyArguments": [//
+//             1
+//           ]
+//         },
+//         "num": 1,
+//         "enemyIncrement": 1,
+//         "packetIncrement": 1
+//       }
+//     ],
+//     "name": "Apprentice Assault (3)",
+//     "waveIncrement": 6
+//   },
+//   {
+//     "packets": [
+//       {
+//         "enemy": {//this specifies the information about the enemy
+//           "enemy": Enemy1,
+//           "additionalEnemyArguments": [//
+//             1
+//           ]
+//         },
+//         "num": 10,
+//         "enemyIncrement": 1,
+//         "packetIncrement": 1
+//       },
+//       {
+//         "enemy": {//this specifies the information about the enemy
+//           "enemy": Enemy2,
+//           "additionalEnemyArguments": [//
+//             1
+//           ]
+//         },
+//         "num": 5,
+//         "enemyIncrement": 1,
+//         "packetIncrement": 1
+//       },
+//       {
+//         "enemy": {//this specifies the information about the enemy
+//           "enemy": Enemy3,
+//           "additionalEnemyArguments": [//
+//             1
+//           ]
+//         },
+//         "num": 1,
+//         "enemyIncrement": 1,
+//         "packetIncrement": 1
+//       }
+//     ],
+//     "name": "Skillful Skirmish (4)",
+//     "waveIncrement": 6
+//   },
+//   {
+//     "packets": [
+//       {
+//         "enemy": {//this specifies the information about the enemy
+//           "enemy": Enemy1,
+//           "additionalEnemyArguments": [//
+//             1
+//           ]
+//         },
+//         "num": 10,
+//         "enemyIncrement": 1,
+//         "packetIncrement": 1
+//       },
+//       {
+//         "enemy": {//this specifies the information about the enemy
+//           "enemy": Enemy2,
+//           "additionalEnemyArguments": [//
+//             1
+//           ]
+//         },
+//         "num": 5,
+//         "enemyIncrement": 1,
+//         "packetIncrement": 1
+//       },
+//       {
+//         "enemy": {//this specifies the information about the enemy
+//           "enemy": Enemy3,
+//           "additionalEnemyArguments": [//
+//             1
+//           ]
+//         },
+//         "num": 1,
+//         "enemyIncrement": 1,
+//         "packetIncrement": 1
+//       }
+//     ],
+//     "name": "Adept Annihilation (5)",
+//     "waveIncrement": 6
+//   },
+//   {
+//     "packets": [
+//       {
+//         "enemy": {//this specifies the information about the enemy
+//           "enemy": Enemy1,
+//           "additionalEnemyArguments": [//
+//             1
+//           ]
+//         },
+//         "num": 10,
+//         "enemyIncrement": 1,
+//         "packetIncrement": 1
+//       },
+//       {
+//         "enemy": {//this specifies the information about the enemy
+//           "enemy": Enemy2,
+//           "additionalEnemyArguments": [//
+//             1
+//           ]
+//         },
+//         "num": 5,
+//         "enemyIncrement": 1,
+//         "packetIncrement": 1
+//       },
+//       {
+//         "enemy": {//this specifies the information about the enemy
+//           "enemy": Enemy3,
+//           "additionalEnemyArguments": [//
+//             1
+//           ]
+//         },
+//         "num": 1,
+//         "enemyIncrement": 1,
+//         "packetIncrement": 1
+//       }
+//     ],
+//     "name": "Elite Eruption (6)",
+//     "waveIncrement": 6
+//   },
+//   {
+//     "packets": [
+//       {
+//         "enemy": {
+//           "enemy": Enemy1,
+//           "enemyPosition": [
+//             [
+//               0, 1
+//             ],
+//             [
+//               0, .5
+//             ]
+//           ],
+//           "additionalEnemyArguments": [
+//             1
+//           ]
+//         },
+//         "num": 1,
+//         "enemyIncrement": .01,
+//         "packetIncrement": .01
+//       },
+//       {
+//         "enemy": {
+//           "enemy": Enemy2,
+//           "enemyPosition": [
+//             [
+//               0, 1
+//             ],
+//             [
+//               0, .5
+//             ]
+//           ],
+//           "additionalEnemyArguments": [
+//             1
+//           ]
+//         },
+//         "num": 1,
+//         "enemyIncrement": .01,
+//         "packetIncrement": .01
+//       },
+//       {
+//         "enemy": {
+//           "enemy": Enemy3,
+//           "enemyPosition": [
+//             [
+//               0, 1
+//             ],
+//             [
+//               0, .5
+//             ]
+//           ],
+//           "additionalEnemyArguments": [
+//             1
+//           ]
+//         },
+//         "num": 1,
+//         "enemyIncrement": .01,
+//         "packetIncrement": .01
+//       },
+//       {
+//         "enemy": {
+//           "enemy": Enemy4,
+//           "enemyPosition": [
+//             [
+//               0, 1
+//             ],
+//             [
+//               0, .5
+//             ]
+//           ],
+//           "additionalEnemyArguments": [
+//             1
+//           ]
+//         },
+//         "num": 1,
+//         "enemyIncrement": .01,
+//         "packetIncrement": .01
+//       },
+//       {
+//         "enemy": {
+//           "enemy": Enemy5,
+//           "enemyPosition": [
+//             [
+//               0, 1
+//             ],
+//             [
+//               0, .5
+//             ]
+//           ],
+//           "additionalEnemyArguments": [
+//             0
+//           ]
+//         },
+//         "num": 1,
+//         "enemyIncrement": .01,
+//         "packetIncrement": .01
+//       }
+//     ],
+//     "name": "Masterful Mayhem (7)",
+//     "waveIncrement": 6
+//   },
+//   {
+//     "packets": [
+//       {
+//         "enemy": {//this specifies the information about the enemy
+//           "enemy": Enemy2,
+//           "additionalEnemyArguments": [//
+//             1
+//           ]
+//         },
+//         "num": 600,
+//         "enemyIncrement": .03 * 5,
+//         "packetIncrement": 3
+//       },
+//       {
+//         "enemy": {//this specifies the information about the enemy
+//           "enemy": Enemy1,
+//           "additionalEnemyArguments": [//
+//             1
+//           ]
+//         },
+//         "num": 100,
+//         "enemyIncrement": .05,
+//         "packetIncrement": 1
+//       },
+//       {
+//         "enemy": {//this specifies the information about the enemy
+//           "enemy": Enemy3,
+//           "additionalEnemyArguments": [//
+//             1
+//           ]
+//         },
+//         "num": 100,
+//         "enemyIncrement": .1,
+//         "packetIncrement": 1
+//       }
+//     ],
+//     "name": "Prodigy Pandemonium (8)",
+//     "waveIncrement": 6
+//   },
+//   {
+//     "packets": [
+//       {
+//         "enemy": {//this specifies the information about the enemy
+//           "enemy": Enemy4,
+//           "additionalEnemyArguments": [//
+//             1
+//           ]
+//         },
+//         "num": 120,
+//         "enemyIncrement": .05,
+//         "packetIncrement": 3
+//       },
+//       {
+//         "enemy": {//this specifies the information about the enemy
+//           "enemy": Enemy5,
+//           "additionalEnemyArguments": [//
+//             1
+//           ]
+//         },
+//         "num": 60,
+//         "enemyIncrement": .025,
+//         "packetIncrement": 1
+//       },
+//       {
+//         "enemy": {//this specifies the information about the enemy
+//           "enemy": Enemy1,
+//           "additionalEnemyArguments": [//
+//             1
+//           ]
+//         },
+//         "num": 70,
+//         "enemyIncrement": .2,
+//         "packetIncrement": 1
+//       }
+//     ],
+//     "name": "Virtuoso Vortex (9)",
+//     "waveIncrement": 0
+//   },
+//   {
+//     "packets": [
+//       {
+//         "enemy": {//this specifies the information about the enemy
+//           "enemy": Enemy1,
+//           "additionalEnemyArguments": [//
+//             1
+//           ]
+//         },
+//         "num": 6660,
+//         "enemyIncrement": .006,
+//         "packetIncrement": 1
+//       },
+//       {
+//         "enemy": {//this specifies the information about the enemy
+//           "enemy": Enemy2,
+//           "additionalEnemyArguments": [//
+//             1
+//           ]
+//         },
+//         "num": 660,
+//         "enemyIncrement": .06,
+//         "packetIncrement": 2
+//       },
+//       {
+//         "enemy": {//this specifies the information about the enemy
+//           "enemy": Enemy3,
+//           "additionalEnemyArguments": [//
+//             1
+//           ]
+//         },
+//         "num": 60,
+//         "enemyIncrement": .6,
+//         "packetIncrement": 3
+//       },
+//       {
+//         "enemy": {//this specifies the information about the enemy
+//           "enemy": Enemy2,
+//           "additionalEnemyArguments": [//
+//             1
+//           ]
+//         },
+//         "num": 660,
+//         "enemyIncrement": .06,
+//         "packetIncrement": 2
+//       },
+//       {
+//         "enemy": {//this specifies the information about the enemy
+//           "enemy": Enemy1,
+//           "additionalEnemyArguments": [//
+//             1
+//           ]
+//         },
+//         "num": 6660,
+//         "enemyIncrement": .006,
+//         "packetIncrement": 1
+//       },
+//       {
+//         "enemy": {//this specifies the information about the enemy
+//           "enemy": Enemy3,
+//           "additionalEnemyArguments": [//
+//             1
+//           ]
+//         },
+//         "num": 66660,
+//         "enemyIncrement": .006,
+//         "packetIncrement": 1
+//       }
+//     ],
+//     "name": "Supreme Siege (10)",
+//     "waveIncrement": 0
+//   },
+//   {
+//     "packets": [
+//       {
+//         "enemy": {//this specifies the information about the enemy
+//           "enemy": Enemy1,
+//           "additionalEnemyArguments": [//
+//             1
+//           ]
+//         },
+//         "num": 1,
+//         "enemyIncrement": 10,
+//         "packetIncrement": 10
+//       }
+//     ],
+//     "name": "Legendary Laceration (11)",
+//     "waveIncrement": 10
+//   },
+//   {
+//     "packets": [
+//       {
+//         "enemy": {//this specifies the information about the enemy
+//           "enemy": Enemy4,
+//           "additionalEnemyArguments": [//
+//             1
+//           ]
+//         },
+//         "num": 500,
+//         "enemyIncrement": .07,
+//         "packetIncrement": 1
+//       },
+//       {
+//         "enemy": {//this specifies the information about the enemy
+//           "enemy": Enemy3,
+//           "additionalEnemyArguments": [//
+//             1
+//           ]
+//         },
+//         "num": 500,
+//         "enemyIncrement": .07,
+//         "packetIncrement": 1
+//       },
+//       {
+//         "enemy": {//this specifies the information about the enemy
+//           "enemy": Enemy4,
+//           "additionalEnemyArguments": [//
+//             1
+//           ]
+//         },
+//         "num": 1000,
+//         "enemyIncrement": .005,
+//         "packetIncrement": 1
+//       },
+//       {
+//         "enemy": {//this specifies the information about the enemy
+//           "enemy": Enemy3,
+//           "additionalEnemyArguments": [//
+//             1
+//           ]
+//         },
+//         "num": 1000,
+//         "enemyIncrement": .005,
+//         "packetIncrement": 1
+//       },
+//       {
+//         "enemy": {//this specifies the information about the enemy
+//           "enemy": Enemy4,
+//           "additionalEnemyArguments": [//
+//             1
+//           ]
+//         },
+//         "num": 2000,
+//         "enemyIncrement": .003,
+//         "packetIncrement": 1
+//       }
+//     ],
+//     "name": "Mythical Maelstrom (12)",
+//     "waveIncrement": 7
+//   },
+//   {
+//     "packets": [
+//       {
+//         "enemy": {//this specifies the information about the enemy
+//           "enemy": Enemy5,
+//           "additionalEnemyArguments": [//
+//             1
+//           ]
+//         },
+//         "num": 100000,
+//         "enemyIncrement": .001,
+//         "packetIncrement": 0
+//       }
+//     ],
+//     "name": "Cosmic Cataclysm (13)",
+//     "waveIncrement": 2
+//   },
+//   {
+//     "packets": [
+//       {
+//         "enemy": {//this specifies the information about the enemy
+//           "enemy": Enemy5,
+//           "additionalEnemyArguments": [//
+//             1
+//           ]
+//         },
+//         "num": 1000000,
+//         "enemyIncrement": .0001,
+//         "packetIncrement": 0
+//       }
+//     ],
+//     "name": "Galactic Gambit (14)",
+//     "waveIncrement": 2
+//   },
+//   {
+//     "packets": [
+//       {
+//         "enemy": {
+//           "enemy": Enemy5,
+//           "enemyPosition": [
+//             [
+//               0, 1
+//             ],
+//             [
+//               0, 1
+//             ]
+//           ],
+//           "additionalEnemyArguments": [
+//             1
+//           ]
+//         },
+//         "num": Infinity,
+//         "enemyIncrement": .000001,
+//         "packetIncrement": 1
+//       },
+//       {
+//         "enemy": {
+//           "enemy": Enemy,
+//           "enemyPosition": [
+//             [
+//               0, 1
+//             ],
+//             [
+//               0, .5
+//             ]
+//           ],
+//           "additionalEnemyArguments": [
+//             0
+//           ]
+//         },
+//         "num": 10,
+//         "enemyIncrement": 1,
+//         "packetIncrement": 1
+//       }
+//     ],
+//     "name": "Eternal Celestial Showdown (∞)",
+//     "waveIncrement": 30,
+//     "info": "this wave should always be the last wave"
+//   }
+// ]
