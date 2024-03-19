@@ -86,7 +86,7 @@ class Tower {
   run() {
     this.render();
     this.update();
-    if (!this.liquifyFinal) {
+    if (this.liquifyFinal) {
       this.liquifyFinalUpgrade();
     }
   }
@@ -134,7 +134,6 @@ class Tower {
     for (let i = 0; i < towerGame.hands.length; i++) {
       this.surroundingHands = 0;
       for (let j = 0; j < towerGame.hands.length; j++) {
-       console.log( towerGame.grid[i][j].center)
           let dist = towerGame.hands[i].loc.dist(towerGame.hands[j].loc);
           if (dist < 80) {
             this.surroundingHands++;
@@ -150,7 +149,6 @@ class Tower {
             let checkDistToCell = 0;
           for (let l = 0; l< 15; l++) {
             for(let k = 0; k < this.creatures.length-1; i ++){
-                console.log(p + " " + l)
               checkDistToCell = this.newDist(this.creatures[k].loc, towerGame.grid[p][l].center);
               console.log(checkDistToCell)
               if (checkDistToCell < distToCell) {
