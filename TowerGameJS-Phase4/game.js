@@ -225,6 +225,7 @@ class Game {
   hideImgElement() { this.style.display = "none"; }
 
   run() { // called from draw()
+    console.log(towerGame.gameStateID)
     if (towerState == 1) {
       if (count == 1) {
         //  this.createTileDivs();
@@ -857,14 +858,13 @@ class Game {
 
     else if (!towerGame.placingTower && !cell.hasTower) {
       // toggle the occupied property of the clicked cell
-      if (!cell.occupied && towerGame.bankValue >= towerGame.wallCost && towerGame.allowPlace) {
-        console.log(towerGame.allowPlace)
+      if (!cell.occupied && towerGame.bankValue >= towerGame.wallCost && towerGame.allowPlace && towerGame.gameStateID == 5) {
         towerGame.bankValue -= towerGame.wallCost;
         cell.occupied = true;
-      } else if (!cell.occupied && towerGame.allowPlace) {
-        alert("Insufficient Funds!");
+      } else if (!cell.occupied && towerGame.allowPlace && towerGame.gameStateID == 5) {
+      
       }
-      else if (towerGame.allowPlace){
+      else if (towerGame.allowPlace && towerGame.gameStateID == 5){
         towerGame.bankValue += towerGame.wallCost;
         cell.occupied = false;
       }
