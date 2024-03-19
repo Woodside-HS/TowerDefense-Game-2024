@@ -865,7 +865,7 @@ if(towerGame.placingTower && towerGame.canAddTower(cell)){
           towerGame.bankValue += towerGame.wallCost;
           cell.occupied = false;
         }
-      } else if (this.gameStateID === 5) {
+      } else {
         if (towerGame.placingTower && towerGame.canAddTower(cell)) {
           
           towerGame.placeTower(cell);
