@@ -36,13 +36,13 @@ class Enemy {
     this.img = Enemy.image3;// image for enemy
     this.hitByFreezeUpgraded = false;
 
-    this.normalImmunities = [true, "targetable"];
+    this.normalImmunities = [false, "targetable"];
     this.normalUpgradedImmunities = [false, "targetable"];
     this.fastImmunities = [false, "targetable"];
     this.fastUpgradedImmunities = [false, "targetable"];
     this.freezeImmunities = [false, "targetable"];
     this.freezeUpgradedImmunities = [false, "targetable"];
-    this.explosivelImmunities = [false, "targetable"];
+    this.explosiveImmunities = [false, "targetable"];
     this.explosiveUpgradedImmunities = [false, "targetable"];
     this.rayImmunities = [false, "targetable"];
     this.rayUpgradedImmunities = [false, "targetable"];
@@ -132,7 +132,7 @@ class Enemy {
   // find a new target and rotate the velocity in the direaction
   // of the new target.
   update() {
-    console.log(this.missileImmunities)
+  
     if (!this.missileImmunities[0]) {
       for (let h = 0; h < towerGame.missiles.length; h++) {
         if (this.checkCollide(this, towerGame.missiles[h])) {
@@ -148,8 +148,6 @@ class Enemy {
         if (this.checkCollide(this, towerGame.hands[h])) {
           if (towerGame.hands[h].ability == "liquify") {
             this.health -= 10 * towerGame.hands[h].damageMult;
-
-
           }
         }
       }
