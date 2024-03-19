@@ -849,7 +849,6 @@ class Game {
     let row = Math.floor(event.offsetY / towerGame.w);
     let col = Math.floor(event.offsetX / towerGame.w);
     let cell = towerGame.grid[col][row];
-<<<<<<< Updated upstream
     if (this.gameStateID === 6 ||
         this.gameStateID === 7 ||
         this.gameStateID === 8){
@@ -891,48 +890,6 @@ class Game {
               const popupY = event.offsetY + 45; // Adjust based on your canvas or element positioning
               // Set popupOpen to true as we are now opening a popup
 
-=======
-   
-      if (towerGame.placingTower && towerGame.canAddTower(cell)) {
-        towerGame.placeTower(cell);
-      }
-
-      else if (!towerGame.placingTower && !cell.hasTower) {
-        if (this.gameStateID === 5) {
-        // toggle the occupied property of the clicked cell
-        if (!cell.occupied && towerGame.bankValue >= towerGame.wallCost && towerGame.allowPlace) {
-          console.log(towerGame.allowPlace)
-          towerGame.bankValue -= towerGame.wallCost;
-          cell.occupied = true;
-        } else if (!cell.occupied && towerGame.allowPlace) {
-          alert("Insufficient Funds!");
-        }
-        else if (towerGame.allowPlace) {
-          towerGame.bankValue += towerGame.wallCost;
-          cell.occupied = false;
-        }
-        towerGame.brushfire(towerGame.undo(cell));   // all new distances and parents
-      } else if (!towerGame.placingTower && cell.hasTower) {
-        console.log("Clicked cell at column: " + col + ", row: " + row);
-
-        if (col < 0 || col >= this.cols || row < 0 || row >= this.rows) {
-          console.log("Clicked outside of grid bounds.");
-          return; // Clicked outside the grid
-        }
-
-        console.log("Cell has tower: " + cell.hasTower); // Debugging
-
-        if (cell.hasTower) {
-          for (let i = 0; i < towerGame.towers.length; i++) {
-            let tower = towerGame.towers[i];
-            console.log("Tower " + i + " at: " + tower.loc.x + ", " + tower.loc.y); // Debugging
-            if (Math.abs(tower.loc.x - cell.center.x) < 1 && Math.abs(tower.loc.y - cell.center.y) < 1) {
-              // Instantiate Popup near the tower location
-              const popupX = event.offsetX + 375; // Adjust based on your canvas or element positioning
-              const popupY = event.offsetY + 45; // Adjust based on your canvas or element positioning
-              // Set popupOpen to true as we are now opening a popup
-
->>>>>>> Stashed changes
               // Instantiate Popup near the tower location
               if (towerGame.shownBase === false) {
                 const popup = new Popup(popupX, popupY, tower);
