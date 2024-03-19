@@ -5,6 +5,7 @@ class Cell {
     this.loc = loc;     // top left pixel location
     this.center = vector2d(loc.x + (game.w) / 2, loc.y + (game.w) / 2);
     this.color = 'pink';
+    this.shape = "square";
     this.id = id;
     this.neighbors = [];
     this.occupied = false;
@@ -19,12 +20,14 @@ class Cell {
   // draw cells that are occupied and the root cell
   render() {
     let ctx = this.game.context;
-    ctx.strokeStyle = 'white';
+
+    // ctx.strokeStyle = 'white';
     //   ctx.strokeRect(this.loc.x, this.loc.y, this.game.w, this.game.w);
+
     if (this.occupied) {
-      ctx.drawImage(Cell.wallImage, 0, 0, Cell.wallImage.width, Cell.wallImage.height, this.loc.x, this.loc.y, this.game.w, this.game.w);
-    }
-    else if (this == this.game.root) {
+        ctx.drawImage(Cell.wallImage, 0, 0, Cell.wallImage.width, Cell.wallImage.height, this.loc.x, this.loc.y, this.game.w, this.game.w);
+      } 
+    else if (this === this.game.root) {
       ctx.fillStyle = "yellow";
       ctx.beginPath();
       ctx.ellipse(this.center.x, this.center.y, this.game.w / 2, this.game.w / 2, 0, 2 * Math.PI, false);
@@ -32,11 +35,15 @@ class Cell {
       ctx.stroke();
     }
 
-
-
   }
 
-
+  // addNeighbors()
+  // Find all the neighbors of this cell that exist and are not occupied
+  // and do not have a tower.
+  // Diagonal neighbors must not be blocked diagonally.
+  // For example, a southeast neighbor might not be occupied
+  // but if east and south are both occupied then southeast is blocked
+  // and not considered to be a neighbor.
 
   addNeighbors(game, grid) {
     this.neighbors = [];    // start with empty neighbors
