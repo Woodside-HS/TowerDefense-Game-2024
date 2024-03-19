@@ -149,7 +149,6 @@ class Tower {
             let checkDistToCell = 0;
           for (let l = 0; l< 15; l++) {
             for(let k = 0; k < this.creatures.length-1; i ++){
-                console.log(p + " " + l)
               checkDistToCell = this.newDist(this.creatures[k].loc, towerGame.grid[p][l].center);
               console.log(checkDistToCell)
               if (checkDistToCell < distToCell) {
