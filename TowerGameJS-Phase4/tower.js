@@ -264,14 +264,14 @@ newDist(v1, v2){
       this.target = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY);
     }
     if (this.ability != "missile" && this.ability != "cannon") {
-      if((this.ability == "normal" &&  this.normalImmunities == "targetable") ||
-      (this.ability == "fast" &&  this.fastImmunities == "targetable") ||
-      (this.ability == "freeze" &&  this.freezeImmunities == "targetable") ||
-      (this.ability == "explosive" &&  this.explosiveImmunities == "targetable") ||
-      (this.ability == "ray" &&  this.rayImmunities == "targetable") ||
-      (this.ability == "bladeStorm" &&  this.bladeStormImmunities == "targetable") ||
-      (this.ability == "liquify" &&  this.liquifyImmunities == "targetable") ||
-      (this.ability == "buffregen" &&  this.buffregenImmunities == "targetable") ){
+      if((this.ability == "normal" &&  this.normalImmunities[1] == "targetable") ||
+      (this.ability == "fast" &&  this.fastImmunities[1] == "targetable") ||
+      (this.ability == "freeze" &&  this.freezeImmunities[1] == "targetable") ||
+      (this.ability == "explosive" &&  this.explosiveImmunities[1] == "targetable") ||
+      (this.ability == "ray" &&  this.rayImmunities[1] == "targetable") ||
+      (this.ability == "bladeStorm" &&  this.bladeStormImmunities[1] == "targetable") ||
+      (this.ability == "liquify" &&  this.liquifyImmunities[1] == "targetable") ||
+      (this.ability == "buffregen" &&  this.buffregenImmunities[1] == "targetable") ){
         //the buffing tower does not attack why do you have this as it does not attack
       let dx = this.loc.x - this.target.x;
       let dy = this.loc.y - this.target.y;
@@ -347,7 +347,8 @@ newDist(v1, v2){
     if (this.placed &&
       dist < this.range &&
       dist > this.minRange &&
-      (millis - this.lastTime > this.coolDown) && towerGame.enemies.length != 0 && this.target.x != towerGame.canvas.mouseX) {
+      (millis - this.lastTime > this.coolDown) && towerGame.enemies.length != 0 && this.target.x != towerGame.canvas.mouseX
+      && this.towAngle != 0) {
       // reset lastTime to current time
       this.lastTime = millis;
       let bulletLocation = vector2d(this.loc.x, this.loc.y);
