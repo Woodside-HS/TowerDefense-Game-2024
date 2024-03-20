@@ -247,7 +247,7 @@ newDist(v1, v2){
   update() {
  
     //  Rotate turret to follow mouse
-    this.enemy = this.findEnemy()
+    this.enemy = this.findEnemy();
     if (this.enemy) {
       this.target = this.enemy.loc;
       if (this.ability == "missile" || this.ability == "cannon") {
@@ -263,15 +263,16 @@ newDist(v1, v2){
     } else {
       this.target = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY);
     }
+    console.log(this.enemy)
     if (this.ability != "missile" && this.ability != "cannon") {
-      if((this.ability == "normal" &&  this.normalImmunities[1] == "targetable") ||
-      (this.ability == "fast" &&  this.fastImmunities[1] == "targetable") ||
-      (this.ability == "freeze" &&  this.freezeImmunities[1] == "targetable") ||
-      (this.ability == "explosive" &&  this.explosiveImmunities[1] == "targetable") ||
-      (this.ability == "ray" &&  this.rayImmunities[1] == "targetable") ||
-      (this.ability == "bladeStorm" &&  this.bladeStormImmunities[1] == "targetable") ||
-      (this.ability == "liquify" &&  this.liquifyImmunities[1] == "targetable") ||
-      (this.ability == "buffregen" &&  this.buffregenImmunities[1] == "targetable") ){
+      if((this.ability == "normal" &&  this.enemy.normalImmunities[1] == "targetable") ||
+      (this.ability == "fast" &&  this.enemy.fastImmunities[1] == "targetable") ||
+      (this.ability == "freeze" &&  this.enemy.freezeImmunities[1] == "targetable") ||
+      (this.ability == "explosive" &&  this.enemy.explosiveImmunities[1] == "targetable") ||
+      (this.ability == "ray" &&  this.enemy.rayImmunities[1] == "targetable") ||
+      (this.ability == "bladeStorm" &&  this.enemy.bladeStormImmunities[1] == "targetable") ||
+      (this.ability == "liquify" &&  this.enemy.liquifyImmunities[1] == "targetable") ||
+      (this.ability == "buffregen" &&  this.enemy.buffregenImmunities[1] == "targetable") ){
         //the buffing tower does not attack why do you have this as it does not attack
       let dx = this.loc.x - this.target.x;
       let dy = this.loc.y - this.target.y;
