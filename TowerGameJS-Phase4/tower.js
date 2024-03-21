@@ -264,16 +264,16 @@ newDist(v1, v2){
       this.target = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY);
     }
     if (this.ability != "missile" && this.ability != "cannon") {
-      if(this.enemies.length > 0){
-       let enemyImmunties = this.findEnemy()
-      if((this.ability == "normal" &&  this.enemy.normalImmunities[1] == "targetable") ||
-      (this.ability == "fast" &&  this.enemy.fastImmunities[1] == "targetable") ||
-      (this.ability == "freeze" &&  this.enemy.freezeImmunities[1] == "targetable") ||
-      (this.ability == "explosive" &&  this.enemy.explosiveImmunities[1] == "targetable") ||
-      (this.ability == "ray" &&  this.enemy.rayImmunities[1] == "targetable") ||
-      (this.ability == "bladeStorm" &&  this.enemy.bladeStormImmunities[1] == "targetable") ||
-      (this.ability == "liquify" &&  this.enemy.liquifyImmunities[1] == "targetable") ||
-      (this.ability == "buffregen" &&  this.enemy.buffregenImmunities[1] == "targetable") ){
+      if(this.enemy){
+       let enemyImmunties = this.findEnemy();
+      if((this.ability == "normal" &&  enemyImmunties.normalImmunities[1] == "targetable") ||
+      (this.ability == "fast" &&  enemyImmunties.fastImmunities[1] == "targetable") ||
+      (this.ability == "freeze" &&  enemyImmunties.freezeImmunities[1] == "targetable") ||
+      (this.ability == "explosive" &&  enemyImmunties.explosiveImmunities[1] == "targetable") ||
+      (this.ability == "ray" &&  enemyImmunties.rayImmunities[1] == "targetable") ||
+      (this.ability == "bladeStorm" &&  enemyImmunties.bladeStormImmunities[1] == "targetable") ||
+      (this.ability == "liquify" &&  enemyImmunties.liquifyImmunities[1] == "targetable") ||
+      (this.ability == "buffregen" &&  enemyImmunties.buffregenImmunities[1] == "targetable") ){
         //the buffing tower does not attack why do you have this as it does not attack
       let dx = this.loc.x - this.target.x;
       let dy = this.loc.y - this.target.y;
