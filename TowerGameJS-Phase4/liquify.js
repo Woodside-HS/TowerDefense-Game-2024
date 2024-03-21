@@ -63,6 +63,9 @@ class Liquify {
     }
     return new Vector2d(v1.x, v1.y);
   }
+  newDist(v1, v2){
+    return(Math.sqrt((v2.x-v2.x)*(v2.x-v1.x) + (v2.y-v1.y)*(v2.y-v1.y)));
+}
   update() {
     this.lifeSpan --;
     if(this.lifeSpan <= 0){

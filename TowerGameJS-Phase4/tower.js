@@ -86,9 +86,9 @@ class Tower {
   run() {
     this.render();
     this.update();
-    if (this.liquifyFinal) {
+    //if (!this.liquifyFinal) {
       this.liquifyFinalUpgrade();
-    }
+    //}
   }
 
   damageUpgrade() {
@@ -134,12 +134,13 @@ class Tower {
     for (let i = 0; i < towerGame.hands.length; i++) {
       this.surroundingHands = 0;
       for (let j = 0; j < towerGame.hands.length; j++) {
-          let dist = towerGame.hands[i].loc.dist(towerGame.hands[j].loc);
+    
+          let dist = this.newDist(towerGame.hands[j].loc, towerGame.hands[i].loc);
           if (dist < 80) {
             this.surroundingHands++;
-            if(this.surroundingHands < 2){
-            this.creatures.push(towerGame.hands[i]);
-            }
+            // if(this.surroundingHands < 2){
+            // this.creatures.push(towerGame.hands[i]);
+            // }
           }
       }
       if (this.surroundingHands > 2) {
@@ -169,7 +170,7 @@ class Tower {
 
   
 newDist(v1, v2){
-    return(Math.sqrt((v2.x-v2.x)*(v2.x-v1.x) + (v2.y-v1.y)*(v2.y-v1.y)));
+    return(Math.sqrt((v2.x-v1.x)*(v2.x-v1.x) + (v2.y-v1.y)*(v2.y-v1.y)));
 }
   render() {
     var ctx = towerGame.context;
