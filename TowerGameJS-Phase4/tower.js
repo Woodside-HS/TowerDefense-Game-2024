@@ -107,7 +107,7 @@ class Tower {
     } else if (ability == "fast") {
       this.finalFast = true;//slashing ability
       this.coolDown *= 0.8;
-      this.damageMult *= 1.5
+      this.damageMult *= 1.5;
     } else if (ability == "freeze") {
       this.finalFreeze = true;
     } else if (ability == "explosive") {
@@ -245,32 +245,56 @@ newDist(v1, v2){
   }
 
   update() {
-
+ 
     //  Rotate turret to follow mouse
-    this.enemy = this.findEnemy()
+    this.enemy = this.findEnemy();
     if (this.enemy) {
       this.target = this.enemy.loc;
       if (this.ability == "missile" || this.ability == "cannon") {
+       
         let dx = this.loc.x - this.target.x;
         let dy = this.loc.y - this.target.y;
         let dist = vector2d(dx, dy).length();
         if (dist < this.minRange) {
-          this.target = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY)
+          this.target = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY);
         }
-      }
+      
+    }
     } else {
-      this.target = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY)
+      this.target = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY);
     }
     if (this.ability != "missile" && this.ability != "cannon") {
+      if(this.enemy){
+       let enemyImmunties = this.findEnemy();
+      if((this.ability == "normal" &&  enemyImmunties.normalImmunities[1] == "targetable") ||
+      (this.ability == "fast" &&  enemyImmunties.fastImmunities[1] == "targetable") ||
+      (this.ability == "freeze" &&  enemyImmunties.freezeImmunities[1] == "targetable") ||
+      (this.ability == "explosive" &&  enemyImmunties.explosiveImmunities[1] == "targetable") ||
+      (this.ability == "ray" &&  enemyImmunties.rayImmunities[1] == "targetable") ||
+      (this.ability == "bladeStorm" &&  enemyImmunties.bladeStormImmunities[1] == "targetable") ||
+      (this.ability == "liquify" &&  enemyImmunties.liquifyImmunities[1] == "targetable") ||
+      (this.ability == "buffregen" &&  enemyImmunties.buffregenImmunities[1] == "targetable") ||
+      (this.ability == "normal" &&  enemyImmunties.normalUpgradedImmunities[1] == "targetable") ||
+      (this.ability == "fast" &&  enemyImmunties.fastUpgradedImmunities[1] == "targetable") ||
+      (this.ability == "freeze" &&  enemyImmunties.freezeUpgradedImmunities[1] == "targetable") ||
+      (this.ability == "explosive" &&  enemyImmunties.explosiveUpgradedImmunities[1] == "targetable") ||
+      (this.ability == "ray" &&  enemyImmunties.rayUpgradedImmunities[1] == "targetable") ||
+      (this.ability == "bladeStorm" &&  enemyImmunties.bladeStormUpgradedImmunities[1] == "targetable") ||
+      (this.ability == "liquify" &&  enemyImmunties.liquifyUpgradedImmunities[1] == "targetable") ||
+      (this.ability == "buffregen" &&  enemyImmunties.buffregenUpgradedImmunities[1] == "targetable")
+      ){
+        //the buffing tower does not attack why do you have this as it does not attack
       let dx = this.loc.x - this.target.x;
       let dy = this.loc.y - this.target.y;
       this.towAngle = Math.atan2(dy, dx) - Math.PI;
+      }
+    }
     } else {
 
       towerGame.canvas.addEventListener('click', () => {
         if (this.count == 0) {
           this.count += 1;
-          return;//what is this even for
+          return;
         }
 
 
@@ -335,7 +359,8 @@ newDist(v1, v2){
     if (this.placed &&
       dist < this.range &&
       dist > this.minRange &&
-      (millis - this.lastTime > this.coolDown) && towerGame.enemies.length != 0 && this.target.x != towerGame.canvas.mouseX) {
+      (millis - this.lastTime > this.coolDown) && towerGame.enemies.length != 0 && this.target.x != towerGame.canvas.mouseX
+      && this.towAngle != 0) {
       // reset lastTime to current time
       this.lastTime = millis;
       let bulletLocation = vector2d(this.loc.x, this.loc.y);
