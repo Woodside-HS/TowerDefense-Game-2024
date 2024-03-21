@@ -150,10 +150,10 @@ var panelJSON = [{
         document.getElementById("endPanel").parentNode.removeChild(document.getElementById("endPanel"))
       }
     }, {
-      name: "Quit Button",
+      name: "Home Button",
       id: "quitButton",
-      pic: "resources/images/panels/end.png",
-      picId: "exit",
+      pic: "resources/images/panels/home.png",
+      picId: "home",
       funk: function () {
         document.getElementById("endPanel").parentNode.removeChild(document.getElementById("endPanel"))
         towerGame.gameState.panelQuit = new Panel(towerGame, 2)
@@ -245,7 +245,7 @@ var panelJSON = [{
       pic: "resources/images/panels/levelSelPanel/custom.png",
       picId: "tower",
       funk: function () {
-        towerGame.gameState.towerPanel = new Panel(towerGame, 6, 400, 880, 730)
+        towerGame.gameState.towerPanel = new Panel(towerGame, 6, 180, 900, 670)
         document.getElementById("catalogHomePanel").parentNode.removeChild(document.getElementById("catalogHomePanel"))
       }
     }, {
@@ -259,10 +259,10 @@ var panelJSON = [{
     },
 
     {
-      name: "Quit Button",
+      name: "Home Button",
       id: "quitButton",
-      pic: "resources/images/panels/end.png",
-      picId: "exit",
+      pic: "resources/images/panels/home.png",
+      picId: "home",
       funk: function () {
         document.getElementById("catalogHomePanel").parentNode.removeChild(document.getElementById("catalogHomePanel"))
         towerGame.gameState = new GameState1(towerGame)
