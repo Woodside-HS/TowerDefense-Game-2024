@@ -42,13 +42,13 @@ class GameState2 extends GameState { // Level screen
     super(game);
     towerGame.gameStateID = 6;
     this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/levelSelector.jpg')"
-    this.panelLvlSelector = new Panel(this, 3);
+    this.panelLvlSelector = new Panel(this, 3, 480);
 
   }
 
   run() {
     this.game.render();
-    this.panelLvlSelector.render(true, 450);
+    this.panelLvlSelector.render(true);
   }
 
 }
@@ -160,7 +160,7 @@ class GameState5 extends GameState { // game itself
     this.game.removePests();
     this.game.removeMissiles();
     this.game.removeEnemies();
-    this.game.controlWaves()
+    this.game.controlWaves();
     this.game.backgroundMusic.play();
     if (this.game.isRunning) {
       this.game.render();

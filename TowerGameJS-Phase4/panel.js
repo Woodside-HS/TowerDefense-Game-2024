@@ -1,10 +1,11 @@
 "use strict";
 
 class Panel {
-  constructor(game, number) {
+  constructor(game, number, y = 550) {
     this.game = game;
     this.temp = 0;
     this.y = -590;
+    this.endY = y;
     this.panel = document.createElement("div");
     this.panel.id = panelJSON[number].id;
     this.panel.style.width = 450 + "px";
@@ -12,7 +13,7 @@ class Panel {
     this.panel.style.backgroundImage = 'url("' + panelJSON[number].pic + '")';
     this.panel.style.position = "absolute";
     this.panel.style.align = "center";
-    this.panel.style.top = 550 + "px";
+    this.panel.style.top = 0 + "px";
     this.panel.style.left = 0 + "px";
     this.panel.style.right = 0 + "px";
     this.panel.style.textAlign = "center";
@@ -30,11 +31,11 @@ class Panel {
     });
   }
 
-  render(slideCheck, y = 550) {
+  render(slideCheck) {
     if (slideCheck === true) {
-      this.y = this.slideDown(this.y, 550, .03);
+      this.y = this.slideDown(this.y, this.endY, .03);
     } else if (slideCheck === false) {
-      this.y = y;
+      this.y = this.endY;
     }
     this.panel.style.top = this.y + "px"
   }
@@ -108,7 +109,6 @@ var panelJSON = [{
       picId: "catalog",
       funk: function () {
         towerGame.gameState = new GameState4(towerGame, 4)
-        towerGame.gameState.panelInstructions = new Panel(towerGame, 5)
         document.getElementById("firstPanel").parentNode.removeChild(document.getElementById("firstPanel"))
       }
 
