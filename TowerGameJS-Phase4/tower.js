@@ -107,7 +107,7 @@ class Tower {
     } else if (ability == "fast") {
       this.finalFast = true;//slashing ability
       this.coolDown *= 0.8;
-      this.damageMult *= 1.5
+      this.damageMult *= 1.5;
     } else if (ability == "freeze") {
       this.finalFreeze = true;
     } else if (ability == "explosive") {
@@ -273,7 +273,16 @@ newDist(v1, v2){
       (this.ability == "ray" &&  enemyImmunties.rayImmunities[1] == "targetable") ||
       (this.ability == "bladeStorm" &&  enemyImmunties.bladeStormImmunities[1] == "targetable") ||
       (this.ability == "liquify" &&  enemyImmunties.liquifyImmunities[1] == "targetable") ||
-      (this.ability == "buffregen" &&  enemyImmunties.buffregenImmunities[1] == "targetable") ){
+      (this.ability == "buffregen" &&  enemyImmunties.buffregenImmunities[1] == "targetable") ||
+      (this.ability == "normal" &&  enemyImmunties.normalUpgradedImmunities[1] == "targetable") ||
+      (this.ability == "fast" &&  enemyImmunties.fastUpgradedImmunities[1] == "targetable") ||
+      (this.ability == "freeze" &&  enemyImmunties.freezeUpgradedImmunities[1] == "targetable") ||
+      (this.ability == "explosive" &&  enemyImmunties.explosiveUpgradedImmunities[1] == "targetable") ||
+      (this.ability == "ray" &&  enemyImmunties.rayUpgradedImmunities[1] == "targetable") ||
+      (this.ability == "bladeStorm" &&  enemyImmunties.bladeStormUpgradedImmunities[1] == "targetable") ||
+      (this.ability == "liquify" &&  enemyImmunties.liquifyUpgradedImmunities[1] == "targetable") ||
+      (this.ability == "buffregen" &&  enemyImmunties.buffregenUpgradedImmunities[1] == "targetable")
+      ){
         //the buffing tower does not attack why do you have this as it does not attack
       let dx = this.loc.x - this.target.x;
       let dy = this.loc.y - this.target.y;

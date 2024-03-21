@@ -136,18 +136,23 @@ class Enemy {
     for (let h = 0; h < towerGame.missiles.length; h++) {
       if (this.checkCollide(this, towerGame.missiles[h])) {
         if (towerGame.missiles[h].ability == "missile") {
-          if(!this.missileImmunities[0]){
+          if (!this.missileImmunities[0]) {
+            this.health -= 800 * towerGame.missiles[h].damageMult;//this does not current work
+            towerGame.missiles.splice(h, 1);
+          }
+        } else if (!this.missileImmunities[0]) {
           this.health -= 800 * towerGame.missiles[h].damageMult;//this does not current work
           towerGame.missiles.splice(h, 1);
-          }
         }
       }
     }
     for (let h = 0; h < towerGame.hands.length; h++) {
       if (this.checkCollide(this, towerGame.hands[h])) {
         if (towerGame.hands[h].ability == "liquify") {
-          if(!this.liquifyImmunities[0]){
-          this.health -= 10 * towerGame.hands[h].damageMult;
+          if (!this.liquifyImmunities[0]) {
+            this.health -= 10 * towerGame.hands[h].damageMult;
+          }else if (!this.liquifyUpgradedImmunities[0]){
+            this.health -= 10 * towerGame.hands[h].damageMult;
           }
 
         }
@@ -156,8 +161,10 @@ class Enemy {
     for (let h = 0; h < towerGame.blades.length; h++) {
       if (this.checkCollide(this, towerGame.blades[h])) {
         if (towerGame.blades[h].ability == "bladeStorm") {
-          if(!this.bladestormImmunities[0]){
-          this.health -= 100 * towerGame.blades[h].damageMult;
+          if (!this.bladeStormImmunities[0]) {
+            this.health -= 100 * towerGame.blades[h].damageMult;
+          } else if (!this.bladeStormUpgradedImmunities[0]) {
+            this.health -= 100 * towerGame.blades[h].damageMult;
           }
         }
       }
@@ -168,62 +175,71 @@ class Enemy {
       if (this.checkCollide(this, towerGame.bullets[h])) {
         if (towerGame.bullets[h].ability == "normal") {
           if (!towerGame.piercingArrow) {
-            if(!this.normalImmunities[0]){
-            this.health = this.health - 500 * towerGame.bullets[h].damageMult;
-            towerGame.bullets.splice(h, 1);
+            if (!this.normalImmunities[0]) {
+              this.health = this.health - 500 * towerGame.bullets[h].damageMult;
+              towerGame.bullets.splice(h, 1);
             }
           } else {
-            if(!this.normalUpgradedImmunities[0]){
-            this.health = this.health - 150 * towerGame.bullets[h].damageMult;
+            if (!this.normalUpgradedImmunities[0]) {
+              this.health = this.health - 150 * towerGame.bullets[h].damageMult;
             }
           }
         } else if (towerGame.bullets[h].ability == "fast") {
-          if(!this.fastImmunities[0]){
-          this.health = this.health - 350 * towerGame.bullets[h].damageMult;
-          towerGame.bullets.splice(h, 1);
+          if (!this.fastImmunities[0]) {
+            this.health = this.health - 350 * towerGame.bullets[h].damageMult;
+            towerGame.bullets.splice(h, 1);
+          }else if(!this.fastUpgradedImmunities){
+            this.health = this.health - 350 * towerGame.bullets[h].damageMult;
+            towerGame.bullets.splice(h, 1);
           }
         } else if (towerGame.bullets[h].ability == "freeze") {
-          if(!this.freezeImmunities[0]){
-          this.health = this.health - 25 * towerGame.bullets[h].damageMult;
-          this.slowed -= 1; 
+          if (!this.freezeImmunities[0]) {
+            this.health = this.health - 25 * towerGame.bullets[h].damageMult;
+            this.slowed -= 1;
+            setTimeout(() => {
+              this.slowed = 1.2;
+            }, 3500);
           }
-          if(!this.freezeUpgradedImmunities[0]){
-          if (towerGame.bullets[h].finalFreeze) {
-            this.hitByFreezeUpgraded = true;
+          if (!this.freezeUpgradedImmunities[0]) {
+            if (towerGame.bullets[h].freezeUpgradeFinal) {
+              this.hitByFreezeUpgraded = true;
+            }
+            setTimeout(() => {
+              this.slowed = 1.2;
+              this.hitByFreezeUpgraded = false;
+            }, 3500);
           }
-          setTimeout(() => {
-            this.slowed = 1.2;
-            this.hitByFreezeUpgraded = false;
-          }, 2000);
-        }
         } else if (towerGame.bullets[h].ability == "cannon") {
-          if(!this.cannonImmunities[0]){
-          this.health = this.health - 500 * towerGame.bullets[h].damageMult;
-          towerGame.bullets.splice(h, 1);
+          if (!this.cannonImmunities[0]) {
+            this.health = this.health - 500 * towerGame.bullets[h].damageMult;
+            towerGame.bullets.splice(h, 1);
+          }else if (!this.cannonUpgradedImmunities[0]){
+            this.health = this.health - 500 * towerGame.bullets[h].damageMult;
+            towerGame.bullets.splice(h, 1);
           }
         } else if (towerGame.bullets[h].ability == "explosive") {
-          if(!this.bladestormImmunities[0]){
-          this.health = this.health - 100 * towerGame.bullets[h].damageMult;
-          if (this.health <= 0) {
-            this.kill = true;
-          }
-          this.locations = this.loc;
-          towerGame.explosiveBullets.push(new Explosives(towerGame.bullets[h].loc, towerGame.bullets[h].ability));
+          if (!this.bladestormImmunities[0]) {
+            this.health = this.health - 100 * towerGame.bullets[h].damageMult;
+            if (this.health <= 0) {
+              this.kill = true;
+            }
+            this.locations = this.loc;
+            towerGame.explosiveBullets.push(new Explosives(towerGame.bullets[h].loc, towerGame.bullets[h].ability));
 
-          towerGame.bullets.splice(h, 1);
-        }
+            towerGame.bullets.splice(h, 1);
+          }
         }
         else if (towerGame.bullets[h].ability == "explosive") {
-          if(!this.explosiveImmunities[0]){
-          this.health -= 100 * towerGame.bullets[h].damageMult;
-          if (this.health <= 0) {
-            this.kill = true;
-          }
-          this.locations = this.loc;
-          towerGame.explosiveBullets.push(new Explosives(towerGame.bullets[h].loc, towerGame.bullets[h].ability));
+          if (!this.explosiveImmunities[0]) {
+            this.health -= 100 * towerGame.bullets[h].damageMult;
+            if (this.health <= 0) {
+              this.kill = true;
+            }
+            this.locations = this.loc;
+            towerGame.explosiveBullets.push(new Explosives(towerGame.bullets[h].loc, towerGame.bullets[h].ability));
 
-          towerGame.bullets.splice(h, 1);
-        }
+            towerGame.bullets.splice(h, 1);
+          }
         }
 
 
@@ -380,6 +396,10 @@ class Enemy {
   }
 
 } // end class ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//this.normalImmunities = [false, "targetable"];
+//false if it can't hit the enemy so false of default means yes you can hit
+//targetable is basically if the enemy is immune to the towers attack the tower will still target it unless the targetable
+// is set to something that is not targetable
 class Enemy1 extends Enemy {
   constructor(game) {
     super(game);
