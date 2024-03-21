@@ -1,91 +1,111 @@
 
 class Wave {
-  
-  constructor(game,waveJson) {
-    this.game=game;
-    this.waveJson=waveJson;
-    this.enemyId=[0,0];
-    this.referenceTime=this.game.gameTime+this.waveJson.waveIncrement;
-    this.spawnOver=false;
+
+  constructor(game, waveJson) {
+    this.game = game;
+    this.waveJson = waveJson;
+    this.enemyId = [0, 0];
+    this.referenceTime = this.game.gameTime + this.waveJson.waveIncrement;
+    this.spawnOver = false;
   }
 
   run() {
 
-      while(this.game.gameTime>this.referenceTime && !this.spawnOver){
-        if(this.enemyId[0]<this.waveJson.packets.length){
-          if(this.enemyId[1]<this.waveJson.packets[this.enemyId[0]].num){
-            this.game.enemies.push(this.enemySelector(this.game,this.waveJson.packets[this.enemyId[0]].enemy))
-            this.referenceTime+=this.waveJson.packets[this.enemyId[0]].enemyIncrement
-            this.enemyId[1]+=1;
-          }else{
-            this.referenceTime+=this.waveJson.packets[this.enemyId[0]].packetIncrement
-            this.enemyId[1]=0;
-            this.enemyId[0]+=1;
-          }
-        }else{
-          this.spawnOver=true;
-          break;
+
+    while (this.game.gameTime > this.referenceTime && !this.spawnOver) {
+      if (this.enemyId[0] < this.waveJson.packets.length) {
+        if (this.enemyId[1] < this.waveJson.packets[this.enemyId[0]].num) {
+          this.game.enemies.push(this.enemySelector(this.game, this.waveJson.packets[this.enemyId[0]].enemy))
+          this.referenceTime += this.waveJson.packets[this.enemyId[0]].enemyIncrement
+          this.enemyId[1] += 1
+        } else {
+          this.referenceTime += this.waveJson.packets[this.enemyId[0]].packetIncrement
+          this.enemyId[1] = 0
+          this.enemyId[0] += 1
         }
+      } else {
+        this.spawnOver = true
+        break
+
       }
 
+    }
   }
 
   isWaveOver() {
-    if(!this.game.enemies[0] && this.spawnOver){
-      return true;
-    }else{
-      return false;
+    if (!this.game.enemies[0] && this.spawnOver) {
+
+      return true
+    } else {
+      return false
     }
   }
-    //parses JSON
-    enemySelector(game,enemyJSON) {
-       // if we found a valid cell to start the enemy
-        //create an array of the arguments for the enemy class
-        var args=[null,game].concat(enemyJSON.additionalEnemyArguments);
-        //apply the argument array to the specified enemy class
-        var tempEnemy= enemyJSON.enemy.bind.apply(enemyJSON.enemy,args);
-        return new tempEnemy;
+  //parses JSON
+  enemySelector(game, enemyJSON) {
+    // if we found a valid cell to start the enemy
+    //create an array of the arguments for the enemy class
 
-    }
+    var args = [null, game].concat(enemyJSON.additionalEnemyArguments)
+    //apply the argument array to the specified enemy class
+    var tempEnemy = enemyJSON.enemy.bind.apply(enemyJSON.enemy, args)
+    return new tempEnemy
+
+
+  }
 }
 
 
 function generateWaves() {
   let waves = []; //array of waves
   let baseNumEnemies = 10; // Base number of enemies for the first wave
-  let enemyIncrementPerWave = 5; // How much the number of enemies increases per wave
+  let enemyIncrementPerWave = 5;  // How much the number of enemies increases per wave
   let baseEnemyIncrement = 1; // Base time between enemy spawns
   let basePacketIncrement = 1; // Base time between packets (a packet is a small group of enemies appearing at once within a wave
   //waves have multiple packets
   let waveIncrement = 20; //time between start of game and first wave (can be skipped w/ start button)
+  let enemyNumArray = [ //array that tells you the number of each type of enemy for each wave
+    [10, 15, 1, 0, 0],
+    [10, 0, 3, 0, 0],
+    [10, 5, 1, 0, 0],
+    [10, 5, 1, 0, 0],
+    [10, 5, 1, 0, 0],
+    [10, 5, 1, 0, 0],
+    [1, 1, 1, 1, 1],
+    [100, 600, 100, 0, 0],
+    [70, 0, 0, 120, 60],
+    [6660, 660, 66660, 0, 0],
+    [1, 0, 0, 0, 0],
+    [0, 0, 1500, 3500, 0],
+    [0, 0, 0, 0, 100000],
+    [0, 0, 0, 0, 1000000]
+  ]
 
   for (let waveIndex = 1; waveIndex <= 14; waveIndex++) { //loops through waves
     let packets = []; //each wave has an array of packets, each of which will be filled w/ a few enemies
-    let numEnemies = baseNumEnemies + (waveIndex - 1) * enemyIncrementPerWave;
-    let enemyIncrement = baseEnemyIncrement / waveIndex; // Example of increasing difficulty
-    let packetIncrement = basePacketIncrement * waveIndex; // Example of increasing difficulty
-    if (waveIndex > 1) {
-      waveIncrement = 6; //basically this just sets the time between waves to 6 once wave 1 is done (otherwise it would remain at 20)
+    let numEnemiesArray = enemyNumArray[waveIndex - 1]; // Get the enemy distribution array for the current wave
+
+    for (let enemyType = 0; enemyType < numEnemiesArray.length; enemyType++) {
+      let numEnemies = numEnemiesArray[enemyType];
+      let enemyIncrement = baseEnemyIncrement / (waveIndex + 1);
+      let packetIncrement = basePacketIncrement * (waveIndex + 1);
+
+      if (numEnemies > 0) {
+        packets.push({ //creates a packet for each enemytype
+          "enemy": {
+            "enemy": eval(`Enemy${enemyType + 1}`), // Dynamically select the enemy class
+            "additionalEnemyArguments": [1]
+          },
+          "num": numEnemies,
+          "enemyIncrement": enemyIncrement,
+          "packetIncrement": packetIncrement
+        });
+      }
     }
 
-    // Assuming 3 types of enemies for simplicity, you can adjust as needed
-    for (let enemyType = 1; enemyType <= 3; enemyType++) {
-      packets.push({ //creates a packet for each enemytype
-        "enemy": {
-          "enemy": eval(`Enemy${enemyType}`), // Dynamically select the enemy class
-          "additionalEnemyArguments": [1], // Example argument, adjust as needed—IGNORE THIS
-          // Add "enemyPosition" if needed
-        },
-        "num": Math.round(numEnemies / 3), // Distribute the total number of enemies across the packets within the wave
-        "enemyIncrement": enemyIncrement,
-        "packetIncrement": packetIncrement
-      });
-    }
-
-    waves.push({ //fills the wave with the packets
+    waves.push({//fills the wave with the packets
       "packets": packets,
-      "name": `Wave ${waveIndex}`, //will fix later to add actual wave names
-      "waveIncrement": waveIncrement //time between waves
+      "name": `Wave ${waveIndex}`,
+      "waveIncrement": waveIndex > 1 ? 6 : waveIncrement //basically this just sets the time between waves to 6 once wave 1 is done (otherwise it would remain at 20)
     });
   }
 
