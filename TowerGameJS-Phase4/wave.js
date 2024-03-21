@@ -1,52 +1,57 @@
 
 class Wave {
-  
-  constructor(game,waveJson) {
-    this.game=game;
-    this.waveJson=waveJson;
-    this.enemyId=[0,0];
-    this.referenceTime=this.game.gameTime+this.waveJson.waveIncrement;
-    this.spawnOver=false;
+
+  constructor(game, waveJson) {
+    this.game = game;
+    this.waveJson = waveJson;
+    this.enemyId = [0, 0];
+    this.referenceTime = this.game.gameTime + this.waveJson.waveIncrement;
+    this.spawnOver = false;
   }
 
   run() {
 
-      while(this.game.gameTime>this.referenceTime && !this.spawnOver){
-        if(this.enemyId[0]<this.waveJson.packets.length){
-          if(this.enemyId[1]<this.waveJson.packets[this.enemyId[0]].num){
-            this.game.enemies.push(this.enemySelector(this.game,this.waveJson.packets[this.enemyId[0]].enemy))
-            this.referenceTime+=this.waveJson.packets[this.enemyId[0]].enemyIncrement
-            this.enemyId[1]+=1;
-          }else{
-            this.referenceTime+=this.waveJson.packets[this.enemyId[0]].packetIncrement
-            this.enemyId[1]=0;
-            this.enemyId[0]+=1;
-          }
-        }else{
-          this.spawnOver=true;
-          break;
+
+    while (this.game.gameTime > this.referenceTime && !this.spawnOver) {
+      if (this.enemyId[0] < this.waveJson.packets.length) {
+        if (this.enemyId[1] < this.waveJson.packets[this.enemyId[0]].num) {
+          this.game.enemies.push(this.enemySelector(this.game, this.waveJson.packets[this.enemyId[0]].enemy))
+          this.referenceTime += this.waveJson.packets[this.enemyId[0]].enemyIncrement
+          this.enemyId[1] += 1
+        } else {
+          this.referenceTime += this.waveJson.packets[this.enemyId[0]].packetIncrement
+          this.enemyId[1] = 0
+          this.enemyId[0] += 1
         }
+      } else {
+        this.spawnOver = true
+        break
+
       }
 
+    }
   }
 
   isWaveOver() {
-    if(!this.game.enemies[0] && this.spawnOver){
-      return true;
-    }else{
-      return false;
+    if (!this.game.enemies[0] && this.spawnOver) {
+
+      return true
+    } else {
+      return false
     }
   }
-    //parses JSON
-    enemySelector(game,enemyJSON) {
-       // if we found a valid cell to start the enemy
-        //create an array of the arguments for the enemy class
-        var args=[null,game].concat(enemyJSON.additionalEnemyArguments);
-        //apply the argument array to the specified enemy class
-        var tempEnemy= enemyJSON.enemy.bind.apply(enemyJSON.enemy,args);
-        return new tempEnemy;
+  //parses JSON
+  enemySelector(game, enemyJSON) {
+    // if we found a valid cell to start the enemy
+    //create an array of the arguments for the enemy class
 
-    }
+    var args = [null, game].concat(enemyJSON.additionalEnemyArguments)
+    //apply the argument array to the specified enemy class
+    var tempEnemy = enemyJSON.enemy.bind.apply(enemyJSON.enemy, args)
+    return new tempEnemy
+
+
+  }
 }
 
 
@@ -58,6 +63,22 @@ function generateWaves() {
   let basePacketIncrement = 1; // Base time between packets (a packet is a small group of enemies appearing at once within a wave
   //waves have multiple packets
   let waveIncrement = 20; //time between start of game and first wave (can be skipped w/ start button)
+  let enemyNumArray = [
+    [10, 15, 1, 0, 0],
+    [10, 0, 3, 0, 0],
+    [10, 5, 1, 0, 0],
+    [10, 5, 1, 0, 0],
+    [10, 5, 1, 0, 0],
+    [10, 5, 1, 0, 0],
+    [1, 1, 1, 1, 1],
+    [100, 600, 100, 0, 0],
+    [70, 0, 0, 120, 60],
+    [6660, 660, 66660, 0, 0],
+    [1, 0, 0, 0, 0],
+    [0, 0, 1500, 3500, 0],
+    [0, 0, 0, 0, 100000],
+    [0, 0, 0, 0, 1000000]
+  ]
 
   for (let waveIndex = 1; waveIndex <= 14; waveIndex++) { //loops through waves
     let packets = []; //each wave has an array of packets, each of which will be filled w/ a few enemies
