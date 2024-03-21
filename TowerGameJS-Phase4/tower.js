@@ -265,7 +265,7 @@ newDist(v1, v2){
     }
     if (this.ability != "missile" && this.ability != "cannon") {
       if(this.enemies.length > 0){
-        console.log(this.enemy)
+       let enemyImmunties = this.findEnemy()
       if((this.ability == "normal" &&  this.enemy.normalImmunities[1] == "targetable") ||
       (this.ability == "fast" &&  this.enemy.fastImmunities[1] == "targetable") ||
       (this.ability == "freeze" &&  this.enemy.freezeImmunities[1] == "targetable") ||
