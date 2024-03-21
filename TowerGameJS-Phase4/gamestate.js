@@ -29,11 +29,11 @@ class GameState1 extends GameState { // Start Screen
   }
   run() {
     if (this.panelStart) {
-      this.panelStart.render()
+      this.panelStart.render(true)
     }
 
     if (this.panelInstructions) {
-      this.panelInstructions.render()
+      this.panelInstructions.render(true)
     }
   }
 }
@@ -48,8 +48,7 @@ class GameState2 extends GameState { // Level screen
 
   run() {
     this.game.render();
-    this.panelLvlSelector.render();
-
+    this.panelLvlSelector.render(true, 450);
   }
 
 }
@@ -70,10 +69,10 @@ class GameState3 extends GameState { // end screen
   run() {
     this.game.render()
     document.getElementById("infoDiv").getElementsByClassName("infoTileDiv")[4].innerHTML = ("Health </br>" + 0); if (this.panelQuit) {
-      this.panelQuit.render()
+      this.panelQuit.render(true)
     }
     if (this.panelCredits) {
-      this.panelCredits.render()
+      this.panelCredits.render(true)
     }
   }
 }
@@ -82,10 +81,17 @@ class GameState4 extends GameState { //Catalog
   constructor(game) {
     super(game);
     towerGame.gameStateID = 4;
-    this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/endScreen.jpg')"
+    this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/catalog.jpg')"
+    this.catalogPanel = new Panel(this, 5);
 
     document.getElementById('infoDiv').style.visibility = 'hidden'; // Make info tiles invisible on start page
     document.getElementById('menuDiv').style.visibility = 'hidden';
+    // document.getElementById('switchDiv').style.visibility = 'hidden';
+  }
+
+  run(){
+    this.game.render();
+    this.catalogPanel.render(false);
   }
 
 }
