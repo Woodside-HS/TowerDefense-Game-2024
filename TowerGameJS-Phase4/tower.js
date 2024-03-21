@@ -263,8 +263,9 @@ newDist(v1, v2){
     } else {
       this.target = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY);
     }
-    console.log(this.enemy)
     if (this.ability != "missile" && this.ability != "cannon") {
+      if(this.enemies.length > 0){
+        console.log(this.enemy)
       if((this.ability == "normal" &&  this.enemy.normalImmunities[1] == "targetable") ||
       (this.ability == "fast" &&  this.enemy.fastImmunities[1] == "targetable") ||
       (this.ability == "freeze" &&  this.enemy.freezeImmunities[1] == "targetable") ||
@@ -277,6 +278,7 @@ newDist(v1, v2){
       let dx = this.loc.x - this.target.x;
       let dy = this.loc.y - this.target.y;
       this.towAngle = Math.atan2(dy, dx) - Math.PI;
+      }
     }
     } else {
 
