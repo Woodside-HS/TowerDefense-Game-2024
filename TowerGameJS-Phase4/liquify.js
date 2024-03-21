@@ -78,6 +78,7 @@ class Liquify {
         this.nearestEnemy = towerGame.enemies[i];
       }
     }
+    if(towerGame.enemies.length > 0){
     this.acc = this.subGetNew(this.nearestEnemy.loc, this.loc);
     this.acc.normalize();
     this.acc = this.multiply(this.acc, 1);
@@ -85,6 +86,7 @@ class Liquify {
     this.vel = this.limit(this.vel, 4);
     this.loc = this.loc.add(this.vel);//movement is terrible but its a feature ig
 //after a enemy dies in just stays there 
+    }
   }
 
 }

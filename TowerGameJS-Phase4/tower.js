@@ -46,11 +46,11 @@ class Tower {
     }
     else if (ability == "normal" || ability == "explosive") {
       this.coolDown = 750;
-     
-    }if(ability == "explosive"){
+
+    } if (ability == "explosive") {
       this.range = 1000;
     }
-    
+
     else if (ability == "fast") {
       this.coolDown = 500;
     }
@@ -74,7 +74,7 @@ class Tower {
     } else if (ability == "liquify") {
       this.range = 800;
       this.coolDown = 1000;
-    }else if (ability == "ray"){
+    } else if (ability == "ray") {
       this.range = 200;
     }
     this.MaxCoolDown = this.coolDown;
@@ -86,9 +86,9 @@ class Tower {
   run() {
     this.render();
     this.update();
-    //if (!this.liquifyFinal) {
+    if (!this.liquifyFinal) {
       this.liquifyFinalUpgrade();
-    //}
+    }
   }
 
   damageUpgrade() {
@@ -134,44 +134,33 @@ class Tower {
     for (let i = 0; i < towerGame.hands.length; i++) {
       this.surroundingHands = 0;
       for (let j = 0; j < towerGame.hands.length; j++) {
-    
-          let dist = this.newDist(towerGame.hands[j].loc, towerGame.hands[i].loc);
-          if (dist < 80) {
-            this.surroundingHands++;
-            // if(this.surroundingHands < 2){
-            // this.creatures.push(towerGame.hands[i]);
-            // }
+
+        let dist = this.newDist(towerGame.hands[j].loc, towerGame.hands[i].loc);
+        if (dist < 80) {
+          this.surroundingHands++;
+          if (this.surroundingHands < 3 && this.creatures.length < 2) {
+            this.creatures.push(towerGame.hands[j]);
           }
-      }
-      if (this.surroundingHands > 2) {
-
-        for (let p = 0; p < 18; p++) {
-            let distToCell = 100000;
-            let checkDistToCell = 0;
-          for (let l = 0; l< 15; l++) {
-            for(let k = 0; k < this.creatures.length-1; i ++){
-              checkDistToCell = this.newDist(this.creatures[k].loc, towerGame.grid[p][l].center);
-              console.log(checkDistToCell)
-              if (checkDistToCell < distToCell) {
-                this.closestCell = towerGame.grid[p][l];
-              }
-            }
-
-            }
-          }
-          let h = new Liquify(this.closestCell.center, this.bulletImg, this.towAngle, this.ability, "advanced", this.damageMult);
-          towerGame.hands.push(h);
-
-        
         }
+        console.log(this.surroundingHands)
+        if (this.surroundingHands >= 2) {
+          let h = new Liquify(this.creatures[0].loc, this.bulletImg, this.towAngle, this.ability, "advanced", this.damageMult);
+          towerGame.hands.push(h);
+          for (let i = 0; i < this.creatures.length; i++) {
+
+            towerGame.hands.splice(this.creatures[i], 1);
+          }
+        }
+
 
       }
     }
+  }
 
-  
-newDist(v1, v2){
-    return(Math.sqrt((v2.x-v1.x)*(v2.x-v1.x) + (v2.y-v1.y)*(v2.y-v1.y)));
-}
+
+  newDist(v1, v2) {
+    return (Math.sqrt((v2.x - v1.x) * (v2.x - v1.x) + (v2.y - v1.y) * (v2.y - v1.y)));
+  }
   render() {
     var ctx = towerGame.context;
     if (this.ability == "buffregen") {
@@ -246,50 +235,50 @@ newDist(v1, v2){
   }
 
   update() {
- 
+
     //  Rotate turret to follow mouse
     this.enemy = this.findEnemy();
     if (this.enemy) {
       this.target = this.enemy.loc;
       if (this.ability == "missile" || this.ability == "cannon") {
-       
+
         let dx = this.loc.x - this.target.x;
         let dy = this.loc.y - this.target.y;
         let dist = vector2d(dx, dy).length();
         if (dist < this.minRange) {
           this.target = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY);
         }
-      
-    }
+
+      }
     } else {
       this.target = vector2d(towerGame.canvas.mouseX, towerGame.canvas.mouseY);
     }
     if (this.ability != "missile" && this.ability != "cannon") {
-      if(this.enemy){
-       let enemyImmunties = this.findEnemy();
-      if((this.ability == "normal" &&  enemyImmunties.normalImmunities[1] == "targetable") ||
-      (this.ability == "fast" &&  enemyImmunties.fastImmunities[1] == "targetable") ||
-      (this.ability == "freeze" &&  enemyImmunties.freezeImmunities[1] == "targetable") ||
-      (this.ability == "explosive" &&  enemyImmunties.explosiveImmunities[1] == "targetable") ||
-      (this.ability == "ray" &&  enemyImmunties.rayImmunities[1] == "targetable") ||
-      (this.ability == "bladeStorm" &&  enemyImmunties.bladeStormImmunities[1] == "targetable") ||
-      (this.ability == "liquify" &&  enemyImmunties.liquifyImmunities[1] == "targetable") ||
-      (this.ability == "buffregen" &&  enemyImmunties.buffregenImmunities[1] == "targetable") ||
-      (this.ability == "normal" &&  enemyImmunties.normalUpgradedImmunities[1] == "targetable") ||
-      (this.ability == "fast" &&  enemyImmunties.fastUpgradedImmunities[1] == "targetable") ||
-      (this.ability == "freeze" &&  enemyImmunties.freezeUpgradedImmunities[1] == "targetable") ||
-      (this.ability == "explosive" &&  enemyImmunties.explosiveUpgradedImmunities[1] == "targetable") ||
-      (this.ability == "ray" &&  enemyImmunties.rayUpgradedImmunities[1] == "targetable") ||
-      (this.ability == "bladeStorm" &&  enemyImmunties.bladeStormUpgradedImmunities[1] == "targetable") ||
-      (this.ability == "liquify" &&  enemyImmunties.liquifyUpgradedImmunities[1] == "targetable") ||
-      (this.ability == "buffregen" &&  enemyImmunties.buffregenUpgradedImmunities[1] == "targetable")
-      ){
-        //the buffing tower does not attack why do you have this as it does not attack
-      let dx = this.loc.x - this.target.x;
-      let dy = this.loc.y - this.target.y;
-      this.towAngle = Math.atan2(dy, dx) - Math.PI;
+      if (this.enemy) {
+        let enemyImmunties = this.findEnemy();
+        if ((this.ability == "normal" && enemyImmunties.normalImmunities[1] == "targetable") ||
+          (this.ability == "fast" && enemyImmunties.fastImmunities[1] == "targetable") ||
+          (this.ability == "freeze" && enemyImmunties.freezeImmunities[1] == "targetable") ||
+          (this.ability == "explosive" && enemyImmunties.explosiveImmunities[1] == "targetable") ||
+          (this.ability == "ray" && enemyImmunties.rayImmunities[1] == "targetable") ||
+          (this.ability == "bladeStorm" && enemyImmunties.bladeStormImmunities[1] == "targetable") ||
+          (this.ability == "liquify" && enemyImmunties.liquifyImmunities[1] == "targetable") ||
+          (this.ability == "buffregen" && enemyImmunties.buffregenImmunities[1] == "targetable") ||
+          (this.ability == "normal" && enemyImmunties.normalUpgradedImmunities[1] == "targetable") ||
+          (this.ability == "fast" && enemyImmunties.fastUpgradedImmunities[1] == "targetable") ||
+          (this.ability == "freeze" && enemyImmunties.freezeUpgradedImmunities[1] == "targetable") ||
+          (this.ability == "explosive" && enemyImmunties.explosiveUpgradedImmunities[1] == "targetable") ||
+          (this.ability == "ray" && enemyImmunties.rayUpgradedImmunities[1] == "targetable") ||
+          (this.ability == "bladeStorm" && enemyImmunties.bladeStormUpgradedImmunities[1] == "targetable") ||
+          (this.ability == "liquify" && enemyImmunties.liquifyUpgradedImmunities[1] == "targetable") ||
+          (this.ability == "buffregen" && enemyImmunties.buffregenUpgradedImmunities[1] == "targetable")
+        ) {
+          //the buffing tower does not attack why do you have this as it does not attack
+          let dx = this.loc.x - this.target.x;
+          let dy = this.loc.y - this.target.y;
+          this.towAngle = Math.atan2(dy, dx) - Math.PI;
+        }
       }
-    }
     } else {
 
       towerGame.canvas.addEventListener('click', () => {
@@ -392,20 +381,20 @@ newDist(v1, v2){
           towerGame.blades.push(s);
           this.blades++;
         } else if (this.blades < 8 && this.bladeFinal) {
-          if(!this.replaced){
-          for(let i = 4; i > 0; i--){
-          towerGame.blades.splice(i, 1);
-          this.replaced = true;
-          this.blades = 0;
+          if (!this.replaced) {
+            for (let i = 4; i > 0; i--) {
+              towerGame.blades.splice(i, 1);
+              this.replaced = true;
+              this.blades = 0;
+            }
+          } else {
+            if (this.blades < 8) {
+              let bulletLocation = vector2d(this.loc.x, this.loc.y);
+              let s = new Blade(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.blades, this.damageMult, "second");
+              towerGame.blades.push(s);
+              this.blades++;
+            }
           }
-        }else{
-          if(this.blades < 8){
-          let bulletLocation = vector2d(this.loc.x, this.loc.y);
-          let s = new Blade(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.blades, this.damageMult, "second");
-          towerGame.blades.push(s);
-          this.blades++;
-          }
-        }
         }
       }
     }
