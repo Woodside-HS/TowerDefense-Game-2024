@@ -107,7 +107,7 @@ class Tower {
     } else if (ability == "fast") {
       this.finalFast = true;//slashing ability
       this.coolDown *= 0.8;
-      this.damageMult *= 1.5;
+      this.damageMult *= 3;
     } else if (ability == "freeze") {
       this.finalFreeze = true;
     } else if (ability == "explosive") {
@@ -142,9 +142,8 @@ class Tower {
             this.creatures.push(towerGame.hands[j]);
           }
         }
-        console.log(this.surroundingHands)
         if (this.surroundingHands >= 2) {
-          let h = new Liquify(this.creatures[0].loc, this.bulletImg, this.towAngle, this.ability, "advanced", this.damageMult);
+          let h = new Liquify(this.creatures[0].loc, this.bulletImg, 0, this.ability, "advanced", this.damageMult);
           towerGame.hands.push(h);
           for (let i = 0; i < this.creatures.length; i++) {
 
