@@ -198,7 +198,7 @@ var panelJSON = [{
     }, {
       name: "Level 3 Button",
       id: "level3Button",
-      pic: "resources/images/panels/endPanel/credits.png",
+      pic: "resources/images/panels/levelSelPanel/level3Butt.png",
       picId: "frame3",
       funk: function () {
         towerGame.gameState = new GameState5(towerGame, 3)
@@ -242,10 +242,10 @@ var panelJSON = [{
     {
       name: "Tower Button",
       id: "towerButton",
-      pic: "resources/images/panels/levelSelPanel/custom.png",
+      pic: "resources/images/panels/catalogPanel/tower.png",
       picId: "tower",
       funk: function () {
-        towerGame.gameState.towerPanel = new Panel(towerGame, 6, 180, 900, 670)
+        towerGame.gameState.towerPanel = new Panel(towerGame, 6, 180, 850, 670)
         document.getElementById("catalogHomePanel").parentNode.removeChild(document.getElementById("catalogHomePanel"))
       }
     }, {
@@ -254,6 +254,7 @@ var panelJSON = [{
       pic: "resources/images/panels/levelSelPanel/custom.png",
       picId: "enemy",
       funk: function () {
+        towerGame.gameState.towerPanel = new Panel(towerGame, 7, 180, 850, 670)
         document.getElementById("catalogHomePanel").parentNode.removeChild(document.getElementById("catalogHomePanel"))
       }
     },
@@ -280,16 +281,32 @@ var panelJSON = [{
   id: "towerInfoPanel",
   pic: "resources/images/bg/end.png",
   picId: "towerPan",
-  buttonJSON: [
+  buttonJSON: [{
+    name: "Back Button",
+    id: "back",
+    pic: "resources/images/panels/back.png",
+    picId: "back",
+    funk: function () {
+      towerGame.gameState.catalogPanel = new Panel(towerGame, 5)
+      document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
+    }
+  }
 
   ]
 }, { //panel 7 
-  name: "Tower Info Panel",
-  id: "towerInfoPanel",
-  pic: "",
-  picId: "",
-  buttonJSON: [
-
+  name: "Enemy Info Panel",
+  id: "enemyInfoPanel",
+  pic: "resources/images/bg/end.png",
+  picId: "enemyPan",
+  buttonJSON: [{
+    name: "Back Button",
+    id: "back",
+    pic: "resources/images/panels/back.png",
+    picId: "back",
+    funk: function () {
+      towerGame.gameState.catalogPanel = new Panel(towerGame, 5)
+      document.getElementById("enemyInfoPanel").parentNode.removeChild(document.getElementById("enemyInfoPanel"))
+    }
+  }
   ]
-}
-]
+}];

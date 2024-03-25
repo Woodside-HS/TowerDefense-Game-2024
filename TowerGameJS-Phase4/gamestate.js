@@ -95,16 +95,15 @@ class GameState4 extends GameState { //Catalog
 
   run() {
     this.game.render();
-      this.catalogPanel.render(false);
+    this.catalogPanel.render(false);
 
-      if(this.towerPanel){
-        this.towerPanel.render(true)
-      }
-      if(this.enemyPanel){
-        this.enemyPanel.render(true)
-      }
+    if (this.towerPanel) {
+      this.towerPanel.render(true)
+    }
+    if (this.enemyPanel) {
+      this.enemyPanel.render(true)
+    }
   }
-
 }
 
 
