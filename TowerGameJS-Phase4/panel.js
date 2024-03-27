@@ -6,6 +6,7 @@ class Panel {
     this.temp = 0;
     this.y = -590;
     this.endY = y;
+    
     this.panel = document.createElement("div");
     this.panel.id = panelJSON[number].id;
     this.panel.style.width = w + "px";
@@ -245,16 +246,16 @@ var panelJSON = [{
       pic: "resources/images/panels/catalogPanel/tower.png",
       picId: "tower",
       funk: function () {
-        towerGame.gameState.towerPanel = new Panel(towerGame, 6, 180, 850, 670)
+        towerGame.gameState.towerPanel = new Panel(towerGame, 6, 180, 850, 680)
         document.getElementById("catalogHomePanel").parentNode.removeChild(document.getElementById("catalogHomePanel"))
       }
     }, {
       name: "Enemy Button",
       id: "enemyButton",
-      pic: "resources/images/panels/levelSelPanel/custom.png",
+      pic: "resources/images/panels/catalogPanel/enemy.png",
       picId: "enemy",
       funk: function () {
-        towerGame.gameState.towerPanel = new Panel(towerGame, 7, 180, 850, 670)
+        towerGame.gameState.towerPanel = new Panel(towerGame, 7, 180, 850, 680)
         document.getElementById("catalogHomePanel").parentNode.removeChild(document.getElementById("catalogHomePanel"))
       }
     },
@@ -281,7 +282,8 @@ var panelJSON = [{
   id: "towerInfoPanel",
   pic: "resources/images/bg/end.png",
   picId: "towerPan",
-  buttonJSON: [{
+  buttonJSON: [
+    {
     name: "Back Button",
     id: "back",
     pic: "resources/images/panels/back.png",
@@ -289,6 +291,18 @@ var panelJSON = [{
     funk: function () {
       towerGame.gameState.catalogPanel = new Panel(towerGame, 5)
       document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
+    }
+  }, {
+    name: "Next Button",
+    id: "next",
+    pic: "resources/images/panels/levelSelPanel/level1Butt.png",
+    picId: "back",
+    funk: function () {
+      document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
+      towerGame.gameState.towerPanel = new Panel (towerGame, 6, 180, 850, 680);
+
+      panelJSON[6].pic = "resources/images/bg/home.png"
+
     }
   }
 
