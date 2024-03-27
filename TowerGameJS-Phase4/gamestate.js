@@ -42,13 +42,13 @@ class GameState2 extends GameState { // Level screen
     super(game);
     towerGame.gameStateID = 6;
     this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/levelSelector.jpg')"
-    this.panelLvlSelector = new Panel(this, 3);
+    this.panelLvlSelector = new Panel(this, 3, 480);
 
   }
 
   run() {
     this.game.render();
-    this.panelLvlSelector.render(true, 450);
+    this.panelLvlSelector.render(true);
   }
 
 }
@@ -80,20 +80,30 @@ class GameState3 extends GameState { // end screen
 class GameState4 extends GameState { //Catalog
   constructor(game) {
     super(game);
+    this.count = 1;
     towerGame.gameStateID = 4;
+
     this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/catalog.jpg')"
     this.catalogPanel = new Panel(this, 5);
+    this.towerPanel = 0;
+    this.enemyPanel = 0;
 
     document.getElementById('infoDiv').style.visibility = 'hidden'; // Make info tiles invisible on start page
     document.getElementById('menuDiv').style.visibility = 'hidden';
-    // document.getElementById('switchDiv').style.visibility = 'hidden';
+    document.getElementById('switchDiv').style.visibility = 'hidden';
   }
 
-  run(){
+  run() {
     this.game.render();
     this.catalogPanel.render(false);
-  }
 
+    if (this.towerPanel) {
+      this.towerPanel.render(true)
+    }
+    if (this.enemyPanel) {
+      this.enemyPanel.render(true)
+    }
+  }
 }
 
 
@@ -120,7 +130,7 @@ class GameState5 extends GameState { // game itself
       this.game.gameStateID = 7;
     } else if (levelSel === 3) {
       this.game.gameStateID = 8;
-    } else if (levelSel === 4){
+    } else if (levelSel === 4) {
       this.game.gameStateID = 5;
     }
 
@@ -151,7 +161,7 @@ class GameState5 extends GameState { // game itself
     document.getElementById('switchDiv').style.visibility = 'visible';
   }
   init() {
-
+    //need this to make code run even though neothing is init (like the pun?)
   }
   run() {
     let gt = this.game.updateGameTime();
@@ -160,7 +170,7 @@ class GameState5 extends GameState { // game itself
     this.game.removePests();
     this.game.removeMissiles();
     this.game.removeEnemies();
-    this.game.controlWaves()
+    this.game.controlWaves();
     this.game.backgroundMusic.play();
     if (this.game.isRunning) {
       this.game.render();
