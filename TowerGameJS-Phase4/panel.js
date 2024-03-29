@@ -246,7 +246,7 @@ var panelJSON = [{
       pic: "resources/images/panels/catalogPanel/tower.png",
       picId: "tower",
       funk: function () {
-        towerGame.gameState.towerPanel = new Panel(towerGame, 6, 180, 850, 680)
+        towerGame.gameState.towerPanel = new Panel(towerGame, 6, 180, 800, 680)
         document.getElementById("catalogHomePanel").parentNode.removeChild(document.getElementById("catalogHomePanel"))
       }
     }, {
@@ -255,7 +255,7 @@ var panelJSON = [{
       pic: "resources/images/panels/catalogPanel/enemy.png",
       picId: "enemy",
       funk: function () {
-        towerGame.gameState.towerPanel = new Panel(towerGame, 7, 180, 850, 680)
+        towerGame.gameState.towerPanel = new Panel(towerGame, 7, 180, 800, 680)
         document.getElementById("catalogHomePanel").parentNode.removeChild(document.getElementById("catalogHomePanel"))
       }
     },
@@ -299,7 +299,7 @@ var panelJSON = [{
     picId: "back",
     funk: function () {
       document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
-      towerGame.gameState.towerPanel = new Panel (towerGame, 6, 180, 850, 680);
+      towerGame.gameState.towerPanel = new Panel (towerGame, 6, 180, 840, 680);
 
       panelJSON[6].pic = "resources/images/bg/home.png"
 
