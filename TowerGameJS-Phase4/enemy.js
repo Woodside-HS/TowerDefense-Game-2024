@@ -56,6 +56,11 @@ class Enemy {
     this.missileImmunities = [false, "targetable"];
     this.missileUpgradedImmunities = [false, "targetable"];
 
+    this.normalEnemy = false;
+    this.normalSmallEnemy = false;
+    this.freezeEnemy = false;
+    this.explosiveEnemy = false;
+    this.turtleEnemy = false;
   }
 
   run() {
