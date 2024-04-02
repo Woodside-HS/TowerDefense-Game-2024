@@ -310,7 +310,8 @@ class Enemy {
       }
       this.target = this.targetCell.center;
     }
-    let angleBetween = vector2d.subGetNew(this.target, this.loc);
+    let angleBetween = this.target.subGetNew(this.loc);
+    console.log(angleBetween)
     angleBetween.normalize();
     angleBetween.multiply(4);
     angleBetween.limit(4);
@@ -326,7 +327,14 @@ class Enemy {
     
   }
 
-
+  normalize() {
+    let len = Math.sqrt(this.loc.x * this.loc.x + this.loc.y * this.loc.y);
+    if (len) {
+        this.loc.x /= len;
+        this.loc.y /= len;
+    }
+    return(this);
+}
   checkCollide(shape1, shape2) {
 
     if (shape1.shape === "circle") {
