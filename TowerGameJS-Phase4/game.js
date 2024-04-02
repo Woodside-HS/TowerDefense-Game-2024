@@ -861,8 +861,6 @@ class Game {
         console.log(towerGame.allowPlace)
         towerGame.bankValue -= towerGame.wallCost;
         cell.occupied = true;
-      } else if (!cell.occupied && towerGame.allowPlace) {
-        alert("Insufficient Funds!");
       }
       else if (towerGame.allowPlace && towerGame.gameStateID === 5) {
         towerGame.bankValue += towerGame.wallCost;
