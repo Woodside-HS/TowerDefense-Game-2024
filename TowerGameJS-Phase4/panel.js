@@ -81,13 +81,13 @@ class Panel {
 var panelJSON = [{
   name: "Start Panel", // panel 0
   id: "firstPanel",
-  pic: "resources/images/panels/panel.png",
+  pic: "TowerGameJS-Phase4/resources/images/panels/panel.png",
   picId: "pan",
   buttonJSON: [
     {
       name: "Start Button",
       id: "start",
-      pic: "resources/images/panels/homePanel/play.png",
+      pic: "TowerGameJS-Phase4/resources/images/panels/homePanel/play.png",
       picId: "play",
       funk: function () {
         towerGame.gameState = new GameState2(towerGame)
@@ -96,7 +96,7 @@ var panelJSON = [{
     }, {
       name: "Instruction Button",
       id: "instruction",
-      pic: "resources/images/panels/homePanel/help.png",
+      pic: "TowerGameJS-Phase4/resources/images/panels/homePanel/help.png",
       picId: "wframe",
       funk: function () {
         towerGame.gameState.panelInstructions = new Panel(towerGame, 1)
@@ -105,7 +105,7 @@ var panelJSON = [{
     }, {
       name: "Catalog Button",
       id: "catalogButton",
-      pic: "resources/images/panels/homePanel/catalog.png",
+      pic: "TowerGameJS-Phase4/resources/images/panels/homePanel/catalog.png",
       picId: "catalog",
       funk: function () {
         towerGame.gameState = new GameState4(towerGame, 4)
@@ -116,13 +116,13 @@ var panelJSON = [{
 }, {
   name: "Instruction Panel", // panel 1
   id: "instructionPanel",
-  pic: "resources/images/panels/homePanel/instructions.png",
+  pic: "TowerGameJS-Phase4/resources/images/panels/homePanel/instructions.png",
   picId: "pan",
   buttonJSON: [
     {
       name: "Back Button",
       id: "back",
-      pic: "resources/images/panels/back.png",
+      pic: "TowerGameJS-Phase4/resources/images/panels/back.png",
       picId: "back",
       funk: function () {
         towerGame.gameState.panelStart = new Panel(towerGame, 0)
@@ -132,13 +132,13 @@ var panelJSON = [{
 }, {
   name: "End Panel", // panel 2
   id: "endPanel",
-  pic: "resources/images/panels/panel.png",
+  pic: "TowerGameJS-Phase4/resources/images/panels/panel.png",
   picId: "pan",
   buttonJSON: [
     {
       name: "Replay Button",
       id: "replayButton",
-      pic: "resources/images/panels/endPanel/restart.png",
+      pic: "TowerGameJS-Phase4/resources/images/panels/endPanel/restart.png",
       picId: "wframe",
       funk: function () {
         towerGame.gameState = new GameState2(towerGame, 5);
@@ -152,7 +152,7 @@ var panelJSON = [{
     }, {
       name: "Home Button",
       id: "quitButton",
-      pic: "resources/images/panels/home.png",
+      pic: "TowerGameJS-Phase4/resources/images/panels/home.png",
       picId: "home",
       funk: function () {
         document.getElementById("endPanel").parentNode.removeChild(document.getElementById("endPanel"))
@@ -163,7 +163,7 @@ var panelJSON = [{
     }, {
       name: "Credits Button",
       id: "creditsButton",
-      pic: "resources/images/panels/endPanel/credits.png",
+      pic: "TowerGameJS-Phase4/resources/images/panels/endPanel/credits.png",
       picId: "wframe",
       funk: function () {
         towerGame.gameState.panelCredits = new Panel(towerGame, 4)
@@ -173,13 +173,13 @@ var panelJSON = [{
 }, {
   name: "Level Selector", // panel 3
   id: "levelSelector",
-  pic: "resources/images/panels/panel.png",
+  pic: "TowerGameJS-Phase4/resources/images/panels/panel.png",
   picId: "pan",
   buttonJSON: [
     {
       name: "Level 1 Button",
       id: "level1Button",
-      pic: "resources/images/panels/levelSelPanel/level1Butt.png",
+      pic: "TowerGameJS-Phase4/resources/images/panels/levelSelPanel/level1Butt.png",
       picId: "frame1",
       funk: function () {
         towerGame.gameState = new GameState5(towerGame, 1)
@@ -188,7 +188,7 @@ var panelJSON = [{
     }, {
       name: "Level 2 Button",
       id: "level2Button",
-      pic: "resources/images/panels/levelSelPanel/level2Butt.png",
+      pic: "TowerGameJS-Phase4/resources/images/panels/levelSelPanel/level2Butt.png",
       picId: "frame2",
       funk: function () {
         towerGame.gameState = new GameState5(towerGame, 2)
@@ -198,7 +198,7 @@ var panelJSON = [{
     }, {
       name: "Level 3 Button",
       id: "level3Button",
-      pic: "resources/images/panels/levelSelPanel/level3Butt.png",
+      pic: "TowerGameJS-Phase4/resources/images/panels/levelSelPanel/level3Butt.png",
       picId: "frame3",
       funk: function () {
         towerGame.gameState = new GameState5(towerGame, 3)
@@ -207,7 +207,7 @@ var panelJSON = [{
     }, {
       name: "Custom Level Button",
       id: "customLvlButton",
-      pic: "resources/images/panels/levelSelPanel/custom.png",
+      pic: "TowerGameJS-Phase4/resources/images/panels/levelSelPanel/custom.png",
       picId: "frame4",
       funk: function () {
         towerGame.gameState = new GameState5(towerGame, 4)
@@ -219,13 +219,13 @@ var panelJSON = [{
 }, {
   name: "Credites Panel", //panel 4
   id: "creditesPanel",
-  pic: "resources/images/panels/pan.png",
+  pic: "TowerGameJS-Phase4/resources/images/panels/pan.png",
   picId: "pan",
   buttonJSON: [
     {
       name: "Back Button",
       id: "back",
-      pic: "resources/images/panels/back.png",
+      pic: "TowerGameJS-Phase4/resources/images/panels/back.png",
       picId: "back",
       funk: function () {
         towerGame.gameState.panelQuit = new Panel(towerGame, 2)
@@ -242,7 +242,7 @@ var panelJSON = [{
     {
       name: "Tower Button",
       id: "towerButton",
-      pic: "resources/images/panels/catalogPanel/tower.png",
+      pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/tower.png",
       picId: "tower",
       funk: function () {
         towerGame.gameState.towerPanel = new Panel(towerGame, 6, 180, 850, 670)
@@ -251,7 +251,7 @@ var panelJSON = [{
     }, {
       name: "Enemy Button",
       id: "enemyButton",
-      pic: "resources/images/panels/levelSelPanel/custom.png",
+      pic: "TowerGameJS-Phase4/resources/images/panels/levelSelPanel/custom.png",
       picId: "enemy",
       funk: function () {
         towerGame.gameState.towerPanel = new Panel(towerGame, 7, 180, 850, 670)
@@ -262,7 +262,7 @@ var panelJSON = [{
     {
       name: "Home Button",
       id: "quitButton",
-      pic: "resources/images/panels/home.png",
+      pic: "TowerGameJS-Phase4/resources/images/panels/home.png",
       picId: "home",
       funk: function () {
         document.getElementById("catalogHomePanel").parentNode.removeChild(document.getElementById("catalogHomePanel"))
@@ -279,12 +279,12 @@ var panelJSON = [{
 }, { //panel 6
   name: "Tower Info Panel",
   id: "towerInfoPanel",
-  pic: "resources/images/bg/end.png",
+  pic: "TowerGameJS-Phase4/resources/images/bg/end.png",
   picId: "towerPan",
   buttonJSON: [{
     name: "Back Button",
     id: "back",
-    pic: "resources/images/panels/back.png",
+    pic: "TowerGameJS-Phase4/resources/images/panels/back.png",
     picId: "back",
     funk: function () {
       towerGame.gameState.catalogPanel = new Panel(towerGame, 5)
@@ -296,12 +296,12 @@ var panelJSON = [{
 }, { //panel 7 
   name: "Enemy Info Panel",
   id: "enemyInfoPanel",
-  pic: "resources/images/bg/end.png",
+  pic: "TowerGameJS-Phase4/resources/images/bg/end.png",
   picId: "enemyPan",
   buttonJSON: [{
     name: "Back Button",
     id: "back",
-    pic: "resources/images/panels/back.png",
+    pic: "TowerGameJS-Phase4/resources/images/panels/back.png",
     picId: "back",
     funk: function () {
       towerGame.gameState.catalogPanel = new Panel(towerGame, 5)
