@@ -33,7 +33,7 @@ class Enemy {
     this.angle = this.vel.angle();
     this.img = Enemy.image3; // image for enemy
     this.hitByFreezeUpgraded = false;
-
+    this.movement = new Movement(this.loc, this.target, 3 );
     // Initialize immunities
     this.normalImmunities = [false, "targetable"];
     this.normalUpgradedImmunities = [false, "targetable"];
@@ -286,53 +286,14 @@ class Enemy {
       this.deathSound.play();
       towerGame.bankValue += 10;
     }
-<<<<<<< Updated upstream
-    let distToGetCell = this.target.dist(this.loc);
-    if (distToGetCell <= 1) {
-      this.loc = this.currentCell;
-      this.currentCell = this.targetCell;
-      if (this.currentCell == this.game.root) {
-        this.kill = true;
-        towerGame.health--;
-        return;
-      }
-=======
- 
->>>>>>> Stashed changes
-      if (!this.hitByFreezeUpgraded) {
-        this.targetCell = this.nextTarget();
-      } else {
-        let random = Math.floor(Math.random() * 5);
-        if (random < 3) {
-          this.targetCell = this.oppositeNextTarget();
-        } else {
-          this.targetCell = this.nextTarget();
-        }
-      }
-      if (!this.targetCell) {
-        this.kill = true;
-        return;
-      }
-      this.target = this.targetCell.center;
-      let angle = this.loc.angleBetween(this.target);
-      this.vel.rotate(angle);
-      this.loc.add(this.vel);
-      this.vel.rotate(-angle);
-      
-  }
-
-<<<<<<< Updated upstream
-  normalize() {
-    let len = Math.sqrt(this.loc.x * this.loc.x + this.loc.y * this.loc.y);
-   if (len) {
-        this.loc.x /= len;
-        this.loc.y /= len;
-    }
-    return(this);
+   this.movement.update();
+   if (this.movement.finished) {
+    // If movement is finished, assign a new target location
+    this.movement.setTarget(vector2d(200, 0)); // Example new target location
 }
-=======
+}
 
->>>>>>> Stashed changes
+
   checkCollide(shape1, shape2) {
 
     if (shape1.shape === "circle") {
