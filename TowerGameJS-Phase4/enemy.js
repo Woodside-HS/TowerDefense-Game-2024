@@ -287,14 +287,14 @@ class Enemy {
       towerGame.bankValue += 10;
     }
     let distToGetCell = this.target.dist(this.loc);
-    if(distToGetCell <= 0){
+    if (distToGetCell <= 0) {
       this.currentCell = this.targetCell;
-      if(this.currentCell == this.game.root){
+      if (this.currentCell == this.game.root) {
         this.kill = true;
-        towerGame.health --;
+        towerGame.health--;
         return;
       }
-      if(!this.hitByFreezeUpgraded) {
+      if (!this.hitByFreezeUpgraded) {
         this.targetCell = this.nextTarget();
       } else {
         let random = Math.floor(Math.random() * 5);
@@ -304,64 +304,25 @@ class Enemy {
           this.targetCell = this.nextTarget();
         }
       }
+      if (!this.targetCell) {
+        this.kill = true;
+        return;
+      }
+      this.target = this.targetCell.center;
     }
-  //   if (this.health <= 0) {
-  //     this.kill = true;
-
-  //     this.deathSound.play();
-  //     towerGame.bankValue += 10;
-
-  //   }
-
-  //   if (this.loc.dist(this.target) <= this.vel) {    // if we have reached the current target
-  //     this.currentCell = this.targetCell;
-  //     if (this.currentCell == this.game.root) {   // we have reached the end of the path
-  //       this.kill = true;
-  //       towerGame.health = towerGame.health - 1;
-  //       return;
-  //     }
-  //     if (!this.hitByFreezeUpgraded) {
-  //       this.targetCell = this.nextTarget();// set a new target
-  //     } else {
-  //       let random = Math.floor(Math.random() * 5);
-  //       if (random < 3) {
-  //         this.targetCell = this.oppositeNextTarget();
-  //       } else {
-  //         this.targetCell = this.nextTarget();
-  //       }
-  //     }
-  //     if (!this.targetCell) {
-  //       this.kill = true;   // can happen if user blocks cells while enemies are attacking
-  //       return;
-  //     }
-  //     this.target = this.targetCell.center;      // always target the center of the cell
-  //   }
-  //   // calculate new vector from current location to the target.
-  //   var targetVec = this.target.copy().sub(this.loc);    // the direction we want to go
-  //   var angleBetween = this.velVec.angleBetween(targetVec);
-  //   if (angleBetween) {  // if there is some angle between
-  //     if (angleBetween > 0 && angleBetween > Math.PI)  // positive and > 180 degrees
-  //       angleBetween = angleBetween - 2 * Math.PI;   // make negative and < 180 degrees
-  //     else if (angleBetween < 0 && angleBetween < -Math.PI)   // negative and < -180 degrees
-  //       angleBetween = angleBetween = angleBetween + 2 * Math.PI;  // make positive and < 180 degrees
-
-  //     // now rotate the current velocity in the direction of the targetAngle
-  //     // a little at a time
-  //     this.velVec.rotate(angleBetween / 2);
-  //     this.angle = this.velVec.angle();
-  //   }
-  //   if (this.slowed < 1) {//the third guy does this
-  //     this.count++;
-  //     if (this.count == 3) {
-  //       this.loc.add(this.velVec)//this make it look extremely jittery 
-  //       //I will eventually do a complete overhaul of the velocity to get with better.
-  //       //(proboly after all the other towers are decent)
-  //       this.count = 0;
-  //     }
-  //   } else if (this.slowed > 1) {
-  //     this.loc.add(this.velVec);
-  //   }          // apply velocity to location
-  // }
+    let angleBetween = 
+    if (this.slowed < 1) { // The third guy does this
+      this.count++;
+      if (this.count == 3) {
+        this.loc.add(this.velVec); // This makes it look extremely jittery 
+        // I will eventually do a complete overhaul of the velocity to get with better.
+        // (probably after all the other towers are decent)
+        this.count = 0;
+      }
+    } else if (this.slowed > 1) {
+      this.loc.add(this.velVec);
+    } // Apply velocity to location
+    
   }
 
 
