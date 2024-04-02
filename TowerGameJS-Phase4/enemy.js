@@ -16,27 +16,25 @@ class Enemy {
     this.randomPath = 1;   //boolean to randomize or not
     this.radius = 15.0;
     this.r = 15.0;
-    this.vel = 3.0;
+    this.vel = vector2d(0, 0); // Initialize velocity vector
     this.count = 0;
     this.slowed = 1.2;
     this.isLocked = false;
     this.isTarget = false;
     this.deathSound = new Audio('resources/sounds/splat.mp3');
     this.lastTime = Date.now();
-    this.coolDown = 1000;
+
     this.towerLoc = vector2d(0, 0);
     this.health;
     this.targetCell = this.nextTarget();
     this.target = this.targetCell.center;
     this.shape = "circle";
-    var targetVec = this.target.copy().sub(this.loc);
-    this.velVec = targetVec.copy().normalize().scale(this.vel);      // initial velocity vector
     this.kill = false;
-    this.angle = this.velVec.angle()
-    this.img = Enemy.image3;// image for enemy
+    this.angle = this.vel.angle();
+    this.img = Enemy.image3; // image for enemy
     this.hitByFreezeUpgraded = false;
 
-
+    // Initialize immunities
     this.normalImmunities = [false, "targetable"];
     this.normalUpgradedImmunities = [false, "targetable"];
     this.fastImmunities = [false, "targetable"];
@@ -56,6 +54,7 @@ class Enemy {
     this.missileImmunities = [false, "targetable"];
     this.missileUpgradedImmunities = [false, "targetable"];
 
+    // Enemy type flags
     this.normalEnemy = false;
     this.normalSmallEnemy = false;
     this.freezeEnemy = false;
@@ -66,8 +65,30 @@ class Enemy {
   run() {
     this.render();
     this.update();
+    this.specificUpgrade();
   }
 
+  specificUpgrade(){
+    if(this.normalEnemy){
+
+    }
+    if(this.normalSmallEnemy){
+
+    }
+    if(this.freezeEnemy){
+      for(let i = 0; i < towerGame.towers.length; i ++){
+        let distToTower = this.loc.dist(towerGame.towers[i].loc);
+
+        
+      }
+    }
+    if(this.explosiveEnemy){
+
+    }
+    if(this.turtleEnemy){
+
+    }
+  }
   // nextTarget()
   // Return the next cell in the path to the root target
   // The parent of the current cell is always the optimal path
@@ -75,7 +96,7 @@ class Enemy {
   // the neighbor cells with a lesser distance to the root.
   nextTarget() {
     if (!this.randomPath)
-      return (this.currentCell.parent);    // the parent cell is always the shortest path
+      return this.currentCell.parent;    // the parent cell is always the shortest path
     else {  // else choose from cells with a lesser distance to the root
       let candidates = [];
       for (let i = 0; i < this.currentCell.neighbors.length; i++) {
@@ -83,13 +104,13 @@ class Enemy {
           candidates.push(this.currentCell.neighbors[i]);
       }
       // randomly pick one of the candidates
-      return (candidates[Math.floor(Math.random() * candidates.length)]);
+      return candidates[Math.floor(Math.random() * candidates.length)];
     }
   }
-  oppositeNextTarget() {//idk
 
+  oppositeNextTarget() {
     if (!this.randomPath)
-      return (this.currentCell.parent);    // the parent cell is always the shortest path
+      return this.currentCell.parent;    // the parent cell is always the shortest path
     else {  // else choose from cells with a lesser distance to the root
       let candidates = [];
       for (let i = 0; i < this.currentCell.neighbors.length; i++) {
@@ -97,37 +118,32 @@ class Enemy {
           candidates.push(this.currentCell.neighbors[i]);
       }
       // randomly pick one of the candidates
-      return (candidates[Math.floor(Math.random() * candidates.length)]);
+      return candidates[Math.floor(Math.random() * candidates.length)];
     }
   }
-
 
   // render()
   // Draw the enemy at its current location
   // Enemies with a randomized path are blue and
   // enemies with an optimal path are green
   render() {
-    var ctx = this.game.context
+    let ctx = this.game.context;
     if (this.slowed < 1) {
       ctx.save();
-      ctx.translate(this.loc.x, this.loc.y)
+      ctx.translate(this.loc.x, this.loc.y);
       ctx.strokeStyle = "rgba(0,0,100,0.4)";
       ctx.beginPath();
       ctx.arc(0, 0, (this.img.width + this.img.height) / 4, 0, Math.PI * 2, false);
-
       ctx.closePath();
       ctx.stroke();
-
       ctx.restore();
     }
 
     ctx.save();
-
     ctx.translate(this.loc.x, this.loc.y);
     ctx.rotate(this.angle + Math.PI / 2);
     ctx.drawImage(this.img, -this.img.width / 2, -this.img.height / 2);
     ctx.restore();
-
   }
 
   // update()
@@ -264,65 +280,16 @@ class Enemy {
       }
     }
 
-
+    // Handle reaching target and updating path
     if (this.health <= 0) {
       this.kill = true;
-
       this.deathSound.play();
       towerGame.bankValue += 10;
-
     }
+   
+  }
 
-    if (this.loc.dist(this.target) <= this.vel.mag()) { // if we have reached the current target
-      this.currentCell = this.targetCell;
-      if (this.currentCell == this.game.root) { // we have reached the end of the path
-          this.kill = true;
-          towerGame.health = towerGame.health - 1;
-          return;
-      }
-      if (!this.hitByFreezeUpgraded) {
-          this.targetCell = this.nextTarget(); // set a new target
-      } else {
-          let random = Math.floor(Math.random() * 5);
-          if (random < 3) {
-              this.targetCell = this.oppositeNextTarget();
-          } else {
-              this.targetCell = this.nextTarget();
-          }
-      }
-      if (!this.targetCell) {
-          this.kill = true; // can happen if user blocks cells while enemies are attacking
-          return;
-      }
-      this.target = this.targetCell.center; // always target the center of the cell
-  } else {
-      // calculate new vector from current location to the target.
-      var targetVec = this.target.copy().sub(this.loc); // the direction we want to go
-      var angleBetween = this.vel.angleBetween(targetVec);
-      if (angleBetween) { // if there is some angle between
-          if (angleBetween > 0 && angleBetween > Math.PI) // positive and > 180 degrees
-              angleBetween = angleBetween - 2 * Math.PI; // make negative and < 180 degrees
-          else if (angleBetween < 0 && angleBetween < -Math.PI) // negative and < -180 degrees
-              angleBetween = angleBetween = angleBetween + 2 * Math.PI; // make positive and < 180 degrees
-  
-          // now rotate the current velocity in the direction of the targetAngle
-          // a little at a time
-          this.vel.rotate(angleBetween / 2);
-          this.angle = this.vel.angle();
-      }
-      if (this.slowed < 1) { //the third guy does this
-          this.count++;
-          if (this.count == 3) {
-              this.loc.add(this.vel); //this make it look extremely jittery
-              //I will eventually do a complete overhaul of the velocity to get with better.
-              //(proboly after all the other towers are decent)
-              this.count = 0;
-          }
-      } else if (this.slowed > 1) {
-          this.loc.add(this.vel);
-      } // apply velocity to location
-  }
-  }
+
   checkCollide(shape1, shape2) {
 
     if (shape1.shape === "circle") {
@@ -398,8 +365,9 @@ class Enemy {
 
 
   }
+}
 
-} // end class ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ // end class ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //this.normalImmunities = [false, "targetable"];
 //false if it can't hit the enemy so false of default means yes you can hit
 //targetable is basically if the enemy is immune to the towers attack the tower will still target it unless the targetable

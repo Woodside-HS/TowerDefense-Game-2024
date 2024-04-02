@@ -46,7 +46,9 @@ var vector2d = function (vx, vy) {
         dist: function (vec2) {
             return(vec2.copy().sub(this).length());
         },
-       
+        mag: function(vec2) {
+            return Math.sqrt((vec2.x - this.x) ** 2 + (vec2.y - this.y) ** 2);
+        },
 
             // 2-20-17 added angleBetween()
         angleBetween: function (vec2) {
