@@ -77,7 +77,7 @@ function generateWaves() {
     [1, 0, 0, 0, 0],
     [0, 0, 1500, 3500, 0],
     [0, 0, 0, 0, 100000],
-    [0, 0, 0, 0, 1000000]
+    [0, 0, 0, 0, 100000],
   ]
 
   for (let waveIndex = 1; waveIndex <= 14; waveIndex++) { //loops through waves
@@ -88,7 +88,6 @@ function generateWaves() {
       let numEnemies = numEnemiesArray[enemyType];
       let enemyIncrement = baseEnemyIncrement / (waveIndex + 1);
       let packetIncrement = basePacketIncrement * (waveIndex + 1);
-
       if (numEnemies > 0) {
         packets.push({ //creates a packet for each enemytype
           "enemy": {
@@ -97,7 +96,7 @@ function generateWaves() {
           },
           "num": numEnemies,
           "enemyIncrement": enemyIncrement,
-          "packetIncrement": packetIncrement
+          "packetIncrement": packetIncrement,
         });
       }
     }
