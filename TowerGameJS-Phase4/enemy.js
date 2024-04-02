@@ -288,8 +288,29 @@ class Enemy {
     }
    this.movement.update();
    if (this.movement.finished) {
+    this.currentCell = this.targetCell;
+    if(this.currentCell == this.game.root){
+      this.kill = true;
+      towerGame.health --;
+      return;
+    }
+    if (!this.hitByFreezeUpgraded) {
+      this.targetCell = this.nextTarget();// set a new target
+    } else {
+      let random = Math.floor(Math.random() * 5);
+      if (random < 3) {
+        this.targetCell = this.oppositeNextTarget();
+      } else {
+        this.targetCell = this.nextTarget();
+      }
+    }
+    if (!this.targetCell) {
+      this.kill = true;   // can happen if user blocks cells while enemies are attacking
+      return;
+    }
+    this.target = this.targetCell.center;
     // If movement is finished, assign a new target location
-    this.movement.setTarget(vector2d(200, 0)); // Example new target location
+    this.movement.setTarget(this.target); // Example new target location
 }
 }
 
