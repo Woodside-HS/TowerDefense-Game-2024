@@ -287,7 +287,8 @@ class Enemy {
       towerGame.bankValue += 10;
     }
     let distToGetCell = this.target.dist(this.loc);
-    if (distToGetCell <= 0) {
+    if (distToGetCell <= 1) {
+      this.loc = this.currentCell;
       this.currentCell = this.targetCell;
       if (this.currentCell == this.game.root) {
         this.kill = true;
@@ -329,7 +330,7 @@ class Enemy {
 
   normalize() {
     let len = Math.sqrt(this.loc.x * this.loc.x + this.loc.y * this.loc.y);
-    if (len) {
+   if (len) {
         this.loc.x /= len;
         this.loc.y /= len;
     }
