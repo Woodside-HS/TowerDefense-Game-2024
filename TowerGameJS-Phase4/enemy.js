@@ -21,7 +21,7 @@ class Enemy {
     this.slowed = 1.2;
     this.isLocked = false;
     this.isTarget = false;
-    this.deathSound = new Audio('resources/sounds/splat.mp3');
+    this.deathSound = new Audio('TowerGameJS-Phase4/resources/sounds/splat.mp3');
     this.lastTime = Date.now();
     this.coolDown = 1000;
     this.towerLoc = vector2d(0, 0);
@@ -151,7 +151,7 @@ class Enemy {
         if (towerGame.hands[h].ability == "liquify") {
           if (!this.liquifyImmunities[0]) {
             this.health -= 10 * towerGame.hands[h].damageMult;
-          }else if (!this.liquifyUpgradedImmunities[0]){
+          } else if (!this.liquifyUpgradedImmunities[0]) {
             this.health -= 10 * towerGame.hands[h].damageMult;
           }
 
@@ -188,7 +188,7 @@ class Enemy {
           if (!this.fastImmunities[0]) {
             this.health = this.health - 350 * towerGame.bullets[h].damageMult;
             towerGame.bullets.splice(h, 1);
-          }else if(!this.fastUpgradedImmunities){
+          } else if (!this.fastUpgradedImmunities) {
             this.health = this.health - 350 * towerGame.bullets[h].damageMult;
             towerGame.bullets.splice(h, 1);
           }
@@ -213,7 +213,7 @@ class Enemy {
           if (!this.cannonImmunities[0]) {
             this.health = this.health - 500 * towerGame.bullets[h].damageMult;
             towerGame.bullets.splice(h, 1);
-          }else if (!this.cannonUpgradedImmunities[0]){
+          } else if (!this.cannonUpgradedImmunities[0]) {
             this.health = this.health - 500 * towerGame.bullets[h].damageMult;
             towerGame.bullets.splice(h, 1);
           }
