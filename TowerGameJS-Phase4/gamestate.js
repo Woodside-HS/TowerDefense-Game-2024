@@ -41,7 +41,7 @@ class GameState2 extends GameState { // Level screen
   constructor(game) {
     super(game);
     towerGame.gameStateID = 6;
-    this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/levelSelector.jpg')"
+    this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/levelSelector.jpg')"
     this.panelLvlSelector = new Panel(this, 3, 480);
 
   }
@@ -58,7 +58,7 @@ class GameState3 extends GameState { // end screen
     super(game)
     this.game.gameStateID = 3
     this.game.enemies = []
-    this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/endScreen.jpg')"
+    this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/endScreen.jpg')"
     this.panelQuit = new Panel(this, 2)
     this.panelCredits = 0
     this.panelStart = 0
@@ -83,7 +83,7 @@ class GameState4 extends GameState { //Catalog
     this.count = 1;
     towerGame.gameStateID = 4;
 
-    this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/catalog.jpg')"
+    this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/catalog.jpg')"
     this.catalogPanel = new Panel(this, 5);
     this.towerPanel = 0;
     this.enemyPanel = 0;
@@ -120,7 +120,7 @@ class GameState5 extends GameState { // game itself
     this.game.bullets = []
     this.game.cols = Math.floor(this.game.canvas.width / this.game.w);
     this.game.rows = Math.floor(this.game.canvas.height / this.game.w);
-    this.game.backgroundMusic = new Audio('resources/sounds/Elevator-music.mp3')
+    this.game.backgroundMusic = new Audio('TowerGameJS-Phase4/resources/sounds/Elevator-music.mp3')
     this.game.loadGrid();
     this.game.brushfire();
     this.game.root = this.game.grid[this.game.cols - 1][this.game.rows - 1];
@@ -141,19 +141,19 @@ class GameState5 extends GameState { // game itself
     if (this.game.gameStateID === 5) {
       this.game.levelRender(customLevel);
       this.game.levelKey = customLevel;
-      this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/levels/level1.png')"
+      this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/levels/level1.png')"
     } else if (this.game.gameStateID === 6) {
       this.game.levelRender(level1Key);
       this.game.levelKey = level1Key;
-      this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/levels/level1.png')"
+      this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/levels/level1.png')"
     } else if (this.game.gameStateID === 7) {
       this.game.levelRender(level2Key);
       this.game.levelKey = level2Key;
-      this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/levels/level2.jpg')"
+      this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/levels/level2.jpg')"
     } else if (this.game.gameStateID === 8) {
       this.game.levelRender(level3Key);
       this.game.levelKey = level3Key;
-      this.game.canvas.canDiv.style.backgroundImage = "url('resources/images/bg/levels/level3.jpg')"
+      this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/levels/level3.jpg')"
     }
 
     document.getElementById('infoDiv').style.visibility = 'visible'; // Make info tiles invisible on start page
