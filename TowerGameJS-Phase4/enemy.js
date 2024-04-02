@@ -16,7 +16,7 @@ class Enemy {
     this.randomPath = 1;   //boolean to randomize or not
     this.radius = 15.0;
     this.r = 15.0;
-    this.vel = vector2d(0, 0); // Initialize velocity vector
+    this.vel = vector2d(1, 0); // Initialize velocity vector
     this.count = 0;
     this.slowed = 1.2;
     this.isLocked = false;
@@ -68,24 +68,24 @@ class Enemy {
     this.specificUpgrade();
   }
 
-  specificUpgrade(){
-    if(this.normalEnemy){
+  specificUpgrade() {
+    if (this.normalEnemy) {
 
     }
-    if(this.normalSmallEnemy){
+    if (this.normalSmallEnemy) {
 
     }
-    if(this.freezeEnemy){
-      for(let i = 0; i < towerGame.towers.length; i ++){
+    if (this.freezeEnemy) {
+      for (let i = 0; i < towerGame.towers.length; i++) {
         let distToTower = this.loc.dist(towerGame.towers[i].loc);
 
-        
+
       }
     }
-    if(this.explosiveEnemy){
+    if (this.explosiveEnemy) {
 
     }
-    if(this.turtleEnemy){
+    if (this.turtleEnemy) {
 
     }
   }
@@ -171,7 +171,7 @@ class Enemy {
         if (towerGame.hands[h].ability == "liquify") {
           if (!this.liquifyImmunities[0]) {
             this.health -= 10 * towerGame.hands[h].damageMult;
-          }else if (!this.liquifyUpgradedImmunities[0]){
+          } else if (!this.liquifyUpgradedImmunities[0]) {
             this.health -= 10 * towerGame.hands[h].damageMult;
           }
 
@@ -208,7 +208,7 @@ class Enemy {
           if (!this.fastImmunities[0]) {
             this.health = this.health - 350 * towerGame.bullets[h].damageMult;
             towerGame.bullets.splice(h, 1);
-          }else if(!this.fastUpgradedImmunities){
+          } else if (!this.fastUpgradedImmunities) {
             this.health = this.health - 350 * towerGame.bullets[h].damageMult;
             towerGame.bullets.splice(h, 1);
           }
@@ -233,7 +233,7 @@ class Enemy {
           if (!this.cannonImmunities[0]) {
             this.health = this.health - 500 * towerGame.bullets[h].damageMult;
             towerGame.bullets.splice(h, 1);
-          }else if (!this.cannonUpgradedImmunities[0]){
+          } else if (!this.cannonUpgradedImmunities[0]) {
             this.health = this.health - 500 * towerGame.bullets[h].damageMult;
             towerGame.bullets.splice(h, 1);
           }
@@ -286,6 +286,7 @@ class Enemy {
       this.deathSound.play();
       towerGame.bankValue += 10;
     }
+<<<<<<< Updated upstream
     let distToGetCell = this.target.dist(this.loc);
     if (distToGetCell <= 1) {
       this.loc = this.currentCell;
@@ -295,6 +296,9 @@ class Enemy {
         towerGame.health--;
         return;
       }
+=======
+ 
+>>>>>>> Stashed changes
       if (!this.hitByFreezeUpgraded) {
         this.targetCell = this.nextTarget();
       } else {
@@ -310,24 +314,14 @@ class Enemy {
         return;
       }
       this.target = this.targetCell.center;
-    }
-    let angleBetween = this.target.subGetNew(this.loc);
-    console.log(angleBetween)
-    angleBetween.normalize();
-    angleBetween.multiply(4);
-    angleBetween.limit(4);
-    this.vel.add(this.acc);
-    this.vel.limit(0.5);
-    if (this.slowed < 1) { // The third guy does this
-        this.loc.add(this.vel.divide(3)); // This makes it look extremely jittery 
-        // I will eventually do a complete overhaul of the velocity to get with better.
-        // (probably after all the other towers are decent)
-      } else if (this.slowed > 1) {
+      let angle = this.loc.angleBetween(this.target);
+      this.vel.rotate(angle);
       this.loc.add(this.vel);
-    } // Apply velocity to location
-    
+      this.vel.rotate(-angle);
+      
   }
 
+<<<<<<< Updated upstream
   normalize() {
     let len = Math.sqrt(this.loc.x * this.loc.x + this.loc.y * this.loc.y);
    if (len) {
@@ -336,6 +330,9 @@ class Enemy {
     }
     return(this);
 }
+=======
+
+>>>>>>> Stashed changes
   checkCollide(shape1, shape2) {
 
     if (shape1.shape === "circle") {
@@ -413,7 +410,7 @@ class Enemy {
   }
 }
 
- // end class ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// end class ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //this.normalImmunities = [false, "targetable"];
 //false if it can't hit the enemy so false of default means yes you can hit
 //targetable is basically if the enemy is immune to the towers attack the tower will still target it unless the targetable
