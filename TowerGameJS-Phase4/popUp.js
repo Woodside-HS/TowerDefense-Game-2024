@@ -5,7 +5,7 @@ class Popup {
     this.x = x;
     this.y = y;
     this.tower = tower;
-    this.baseSellPrice = this.tower.cost/3;
+    this.baseSellPrice = this.tower.cost / 3;
     this.sellPrice = this.baseSellPrice;
     this.popupElement = this.createPopup();
     this.show();
@@ -23,15 +23,15 @@ class Popup {
 
     button.addEventListener('mouseover', () => {
       button.style.backgroundColor = 'lightgray'; // Change background color on hover
-    towerGame.updateCostInfoElement(cost);
+      towerGame.updateCostInfoElement(cost);
 
     });
 
     button.addEventListener('mouseout', () => {
       button.style.backgroundColor = ''; // Revert to original background color when not hovered
       towerGame.updateCostInfoElement('');
-    }); 
-    
+    });
+
     return button;
   }
 
@@ -43,7 +43,7 @@ class Popup {
     popup.style.padding = '10px';
     popup.style.border = '1px solid black';
     // Set the background to a PNG image
-    popup.style.background = `url('resources/images/button1.png')`;
+    popup.style.background = `url('TowerGameJS-Phase4/resources/images/button1.png')`;
     popup.style.backgroundSize = 'cover'; // Ensure the background covers the whole popup
     popup.style.boxShadow = '0 2px 5px rgba(0,0,0,0.2)';
 
@@ -52,7 +52,7 @@ class Popup {
       towerGame.shownBase = false;
     });
     const upgradeButton = this.createButton('', 'upgradeButton', 'Upgrade', () => {
-        this.upgradeElement = this.createUpgradePopup();
+      this.upgradeElement = this.createUpgradePopup();
     });
 
     const cancleButton = this.createButton('', 'cancleButton', 'X', () => {
@@ -84,42 +84,42 @@ class Popup {
 
     // Creating buttons for the upgrade popup
     console.log(this.tower.upgradedRange + "    " + this.tower.upgradedCoolDown + "    " + this.tower.upgradedDamage);
-    let cost = Math.ceil(this.tower.cost*4)
+    let cost = Math.ceil(this.tower.cost * 4)
     const finalUpgrade = this.createButton(cost, 'finalUpgrade', 'Final', () => {
       this.tower.finalUpgrade(this.tower.ability);
       console.log("Final Upgrade");
       this.tower.upgradedFinal = true;
       this.hideUpgrade();
-      towerGame.bankValue -= Math.ceil(this.tower.cost*4);
-      this.sellPrice+=this.tower.cost*4;
+      towerGame.bankValue -= Math.ceil(this.tower.cost * 4);
+      this.sellPrice += this.tower.cost * 4;
       towerGame.shownBase = false;
     });
-    cost = Math.ceil(this.tower.cost*1.2);
+    cost = Math.ceil(this.tower.cost * 1.2);
     const rangeButton = this.createButton(cost, 'rangeButton', 'Range', () => {
       this.tower.rangeUpgrade();
       console.log("Range increased by 20%");
       this.tower.upgradedRange = true;
-      towerGame.bankValue -= Math.ceil(this.tower.cost*1.2);
-      this.sellPrice +=this.tower.cost*1.2;
+      towerGame.bankValue -= Math.ceil(this.tower.cost * 1.2);
+      this.sellPrice += this.tower.cost * 1.2;
       this.hideUpgrade();
       towerGame.shownBase = false;
     });
-    cost = Math.ceil(this.tower.cost*1.35)
+    cost = Math.ceil(this.tower.cost * 1.35)
     const cooldownButton = this.createButton(cost, 'cooldownButton', 'Cooldown', () => {
       this.tower.coolDownUpgrade();
       console.log("Cooldown decreased by 20%");
       this.tower.upgradedCoolDown = true;
-      towerGame.bankValue -= Math.ceil(this.tower.cost*1.35);
-      this.sellPrice +=this.tower.cost*1.35;
+      towerGame.bankValue -= Math.ceil(this.tower.cost * 1.35);
+      this.sellPrice += this.tower.cost * 1.35;
       this.hideUpgrade();
       towerGame.shownBase = false;
     });
-    cost = Math.ceil(this.tower.cost*1.5)
+    cost = Math.ceil(this.tower.cost * 1.5)
     const damageButton = this.createButton(cost, 'damageButton', 'Damage', () => {
       console.log("Damage increased by 20%");
       this.tower.upgradedDamage = true;
-      towerGame.bankValue -= Math.ceil(this.tower.cost*1.5);
-      this.sellPrice +=this.tower.cost*1.5;
+      towerGame.bankValue -= Math.ceil(this.tower.cost * 1.5);
+      this.sellPrice += this.tower.cost * 1.5;
       this.tower.damageUpgrade();
       this.hideUpgrade();
       towerGame.shownBase = false;
