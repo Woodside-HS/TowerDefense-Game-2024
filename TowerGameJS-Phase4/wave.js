@@ -77,7 +77,7 @@ function generateWaves() {
     [1, 0, 0, 0, 0],
     [0, 0, 1500, 3500, 0],
     [0, 0, 0, 0, 100000],
-    [0, 0, 0, 0, 1000000]
+    [0, 0, 0, 0, 100000],
   ]
 
   for (let waveIndex = 1; waveIndex <= 14; waveIndex++) { //loops through waves
