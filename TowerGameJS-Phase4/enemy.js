@@ -310,17 +310,18 @@ class Enemy {
       }
       this.target = this.targetCell.center;
     }
-    let angleBetween = 
+    let angleBetween = vector2d.subGetNew(this.target, this.loc);
+    angleBetween.normalize();
+    angleBetween.multiply(4);
+    angleBetween.limit(4);
+    this.vel.add(this.acc);
+    this.vel.limit(0.5);
     if (this.slowed < 1) { // The third guy does this
-      this.count++;
-      if (this.count == 3) {
-        this.loc.add(this.velVec); // This makes it look extremely jittery 
+        this.loc.add(this.vel.divide(3)); // This makes it look extremely jittery 
         // I will eventually do a complete overhaul of the velocity to get with better.
         // (probably after all the other towers are decent)
-        this.count = 0;
-      }
-    } else if (this.slowed > 1) {
-      this.loc.add(this.velVec);
+      } else if (this.slowed > 1) {
+      this.loc.add(this.vel);
     } // Apply velocity to location
     
   }
