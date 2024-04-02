@@ -305,6 +305,31 @@ class Enemy {
         }
       }
     }
+  //   if (this.health <= 0) {
+  //     this.kill = true;
+
+  //     this.deathSound.play();
+  //     towerGame.bankValue += 10;
+
+  //   }
+
+  //   if (this.loc.dist(this.target) <= this.vel) {    // if we have reached the current target
+  //     this.currentCell = this.targetCell;
+  //     if (this.currentCell == this.game.root) {   // we have reached the end of the path
+  //       this.kill = true;
+  //       towerGame.health = towerGame.health - 1;
+  //       return;
+  //     }
+  //     if (!this.hitByFreezeUpgraded) {
+  //       this.targetCell = this.nextTarget();// set a new target
+  //     } else {
+  //       let random = Math.floor(Math.random() * 5);
+  //       if (random < 3) {
+  //         this.targetCell = this.oppositeNextTarget();
+  //       } else {
+  //         this.targetCell = this.nextTarget();
+  //       }
+  //     }
   //     if (!this.targetCell) {
   //       this.kill = true;   // can happen if user blocks cells while enemies are attacking
   //       return;
