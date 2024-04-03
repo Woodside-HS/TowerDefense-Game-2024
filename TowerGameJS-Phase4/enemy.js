@@ -96,7 +96,7 @@ class Enemy {
   // the neighbor cells with a lesser distance to the root.
   nextTarget() {
 
-    
+
     let candidates = [];
     for (let i = 0; i < this.currentCell.neighbors.length; i++) {
       if (this.currentCell.neighbors[i].dist < this.currentCell.dist)
@@ -109,7 +109,7 @@ class Enemy {
 
   oppositeNextTarget() {
 
-   
+
     let candidates = [];
     for (let i = 0; i < this.currentCell.neighbors.length; i++) {
       if (this.currentCell.neighbors[i].dist > this.currentCell.dist)
@@ -300,8 +300,7 @@ class Enemy {
       }
       this.target = this.targetCell.center;
       // If movement is finished, assign a new target location
-      console.log(this.target)
-      this.movement.setTarget(this.target); // Example new target location
+      this.movement.setTarget(this.loc, this.target);
     }
 
   }
@@ -312,7 +311,6 @@ class Enemy {
     if (shape1.shape === "circle") {
       if (shape2.shape === "circle") {
         //circle-circle
-        //console.log(this.dist(shape1.loc, shape2.loc) );
         if (shape1.r + shape2.r >= shape1.loc.copy().dist(shape2.loc)) return true;
         return false;
       } else if (shape2.shape === "square") {//this does not work for rectangles but its close enought for a 57x50 thing
