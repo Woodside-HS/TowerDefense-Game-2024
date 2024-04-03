@@ -9,7 +9,7 @@ class Movement {
     update() {
         if (!this.finished) {
             // Calculate the direction vector from loc to target
-            let direction = this.target.sub(this.loc);
+            let direction = this.target.copy().sub(this.loc);
             direction.normalize();
             // Calculate the distance between loc and target
             let distance = this.loc.dist(this.target);

@@ -33,7 +33,7 @@ class Enemy {
     this.angle = this.vel.angle();
     this.img = Enemy.image3; // image for enemy
     this.hitByFreezeUpgraded = false;
-    this.movement = new Movement(this.loc, this.target, 3 );
+    this.movement = new Movement(this.loc, this.target, 3);
     // Initialize immunities
     this.normalImmunities = [false, "targetable"];
     this.normalUpgradedImmunities = [false, "targetable"];
@@ -95,32 +95,30 @@ class Enemy {
   // If we want some randomness in the path, choose from among all
   // the neighbor cells with a lesser distance to the root.
   nextTarget() {
-    if (!this.randomPath)
-      return this.currentCell.parent;    // the parent cell is always the shortest path
-    else {  // else choose from cells with a lesser distance to the root
-      let candidates = [];
-      for (let i = 0; i < this.currentCell.neighbors.length; i++) {
-        if (this.currentCell.neighbors[i].dist < this.currentCell.dist)
-          candidates.push(this.currentCell.neighbors[i]);
-      }
-      // randomly pick one of the candidates
-      return candidates[Math.floor(Math.random() * candidates.length)];
+
+    
+    let candidates = [];
+    for (let i = 0; i < this.currentCell.neighbors.length; i++) {
+      if (this.currentCell.neighbors[i].dist < this.currentCell.dist)
+        candidates.push(this.currentCell.neighbors[i]);
     }
+    // randomly pick one of the candidates
+    return candidates[Math.floor(Math.random() * candidates.length)];
+
   }
 
   oppositeNextTarget() {
-    if (!this.randomPath)
-      return this.currentCell.parent;    // the parent cell is always the shortest path
-    else {  // else choose from cells with a lesser distance to the root
-      let candidates = [];
-      for (let i = 0; i < this.currentCell.neighbors.length; i++) {
-        if (this.currentCell.neighbors[i].dist > this.currentCell.dist)
-          candidates.push(this.currentCell.neighbors[i]);
-      }
-      // randomly pick one of the candidates
-      return candidates[Math.floor(Math.random() * candidates.length)];
+
+   
+    let candidates = [];
+    for (let i = 0; i < this.currentCell.neighbors.length; i++) {
+      if (this.currentCell.neighbors[i].dist > this.currentCell.dist)
+        candidates.push(this.currentCell.neighbors[i]);
     }
+    // randomly pick one of the candidates
+    return candidates[Math.floor(Math.random() * candidates.length)];
   }
+
 
   // render()
   // Draw the enemy at its current location
@@ -286,33 +284,26 @@ class Enemy {
       this.deathSound.play();
       towerGame.bankValue += 10;
     }
-   this.movement.update();
-   if (this.movement.finished) {
-    this.currentCell = this.targetCell;
-    if(this.currentCell == this.game.root){
-      this.kill = true;
-      towerGame.health --;
-      return;
-    }
-    if (!this.hitByFreezeUpgraded) {
-      this.targetCell = this.nextTarget();// set a new target
-    } else {
-      let random = Math.floor(Math.random() * 5);
-      if (random < 3) {
-        this.targetCell = this.oppositeNextTarget();
-      } else {
-        this.targetCell = this.nextTarget();
+    this.movement.update();
+    if (this.movement.finished) {
+      this.currentCell = this.targetCell;
+      if (this.currentCell == this.game.root) {
+        this.kill = true;
+        towerGame.health--;
+        return;
       }
+      this.targetCell = this.nextTarget();
+
+      if (!this.targetCell) {
+        this.kill = true;   // can happen if user blocks cells while enemies are attacking
+        return;
+      }
+      this.target = this.targetCell.center;
+      // If movement is finished, assign a new target location
+      this.movement.setTarget(this.target); // Example new target location
     }
-    if (!this.targetCell) {
-      this.kill = true;   // can happen if user blocks cells while enemies are attacking
-      return;
-    }
-    this.target = this.targetCell.center;
-    // If movement is finished, assign a new target location
-    this.movement.setTarget(this.target); // Example new target location
-}
-}
+
+  }
 
 
   checkCollide(shape1, shape2) {
