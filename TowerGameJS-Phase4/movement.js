@@ -16,13 +16,14 @@ class Movement {
 
             // Calculate the displacement for this update based on speed
             let displacement = direction.multiply(this.speed);
-
+            console.log(displacement.length())
             // If the displacement is greater than or equal to the distance to the target, we have reached the target
             if (displacement.length() >= distance) {
                 this.loc = this.target.copy(); // Set loc location to target
                 this.finished = true; // Set finished flag to true
             } else {
                 // Move loc location by displacement
+                
                 this.loc.add(displacement);
             }
         }

@@ -287,12 +287,12 @@ class Enemy {
     this.movement.update();
     if (this.movement.finished) {
       this.currentCell = this.targetCell;
+      this.targetCell = this.nextTarget();
       if (this.currentCell == this.game.root) {
         this.kill = true;
         towerGame.health--;
         return;
       }
-      this.targetCell = this.nextTarget();
 
       if (!this.targetCell) {
         this.kill = true;   // can happen if user blocks cells while enemies are attacking
@@ -300,6 +300,7 @@ class Enemy {
       }
       this.target = this.targetCell.center;
       // If movement is finished, assign a new target location
+      console.log(this.target)
       this.movement.setTarget(this.target); // Example new target location
     }
 
