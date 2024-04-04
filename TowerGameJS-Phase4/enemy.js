@@ -16,7 +16,7 @@ class Enemy {
     this.randomPath = 1;   //boolean to randomize or not
     this.radius = 15.0;
     this.r = 15.0;
-    this.vel = vector2d(1, 0); // Initialize velocity vector
+    this.vel = vector2d(0, 0); // Initialize velocity vector
     this.count = 0;
     this.slowed = 1.2;
     this.isLocked = false;
@@ -285,10 +285,12 @@ class Enemy {
     this.movement.update();
     let dx = this.targetCell.center.x - this.loc.x;
     let dy = this.targetCell.center.y - this.loc.y;
-    
+
     // Calculate angle of rotation
-      this.angle = Math.atan2(dy, dx);
+    this.angle = Math.atan2(dy, dx);
     if (this.movement.finished) {
+      //  this.loc = this.targetCell;
+      console.log(towerGame.grid)
       this.currentCell = this.targetCell;
       this.targetCell = this.nextTarget();
       if (this.currentCell == this.game.root) {
@@ -302,7 +304,6 @@ class Enemy {
         return;
       }
       this.target = this.targetCell.center;
-      // If movement is finished, assign a new target location
       this.movement.setTarget(this.loc, this.target);
     }
 
