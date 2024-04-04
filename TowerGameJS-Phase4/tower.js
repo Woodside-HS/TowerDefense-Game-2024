@@ -40,6 +40,7 @@ class Tower {
     this.finalCannon = false;
     this.finalFreeze = false;
     this.closestCell = 0;
+    this.buffConstant = 0.8; //multiply cooldown by buffConstant
     if (ability == "freeze") {
       this.coolDown = 1000;
       this.range = 150;
@@ -64,7 +65,6 @@ class Tower {
     }
     else if (ability == "buffregen") {
       this.coolDown = 19622;//why is this such a random number
-      this.buffConstant = 0.8; //multiply cooldown by buffConstant
     }
     else if (ability == "missile") {
       this.range = 800;
@@ -77,7 +77,7 @@ class Tower {
     } else if (ability == "ray") {
       this.range = 200;
     }
-    this.MaxCoolDown = this.coolDown;
+    this.maxCoolDown = this.coolDown;
 
     this.target = null;
     this.enemy = null;
@@ -262,15 +262,14 @@ class Tower {
           (this.ability == "ray" && enemyImmunties.rayImmunities[1] == "targetable") ||
           (this.ability == "bladeStorm" && enemyImmunties.bladeStormImmunities[1] == "targetable") ||
           (this.ability == "liquify" && enemyImmunties.liquifyImmunities[1] == "targetable") ||
-          (this.ability == "buffregen" && enemyImmunties.buffregenImmunities[1] == "targetable") ||
           (this.ability == "normal" && enemyImmunties.normalUpgradedImmunities[1] == "targetable") ||
           (this.ability == "fast" && enemyImmunties.fastUpgradedImmunities[1] == "targetable") ||
           (this.ability == "freeze" && enemyImmunties.freezeUpgradedImmunities[1] == "targetable") ||
           (this.ability == "explosive" && enemyImmunties.explosiveUpgradedImmunities[1] == "targetable") ||
           (this.ability == "ray" && enemyImmunties.rayUpgradedImmunities[1] == "targetable") ||
           (this.ability == "bladeStorm" && enemyImmunties.bladeStormUpgradedImmunities[1] == "targetable") ||
-          (this.ability == "liquify" && enemyImmunties.liquifyUpgradedImmunities[1] == "targetable") ||
-          (this.ability == "buffregen" && enemyImmunties.buffregenUpgradedImmunities[1] == "targetable")
+          (this.ability == "liquify" && enemyImmunties.liquifyUpgradedImmunities[1] == "targetable") 
+         
         ) {
           //the buffing tower does not attack why do you have this as it does not attack
           let dx = this.loc.x - this.target.x;
@@ -325,14 +324,15 @@ class Tower {
       for (let i = 0; i < towerGame.towers.length; i++) {
         if (towerGame.towers[i].ability == "buffregen") {
           let dist = this.loc.dist(towerGame.towers[i].loc);
-          if (dist < this.range) {
+          if (dist < towerGame.towers[i].range) {
             count++;
           }
         }
-        if (count > 0) {
-          towerGame.towers[i].coolDown = towerGame.towers[i].MaxCoolDown * this.buffConstant ^ (count);
-        }
       }
+        if (count > 0) {
+          this.coolDown = this.maxCoolDown * this.buffConstant ^ (count);
+        }
+      
     }
   }
 

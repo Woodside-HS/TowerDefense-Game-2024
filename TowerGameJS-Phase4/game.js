@@ -664,7 +664,7 @@ class Game {
         innerDiv.style.margin = "5px";
         mtd.appendChild(innerDiv);
         document.getElementById("menuDiv").appendChild(mtd);
-        mtd.cost = 100 * i + 50;
+        mtd.cost = 1 * i + 1;
 
 
 
@@ -712,7 +712,7 @@ class Game {
         innerDiv.style.margin = "5px";
         mtd.appendChild(innerDiv);
         document.getElementById("menuDiv").appendChild(mtd);
-        mtd.cost = 100 * i + 50;
+        mtd.cost = 1 * i + 1;
 
 
 
