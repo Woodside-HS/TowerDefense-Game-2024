@@ -410,7 +410,7 @@ class Tower {
         rys.run();
         if (this.findEnemyIndex() < towerGame.enemies.length) {
 
-          towerGame.enemies[this.findEnemyIndex()].isLocked = true;//health -=  10;
+          towerGame.enemies[this.findEnemyIndex()].isLocked = true;
         } else {
           towerGame.rays = [];
         }
