@@ -234,7 +234,7 @@ class Enemy {
             towerGame.bullets.splice(h, 1);
           }
         } else if (towerGame.bullets[h].ability == "explosive") {
-          if (!this.bladestormImmunities[0]) {
+          if (!this.explosiveImmunities[0]) {
             this.health = this.health - 100 * towerGame.bullets[h].damageMult;
             if (this.health <= 0) {
               this.kill = true;
