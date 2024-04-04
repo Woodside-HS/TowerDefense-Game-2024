@@ -31,7 +31,7 @@ class Enemy {
     this.angle = this.vel.angle();
     this.img = Enemy.image3; // image for enemy
     this.hitByFreezeUpgraded = false;
-    this.movement = new Movement(this.loc, this.target, 3);
+    this.movement = new Movement(this.loc, this.target, this.speed);
     // Initialize immunities
     this.normalImmunities = [false, "targetable"];
     this.normalUpgradedImmunities = [false, "targetable"];
@@ -289,8 +289,6 @@ class Enemy {
     // Calculate angle of rotation
     this.angle = Math.atan2(dy, dx);
     if (this.movement.finished) {
-      //  this.loc = this.targetCell;
-      console.log(towerGame.grid)
       this.currentCell = this.targetCell;
       this.targetCell = this.nextTarget();
       if (this.currentCell == this.game.root) {
@@ -298,7 +296,6 @@ class Enemy {
         towerGame.health--;
         return;
       }
-
       if (!this.targetCell) {
         this.kill = true;   // can happen if user blocks cells while enemies are attacking
         return;
@@ -425,7 +422,8 @@ class Enemy1 extends Enemy {
     super(game);
     this.img = Enemy.image1;
     this.health = 1000;
-    this.normalSmallEnemy = true;
+    this.normalEnemy = true;
+    this.movement.speed = 2;
   }
 }
 class Enemy2 extends Enemy {
@@ -433,7 +431,8 @@ class Enemy2 extends Enemy {
     super(game);
     this.img = Enemy.image2;
     this.health = 2000;
-    this.normalEnemy = true;
+    this.normalSmallEnemy = true;
+    this.movement.speed = 3;
   }
 }
 class Enemy3 extends Enemy {
@@ -442,6 +441,7 @@ class Enemy3 extends Enemy {
     this.img = Enemy.image3;
     this.health = 4000;
     this.freezeEnemy = true;
+    this.movement.speed = 1;
   }
 }
 class Enemy4 extends Enemy {
@@ -450,6 +450,7 @@ class Enemy4 extends Enemy {
     this.img = Enemy.image4;
     this.health = 4000;
     this.explosiveEnemy = true;
+    this.movement.speed = 1;
   }
 }
 class Enemy5 extends Enemy {
@@ -458,5 +459,6 @@ class Enemy5 extends Enemy {
     this.img = Enemy.image5;
     this.health = 10000;
     this.turtleEnemy = true;
+    this.movement.speed =  1.5;
   }
 }
