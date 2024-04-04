@@ -4,7 +4,7 @@ body {
 
 #wrapperDiv {
   background-color: black;
-  width: 965px;
+  width: 1020px;
   height: 850px;
   border: solid black 2px;
   margin: auto;
@@ -19,7 +19,6 @@ body {
 }
 
 #switchDiv {
-
   background-image: url('TowerGameJS-Phase4/resources/images/panels/towerChange.png');
   background-color: #00ff8400;
   margin-right: 20px;
