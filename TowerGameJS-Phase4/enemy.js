@@ -21,7 +21,7 @@ class Enemy {
     this.slowed = 1.2;
     this.isLocked = false;
     this.isTarget = false;
-    this.deathSound = new Audio('resources/sounds/splat.mp3');
+    this.deathSound = new Audio('TowerGameJS-Phase4/resources/sounds/splat.mp3');
     this.lastTime = Date.now();
     this.health;
     this.targetCell = this.nextTarget();
