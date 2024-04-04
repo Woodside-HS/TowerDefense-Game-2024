@@ -85,6 +85,7 @@ class GameState4 extends GameState { //Catalog
 
     this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/catalog.jpg')"
     this.catalogPanel = new Panel(this, 5);
+    this.specificTowerPanel = 0;
     this.towerPanel = 0;
     this.enemyPanel = 0;
 
@@ -96,12 +97,15 @@ class GameState4 extends GameState { //Catalog
   run() {
     this.game.render();
     this.catalogPanel.render(false);
-
+    
     if (this.towerPanel) {
-      this.towerPanel.render(true)
+      this.towerPanel.render(false)
     }
     if (this.enemyPanel) {
-      this.enemyPanel.render(true)
+      this.enemyPanel.render(false)
+    }
+    if(this.specificTowerPanel){
+      this.specificTowerPanel.render(true);
     }
   }
 }
