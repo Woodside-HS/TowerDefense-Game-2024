@@ -23,8 +23,6 @@ class Enemy {
     this.isTarget = false;
     this.deathSound = new Audio('resources/sounds/splat.mp3');
     this.lastTime = Date.now();
-
-    this.towerLoc = vector2d(0, 0);
     this.health;
     this.targetCell = this.nextTarget();
     this.target = this.targetCell.center;
@@ -285,6 +283,11 @@ class Enemy {
       towerGame.bankValue += 10;
     }
     this.movement.update();
+    let dx = this.targetCell.center.x - this.loc.x;
+    let dy = this.targetCell.center.y - this.loc.y;
+    
+    // Calculate angle of rotation
+      this.angle = Math.atan2(dy, dx);
     if (this.movement.finished) {
       this.currentCell = this.targetCell;
       this.targetCell = this.nextTarget();
