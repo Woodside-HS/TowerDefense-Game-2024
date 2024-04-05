@@ -153,11 +153,11 @@ class Enemy {
       if (this.checkCollide(this, towerGame.missiles[h])) {
         if (towerGame.missiles[h].ability == "missile") {
           if (!this.missileImmunities[0]) {
-            this.health -= 800 * towerGame.missiles[h].damageMult;//this does not current work
+            this.health -= 800 * towerGame.missiles[h].damageMult;
             towerGame.missiles.splice(h, 1);
           }
         } else if (!this.missileUpgradedImmunities[0]) {
-          this.health -= 800 * towerGame.missiles[h].damageMult;//this does not current work
+          this.health -= 800 * towerGame.missiles[h].damageMult;
           towerGame.missiles.splice(h, 1);
         }
       }
