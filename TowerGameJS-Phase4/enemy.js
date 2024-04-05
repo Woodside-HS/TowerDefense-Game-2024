@@ -24,6 +24,7 @@ class Enemy {
     this.deathSound = new Audio('TowerGameJS-Phase4/resources/sounds/splat.mp3');
     this.lastTime = Date.now();
     this.health;
+    this.damages = 0;
     this.targetCell = this.nextTarget();
     this.target = this.targetCell.center;
     this.shape = "circle";
@@ -276,8 +277,8 @@ class Enemy {
       }
     }
     if (this.isLocked) {
-      this.damages = this.damages + this.increasedDamg;
-      this.health = this.health - this.increasedDamg;
+      this.damages = this.damages
+      this.health = 0
     }
 
     // Handle reaching target and updating path
