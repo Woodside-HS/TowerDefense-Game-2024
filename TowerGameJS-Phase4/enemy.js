@@ -275,6 +275,10 @@ class Enemy {
         towerGame.explosiveBullets.splice(i, 1);
       }
     }
+    if (this.isLocked) {
+      this.damages = this.damages + this.increasedDamg;
+      this.health = this.health - this.increasedDamg;
+    }
 
     // Handle reaching target and updating path
     if (this.health <= 0) {
