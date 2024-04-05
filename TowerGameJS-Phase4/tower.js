@@ -260,14 +260,12 @@ class Tower {
           (this.ability == "freeze" && enemyImmunties.freezeImmunities[1] == "targetable") ||
           (this.ability == "explosive" && enemyImmunties.explosiveImmunities[1] == "targetable") ||
           (this.ability == "ray" && enemyImmunties.rayImmunities[1] == "targetable") ||
-          (this.ability == "bladeStorm" && enemyImmunties.bladeStormImmunities[1] == "targetable") ||
           (this.ability == "liquify" && enemyImmunties.liquifyImmunities[1] == "targetable") ||
           (this.ability == "normal" && enemyImmunties.normalUpgradedImmunities[1] == "targetable") ||
           (this.ability == "fast" && enemyImmunties.fastUpgradedImmunities[1] == "targetable") ||
           (this.ability == "freeze" && enemyImmunties.freezeUpgradedImmunities[1] == "targetable") ||
           (this.ability == "explosive" && enemyImmunties.explosiveUpgradedImmunities[1] == "targetable") ||
           (this.ability == "ray" && enemyImmunties.rayUpgradedImmunities[1] == "targetable") ||
-          (this.ability == "bladeStorm" && enemyImmunties.bladeStormUpgradedImmunities[1] == "targetable") ||
           (this.ability == "liquify" && enemyImmunties.liquifyUpgradedImmunities[1] == "targetable") 
          
         ) {
