@@ -277,8 +277,9 @@ class Enemy {
       }
     }
     if (this.isLocked) {
-      this.damages = this.damages
-      this.health = 0
+      setTimeout(() => {
+        this.kill = true;
+      }, this.coolDown);
     }
 
     // Handle reaching target and updating path
