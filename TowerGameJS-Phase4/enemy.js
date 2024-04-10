@@ -33,7 +33,6 @@ class Enemy {
     this.img = Enemy.image3; // image for enemy
     this.hitByFreezeUpgraded = false;
     this.movement = new Movement(this.loc, this.target, this.speed);
-    this.deathTimer = null;
     // Initialize immunities
     this.normalImmunities = [false, "targetable"];
     this.normalUpgradedImmunities = [false, "targetable"];
@@ -280,7 +279,7 @@ class Enemy {
     if (this.isLocked) {
       setTimeout(() => {
         this.kill = true;
-      }, this.deathTimer);
+      }, this.coolDown);
     }
 
     // Handle reaching target and updating path
@@ -506,6 +505,6 @@ class Enemy5 extends Enemy {
     this.img = Enemy.image5;
     this.health = 10000;
     this.turtleEnemy = true;
-    this.movement.speed = 1.5;
+    this.movement.speed =  1.5;
   }
 }
