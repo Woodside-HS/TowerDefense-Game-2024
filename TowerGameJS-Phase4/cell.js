@@ -5,7 +5,7 @@ class Cell {
     this.loc = loc;     // top left pixel location
     this.center = vector2d(loc.x + (game.w) / 2, loc.y + (game.w) / 2);
     this.color = 'pink';
-    this.shape = "rectangle";
+    this.shape = "square";
     this.id = id;
     this.neighbors = [];
     this.occupied = false;
