@@ -76,6 +76,7 @@ class Tower {
       this.coolDown = 1000;
     } else if (ability == "ray") {
       this.range = 200;
+      this.coolDown = 2000;
     }
     this.maxCoolDown = this.coolDown;
 
@@ -264,6 +265,8 @@ class Tower {
           (this.ability == "normal" && enemyImmunties.normalUpgradedImmunities[1] == "targetable") ||
           (this.ability == "fast" && enemyImmunties.fastUpgradedImmunities[1] == "targetable") ||
           (this.ability == "freeze" && enemyImmunties.freezeUpgradedImmunities[1] == "targetable") ||
+          (this.ability == "bladeStorm" && enemyImmunties.bladeStormImmunities[1] == "targetable") ||
+          (this.ability == "bladeStorm" && enemyImmunties.bladeStormUpgradedImmunities[1] == "targetable") ||
           (this.ability == "explosive" && enemyImmunties.explosiveUpgradedImmunities[1] == "targetable") ||
           (this.ability == "ray" && enemyImmunties.rayUpgradedImmunities[1] == "targetable") ||
           (this.ability == "liquify" && enemyImmunties.liquifyUpgradedImmunities[1] == "targetable") 
@@ -409,6 +412,7 @@ class Tower {
         if (this.findEnemyIndex() < towerGame.enemies.length) {
 
           towerGame.enemies[this.findEnemyIndex()].isLocked = true;
+          towerGame.enemies[this.findEnemyIndex()].deathTimer = this.coolDown;
         } else {
           towerGame.rays = [];
         }
