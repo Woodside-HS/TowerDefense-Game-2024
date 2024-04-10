@@ -57,8 +57,6 @@ class Wave {
 
 function generateWaves() {
   let waves = []; //array of waves
-  let baseNumEnemies = 10; // Base number of enemies for the first wave
-  let enemyIncrementPerWave = 5;  // How much the number of enemies increases per wave
   let baseEnemyIncrement = 1; // Base time between enemy spawns
   let basePacketIncrement = 1; // Base time between packets (a packet is a small group of enemies appearing at once within a wave
   //waves have multiple packets
