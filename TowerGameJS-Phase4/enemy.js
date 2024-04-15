@@ -65,10 +65,10 @@ class Enemy {
   run() {
     this.render();
     this.update();
-    this.specificUpgrade();
+    this.specificEnemyUpgrade();
   }
 
-  specificUpgrade() {
+  specificEnemyUpgrade() {
     if (this.normalEnemy) {
 
     }
