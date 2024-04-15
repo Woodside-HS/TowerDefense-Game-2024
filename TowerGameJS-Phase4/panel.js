@@ -101,7 +101,7 @@ var panelJSON = [{
       picId: "wframe",
       funk: function () {
         towerGame.gameState.panelInstructions = new Panel(towerGame, 1)
-        document.getElementById("firstPanel").parentNode.removeChild(document.getElementById("firstPanel"))
+        document.getElementById("firstPanel").parentNode.removeChild(document.getElementById("firstPanel"));
       }
     }, {
       name: "Catalog Button",

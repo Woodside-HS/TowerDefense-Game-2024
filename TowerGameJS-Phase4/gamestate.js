@@ -208,7 +208,9 @@ class GameState5 extends GameState { // game itself
     for (let i = 0; i < this.game.hands.length; i++) {
       this.game.hands[i].run();
     }
-
+    for (let i = 0; i < this.game.rays.length; i++) {
+      this.game.rays[i].run();
+    }
 
     // some help text in the bottom left of the canvas
     this.game.context.save();

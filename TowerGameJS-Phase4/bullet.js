@@ -30,6 +30,9 @@ class Bullet {
     if (this.ability == "cannon") {
       this.speed = 50;
     }
+    if(this.ability == "fast"){
+      this.speed = 5;
+    }
   }
 
   run() {
@@ -39,11 +42,11 @@ class Bullet {
       this.cannonSpinny();
     } else if (this.ability == "explosive") {
       this.explosiveRandom();
-    } else {
-      this.update();
-
     }
-  }
+      this.update();
+    }
+    
+  
   explosiveRandom() {
     if(!this.randomChoosenTarget){
     let can = this.chooseRandomExplosiveSpot();
@@ -105,11 +108,6 @@ class Bullet {
       this.loc.x += Math.cos(this.cannonBulletAngle) * 2.5;//the * 2.5 does not really make sense idk
       this.loc.y += Math.sin(this.cannonBulletAngle) * 2.5;//The number should be orbital radius and it technically is.
       this.cannonBulletAngle += angularMovement;
-    }
-  }
-  fastSwipe() {
-    if (this.fastUpgradeFinal) {
-
     }
   }
 

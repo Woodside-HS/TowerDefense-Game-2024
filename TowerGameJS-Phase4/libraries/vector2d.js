@@ -29,6 +29,9 @@ var vector2d = function (vx, vy) {
             vec.y += vec2.y;
             return(this);
         },
+        subGetNew: function (vec2) {
+            return (this.x - vec2.x, this.y - vec2.y);
+        },
 
         // sub() method subtracts a vector.
         sub: function (vec2) {
@@ -42,12 +45,13 @@ var vector2d = function (vx, vy) {
             return(this);
         },
 
-            // 2-20-17 added dist()
         dist: function (vec2) {
             return(vec2.copy().sub(this).length());
         },
-        dist5: function (v1, v2){
-            return(Math.sqrt((v2.x-v2.x)*(v2.x-v1.x) + (v2.y-v1.y)*(v2.y-v1.y)));
+
+        
+        mag: function(vec2) {
+            return Math.sqrt((vec2.x - this.x) ** 2 + (vec2.y - this.y) ** 2);
         },
 
             // 2-20-17 added angleBetween()
