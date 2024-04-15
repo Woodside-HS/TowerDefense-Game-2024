@@ -384,7 +384,7 @@ var panelJSON = [{
     pic: "TowerGameJS-Phase4/resources/images/panels/back.png",
     picId: "back",
     funk: function () {
-      towerGame.gameState.towerPanel = new Panel(towerGame, 6, 180, 800, 680)
+      towerGame.gameState.towerPanel = new Panel(towerGame, 6, 180, 1000)
       document.getElementById("archerCataPanel").parentNode.removeChild(document.getElementById("archerCataPanel"))
     }
   }
@@ -400,7 +400,7 @@ var panelJSON = [{
         pic: "TowerGameJS-Phase4/resources/images/panels/back.png",
         picId: "back",
         funk: function () {
-          towerGame.gameState.towerPanel = new Panel(towerGame, 6, 180, 800, 680)
+          towerGame.gameState.towerPanel = new Panel(towerGame, 6, 180, 1000)
           document.getElementById("knightCata").parentNode.removeChild(document.getElementById("knightCata"))
         }
       }
@@ -416,7 +416,7 @@ var panelJSON = [{
         pic: "TowerGameJS-Phase4/resources/images/panels/back.png",
         picId: "back",
         funk: function () {
-          towerGame.gameState.towerPanel = new Panel(towerGame, 6, 180, 800, 680)
+          towerGame.gameState.towerPanel = new Panel(towerGame, 6, 180, 1000)
           document.getElementById("wizardCata").parentNode.removeChild(document.getElementById("wizardCata"))
         }
       }
@@ -432,7 +432,7 @@ var panelJSON = [{
         pic: "TowerGameJS-Phase4/resources/images/panels/back.png",
         picId: "back",
         funk: function () {
-          towerGame.gameState.towerPanel = new Panel(towerGame, 6, 180, 800, 680)
+          towerGame.gameState.towerPanel = new Panel(towerGame, 6, 180, 1000)
           document.getElementById("cannoneerCata").parentNode.removeChild(document.getElementById("cannoneerCata"))
         }
       }
@@ -448,7 +448,7 @@ var panelJSON = [{
         pic: "TowerGameJS-Phase4/resources/images/panels/back.png",
         picId: "back",
         funk: function () {
-          towerGame.gameState.towerPanel = new Panel(towerGame, 6, 180, 800, 680)
+          towerGame.gameState.towerPanel = new Panel(towerGame, 6, 180, 1000)
           document.getElementById("sniperCata").parentNode.removeChild(document.getElementById("sniperCata"))
         }
       }
@@ -464,7 +464,7 @@ var panelJSON = [{
         pic: "TowerGameJS-Phase4/resources/images/panels/back.png",
         picId: "back",
         funk: function () {
-          towerGame.gameState.towerPanel = new Panel(towerGame, 6, 180, 800, 680)
+          towerGame.gameState.towerPanel = new Panel(towerGame, 6, 180, 1000)
           document.getElementById("assassinCata").parentNode.removeChild(document.getElementById("assassinCata"))
         }
       }
@@ -480,7 +480,7 @@ var panelJSON = [{
         pic: "TowerGameJS-Phase4/resources/images/panels/back.png",
         picId: "back",
         funk: function () {
-          towerGame.gameState.towerPanel = new Panel(towerGame, 6, 180, 800, 680)
+          towerGame.gameState.towerPanel = new Panel(towerGame, 6, 180, 1000)
           document.getElementById("assassinCata").parentNode.removeChild(document.getElementById("assassinCata"))
         }
       }
