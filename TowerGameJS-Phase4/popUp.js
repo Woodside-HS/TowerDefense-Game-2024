@@ -77,7 +77,7 @@ class Popup {
     upgradePopup.style.padding = '20px';
     upgradePopup.style.border = '1px solid #ddd';
     // Set the background to a different PNG image for the upgrade popup
-    upgradePopup.style.background = `url('resources/images/button2.png')`;
+    upgradePopup.style.background = `url('TowerGameJS-Phase4/resources/images/button2.png')`;
     upgradePopup.style.backgroundSize = 'cover'; // Ensure the background covers the whole popup
     upgradePopup.style.boxShadow = '0 2px 5px rgba(0,0,0,0.3)';
     upgradePopup.style.zIndex = '1000';

@@ -110,7 +110,7 @@ class GameState4 extends GameState { //Catalog
 class GameState5 extends GameState { // game itself
   constructor(game, levelSel) {
     super(game)
-    this.game.health = 100
+    this.game.health = 0;
     this.game.score = 0
     this.game.bankValue = 1000;
     this.game.gameTime = 0
