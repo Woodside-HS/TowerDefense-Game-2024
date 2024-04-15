@@ -174,7 +174,7 @@ var panelJSON = [{
 }, {
   name: "Level Selector", // panel 3
   id: "levelSelector",
-  pic: "TowerGameJS-Phase4/resources/images/panels/panel.png",
+  pic: "",
   picId: "pan",
   buttonJSON: [
     {
@@ -269,7 +269,7 @@ var panelJSON = [{
 }, { //panel 6
   name: "Tower Info Panel",
   id: "towerInfoPanel",
-  pic: "TowerGameJS-Phase4/resources/images/bg/end.png",
+  pic: "",
   picId: "towerPan",
   buttonJSON: [
     {
@@ -293,7 +293,7 @@ var panelJSON = [{
     }, {
       name: "Knight Button",
       id: "knightButt",
-      pic: "TowerGameJS-Phase4/resources/images/panels/home.png",
+      pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanButt/knightButt.png",
       picId: "knight",
       funk: function () {
         towerGame.gameState.specificTowerPanel = new Panel(towerGame, 8, 180, 800, 680)
@@ -311,7 +311,7 @@ var panelJSON = [{
     }, {
       name: "Cannoneer Button",
       id: "cannonButt",
-      pic: "TowerGameJS-Phase4/resources/images/panels/home.png",
+      pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanButt/cannonButt.png",
       picId: "cannoneer",
       funk: function () {
         towerGame.gameState.specificTowerPanel = new Panel(towerGame, 10, 180, 800, 680)
@@ -424,7 +424,7 @@ var panelJSON = [{
   }, { //panel 10
     name: "Cannoneer Catalog",
     id: "cannoneerCata",
-    pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanels/archerCatalog.png",
+    pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanels/cannoneerCatalog.png",
     picId: "cannonCata",
     buttonJSON:[{
         name: "Back Button",
@@ -456,7 +456,7 @@ var panelJSON = [{
   }, { //panel 12
     name: "Assassin Catalog",
     id: "assassinCata",
-    pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanels/archerCatalog.png",
+    pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanels/assassinCatalog.png",
     picId: "assasCata",
     buttonJSON:[{
         name: "Back Button",

@@ -42,7 +42,7 @@ class GameState2 extends GameState { // Level screen
     super(game);
     towerGame.gameStateID = 6;
     this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/levelSelector.jpg')"
-    this.panelLvlSelector = new Panel(this, 3, 480);
+    this.panelLvlSelector = new Panel(this, 3, 400);
 
   }
 
