@@ -127,6 +127,7 @@ class Tower {
     } else if (ability == "buffregen") {
       this.healthPulse = true;
     }
+    this.maxCoolDown = this.coolDown;
   }
   normalFinalUpgrade() {
     this.piercingArrow = true;

@@ -24,6 +24,7 @@ class Enemy {
     this.deathSound = new Audio('TowerGameJS-Phase4/resources/sounds/splat.mp3');
     this.lastTime = Date.now();
     this.health;
+    this.renderFreezeAura = false;
     this.damages = 0;
     this.targetCell = this.nextTarget();
     this.target = this.targetCell.center;
@@ -55,11 +56,11 @@ class Enemy {
     this.missileUpgradedImmunities = [false, "targetable"];
 
     // Enemy type flags
-    this.normalEnemy = false;
-    this.normalSmallEnemy = false;
-    this.freezeEnemy = false;
-    this.explosiveEnemy = false;
-    this.turtleEnemy = false;
+    // this.normalEnemy = false;
+    // this.normalSmallEnemy = false;
+    // this.freezeEnemy = false;
+    // this.explosiveEnemy = false;
+    // this.turtleEnemy = false;
   }
 
   run() {
@@ -76,9 +77,14 @@ class Enemy {
 
     }
     if (this.freezeEnemy) {
+      this.renderFreezeAura = true;
       for (let i = 0; i < towerGame.towers.length; i++) {
         let distToTower = this.loc.dist(towerGame.towers[i].loc);
-
+        if (distToTower < 120) {
+          towerGame.towers[i].coolDown *= 2;
+        } else {
+          towerGame.towers[i].coolDown = towerGame.towers[i].maxCoolDown;
+        }
 
       }
     }
@@ -121,11 +127,13 @@ class Enemy {
 
 
   // render()
-  // Draw the enemy at its current location
-  // Enemies with a randomized path are blue and
-  // enemies with an optimal path are green
   render() {
     let ctx = this.game.context;
+    ctx.save();
+    ctx.translate(this.loc.x, this.loc.y)
+    ctx.rotate(this.angle + Math.PI / 2);
+    ctx.drawImage(this.img, -this.img.width / 2, -this.img.height / 2);
+    ctx.restore();
     if (this.slowed < 1) {
       ctx.save();
       ctx.translate(this.loc.x, this.loc.y);
@@ -136,12 +144,19 @@ class Enemy {
       ctx.stroke();
       ctx.restore();
     }
+    if (this.renderFreezeAura) {
+      ctx.save();
+      ctx.translate(this.loc.x, this.loc.y);
+      ctx.strokeStyle = "rgba(0, 0, 255, 1)";
+      ctx.beginPath();
+      ctx.lineWidth = 5;
+      ctx.arc(0, 0, 120, 0, Math.PI * 2, false);
+      ctx.closePath();
+      ctx.stroke();
+     // ctx.fill();
+      ctx.restore();
+    }
 
-    ctx.save();
-    ctx.translate(this.loc.x, this.loc.y);
-    ctx.rotate(this.angle + Math.PI / 2);
-    ctx.drawImage(this.img, -this.img.width / 2, -this.img.height / 2);
-    ctx.restore();
   }
 
   // update()
