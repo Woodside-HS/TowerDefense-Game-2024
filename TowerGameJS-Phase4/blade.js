@@ -39,7 +39,7 @@ class Blade {
       var ctx = towerGame.context;
       ctx.save();
       ctx.translate(this.towerLoc.x, this.towerLoc.y);
-      ctx.rotate((this.blades + 1) * 0.26 * Math.PI);//idk the png is scuffed so its not perfect
+      ctx.rotate((this.blades + 1) * 0.265 * Math.PI);//idk the png is scuffed so its not perfect
       // but I can not be asked to fix the png yet
       ctx.rotate(this.angle)
 
