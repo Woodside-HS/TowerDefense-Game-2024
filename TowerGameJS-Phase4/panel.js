@@ -6,7 +6,7 @@ class Panel {
     this.temp = 0;
     this.y = -590;
     this.endY = y;
-    
+
     this.panel = document.createElement("div");
     this.panel.id = panelJSON[number].id;
     this.panel.style.width = w + "px";
@@ -142,7 +142,7 @@ var panelJSON = [{
       pic: "TowerGameJS-Phase4/resources/images/panels/endPanel/restart.png",
       picId: "wframe",
       funk: function () {
-        towerGame.gameState = new GameState2(towerGame, 5);
+        towerGame.gameState = new GameState2(towerGame);
         towerGame.currentWaveNum = 0; // Reset the current wave number to 0
         towerGame.wave = new Wave(towerGame, AllWaves[towerGame.currentWaveNum]); // Create a new Wave instance with the first wave
         towerGame.wave.referenceTime = 20;
@@ -246,25 +246,14 @@ var panelJSON = [{
       pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/tower.png",
       picId: "tower",
       funk: function () {
-        towerGame.gameState.towerPanel = new Panel(towerGame, 6, 180, 800, 680)
+        towerGame.gameState.towerPanel = new Panel(towerGame, 6, 180, 1000)
         document.getElementById("catalogHomePanel").parentNode.removeChild(document.getElementById("catalogHomePanel"))
       }
     }, {
-      name: "Enemy Button",
-      id: "enemyButton",
-      pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/enemy.png",
-      picId: "enemy",
-      funk: function () {
-        towerGame.gameState.towerPanel = new Panel(towerGame, 7, 180, 800, 680)
-        document.getElementById("catalogHomePanel").parentNode.removeChild(document.getElementById("catalogHomePanel"))
-      }
-    },
-
-    {
-      name: "Home Button",
+      name: "Quit Button",
       id: "quitButton",
       pic: "TowerGameJS-Phase4/resources/images/panels/home.png",
-      picId: "home",
+      picId: "quit",
       funk: function () {
         document.getElementById("catalogHomePanel").parentNode.removeChild(document.getElementById("catalogHomePanel"))
         towerGame.gameState = new GameState1(towerGame)
@@ -284,141 +273,217 @@ var panelJSON = [{
   picId: "towerPan",
   buttonJSON: [
     {
+      name: "Back Button",
+      id: "back",
+      pic: "TowerGameJS-Phase4/resources/images/panels/back.png",
+      picId: "back",
+      funk: function () {
+        towerGame.gameState.catalogPanel = new Panel(towerGame, 5)
+        document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
+      }
+    }, {
+      name: "Archer Button",
+      id: "archButt",
+      pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanButt/archButt.png",
+      picId: "arch",
+      funk: function () {
+        towerGame.gameState.specificTowerPanel = new Panel(towerGame, 7, 180, 800, 680)
+        document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
+      }
+    }, {
+      name: "Knight Button",
+      id: "knightButt",
+      pic: "TowerGameJS-Phase4/resources/images/panels/home.png",
+      picId: "knight",
+      funk: function () {
+        towerGame.gameState.specificTowerPanel = new Panel(towerGame, 8, 180, 800, 680)
+        document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
+      }
+    }, {
+      name: "Wizard Button",
+      id: "wizButt",
+      pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanButt/cannonButt.png",
+      picId: "wizard",
+      funk: function () {
+        towerGame.gameState.specificTowerPanel = new Panel(towerGame, 9, 180, 800, 680)
+        document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
+      }
+    }, {
+      name: "Cannoneer Button",
+      id: "cannonButt",
+      pic: "TowerGameJS-Phase4/resources/images/panels/home.png",
+      picId: "cannoneer",
+      funk: function () {
+        towerGame.gameState.specificTowerPanel = new Panel(towerGame, 10, 180, 800, 680)
+        document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
+      }
+    }, {
+      name: "Sniper Button",
+      id: "snipButt",
+      pic: "TowerGameJS-Phase4/resources/images/panels/home.png",
+      picId: "sniper",
+      funk: function () {
+        towerGame.gameState.specificTowerPanel = new Panel(towerGame, 11, 180, 800, 680)
+        document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
+      }
+    }, {
+      name: "Assassin Button",
+      id: "assassinButt",
+      pic: "TowerGameJS-Phase4/resources/images/panels/home.png",
+      picId: "assasThrower",
+      funk: function () {
+        towerGame.gameState.specificTowerPanel = new Panel(towerGame, 12, 180, 800, 680)
+        document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
+      }
+    }, {
+      name: "Bladestorm Button",
+      id: "bladeButt",
+      pic: "TowerGameJS-Phase4/resources/images/panels/home.png",
+      picId: "bladeTower",
+      funk: function () {
+        towerGame.gameState.specificTowerPanel = new Panel(towerGame, 13, 180, 800, 680)
+        document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
+      }
+    }, {
+      name: "Vampire Button",
+      id: "vampButt",
+      pic: "TowerGameJS-Phase4/resources/images/panels/home.png",
+      picId: "vampire",
+      funk: function () {
+        towerGame.gameState.specificTowerPanel = new Panel(towerGame, 14, 180, 800, 680)
+        document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
+      }
+    }, {
+      name: "Rock Thrower Button",
+      id: "rockButt",
+      pic: "TowerGameJS-Phase4/resources/images/panels/home.png",
+      picId: "rockThrower",
+      funk: function () {
+        towerGame.gameState.specificTowerPanel = new Panel(towerGame, 15, 180, 800, 680)
+        document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
+      }
+    }, {
+      name: "Buff Tower Button",
+      id: "buffButt",
+      pic: "TowerGameJS-Phase4/resources/images/panels/home.png",
+      picId: "buffTower",
+      funk: function () {
+        towerGame.gameState.specificTowerPanel = new Panel(towerGame, 16, 180, 800, 680)
+        document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
+      }
+    }
+  ]
+}, { //panel 7
+  name: "Archer Catalog Panel",
+  id: "archerCataPanel",
+  pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanels/archerCatalog.png",
+  picId: "archCata",
+  buttonJSON: [{
     name: "Back Button",
     id: "back",
     pic: "TowerGameJS-Phase4/resources/images/panels/back.png",
     picId: "back",
     funk: function () {
-      towerGame.gameState.towerPanel = new Panel(towerGame, 5, 180, 800, 680)
-      document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
-    }
-  }, {
-    name: "Archer Button",
-    id: "archButt",
-    pic:"TowerGameJS-Phase4/resources/images/panels/home.png",
-    id: "arch",
-    funk: function () {
-      towerGame.gameState.catalogPanel = new Panel(towerGame, 7, 180, 800, 680)
-      document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
-    }
-  } , {
-    name: "Knight Button",
-    id: "knightButt",
-    pic:"TowerGameJS-Phase4/resources/images/panels/home.png",
-    id: "knight",
-    funk: function () {
-      towerGame.gameState.catalogPanel = new Panel(towerGame, 8, 180, 800, 680)
-      document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
-    }
-  } , {
-    name: "Wizard Button",
-    id: "wizButt",
-    pic:"TowerGameJS-Phase4/resources/images/panels/home.png",
-    id: "wizard",
-    funk: function () {
-      towerGame.gameState.catalogPanel = new Panel(towerGame, 9, 180, 800, 680)
-      document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
-    }
-  }, {
-    name: "Cannoneer Button",
-    id: "cannonButt",
-    pic:"TowerGameJS-Phase4/resources/images/panels/home.png",
-    id: "cannoneer",
-    funk: function () {
-      towerGame.gameState.catalogPanel = new Panel(towerGame, 10, 180, 800, 680)
-      document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
-    }
-  }, {
-    name: "Sniper Button",
-    id: "snipButt",
-    pic:"TowerGameJS-Phase4/resources/images/panels/home.png",
-    id: "sniper",
-    funk: function () {
-      towerGame.gameState.catalogPanel = new Panel(towerGame, 11, 180, 800, 680)
-      document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
-    }
-  }, {
-    name: "Knife Thrower Button",
-    id: "knifeButt",
-    pic:"TowerGameJS-Phase4/resources/images/panels/home.png",
-    id: "knifeThrower",
-    funk: function () {
-      towerGame.gameState.catalogPanel = new Panel(towerGame, 12, 180, 800, 680)
-      document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
-    }
-  }, {
-    name: "Blade Tower Button",
-    id: "bladeButt",
-    pic:"TowerGameJS-Phase4/resources/images/panels/home.png",
-    id: "bladeTower",
-    funk: function () {
-      towerGame.gameState.catalogPanel = new Panel(towerGame, 13, 180, 800, 680)
-      document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
-    }
-  }, {
-    name: "Vampire Button",
-    id: "vampButt",
-    pic:"TowerGameJS-Phase4/resources/images/panels/home.png",
-    id: "vampire",
-    funk: function () {
-      towerGame.gameState.catalogPanel = new Panel(towerGame, 14, 180, 800, 680)
-      document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
-    }
-  }, {
-    name: "Rock Thrower Button",
-    id: "rockButt",
-    pic:"TowerGameJS-Phase4/resources/images/panels/home.png",
-    id: "rockThrower",
-    funk: function () {
-      towerGame.gameState.catalogPanel = new Panel(towerGame, 15, 180, 800, 680)
-      document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
-    }
-  }, {
-    name: "Buff Tower Button",
-    id: "buffButt",
-    pic:"TowerGameJS-Phase4/resources/images/panels/home.png",
-    id: "buffTower",
-    funk: function () {
-      towerGame.gameState.catalogPanel = new Panel(towerGame, 16, 180, 800, 680)
-      document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
+      towerGame.gameState.towerPanel = new Panel(towerGame, 6, 180, 1000)
+      document.getElementById("archerCataPanel").parentNode.removeChild(document.getElementById("archerCataPanel"))
     }
   }
   ]
-}, {
-  name: "Archer Catalog",
-  id: "archerCata",
-  pic: "TowerGameJS-Phase4/resources/images/panels/home.png",
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// , { //panel 7 
-//   name: "Enemy Info Panel",
-//   id: "enemyInfoPanel",
-//   pic: "TowerGameJS-Phase4/resources/images/bg/end.png",
-//   picId: "enemyPan",
-//   buttonJSON: [{
-//     name: "Back Button",
-//     id: "back",
-//     pic: "TowerGameJS-Phase4/resources/images/panels/back.png",
-//     picId: "back",
-//     funk: function () {
-//       towerGame.gameState.catalogPanel = new Panel(towerGame, 5)
-//       document.getElementById("enemyInfoPanel").parentNode.removeChild(document.getElementById("enemyInfoPanel"))
-//     }
-//   }
-//   ]
-// }
-];
+}, { //panel 8
+    name: "Knight Catalog",
+    id: "knightCata",
+    pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanels/archerCatalog.png",
+    picId: "knightCata",
+    buttonJSON:[{
+        name: "Back Button",
+        id: "back",
+        pic: "TowerGameJS-Phase4/resources/images/panels/back.png",
+        picId: "back",
+        funk: function () {
+          towerGame.gameState.towerPanel = new Panel(towerGame, 6, 180, 1000)
+          document.getElementById("knightCata").parentNode.removeChild(document.getElementById("knightCata"))
+        }
+      }
+    ]
+  }, { //panel 9
+    name: "Wizard Catalog",
+    id: "wizardCata",
+    pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanels/archerCatalog.png",
+    picId: "wizardCata",
+    buttonJSON:[{
+        name: "Back Button",
+        id: "back",
+        pic: "TowerGameJS-Phase4/resources/images/panels/back.png",
+        picId: "back",
+        funk: function () {
+          towerGame.gameState.towerPanel = new Panel(towerGame, 6, 180, 1000)
+          document.getElementById("wizardCata").parentNode.removeChild(document.getElementById("wizardCata"))
+        }
+      }
+    ]
+  }, { //panel 10
+    name: "Cannoneer Catalog",
+    id: "cannoneerCata",
+    pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanels/archerCatalog.png",
+    picId: "cannonCata",
+    buttonJSON:[{
+        name: "Back Button",
+        id: "back",
+        pic: "TowerGameJS-Phase4/resources/images/panels/back.png",
+        picId: "back",
+        funk: function () {
+          towerGame.gameState.towerPanel = new Panel(towerGame, 6, 180, 1000)
+          document.getElementById("cannoneerCata").parentNode.removeChild(document.getElementById("cannoneerCata"))
+        }
+      }
+    ]
+  }, { //panel 11
+    name: "Sniper Catalog",
+    id: "sniperCata",
+    pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanels/archerCatalog.png",
+    picId: "sniperCata",
+    buttonJSON:[{
+        name: "Back Button",
+        id: "back",
+        pic: "TowerGameJS-Phase4/resources/images/panels/back.png",
+        picId: "back",
+        funk: function () {
+          towerGame.gameState.towerPanel = new Panel(towerGame, 6, 180, 1000)
+          document.getElementById("sniperCata").parentNode.removeChild(document.getElementById("sniperCata"))
+        }
+      }
+    ]
+  }, { //panel 12
+    name: "Assassin Catalog",
+    id: "assassinCata",
+    pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanels/archerCatalog.png",
+    picId: "assasCata",
+    buttonJSON:[{
+        name: "Back Button",
+        id: "back",
+        pic: "TowerGameJS-Phase4/resources/images/panels/back.png",
+        picId: "back",
+        funk: function () {
+          towerGame.gameState.towerPanel = new Panel(towerGame, 6, 180, 1000)
+          document.getElementById("assassinCata").parentNode.removeChild(document.getElementById("assassinCata"))
+        }
+      }
+    ]
+  }, { //panel 13
+    name: "Bladestorm Catalog",
+    id: "bladestormCata",
+    pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanels/bladestormCatalog.png",
+    picId: "bladeCata",
+    buttonJSON:[{
+        name: "Back Button",
+        id: "back",
+        pic: "TowerGameJS-Phase4/resources/images/panels/back.png",
+        picId: "back",
+        funk: function () {
+          towerGame.gameState.towerPanel = new Panel(towerGame, 6, 180, 1000)
+          document.getElementById("assassinCata").parentNode.removeChild(document.getElementById("assassinCata"))
+        }
+      }
+    ]
+  }
+]
