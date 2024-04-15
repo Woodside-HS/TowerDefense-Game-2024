@@ -1,6 +1,6 @@
 class Blade {
 
-  constructor(location, bImg, type, blades, damageMult, isOrginal) {
+  constructor(location, bImg, angle, type, blades, damageMult, isOrginal) {
     this.loc = new vector2d(0, 0);
     this.towerLoc = location;
     this.shape = "square";
@@ -39,7 +39,7 @@ class Blade {
       var ctx = towerGame.context;
       ctx.save();
       ctx.translate(this.towerLoc.x, this.towerLoc.y);
-      ctx.rotate(this.blades * 0.25 * Math.PI);//idk the png is scuffed so its not perfect
+      ctx.rotate((this.blades + 1) * 0.25 * Math.PI);//idk the png is scuffed so its not perfect
       // but I can not be asked to fix the png yet
       ctx.rotate(this.angle)
 

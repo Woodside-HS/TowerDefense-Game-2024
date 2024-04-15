@@ -382,7 +382,7 @@ class Tower {
           this.blades++;
         } else if (this.blades < 8 && this.bladeFinal) {
           if (!this.replaced) {
-            for (let i = 4; i > 0; i--) {
+            for (let i = 4; i > -1; i--) {
               towerGame.blades.splice(i, 1);
               this.replaced = true;
               this.blades = 0;
