@@ -63,6 +63,9 @@ class Liquify {
     }
     return new Vector2d(v1.x, v1.y);
   }
+  newDist(v1, v2){
+    return(Math.sqrt((v2.x-v2.x)*(v2.x-v1.x) + (v2.y-v1.y)*(v2.y-v1.y)));
+}
   update() {
     this.lifeSpan --;
     if(this.lifeSpan <= 0){
@@ -75,6 +78,7 @@ class Liquify {
         this.nearestEnemy = towerGame.enemies[i];
       }
     }
+    if(towerGame.enemies.length > 0){
     this.acc = this.subGetNew(this.nearestEnemy.loc, this.loc);
     this.acc.normalize();
     this.acc = this.multiply(this.acc, 1);
@@ -82,6 +86,7 @@ class Liquify {
     this.vel = this.limit(this.vel, 4);
     this.loc = this.loc.add(this.vel);//movement is terrible but its a feature ig
 //after a enemy dies in just stays there 
+    }
   }
 
 }

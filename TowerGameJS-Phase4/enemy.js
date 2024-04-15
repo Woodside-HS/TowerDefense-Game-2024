@@ -16,27 +16,25 @@ class Enemy {
     this.randomPath = 1;   //boolean to randomize or not
     this.radius = 15.0;
     this.r = 15.0;
-    this.vel = 3.0;
+    this.vel = vector2d(0, 0); // Initialize velocity vector
     this.count = 0;
     this.slowed = 1.2;
     this.isLocked = false;
     this.isTarget = false;
     this.deathSound = new Audio('TowerGameJS-Phase4/resources/sounds/splat.mp3');
     this.lastTime = Date.now();
-    this.coolDown = 1000;
-    this.towerLoc = vector2d(0, 0);
-    this.health = 1000;
+    this.health;
+    this.damages = 0;
     this.targetCell = this.nextTarget();
     this.target = this.targetCell.center;
     this.shape = "circle";
-    var targetVec = this.target.copy().sub(this.loc);
-    this.velVec = targetVec.copy().normalize().scale(this.vel);      // initial velocity vector
     this.kill = false;
-    this.angle = this.velVec.angle()
-    this.img = Enemy.image3;// image for enemy
+    this.angle = this.vel.angle();
+    this.img = Enemy.image3; // image for enemy
     this.hitByFreezeUpgraded = false;
-
-
+    this.movement = new Movement(this.loc, this.target, this.speed);
+    this.deathTimer = null;
+    // Initialize immunities
     this.normalImmunities = [false, "targetable"];
     this.normalUpgradedImmunities = [false, "targetable"];
     this.fastImmunities = [false, "targetable"];
@@ -55,46 +53,70 @@ class Enemy {
     this.liquifyUpgradedImmunities = [false, "targetable"];
     this.missileImmunities = [false, "targetable"];
     this.missileUpgradedImmunities = [false, "targetable"];
-    this.buffregenImmunities = [false, "targetable"];
-    this.buffregenUpgradedImmunities = [false, "targetable"];
+
+    // Enemy type flags
+    this.normalEnemy = false;
+    this.normalSmallEnemy = false;
+    this.freezeEnemy = false;
+    this.explosiveEnemy = false;
+    this.turtleEnemy = false;
   }
 
   run() {
     this.render();
     this.update();
+    this.specificUpgrade();
   }
 
+  specificUpgrade() {
+    if (this.normalEnemy) {
+
+    }
+    if (this.normalSmallEnemy) {
+
+    }
+    if (this.freezeEnemy) {
+      for (let i = 0; i < towerGame.towers.length; i++) {
+        let distToTower = this.loc.dist(towerGame.towers[i].loc);
+
+
+      }
+    }
+    if (this.explosiveEnemy) {
+
+    }
+    if (this.turtleEnemy) {
+
+    }
+  }
   // nextTarget()
   // Return the next cell in the path to the root target
   // The parent of the current cell is always the optimal path
   // If we want some randomness in the path, choose from among all
   // the neighbor cells with a lesser distance to the root.
   nextTarget() {
-    if (!this.randomPath)
-      return (this.currentCell.parent);    // the parent cell is always the shortest path
-    else {  // else choose from cells with a lesser distance to the root
-      let candidates = [];
-      for (let i = 0; i < this.currentCell.neighbors.length; i++) {
-        if (this.currentCell.neighbors[i].dist < this.currentCell.dist)
-          candidates.push(this.currentCell.neighbors[i]);
-      }
-      // randomly pick one of the candidates
-      return (candidates[Math.floor(Math.random() * candidates.length)]);
-    }
-  }
-  oppositeNextTarget() {//idk
 
-    if (!this.randomPath)
-      return (this.currentCell.parent);    // the parent cell is always the shortest path
-    else {  // else choose from cells with a lesser distance to the root
-      let candidates = [];
-      for (let i = 0; i < this.currentCell.neighbors.length; i++) {
-        if (this.currentCell.neighbors[i].dist > this.currentCell.dist)
-          candidates.push(this.currentCell.neighbors[i]);
-      }
-      // randomly pick one of the candidates
-      return (candidates[Math.floor(Math.random() * candidates.length)]);
+
+    let candidates = [];
+    for (let i = 0; i < this.currentCell.neighbors.length; i++) {
+      if (this.currentCell.neighbors[i].dist < this.currentCell.dist)
+        candidates.push(this.currentCell.neighbors[i]);
     }
+    // randomly pick one of the candidates
+    return candidates[Math.floor(Math.random() * candidates.length)];
+
+  }
+
+  oppositeNextTarget() {
+
+
+    let candidates = [];
+    for (let i = 0; i < this.currentCell.neighbors.length; i++) {
+      if (this.currentCell.neighbors[i].dist > this.currentCell.dist)
+        candidates.push(this.currentCell.neighbors[i]);
+    }
+    // randomly pick one of the candidates
+    return candidates[Math.floor(Math.random() * candidates.length)];
   }
 
 
@@ -103,27 +125,23 @@ class Enemy {
   // Enemies with a randomized path are blue and
   // enemies with an optimal path are green
   render() {
-    var ctx = this.game.context
+    let ctx = this.game.context;
     if (this.slowed < 1) {
       ctx.save();
-      ctx.translate(this.loc.x, this.loc.y)
+      ctx.translate(this.loc.x, this.loc.y);
       ctx.strokeStyle = "rgba(0,0,100,0.4)";
       ctx.beginPath();
       ctx.arc(0, 0, (this.img.width + this.img.height) / 4, 0, Math.PI * 2, false);
-
       ctx.closePath();
       ctx.stroke();
-
       ctx.restore();
     }
 
     ctx.save();
-
     ctx.translate(this.loc.x, this.loc.y);
     ctx.rotate(this.angle + Math.PI / 2);
     ctx.drawImage(this.img, -this.img.width / 2, -this.img.height / 2);
     ctx.restore();
-
   }
 
   // update()
@@ -137,11 +155,11 @@ class Enemy {
       if (this.checkCollide(this, towerGame.missiles[h])) {
         if (towerGame.missiles[h].ability == "missile") {
           if (!this.missileImmunities[0]) {
-            this.health -= 800 * towerGame.missiles[h].damageMult;//this does not current work
+            this.health -= 800 * towerGame.missiles[h].damageMult;
             towerGame.missiles.splice(h, 1);
           }
-        } else if (!this.missileImmunities[0]) {
-          this.health -= 800 * towerGame.missiles[h].damageMult;//this does not current work
+        } else if (!this.missileUpgradedImmunities[0]) {
+          this.health -= 800 * towerGame.missiles[h].damageMult;
           towerGame.missiles.splice(h, 1);
         }
       }
@@ -218,7 +236,7 @@ class Enemy {
             towerGame.bullets.splice(h, 1);
           }
         } else if (towerGame.bullets[h].ability == "explosive") {
-          if (!this.bladestormImmunities[0]) {
+          if (!this.explosiveImmunities[0]) {
             this.health = this.health - 100 * towerGame.bullets[h].damageMult;
             if (this.health <= 0) {
               this.kill = true;
@@ -230,7 +248,7 @@ class Enemy {
           }
         }
         else if (towerGame.bullets[h].ability == "explosive") {
-          if (!this.explosiveImmunities[0]) {
+          if (!this.explosiveImmunities[0] || !this.explosiveUpgradedImmunities[0]) {
             this.health -= 100 * towerGame.bullets[h].damageMult;
             if (this.health <= 0) {
               this.kill = true;
@@ -259,72 +277,48 @@ class Enemy {
         towerGame.explosiveBullets.splice(i, 1);
       }
     }
-
-
-    if (this.health <= 0) {
-      this.kill = true;
-
-      this.deathSound.play();
-      towerGame.bankValue += 10;
-
+    if (this.isLocked) {
+      setTimeout(() => {
+        this.kill = true;
+      }, this.deathTimer);
     }
 
-    if (this.loc.dist(this.target) <= this.vel) {    // if we have reached the current target
+    // Handle reaching target and updating path
+    if (this.health <= 0) {
+      this.kill = true;
+      this.deathSound.play();
+      towerGame.bankValue += 10;
+    }
+    this.movement.update();
+    let dx = this.targetCell.center.x - this.loc.x;
+    let dy = this.targetCell.center.y - this.loc.y;
+
+    // Calculate angle of rotation
+    this.angle = Math.atan2(dy, dx);
+    if (this.movement.finished) {
       this.currentCell = this.targetCell;
-      if (this.currentCell == this.game.root) {   // we have reached the end of the path
+      this.targetCell = this.nextTarget();
+      if (this.currentCell == this.game.root) {
         this.kill = true;
-        towerGame.health = towerGame.health - 1;
+        towerGame.health--;
         return;
-      }
-      if (!this.hitByFreezeUpgraded) {
-        this.targetCell = this.nextTarget();// set a new target
-      } else {
-        let random = Math.floor(Math.random() * 5);
-        if (random < 3) {
-          this.targetCell = this.oppositeNextTarget();
-        } else {
-          this.targetCell = this.nextTarget();
-        }
       }
       if (!this.targetCell) {
         this.kill = true;   // can happen if user blocks cells while enemies are attacking
         return;
       }
-      this.target = this.targetCell.center;      // always target the center of the cell
+      this.target = this.targetCell.center;
+      this.movement.setTarget(this.loc, this.target);
     }
-    // calculate new vector from current location to the target.
-    var targetVec = this.target.copy().sub(this.loc);    // the direction we want to go
-    var angleBetween = this.velVec.angleBetween(targetVec);
-    if (angleBetween) {  // if there is some angle between
-      if (angleBetween > 0 && angleBetween > Math.PI)  // positive and > 180 degrees
-        angleBetween = angleBetween - 2 * Math.PI;   // make negative and < 180 degrees
-      else if (angleBetween < 0 && angleBetween < -Math.PI)   // negative and < -180 degrees
-        angleBetween = angleBetween = angleBetween + 2 * Math.PI;  // make positive and < 180 degrees
 
-      // now rotate the current velocity in the direction of the targetAngle
-      // a little at a time
-      this.velVec.rotate(angleBetween / 2);
-      this.angle = this.velVec.angle();
-    }
-    if (this.slowed < 1) {//the third guy does this
-      this.count++;
-      if (this.count == 3) {
-        this.loc.add(this.velVec)//this make it look extremely jittery 
-        //I will eventually do a complete overhaul of the velocity to get with better.
-        //(proboly after all the other towers are decent)
-        this.count = 0;
-      }
-    } else if (this.slowed > 1) {
-      this.loc.add(this.velVec);
-    }          // apply velocity to location
   }
+
 
   checkCollide(shape1, shape2) {
 
     if (shape1.shape === "circle") {
       if (shape2.shape === "circle") {
         //circle-circle
-        //console.log(this.dist(shape1.loc, shape2.loc) );
         if (shape1.r + shape2.r >= shape1.loc.copy().dist(shape2.loc)) return true;
         return false;
       } else if (shape2.shape === "square") {//this does not work for rectangles but its close enought for a 57x50 thing
@@ -394,43 +388,84 @@ class Enemy {
 
 
   }
+}
 
-} // end class ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// end class ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //this.normalImmunities = [false, "targetable"];
 //false if it can't hit the enemy so false of default means yes you can hit
 //targetable is basically if the enemy is immune to the towers attack the tower will still target it unless the targetable
 // is set to something that is not targetable
+
+
+//circle radius slows down enemies
+//death explotion of high level enemies has a chance to completely destroy a nearby tower
+//basic enemy normal fish
+//plankton (lots of tiny ones that die gradually from damage)
+//turtle immunities 
+//fast shark
+//
+
+
+// this.normalImmunities = [false, "targetable"];
+// this.normalUpgradedImmunities = [false, "targetable"];
+// this.fastImmunities = [false, "targetable"];
+// this.fastUpgradedImmunities = [false, "targetable"];
+// this.freezeImmunities = [false, "targetable"];
+// this.freezeUpgradedImmunities = [false, "targetable"];
+// this.explosiveImmunities = [false, "targetable"];
+// this.explosiveUpgradedImmunities = [false, "targetable"];
+// this.rayImmunities = [false, "targetable"];
+// this.rayUpgradedImmunities = [false, "targetable"];
+// this.cannonImmunities = [false, "targetable"];
+// this.cannonUpgradedImmunities = [false, "targetable"];
+// this.bladeStormImmunities = [false, "targetable"];
+// this.bladeStormUpgradedImmunities = [false, "targetable"];
+// this.liquifyImmunities = [false, "targetable"];
+// this.liquifyUpgradedImmunities = [false, "targetable"];
+// this.missileImmunities = [false, "targetable"];
+// this.missileUpgradedImmunities = [false, "targetable"];
 class Enemy1 extends Enemy {
   constructor(game) {
     super(game);
     this.img = Enemy.image1;
+    this.health = 1000;
+    this.normalEnemy = true;
+    this.movement.speed = 2;
   }
 }
 class Enemy2 extends Enemy {
   constructor(game) {
     super(game);
     this.img = Enemy.image2;
+    this.health = 2000;
+    this.normalSmallEnemy = true;
+    this.movement.speed = 3;
   }
 }
 class Enemy3 extends Enemy {
   constructor(game) {
     super(game);
     this.img = Enemy.image3;
-    this.health = 5000;
+    this.health = 4000;
+    this.freezeEnemy = true;
+    this.movement.speed = 1;
   }
 }
 class Enemy4 extends Enemy {
   constructor(game) {
     super(game);
     this.img = Enemy.image4;
-    this.health = 15000;
+    this.health = 4000;
+    this.explosiveEnemy = true;
+    this.movement.speed = 1;
   }
 }
 class Enemy5 extends Enemy {
   constructor(game) {
     super(game)
     this.img = Enemy.image5;
-    this.randomPath = 0;
-    this.health = 1000000000000000000;
+    this.health = 10000;
+    this.turtleEnemy = true;
+    this.movement.speed = 1.5;
   }
 }
