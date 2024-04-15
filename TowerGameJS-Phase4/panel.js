@@ -142,7 +142,7 @@ var panelJSON = [{
       pic: "TowerGameJS-Phase4/resources/images/panels/endPanel/restart.png",
       picId: "wframe",
       funk: function () {
-        towerGame.gameState = new GameState2(towerGame, 5);
+        towerGame.gameState = new GameState2(towerGame);
         towerGame.currentWaveNum = 0; // Reset the current wave number to 0
         towerGame.wave = new Wave(towerGame, AllWaves[towerGame.currentWaveNum]); // Create a new Wave instance with the first wave
         towerGame.wave.referenceTime = 20;
@@ -247,15 +247,6 @@ var panelJSON = [{
       picId: "tower",
       funk: function () {
         towerGame.gameState.towerPanel = new Panel(towerGame, 6, 180, 1000)
-        document.getElementById("catalogHomePanel").parentNode.removeChild(document.getElementById("catalogHomePanel"))
-      }
-    }, {
-      name: "Enemy Button",
-      id: "enemyButton",
-      pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/enemy.png",
-      picId: "enemy",
-      funk: function () {
-        towerGame.gameState.enemyPanel = new Panel(towerGame, 7, 180, 800, 680)
         document.getElementById("catalogHomePanel").parentNode.removeChild(document.getElementById("catalogHomePanel"))
       }
     }, {
@@ -495,36 +486,4 @@ var panelJSON = [{
       }
     ]
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // , { //panel 7 
-  //   name: "Enemy Info Panel",
-  //   id: "enemyInfoPanel",
-  //   pic: "TowerGameJS-Phase4/resources/images/bg/end.png",
-  //   picId: "enemyPan",
-  //   buttonJSON: [{
-  //     name: "Back Button",
-  //     id: "back",
-  //     pic: "TowerGameJS-Phase4/resources/images/panels/back.png",
-  //     picId: "back",
-  //     funk: function () {
-  //       towerGame.gameState.catalogPanel = new Panel(towerGame, 5)
-  //       document.getElementById("enemyInfoPanel").parentNode.removeChild(document.getElementById("enemyInfoPanel"))
-  //     }
-  //   }
-  //   ]
-  // }
-];
+]
