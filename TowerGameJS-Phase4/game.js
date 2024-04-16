@@ -203,7 +203,7 @@ class Game {
   loadEnemyImages() {
     var enemyData = [];
 
-    for (var i = 1; i <= 6; i++) {
+    for (var i = 1; i <= 10; i++) {
       var propName = "E" + i + "0000";
       var f = json.frames[propName].frame;
       enemyData.push(createImageBitmap(ssImage, f.x, f.y, f.w, f.h));
@@ -216,6 +216,10 @@ class Game {
       Enemy.image4 = enemies[3];
       Enemy.image5 = enemies[4];
       Enemy.image6 = enemies[5];
+      Enemy.image1 = enemies[6];
+      Enemy.image2 = enemies[7];
+      Enemy.image3 = enemies[8];
+      Enemy.image4 = enemies[9];
     });
   }
 

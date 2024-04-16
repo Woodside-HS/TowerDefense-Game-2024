@@ -31,7 +31,7 @@ class Enemy {
     this.shape = "circle";
     this.kill = false;
     this.angle = this.vel.angle();
-    this.img = Enemy.image3; // image for enemy
+    this.img; // image for enemy
     this.hitByFreezeUpgraded = false;
     this.movement = new Movement(this.loc, this.target, this.speed);
     this.deathTimer = null;
@@ -71,11 +71,17 @@ class Enemy {
 
   specificEnemyUpgrade() {
     if (this.normalEnemy) {
-
+      //probably will be nothing
     }
-    if (this.normalSmallEnemy) {
 
+    if (this.normalFastEnemy) {
+      //probably will be nothing
     }
+
+    if (this.layeredEnemy) {
+      
+    }
+
     if (this.freezeEnemy) {
       this.renderFreezeAura = true;
       for (let i = 0; i < towerGame.towers.length; i++) {
@@ -88,12 +94,39 @@ class Enemy {
 
       }
     }
-    if (this.explosiveEnemy) {
+
+    if (this.speedUpSurroundingEnemy) {
+      for( let i = 0; i < towerGame.enemies.length; i ++){
+        if(this != towerGame.enemies[i]){
+          let distToEnemy = this.loc.dist(towerGame.enemies[i].loc);
+          if(distToEnemy < 120){
+            towerGame.enemies[i].movement.speed *= 1.5;
+          }else{
+            towerGame.enemies[i].movement.speed /= 1.5;
+          }
+        }
+      }
+    }
+    if(this.flyingEnemy) {
 
     }
-    if (this.turtleEnemy) {
+
+    if(this.stealthEnemy){
 
     }
+
+    if(this.shieldedEnemy){
+
+    }
+
+    if(this.explosiveEnemy){
+
+    }
+
+    if(this.bombEnemy){
+      
+    }
+    
   }
   // nextTarget()
   // Return the next cell in the path to the root target
@@ -112,7 +145,18 @@ class Enemy {
     return candidates[Math.floor(Math.random() * candidates.length)];
 
   }
+  nextTargetForFlyingEnemy() {
+    
+    let candidates = [];
+    for (let i = 0; i < 8; i++) {
+      if (this.currentCell.neighbors[i].dist < this.currentCell.dist)
+        candidates.push(this.currentCell.neighbors[i]);
+    }
+    // randomly pick one of the candidates
+    return candidates[Math.floor(Math.random() * candidates.length)];
 
+  }
+  
   oppositeNextTarget() {
 
 
@@ -149,7 +193,7 @@ class Enemy {
       ctx.translate(this.loc.x, this.loc.y);
       ctx.strokeStyle = "rgba(0, 0, 255, 1)";
       ctx.beginPath();
-      ctx.lineWidth = 5;
+      ctx.lineWidth = 2;
       ctx.arc(0, 0, 120, 0, Math.PI * 2, false);
       ctx.closePath();
       ctx.stroke();
@@ -312,7 +356,11 @@ class Enemy {
     this.angle = Math.atan2(dy, dx);
     if (this.movement.finished) {
       this.currentCell = this.targetCell;
+      if(!this.flyingEnemy){
       this.targetCell = this.nextTarget();
+      }else{
+        this.targetCell = this.nextTargetForFlyingEnemy();
+      }
       if (this.currentCell == this.game.root) {
         this.kill = true;
         towerGame.health--;
@@ -412,13 +460,7 @@ class Enemy {
 // is set to something that is not targetable
 
 
-//circle radius slows down enemies
-//death explotion of high level enemies has a chance to completely destroy a nearby tower
-//basic enemy normal fish
-//plankton (lots of tiny ones that die gradually from damage)
-//turtle immunities 
-//fast shark
-//
+
 
 
 // this.normalImmunities = [false, "targetable"];
@@ -439,6 +481,18 @@ class Enemy {
 // this.liquifyUpgradedImmunities = [false, "targetable"];
 // this.missileImmunities = [false, "targetable"];
 // this.missileUpgradedImmunities = [false, "targetable"];
+
+
+//normal (1)
+//speedy normal (2)
+//russian doll one (3)
+//slowing a surrounding tower (4)
+//dolphin buff surrounding enemies (5)
+//flying enemy (6)
+//invisable & unhitable for a certain period of time (7)
+//turtle enemy (8)
+//A guy who summons enemies (9)
+//destruction tower (10)
 class Enemy1 extends Enemy {
   constructor(game) {
     super(game);
@@ -453,8 +507,8 @@ class Enemy2 extends Enemy {
     super(game);
     this.img = Enemy.image2;
     this.health = 2000;
-    this.normalSmallEnemy = true;
-    this.movement.speed = 3;
+    this.normalFastEnemy = true;
+    this.movement.speed = 3.5;
   }
 }
 class Enemy3 extends Enemy {
@@ -462,7 +516,7 @@ class Enemy3 extends Enemy {
     super(game);
     this.img = Enemy.image3;
     this.health = 4000;
-    this.freezeEnemy = true;
+    this.layeredEnemy = true;
     this.movement.speed = 1;
   }
 }
@@ -471,7 +525,7 @@ class Enemy4 extends Enemy {
     super(game);
     this.img = Enemy.image4;
     this.health = 4000;
-    this.explosiveEnemy = true;
+    this.freezeEnemy = true;
     this.movement.speed = 1;
   }
 }
@@ -480,7 +534,52 @@ class Enemy5 extends Enemy {
     super(game)
     this.img = Enemy.image5;
     this.health = 10000;
-    this.turtleEnemy = true;
+    this.speedUpSurroundingEnemy = true;
     this.movement.speed = 1.5;
+  }
+}
+class Enemy6 extends Enemy {
+  constructor(game) {
+    super(game);
+    this.img = Enemy.image1;
+    this.health = 1000;
+    this.flyingEnemy = true;
+    this.movement.speed = 1;
+  }
+}
+class Enemy7 extends Enemy {
+  constructor(game) {
+    super(game);
+    this.img = Enemy.image2;
+    this.health = 2000;
+    this.stealthEnemy = true;
+    this.movement.speed = 1;
+  }
+}
+class Enemy8 extends Enemy {
+  constructor(game) {
+    super(game);
+    this.img = Enemy.image3;
+    this.health = 4000;
+    this.shieldedEnemy = true;
+    this.movement.speed = 1;
+  }
+}
+class Enemy9 extends Enemy {
+  constructor(game) {
+    super(game);
+    this.img = Enemy.image4;
+    this.health = 4000;
+    this.explosiveEnemy = true;
+    this.movement.speed = 1;
+  }
+}
+class Enemy10 extends Enemy {
+  constructor(game) {
+    super(game)
+    this.img = Enemy.image5;
+    this.health = 10000;
+    this.bombEnemy = true;
+    this.movement.speed = 1;
   }
 }

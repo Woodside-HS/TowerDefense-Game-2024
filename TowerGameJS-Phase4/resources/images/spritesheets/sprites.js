@@ -80,14 +80,6 @@ json = {"frames": {
 	"spriteSourceSize": {"x":0,"y":0,"w":35,"h":29},
 	"sourceSize": {"w":35,"h":29}
 },
-"E110000":
-{
-	"frame": {"x":37,"y":34,"w":35,"h":29},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":35,"h":29},
-	"sourceSize": {"w":35,"h":29}
-},
 "T10000":
 {
 	"frame": {"x":73,"y":34,"w":33,"h":35},
