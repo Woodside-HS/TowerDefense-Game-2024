@@ -97,14 +97,14 @@ class GameState4 extends GameState { //Catalog
   run() {
     this.game.render();
     this.catalogPanel.render(false);
-    
+
     if (this.towerPanel) {
       this.towerPanel.render(false)
     }
     if (this.enemyPanel) {
       this.enemyPanel.render(false)
     }
-    if(this.specificTowerPanel){
+    if (this.specificTowerPanel) {
       this.specificTowerPanel.render(true);
     }
   }
@@ -114,7 +114,7 @@ class GameState4 extends GameState { //Catalog
 class GameState5 extends GameState { // game itself
   constructor(game, levelSel) {
     super(game)
-    this.game.health = 100;
+    this.game.health = 1;
     this.game.score = 0
     this.game.bankValue = 1000;
     this.game.gameTime = 0
