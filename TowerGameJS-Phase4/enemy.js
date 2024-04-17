@@ -79,7 +79,9 @@ class Enemy {
     }
 
     if (this.layeredEnemy) {
-      
+      if(this.kill){
+        console.log(this.loc)
+      }
     }
 
     if (this.freezeEnemy) {
@@ -119,14 +121,14 @@ class Enemy {
 
     }
 
-    if(this.explosiveEnemy){
+    if(this.summonerEnemy){
 
     }
 
     if(this.bombEnemy){
       
     }
-    
+
   }
   // nextTarget()
   // Return the next cell in the path to the root target
@@ -175,8 +177,8 @@ class Enemy {
     let ctx = this.game.context;
     ctx.save();
     ctx.translate(this.loc.x, this.loc.y)
-    ctx.rotate(this.angle + Math.PI / 2);
-    ctx.drawImage(this.img, -this.img.width / 2, -this.img.height / 2);
+    ctx.rotate(this.angle - Math.PI/2);
+    ctx.drawImage(this.img, -this.img.width / 2 , -this.img.height/2);
     ctx.restore();
     if (this.slowed < 1) {
       ctx.save();
@@ -498,7 +500,7 @@ class Enemy1 extends Enemy {
     super(game);
     this.img = Enemy.image1;
     this.health = 1000;
-    this.normalEnemy = true;
+    this.normalEnemy = true; //orange guy
     this.movement.speed = 2;
   }
 }
@@ -507,7 +509,7 @@ class Enemy2 extends Enemy {
     super(game);
     this.img = Enemy.image2;
     this.health = 2000;
-    this.normalFastEnemy = true;
+    this.normalFastEnemy = true; //blue guy
     this.movement.speed = 3.5;
   }
 }
@@ -516,7 +518,7 @@ class Enemy3 extends Enemy {
     super(game);
     this.img = Enemy.image3;
     this.health = 4000;
-    this.layeredEnemy = true;
+    this.layeredEnemy = true; //Dolphin
     this.movement.speed = 1;
   }
 }
@@ -525,7 +527,7 @@ class Enemy4 extends Enemy {
     super(game);
     this.img = Enemy.image4;
     this.health = 4000;
-    this.freezeEnemy = true;
+    this.freezeEnemy = true;//blue jellyfish thing
     this.movement.speed = 1;
   }
 }
@@ -534,7 +536,7 @@ class Enemy5 extends Enemy {
     super(game)
     this.img = Enemy.image5;
     this.health = 10000;
-    this.speedUpSurroundingEnemy = true;
+    this.speedUpSurroundingEnemy = true;//shark
     this.movement.speed = 1.5;
   }
 }
@@ -543,7 +545,7 @@ class Enemy6 extends Enemy {
     super(game);
     this.img = Enemy.image1;
     this.health = 1000;
-    this.flyingEnemy = true;
+    this.flyingEnemy = true;//flying fish
     this.movement.speed = 1;
   }
 }
@@ -552,7 +554,7 @@ class Enemy7 extends Enemy {
     super(game);
     this.img = Enemy.image2;
     this.health = 2000;
-    this.stealthEnemy = true;
+    this.stealthEnemy = true; // octopus
     this.movement.speed = 1;
   }
 }
@@ -561,7 +563,7 @@ class Enemy8 extends Enemy {
     super(game);
     this.img = Enemy.image3;
     this.health = 4000;
-    this.shieldedEnemy = true;
+    this.shieldedEnemy = true;//turtle
     this.movement.speed = 1;
   }
 }
@@ -570,7 +572,7 @@ class Enemy9 extends Enemy {
     super(game);
     this.img = Enemy.image4;
     this.health = 4000;
-    this.explosiveEnemy = true;
+    this.summonerEnemy = true;
     this.movement.speed = 1;
   }
 }
@@ -579,7 +581,7 @@ class Enemy10 extends Enemy {
     super(game)
     this.img = Enemy.image5;
     this.health = 10000;
-    this.bombEnemy = true;
+    this.bombEnemy = true;//starfish
     this.movement.speed = 1;
   }
 }

@@ -216,10 +216,10 @@ class Game {
       Enemy.image4 = enemies[3];
       Enemy.image5 = enemies[4];
       Enemy.image6 = enemies[5];
-      Enemy.image1 = enemies[6];
-      Enemy.image2 = enemies[7];
-      Enemy.image3 = enemies[8];
-      Enemy.image4 = enemies[9];
+      Enemy.image7 = enemies[6];
+      Enemy.image8 = enemies[7];
+      Enemy.image9 = enemies[8];
+      Enemy.image10 = enemies[9];
     });
   }
 

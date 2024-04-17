@@ -57,31 +57,20 @@ class Wave {
 
 function generateWaves() {
   let waves = []; //array of waves
-  let baseNumEnemies = 10; // Base number of enemies for the first wave
-  let enemyIncrementPerWave = 5;  // How much the number of enemies increases per wave
   let baseEnemyIncrement = 1; // Base time between enemy spawns
   let basePacketIncrement = 1; // Base time between packets (a packet is a small group of enemies appearing at once within a wave
   //waves have multiple packets
   let waveIncrement = 20; //time between start of game and first wave (can be skipped w/ start button)
   let enemyNumArray = [ //array that tells you the number of each type of enemy for each wave
-    [0, 0, 1, 0, 0],
-    [5, 3, 1, 0, 0],
-    [10, 0, 3, 0, 0],
-    [10, 5, 1, 0, 0],
-    [10, 5, 1, 0, 0],
-    [10, 5, 1, 0, 0],
-    [10, 5, 1, 0, 0],
-    [1, 1, 1, 1, 1],
-    [100, 600, 100, 0, 0],
-    [70, 0, 0, 120, 60],
-    [6660, 660, 66660, 0, 0],
-    [1, 0, 0, 0, 0],
-    [0, 0, 1500, 3500, 0],
-    [0, 0, 0, 0, 100000],
-    [0, 0, 0, 0, 100000],
+    [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+
   ]
 
-  for (let waveIndex = 1; waveIndex <= 14; waveIndex++) { //loops through waves
+  for (let waveIndex = 1; waveIndex <= 5; waveIndex++) { //loops through waves
     let packets = []; //each wave has an array of packets, each of which will be filled w/ a few enemies
     let numEnemiesArray = enemyNumArray[waveIndex - 1]; // Get the enemy distribution array for the current wave
 
