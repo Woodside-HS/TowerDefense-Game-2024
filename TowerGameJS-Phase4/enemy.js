@@ -361,7 +361,7 @@ class Enemy {
       if(!this.flyingEnemy){
       this.targetCell = this.nextTarget();
       }else{
-        this.targetCell = this.nextTargetForFlyingEnemy();
+      //  this.targetCell = this.nextTargetForFlyingEnemy();
       }
       if (this.currentCell == this.game.root) {
         this.kill = true;
