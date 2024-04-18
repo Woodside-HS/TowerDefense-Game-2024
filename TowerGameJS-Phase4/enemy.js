@@ -519,6 +519,7 @@ class Enemy3 extends Enemy {
     this.img = Enemy.image3;
     this.health = 4000;
     this.layeredEnemy = true; //Dolphin
+    //this is either the last I will do or not do it at all.
     this.movement.speed = 1;
   }
 }

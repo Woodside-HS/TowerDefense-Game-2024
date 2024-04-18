@@ -18,15 +18,16 @@ json = {"frames": {
 },
 "E30000":
 {
-	"frame": {"x":63,"y":1,"w":25,"h":20},
+	"frame": {"x":513,"y":267,"w":64,"h":121},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":25,"h":20},
-	"sourceSize": {"w":25,"h":20}
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":121},
+	"sourceSize": {"w":64,"h":121}
 },
 "E40000":
 {
-	"frame": {"x":349,"y":455,"w":38,"h":57},
+	"frame": {"x":423,"y":265,"w":74,"h":100
+},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":38,"h":57},
