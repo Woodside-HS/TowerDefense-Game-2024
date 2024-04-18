@@ -110,7 +110,7 @@ class Game {
 
 
     this.currentWaveNum = 0
-    this.wave = new Wave(this, AllWaves[this.currentWaveNum])
+    this.wave = new Wave(this, 0)
 
     this.mouseX = 0;
     this.mouseY = 0;
@@ -453,30 +453,13 @@ class Game {
       }
     }
   }
-  // sendEnemies()
-  // Send a random number of enemies, up to 5, each from a random location
-  // in the top half of the grid.  About half of the enemies will take the
-  // optimal path simply by following the parent chain and about half will
-  // take a path of randomly choosing cells to be next on the path
-  // from all those cells with a distance to the root that is
-  // less than its current location.
-  // A valid cell to start the enemy must have a parent because lack
-  // of a parent means either it is occupied or it is blocked from any path.
-  sendEnemies() {
-    var numEnemies = Math.random() * 5;     // up to 5 enemies
 
-    for (i = 0; i < numEnemies; i++) {
-      for (j = 0; j < 3; j++) { // try 3 times to find valid start cell
-        this.enemies.push(new Enemy(this));
-      }
-    }
-  }
   controlWaves() {
     if (this.wave.isWaveOver()) {
-      this.currentWaveNum += 1
-      this.wave = new Wave(this, AllWaves[this.currentWaveNum])
+      this.currentWaveNum += 1;
+      this.wave = new Wave(this, this.currentWaveNum);
     } else {
-      this.wave.run()
+      this.wave.run();
     }
   }
   // Delete any enemies that have died
