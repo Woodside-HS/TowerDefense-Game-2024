@@ -55,12 +55,6 @@ class Enemy {
     this.missileImmunities = [false, "targetable"];
     this.missileUpgradedImmunities = [false, "targetable"];
 
-    // Enemy type flags
-    // this.normalEnemy = false;
-    // this.normalSmallEnemy = false;
-    // this.freezeEnemy = false;
-    // this.explosiveEnemy = false;
-    // this.turtleEnemy = false;
   }
 
   run() {
@@ -79,22 +73,20 @@ class Enemy {
     }
 
     if (this.layeredEnemy) {
-      if(this.kill){
-        console.log(this.loc)
-      }
+
     }
 
     if (this.freezeEnemy) {
-      this.renderFreezeAura = true;
-      for (let i = 0; i < towerGame.towers.length; i++) {
-        let distToTower = this.loc.dist(towerGame.towers[i].loc);
-        if (distToTower < 120) {
-          towerGame.towers[i].coolDown *= 2;
-        } else {
-          towerGame.towers[i].coolDown = towerGame.towers[i].maxCoolDown;
-        }
+      // this.renderFreezeAura = true;
+      // for (let i = 0; i < towerGame.towers.length; i++) {
+      //   let distToTower = this.loc.dist(towerGame.towers[i].loc);
+      //   if (distToTower < 120) {
+      //     towerGame.towers[i].coolDown *= 2;
+      //   } else {
+      //     towerGame.towers[i].coolDown = towerGame.towers[i].maxCoolDown;
+      //   }
 
-      }
+      // }
     }
 
     if (this.speedUpSurroundingEnemy) {
@@ -149,14 +141,7 @@ class Enemy {
   }
   nextTargetForFlyingEnemy() {
     
-    let candidates = [];
-    for (let i = 0; i < 8; i++) {
-      if (this.currentCell.neighbors[i].dist < this.currentCell.dist)
-        candidates.push(this.currentCell.neighbors[i]);
-    }
-    // randomly pick one of the candidates
-    return candidates[Math.floor(Math.random() * candidates.length)];
-
+   
   }
   
   oppositeNextTarget() {
@@ -360,9 +345,7 @@ class Enemy {
       this.currentCell = this.targetCell;
       if(!this.flyingEnemy){
       this.targetCell = this.nextTarget();
-      }else{
-      //  this.targetCell = this.nextTargetForFlyingEnemy();
-      }
+      
       if (this.currentCell == this.game.root) {
         this.kill = true;
         towerGame.health--;
@@ -374,6 +357,20 @@ class Enemy {
       }
       this.target = this.targetCell.center;
       this.movement.setTarget(this.loc, this.target);
+    }else{
+      this.targetCell = this.game.root;
+      if (this.currentCell == this.game.root) {
+        this.kill = true;
+        towerGame.health--;
+        return;
+      }
+      if (!this.targetCell) {
+        this.kill = true;   // can happen if user blocks cells while enemies are attacking
+        return;
+      }
+      this.target = this.targetCell.center;
+      this.movement.setTarget(this.loc, this.target);
+    }
     }
 
   }
