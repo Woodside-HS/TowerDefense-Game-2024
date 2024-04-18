@@ -69,36 +69,42 @@ function generateWaves() {
     [0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
 
   ]
+console.log(enemyNumArray.length)
+  for (let i = 0; i < 5; i++) { //loops through waves
+    for (let j = 0; j < 10; j++) {
 
-  for (let waveIndex = 1; waveIndex <= 5; waveIndex++) { //loops through waves
-    let packets = []; //each wave has an array of packets, each of which will be filled w/ a few enemies
-    let numEnemiesArray = enemyNumArray[waveIndex - 1]; // Get the enemy distribution array for the current wave
+      
 
-    for (let enemyType = 0; enemyType < numEnemiesArray.length; enemyType++) {
-      let numEnemies = numEnemiesArray[enemyType];
-      let enemyIncrement = baseEnemyIncrement / (waveIndex + 1);
-      let packetIncrement = basePacketIncrement * (waveIndex + 1);
-      if (numEnemies > 0) {
-        packets.push({ //creates a packet for each enemytype
-          "enemy": {
-            "enemy": eval(`Enemy${enemyType + 1}`), // Dynamically select the enemy class
-            "additionalEnemyArguments": [1]
-          },
-          "num": numEnemies,
-          "enemyIncrement": enemyIncrement,
-          "packetIncrement": packetIncrement,
-        });
-      }
+
+
+
     }
-
-    waves.push({//fills the wave with the packets
-      "packets": packets,
-      "name": `Wave ${waveIndex}`,
-      "waveIncrement": waveIndex > 1 ? 6 : waveIncrement //basically this just sets the time between waves to 6 once wave 1 is done (otherwise it would remain at 20)
-    });
   }
+  // for (let enemyType = 0; enemyType < numEnemiesArray.length; enemyType++) {
+  //   let numEnemies = numEnemiesArray[enemyType];
+  //   let enemyIncrement = baseEnemyIncrement / (waveIndex + 1);
+  //   let packetIncrement = basePacketIncrement * (waveIndex + 1);
+  //   if (numEnemies > 0) {
+  //     packets.push({ //creates a packet for each enemytype
+  //       "enemy": {
+  //         "enemy": eval(`Enemy${enemyType + 1}`), // Dynamically select the enemy class
+  //         "additionalEnemyArguments": [1]
+  //       },
+  //       "num": numEnemies,
+  //       "enemyIncrement": enemyIncrement,
+  //       "packetIncrement": packetIncrement,
+  //     });
+  //   }
+  // }
 
-  return waves; //returns the waves array that has now been filled with waves
+  // waves.push({//fills the wave with the packets
+  //   "packets": packets,
+  //   "name": `Wave ${waveIndex}`,
+  //   "waveIncrement": waveIndex > 1 ? 6 : waveIncrement //basically this just sets the time between waves to 6 once wave 1 is done (otherwise it would remain at 20)
+  // });
+
+
+return waves; //returns the waves array that has now been filled with waves
 }
 
 AllWaves = generateWaves();
