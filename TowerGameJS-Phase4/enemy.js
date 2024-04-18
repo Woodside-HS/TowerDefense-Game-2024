@@ -98,16 +98,16 @@ class Enemy {
     }
 
     if (this.speedUpSurroundingEnemy) {
-      for( let i = 0; i < towerGame.enemies.length; i ++){
-        if(this != towerGame.enemies[i]){
-          let distToEnemy = this.loc.dist(towerGame.enemies[i].loc);
-          if(distToEnemy < 120){
-            towerGame.enemies[i].movement.speed *= 1.5;
-          }else{
-            towerGame.enemies[i].movement.speed /= 1.5;
-          }
-        }
-      }
+      // for( let i = 0; i < towerGame.enemies.length; i ++){
+      //   if(this != towerGame.enemies[i]){
+      //     let distToEnemy = this.loc.dist(towerGame.enemies[i].loc);
+      //     if(distToEnemy < 120){
+      //       towerGame.enemies[i].movement.speed *= 1.5;
+      //     }else{
+      //       towerGame.enemies[i].movement.speed /= 1.5;
+      //     }
+      //   }
+      // }
     }
     if(this.flyingEnemy) {
 
@@ -528,7 +528,7 @@ class Enemy4 extends Enemy {
     super(game);
     this.img = Enemy.image4;
     this.health = 4000;
-    this.freezeEnemy = true;//blue jellyfish thing
+    this.speedUpSurroundingEnemy = true;//shark
     this.movement.speed = 1;
   }
 }
@@ -537,14 +537,14 @@ class Enemy5 extends Enemy {
     super(game)
     this.img = Enemy.image5;
     this.health = 10000;
-    this.speedUpSurroundingEnemy = true;//shark
+    this.freezeEnemy = true;//blue jellyfish
     this.movement.speed = 1.5;
   }
 }
 class Enemy6 extends Enemy {
   constructor(game) {
     super(game);
-    this.img = Enemy.image1;
+    this.img = Enemy.image6;
     this.health = 1000;
     this.flyingEnemy = true;//flying fish
     this.movement.speed = 1;
@@ -553,7 +553,7 @@ class Enemy6 extends Enemy {
 class Enemy7 extends Enemy {
   constructor(game) {
     super(game);
-    this.img = Enemy.image2;
+    this.img = Enemy.image7;
     this.health = 2000;
     this.stealthEnemy = true; // octopus
     this.movement.speed = 1;
@@ -562,7 +562,7 @@ class Enemy7 extends Enemy {
 class Enemy8 extends Enemy {
   constructor(game) {
     super(game);
-    this.img = Enemy.image3;
+    this.img = Enemy.image8;
     this.health = 4000;
     this.shieldedEnemy = true;//turtle
     this.movement.speed = 1;
@@ -571,7 +571,7 @@ class Enemy8 extends Enemy {
 class Enemy9 extends Enemy {
   constructor(game) {
     super(game);
-    this.img = Enemy.image4;
+    this.img = Enemy.image9;
     this.health = 4000;
     this.summonerEnemy = true;
     this.movement.speed = 1;
@@ -580,7 +580,7 @@ class Enemy9 extends Enemy {
 class Enemy10 extends Enemy {
   constructor(game) {
     super(game)
-    this.img = Enemy.image5;
+    this.img = Enemy.image10;
     this.health = 10000;
     this.bombEnemy = true;//starfish
     this.movement.speed = 1;

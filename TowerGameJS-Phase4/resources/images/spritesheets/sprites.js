@@ -35,11 +35,11 @@ json = {"frames": {
 },
 "E50000":
 {
-	"frame": {"x":433,"y":407,"w":75,"h":75},
+	"frame": {"x":349,"y":456,"w":38,"h":56},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":75,"h":75},
-	"sourceSize": {"w":75,"h":75}
+	"spriteSourceSize": {"x":0,"y":0,"w":38,"h":56},
+	"sourceSize": {"w":38,"h":56}
 },
 "E60000":
 {
@@ -51,19 +51,19 @@ json = {"frames": {
 },
 "E70000":
 {
-	"frame": {"x":433,"y":407,"w":75,"h":75},
+	"frame": {"x":571,"y":421,"w":75,"h":89},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":75,"h":75},
-	"sourceSize": {"w":75,"h":75}
+	"spriteSourceSize": {"x":0,"y":0,"w":75,"h":89},
+	"sourceSize": {"w":75,"h":89}
 },
 "E80000":
 {
-	"frame": {"x":433,"y":407,"w":75,"h":75},
+	"frame": {"x":258,"y":436,"w":80,"h":75},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":75,"h":75},
-	"sourceSize": {"w":75,"h":75}
+	"spriteSourceSize": {"x":0,"y":0,"w":80,"h":75},
+	"sourceSize": {"w":80,"h":75}
 },
 "E90000":
 {
@@ -75,11 +75,11 @@ json = {"frames": {
 },
 "E100000":
 {
-	"frame": {"x":37,"y":34,"w":35,"h":29},
+	"frame": {"x":395,"y":466,"w":42,"h":46},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":35,"h":29},
-	"sourceSize": {"w":35,"h":29}
+	"spriteSourceSize": {"x":0,"y":0,"w":42,"h":46},
+	"sourceSize": {"w":42,"h":46}
 },
 "T10000":
 {

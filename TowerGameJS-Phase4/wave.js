@@ -62,7 +62,7 @@ function generateWaves() {
   //waves have multiple packets
   let waveIncrement = 20; //time between start of game and first wave (can be skipped w/ start button)
   let enemyNumArray = [ //array that tells you the number of each type of enemy for each wave
-    [2, 2, 2, 2, 2, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 2, 2, 2, 2, 2],
     [0, 0, 0, 0, 0, 2, 2, 2, 2, 2],
     [0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
