@@ -8,53 +8,53 @@ class Enemy {
       this.img = Enemy.image1;
       this.health = 1000;
       this.normalEnemy = true; //orange guy
-      this.movement.speed = 2;
+      this.speed = 2;
     }else if (this.type == 2){
       this.img = Enemy.image2;
       this.health = 2000;
       this.normalFastEnemy = true; //blue guy
-      this.movement.speed = 3.5;
+      this.speed = 3.5;
     }else if (this.type == 3){
       this.img = Enemy.image3;
       this.health = 4000;
       this.layeredEnemy = true; //Dolphin
       //this is either the last I will do or not do it at all.
-      this.movement.speed = 1;
+      this.speed = 1;
     }else if (this.type == 4){
       this.img = Enemy.image4;
       this.health = 4000;
       this.speedUpSurroundingEnemy = true;//shark
-      this.movement.speed = 1;
+      this.speed = 1;
     }else if (this.type == 5){
       this.img = Enemy.image5;
       this.health = 10000;
       this.freezeEnemy = true;//blue jellyfish
-      this.movement.speed = 1.5;
+      this.speed = 1.5;
     }else if (this.type == 6){
       this.img = Enemy.image6;
       this.health = 1000;
       this.flyingEnemy = true;//flying fish
-      this.movement.speed = 1;
+      this.speed = 1;
     }else if (this.type == 7){
       this.img = Enemy.image7;
       this.health = 2000;
       this.stealthEnemy = true; // octopus
-      this.movement.speed = 1;
+      this.speed = 1;
     }else if (this.type == 8){
       this.img = Enemy.image8;
       this.health = 4000;
       this.shieldedEnemy = true;//turtle
-      this.movement.speed = 1;
+      this.speed = 1;
     }else if (this.type == 9){
       this.img = Enemy.image9;
       this.health = 4000;
       this.summonerEnemy = true;//no art 
-      this.movement.speed = 1;
+      this.speed = 1;
     }else if (this.type == 10){
       this.img = Enemy.image10;
       this.health = 10000;
       this.bombEnemy = true;//starfish
-      this.movement.speed = 1;
+      this.moment.speed = 1;
     }
     // currentCell is the start position of the enemies
     this.currentCell = [1][1];
