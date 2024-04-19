@@ -97,14 +97,14 @@ class GameState4 extends GameState { //Catalog
   run() {
     this.game.render();
     this.catalogPanel.render(false);
-    
+
     if (this.towerPanel) {
       this.towerPanel.render(false)
     }
     if (this.enemyPanel) {
       this.enemyPanel.render(false)
     }
-    if(this.specificTowerPanel){
+    if (this.specificTowerPanel) {
       this.specificTowerPanel.render(true);
     }
   }
@@ -168,6 +168,7 @@ class GameState5 extends GameState { // game itself
     //need this to make code run even though neothing is init (like the pun?)
   }
   run() {
+
     let gt = this.game.updateGameTime();
     this.game.updateInfoElements(gt);
     this.game.removeBullets();
@@ -176,16 +177,39 @@ class GameState5 extends GameState { // game itself
     this.game.removeEnemies();
     this.game.controlWaves();
     this.game.backgroundMusic.play();
+
+
+
     if (this.game.isRunning) {
       this.game.render();
     }
-
+    
     // draw the grid
-    for (let i = 0; i < this.game.cols; i++) {
-      for (let j = 0; j < this.game.rows; j++) {
-        this.game.grid[i][j].render();
+      if (towerGame.placingTower === false) {
+        for (let i = 0; i < this.game.cols; i++) {
+          for (let j = 0; j < this.game.rows; j++) {
+            this.game.grid[i][j].render(false);
+          }
+        }
+      }
+      if (towerGame.placingTower === true) {
+        for (let i = 0; i < this.game.cols; i++) {
+          for (let j = 0; j < this.game.rows; j++) {
+            this.game.grid[i][j].render(true);
+          }
+        }
+      }
+    
+    if (towerGame.gameStateID === 5){
+      for (let i = 0; i < this.game.cols; i++) {
+        for (let j = 0; j < this.game.rows; j++) {
+          this.game.grid[i][j].render(true);
+        }
       }
     }
+
+
+
     // draw the towers
     for (let i = 0; i < this.game.towers.length; i++) {
       this.game.towers[i].run();
