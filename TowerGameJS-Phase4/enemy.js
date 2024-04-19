@@ -54,7 +54,7 @@ class Enemy {
       this.img = Enemy.image10;
       this.health = 10000;
       this.bombEnemy = true;//starfish
-      this.moment.speed = 1;
+      this.speed = 1;
     }
     // currentCell is the start position of the enemies
     this.currentCell = [1][1];

@@ -522,12 +522,13 @@ class Game {
         value.innerHTML = this.score;
         info.appendChild(value);
       }
-      // if (info.innerHTML.indexOf('Wave') != -1) {
-      //   info.innerHTML = 'Wave <br/>';
-      //   var value = document.createElement('p');
-      //   value.style.fontSize = '10pt';
-      //   info.appendChild(value);
-      // }
+      if (info.innerHTML.indexOf('Wave') != -1) {
+        info.innerHTML = 'Wave <br/>';
+        var value = document.createElement('p');
+        value.style.fontSize = '10pt';
+        value.innerHTML = '6'
+        info.appendChild(value);
+      }
       if (info.innerHTML.indexOf('Health') != -1) {
         info.innerHTML = 'Health <br/>';
         var value = document.createElement('p');

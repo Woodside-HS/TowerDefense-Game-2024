@@ -13,15 +13,18 @@ class Wave {
   }
   spawnEnemies(){
     let numberEnemy = 1;
+    let unSpawnedEnemies = towerGame.waves[this.waveNumber];
     if(!this.spawnOver){
-      for (let i = 0; i < 10; i++) {
-
-        for (let j = 0; j < towerGame.waves[this.waveNumber][i]; j++) {
+      while(unSpawnedEnemies.length > 0){
+        let randomEnemyType = Math.floor(Math.random*10)+1;
+        if(unSpawnedEnemies[randomEnemyType] > 0){
           setTimeout(() => {
-            towerGame.enemies.push(new Enemy(towerGame, i));
-          }, 600*numberEnemy+600);
+            towerGame.enemies.push(new Enemy(towerGame, unSpawnedEnemies));
+          }, 1200*numberEnemy+600);
           numberEnemy++;
+          unSpawnedEnemies.splice(randomEnemyType, 1);
         }
+        
       }
       this.spawnOver = true;
     }
