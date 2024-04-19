@@ -8,6 +8,5 @@ class Wave {
   }
 
   run() {
-
   }
 }

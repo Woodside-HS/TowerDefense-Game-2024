@@ -74,7 +74,7 @@ class Game {
     this.wallCost = 2;
     this.paused = false;
     this.towerState = 1;
-
+    this.numWave = 0;
 
     this.loadEmptyImage();
     this.loadAllWaves();
@@ -111,11 +111,10 @@ class Game {
 
 
 
-
     this.mouseX = 0;
     this.mouseY = 0;
     this.w = 50;
-
+    this.firstClick = true;
     this.gameState = new GameState1(this);
 
     // container arrays for cells
@@ -134,6 +133,10 @@ class Game {
 
     var fastForwardButton = document.getElementById('fastForward');
     fastForwardButton.addEventListener('click', function () {//upper right hand button
+      if(towerGame.firstClick){
+        towerGame.wave = new Wave(towerGame, towerGame.numWave);
+        towerGame.firstClick = false;
+      }
         if (FRAME_RATE == 30) { //if it is on slow mode
           FRAME_RATE = 60; //make it fast
           fastForwardButton.innerHTML = "Slow Down"; //change the button to say "Slow Down"
@@ -509,7 +512,6 @@ class Game {
         info.innerHTML = 'Time <br/>';
         var value = document.createElement('p');
         value.style.fontSize = '10pt';
-        console.log(this.updateGameTime())
         value.innerHTML = this.updateGameTime();
         info.appendChild(value);
       }

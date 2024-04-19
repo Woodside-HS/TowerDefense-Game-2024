@@ -208,6 +208,10 @@ class GameState5 extends GameState { // game itself
     for (let i = 0; i < this.game.rays.length; i++) {
       this.game.rays[i].run();
     }
+    if (this.game.wave) {
+      this.game.wave.run();
+    }
+
 
     // some help text in the bottom left of the canvas
     this.game.context.save();
