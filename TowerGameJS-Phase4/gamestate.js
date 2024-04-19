@@ -86,8 +86,9 @@ class GameState4 extends GameState { //Catalog
     this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/catalog.jpg')"
     this.catalogPanel = new Panel(this, 5);
     this.specificTowerPanel = 0;
-    this.towerPanel = 0;
-    this.enemyPanel = 0;
+    this.towerPanel1 = 0;
+    this.towerPanel2 = 0;
+    this.towerPanel3 = 0;
 
     document.getElementById('infoDiv').style.visibility = 'hidden'; // Make info tiles invisible on start page
     document.getElementById('menuDiv').style.visibility = 'hidden';
@@ -98,12 +99,12 @@ class GameState4 extends GameState { //Catalog
     this.game.render();
     this.catalogPanel.render(false);
 
-    if (this.towerPanel) {
-      this.towerPanel.render(false)
+    if (this.towerPanel1) {
+      this.towerPanel1.render(false);
+      this.towerPanel2.render(false);
+      this.towerPanel3.render(false);
     }
-    if (this.enemyPanel) {
-      this.enemyPanel.render(false)
-    }
+
     if (this.specificTowerPanel) {
       this.specificTowerPanel.render(true);
     }
