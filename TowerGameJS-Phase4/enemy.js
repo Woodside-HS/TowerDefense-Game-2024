@@ -31,11 +31,20 @@ class Enemy {
       this.freezeEnemy = true;//blue jellyfish
       this.movement.speed = 1.5;
     }else if (this.type == 6){
-
+      this.img = Enemy.image6;
+      this.health = 1000;
+      this.flyingEnemy = true;//flying fish
+      this.movement.speed = 1;
     }else if (this.type == 7){
-
+      this.img = Enemy.image7;
+      this.health = 2000;
+      this.stealthEnemy = true; // octopus
+      this.movement.speed = 1;
     }else if (this.type == 8){
-
+      this.img = Enemy.image8;
+      this.health = 4000;
+      this.shieldedEnemy = true;//turtle
+      this.movement.speed = 1;
     }else if (this.type == 9){
       this.img = Enemy.image9;
       this.health = 4000;
@@ -525,102 +534,3 @@ class Enemy {
 // this.missileImmunities = [false, "targetable"];
 // this.missileUpgradedImmunities = [false, "targetable"];
 
-
-//normal (1)
-//speedy normal (2)
-//russian doll one (3)
-//slowing a surrounding tower (4)
-//dolphin buff surrounding enemies (5)
-//flying enemy (6)
-//invisable & unhitable for a certain period of time (7)
-//turtle enemy (8)
-//A guy who summons enemies (9)
-//destruction tower (10)
-class Enemy1 extends Enemy {
-  constructor(game) {
-    super(game);
-  }
-}
-class Enemy2 extends Enemy {
-  constructor(game) {
-    super(game);
-    this.img = Enemy.image2;
-    this.health = 2000;
-    this.normalFastEnemy = true; //blue guy
-    this.movement.speed = 3.5;
-  }
-}
-class Enemy3 extends Enemy {
-  constructor(game) {
-    super(game);
-    this.img = Enemy.image3;
-    this.health = 4000;
-    this.layeredEnemy = true; //Dolphin
-    //this is either the last I will do or not do it at all.
-    this.movement.speed = 1;
-  }
-}
-
-class Enemy4 extends Enemy {
-  constructor(game) {
-    super(game);
-    this.img = Enemy.image4;
-    this.health = 4000;
-    this.speedUpSurroundingEnemy = true;//shark
-    this.movement.speed = 1;
-  }
-}
-class Enemy5 extends Enemy {
-  constructor(game) {
-    super(game)
-    this.img = Enemy.image5;
-    this.health = 10000;
-    this.freezeEnemy = true;//blue jellyfish
-    this.movement.speed = 1.5;
-  }
-}
-class Enemy6 extends Enemy {
-  constructor(game) {
-    super(game);
-    this.img = Enemy.image6;
-    this.health = 1000;
-    this.flyingEnemy = true;//flying fish
-    this.movement.speed = 1;
-  }
-}
-class Enemy7 extends Enemy {
-  constructor(game) {
-    super(game);
-    this.img = Enemy.image7;
-    this.health = 2000;
-    this.stealthEnemy = true; // octopus
-    this.movement.speed = 1;
-  }
-}
-class Enemy8 extends Enemy {
-  constructor(game) {
-    super(game);
-    this.img = Enemy.image8;
-    this.health = 4000;
-    this.shieldedEnemy = true;//turtle
-    this.movement.speed = 1;
-  }
-}
-class Enemy9 extends Enemy {
-  constructor(game) {
-    super(game);
-    this.img = Enemy.image9;
-    this.health = 4000;
-    this.summonerEnemy = true;//no art 
-    this.movement.speed = 1;
-  }
-}
-class Enemy10 extends Enemy {
-  constructor(game) {
-    super(game)
-    this.img = Enemy.image10;
-    this.health = 10000;
-    this.bombEnemy = true;//starfish
-    this.movement.speed = 1;
-  }
-}

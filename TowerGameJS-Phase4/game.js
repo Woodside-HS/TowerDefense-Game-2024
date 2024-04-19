@@ -57,6 +57,7 @@ class Game {
     this.gameTime = 0;
     this.towers = [];
     this.enemies = [];
+    this.waves = [[]];
     this.bullets = [];
     this.missiles = [];//added with same logic as bullets
     this.hands = [];//added with same logic as bullets (this is the minion guy idk)
@@ -76,7 +77,7 @@ class Game {
 
 
     this.loadEmptyImage();
-
+    this.loadAllWaves();
     this.loadEnemyImages();
     this.score = 0;
     this.wave = 0;
@@ -109,13 +110,11 @@ class Game {
     this.canvas.addEventListener('click', this.handleCNVMouseClicked, false);
 
 
-    this.currentWaveNum = 0
-    this.wave = new Wave(this, 0)
+
 
     this.mouseX = 0;
     this.mouseY = 0;
     this.w = 50;
-    this.done = false;
 
     this.gameState = new GameState1(this);
 
@@ -130,13 +129,11 @@ class Game {
     this.root = this.grid[this.cols - 1][this.rows - 1];
     this.brushfire();
     this.loadWallImage();
-
     var button = document.getElementById('pauseButton');
     button.addEventListener('click', this.pause, false);
 
     var fastForwardButton = document.getElementById('fastForward');
     fastForwardButton.addEventListener('click', function () {//upper right hand button
-      if (towerGame.gameTime > 20) { //if game has already started sending enemies
         if (FRAME_RATE == 30) { //if it is on slow mode
           FRAME_RATE = 60; //make it fast
           fastForwardButton.innerHTML = "Slow Down"; //change the button to say "Slow Down"
@@ -144,10 +141,7 @@ class Game {
           fastForwardButton.innerHTML = "Fast Forward"; //change the button to say "Fast Forward"
           FRAME_RATE = 30; //make it slow
         }
-      } else { //if the game has not started sending enemies
-        towerGame.gameTime = towerGame.wave.referenceTime; //change gameTime to the point when it starts sending enemies
-        fastForwardButton.innerHTML = "Fast Forward"; //change the button to say "Fast Forward"
-      }
+      
     }, false);
 
 
@@ -157,14 +151,14 @@ class Game {
     towerSwitchButton.addEventListener('click', function () {
 
 
-      let d4k = document.getElementById('switchDiv');//bro what is this variable name?
+      let sw = document.getElementById('switchDiv');//bro what is this variable name?
 
       if (towerState == 1) {
         towerState = 2;//just switching positions + rotating to point arrow in correct directions
-        d4k.style.transform = "translate(" + 0 + "px, " + -749 + "px) rotate(180deg)";//
+        sw.style.transform = "translate(" + 0 + "px, " + -749 + "px) rotate(180deg)";//
       } else if (towerState == 2) {
         towerState = 1;
-        d4k.style.transform = "translate(" + 0 + "px, " + -50 + "px)";
+        sw.style.transform = "translate(" + 0 + "px, " + -50 + "px)";
       }
     }, false);
 
@@ -229,7 +223,6 @@ class Game {
   hideImgElement() { this.style.display = "none"; }
 
   run() { // called from draw()
-
     if (towerState == 1) {
       if (count == 1) {
         //  this.createTileDivs();
@@ -454,14 +447,7 @@ class Game {
     }
   }
 
-  controlWaves() {
-    if (this.wave.isWaveOver()) {
-      this.currentWaveNum += 1;
-      this.wave = new Wave(this, this.currentWaveNum);
-    } else {
-      this.wave.run();
-    }
-  }
+
   // Delete any enemies that have died
   removeEnemies() {
     for (let i = this.enemies.length - 1; i >= 0; i--) {
@@ -505,7 +491,7 @@ class Game {
     }
   }
 
-  updateInfoElements(time) {
+  updateInfoElements() {
     let infoElements = document.getElementById('infoDiv').getElementsByClassName('infoTileDiv');
     for (let i = 0; i < infoElements.length - 1; i++) {
       let info = infoElements[i];
@@ -523,7 +509,8 @@ class Game {
         info.innerHTML = 'Time <br/>';
         var value = document.createElement('p');
         value.style.fontSize = '10pt';
-        value.innerHTML = time;
+        console.log(this.updateGameTime())
+        value.innerHTML = this.updateGameTime();
         info.appendChild(value);
       }
       if (info.innerHTML.indexOf('Score') != -1) {
@@ -533,13 +520,12 @@ class Game {
         value.innerHTML = this.score;
         info.appendChild(value);
       }
-      if (info.innerHTML.indexOf('Wave') != -1) {
-        info.innerHTML = 'Wave <br/>';
-        var value = document.createElement('p');
-        value.style.fontSize = '10pt';
-        value.innerHTML = this.wave.waveJson.name;
-        info.appendChild(value);
-      }
+      // if (info.innerHTML.indexOf('Wave') != -1) {
+      //   info.innerHTML = 'Wave <br/>';
+      //   var value = document.createElement('p');
+      //   value.style.fontSize = '10pt';
+      //   info.appendChild(value);
+      // }
       if (info.innerHTML.indexOf('Health') != -1) {
         info.innerHTML = 'Health <br/>';
         var value = document.createElement('p');
@@ -560,6 +546,7 @@ class Game {
     if (millis - this.lastTime >= 1000) {
       this.gameTime++;
       this.lastTime = millis;
+      return this.gameTime;
     }
     return this.gameTime;
   }
@@ -724,6 +711,26 @@ class Game {
   setBankValue(refund) {
     this.bankValue += refund;
   }
+
+  loadAllWaves(){
+    let enemyNumArray = [ //array that tells you the number of each type of enemy for each wave
+      [0, 0, 0, 0, 0, 2, 2, 2, 2, 2],
+      [0, 0, 0, 0, 0, 2, 2, 2, 2, 2],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+
+    ];
+    for (let i = 0; i < enemyNumArray.length; i++) {
+      this.waves[i] = [];
+      for (let j = 0; j < enemyNumArray[i].length; j++) {
+          this.waves[i].push(enemyNumArray[i][j]);
+      }
+  }
+  
+        }
+
+
   //  Logic to add tower +++++++++++++++++++++++
   canAddTower(cell) {
     // add conditions before allowing user to place turret

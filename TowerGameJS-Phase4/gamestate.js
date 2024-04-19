@@ -122,6 +122,7 @@ class GameState5 extends GameState { // game itself
     this.game.rows = Math.floor(this.game.canvas.height / this.game.w);
     this.game.backgroundMusic = new Audio('TowerGameJS-Phase4/resources/sounds/Elevator-music.mp3')
     this.game.loadGrid();
+    this.game.loadAllWaves();
     this.game.brushfire();
     this.game.root = this.game.grid[this.game.cols - 1][this.game.rows - 1];
     if (levelSel === 1) {
@@ -170,7 +171,7 @@ class GameState5 extends GameState { // game itself
     this.game.removePests();
     this.game.removeMissiles();
     this.game.removeEnemies();
-    this.game.controlWaves();
+    //this.game.controlWaves();
     this.game.backgroundMusic.play();
     if (this.game.isRunning) {
       this.game.render();
