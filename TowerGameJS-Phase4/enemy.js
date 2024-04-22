@@ -8,53 +8,54 @@ class Enemy {
       this.img = Enemy.image1;
       this.health = 1000;
       this.normalEnemy = true; //orange guy
-      this.speed = 2;
+      this.speed = 2; this.baseSpeed = this.speed;
     }else if (this.type == 2){
       this.img = Enemy.image2;
       this.health = 2000;
       this.normalFastEnemy = true; //blue guy
-      this.speed = 3.5;
+      this.speed = 3.5; this.baseSpeed = this.speed;
     }else if (this.type == 3){
       this.img = Enemy.image3;
       this.health = 4000;
       this.layeredEnemy = true; //Dolphin
       //this is either the last I will do or not do it at all.
-      this.speed = 1;
+      this.speed = 1; this.baseSpeed = this.speed;
     }else if (this.type == 4){
       this.img = Enemy.image4;
       this.health = 4000;
       this.speedUpSurroundingEnemy = true;//shark
-      this.speed = 1;
+      this.speed = 1; this.baseSpeed = this.speed;
     }else if (this.type == 5){
       this.img = Enemy.image5;
       this.health = 10000;
       this.freezeEnemy = true;//blue jellyfish
-      this.speed = 1.5;
+      this.renderFreezeAura = true;
+      this.speed = 1.5; this.baseSpeed = this.speed;
     }else if (this.type == 6){
       this.img = Enemy.image6;
       this.health = 1000;
       this.flyingEnemy = true;//flying fish
-      this.speed = 1;
+      this.speed = 1; this.baseSpeed = this.speed;
     }else if (this.type == 7){
       this.img = Enemy.image7;
       this.health = 2000;
       this.stealthEnemy = true; // octopus
-      this.speed = 1;
+      this.speed = 1; this.baseSpeed = this.speed;
     }else if (this.type == 8){
       this.img = Enemy.image8;
       this.health = 4000;
       this.shieldedEnemy = true;//turtle
-      this.speed = 1;
+      this.speed = 1; this.baseSpeed = this.speed;
     }else if (this.type == 9){
       this.img = Enemy.image9;
       this.health = 4000;
       this.summonerEnemy = true;//no art 
-      this.speed = 1;
+      this.speed = 1; this.baseSpeed = this.speed;
     }else if (this.type == 10){
       this.img = Enemy.image10;
       this.health = 10000;
       this.bombEnemy = true;//starfish
-      this.speed = 1;
+      this.speed = 1; this.baseSpeed = this.speed;
     }
     // currentCell is the start position of the enemies
     this.currentCell = [1][1];
@@ -79,7 +80,11 @@ class Enemy {
     this.health;
     this.renderFreezeAura = false;
     this.damages = 0;
+    if(!this.flyingEnemy){
     this.targetCell = this.nextTarget();
+    }else{
+      this.targetCell = this.nextTargetForFlyingEnemy();
+    }
     this.target = this.targetCell.center;
     this.shape = "circle";
     this.kill = false;
@@ -128,9 +133,20 @@ class Enemy {
     if (this.layeredEnemy) {
 
     }
+    if (this.speedUpSurroundingEnemy) {
+      for( let i = 0; i < towerGame.enemies.length; i ++){
+        if(this != towerGame.enemies[i]){
+          let distToEnemy = this.loc.dist(towerGame.enemies[i].loc);
+          if(distToEnemy < 120){
+            towerGame.enemies[i].movement.speed = 1.5 * towerGame.enemies[i].baseSpeed;
 
+          }else{
+            towerGame.enemies[i].movement.speed = towerGame.enemies[i].baseSpeed;
+          }
+        }
+      }
+    }
     if (this.freezeEnemy) {
-      // this.renderFreezeAura = true;
       // for (let i = 0; i < towerGame.towers.length; i++) {
       //   let distToTower = this.loc.dist(towerGame.towers[i].loc);
       //   if (distToTower < 120) {
@@ -142,18 +158,6 @@ class Enemy {
       // }
     }
 
-    if (this.speedUpSurroundingEnemy) {
-      // for( let i = 0; i < towerGame.enemies.length; i ++){
-      //   if(this != towerGame.enemies[i]){
-      //     let distToEnemy = this.loc.dist(towerGame.enemies[i].loc);
-      //     if(distToEnemy < 120){
-      //       towerGame.enemies[i].movement.speed *= 1.5;
-      //     }else{
-      //       towerGame.enemies[i].movement.speed /= 1.5;
-      //     }
-      //   }
-      // }
-    }
     if(this.flyingEnemy) {
 
     }
@@ -193,7 +197,7 @@ class Enemy {
 
   }
   nextTargetForFlyingEnemy() {
-    
+    return this.game.root;
    
   }
   
