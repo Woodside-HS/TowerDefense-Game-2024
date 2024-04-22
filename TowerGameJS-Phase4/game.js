@@ -136,6 +136,7 @@ class Game {
       if(towerGame.firstClick){
         towerGame.wave = new Wave(towerGame, towerGame.numWave);
         towerGame.firstClick = false;
+        FRAME_RATE == 60;
       }
         if (FRAME_RATE == 30) { //if it is on slow mode
           FRAME_RATE = 60; //make it fast
@@ -226,6 +227,12 @@ class Game {
   hideImgElement() { this.style.display = "none"; }
 
   run() { // called from draw()
+    if(towerGame.wave.spawnOver && towerGame.enemies.length == 0){
+      setTimeout(() => {
+        towerGame.numWave++;
+        towerGame.wave = new Wave(this, towerGame.numWave);
+      }, 4000);
+    }
     if (towerState == 1) {
       if (count == 1) {
         //  this.createTileDivs();
@@ -717,7 +724,7 @@ class Game {
 
   loadAllWaves(){
     let enemyNumArray = [ //array that tells you the number of each type of enemy for each wave
-      [0, 0, 0, 0, 0, 2, 2, 2, 2, 2],
+      [2, 2, 2, 2, 2, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 2, 2, 2, 2, 2],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],

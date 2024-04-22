@@ -6,37 +6,48 @@ class Wave {
     this.waveNumber = waveNumber;
     this.spawnOver = false;
     this.j = this.spawnEnemies();
+
   }
 
   run() {
-    
+
   }
-  spawnEnemies(){
+  spawnEnemies() {
+    let spawnedEnemies = 0;
     let numberEnemy = 1;
     let unSpawnedEnemies = towerGame.waves[this.waveNumber];
-    if(!this.spawnOver){
-      while(unSpawnedEnemies.length > 0){
+    
+    let NumberOfEnemiesInWave = 0;
+    for(let i = 0; i < towerGame.waves[this.waveNumber].length; i ++){
+      NumberOfEnemiesInWave += towerGame.waves[this.waveNumber][i];
+    }
+
+    if (!this.spawnOver) {
+      while (unSpawnedEnemies.length > 0) {
         let count = 0;
-        for(let i = 0; i < unSpawnedEnemies.length; i ++){
-          if(unSpawnedEnemies[i] == 0){
+        for (let i = 0; i < unSpawnedEnemies.length; i++) {
+          if (unSpawnedEnemies[i] == 0) {
             count++;
           }
         }
-        if(!count == 10){
-        let randomEnemyType = Math.floor(Math.random*10)+1;
-      
-        if(unSpawnedEnemies[randomEnemyType] > 0){
+        if (count < 10) {
+          let randomEnemyType = Math.floor(Math.random() * 10) + 0;
+
+          if (unSpawnedEnemies[randomEnemyType] > 0) {
+            setTimeout(() => {
+              towerGame.enemies.push(new Enemy(towerGame, randomEnemyType));
+              spawnedEnemies++;
+            }, 1200 * numberEnemy + 600);
+            numberEnemy++;
+            unSpawnedEnemies[randomEnemyType]--;
+          }
+        } else {
           setTimeout(() => {
-            towerGame.enemies.push(new Enemy(towerGame, unSpawnedEnemies));
-          }, 1200*numberEnemy+600);
-          numberEnemy++;
-          unSpawnedEnemies[randomEnemyType]--;
+          this.spawnOver = true;
+        }, 1200 * numberEnemy + 600);
+          break;
         }
-      }else{
-        this.spawnOver = true;
       }
-      }
-      this.spawnOver = true;
     }
   }
 }
