@@ -16,9 +16,13 @@ class Wave {
     let unSpawnedEnemies = towerGame.waves[this.waveNumber];
     if(!this.spawnOver){
       while(unSpawnedEnemies.length > 0){
+        let count = 0;
         for(let i = 0; i < unSpawnedEnemies.length; i ++){
-        
+          if(unSpawnedEnemies[i] == 0){
+            count++;
+          }
         }
+        if(!count == 10){
         let randomEnemyType = Math.floor(Math.random*10)+1;
       
         if(unSpawnedEnemies[randomEnemyType] > 0){
@@ -28,7 +32,9 @@ class Wave {
           numberEnemy++;
           unSpawnedEnemies[randomEnemyType]--;
         }
-        
+      }else{
+        this.spawnOver = true;
+      }
       }
       this.spawnOver = true;
     }
