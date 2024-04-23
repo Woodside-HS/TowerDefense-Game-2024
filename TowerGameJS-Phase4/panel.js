@@ -167,7 +167,7 @@ var panelJSON = [{
       pic: "TowerGameJS-Phase4/resources/images/panels/endPanel/credits.png",
       picId: "wframe",
       funk: function () {
-        towerGame.gameState.panelCredits = new Panel(towerGame, 4)
+        window.location.href = "credits.html";
         document.getElementById("endPanel").parentNode.removeChild(document.getElementById("endPanel"))
       }
     }]
