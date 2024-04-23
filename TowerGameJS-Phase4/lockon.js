@@ -18,7 +18,7 @@ class LockOn{
     ctx.beginPath();
     ctx.moveTo(this.loc.x, this.loc.y);
     ctx.lineTo(this.targetLoc.x, this.targetLoc.y);
-    ctx.strokeStyle = '#e806a7';
+    ctx.strokeStyle = 'rgba(0, 0, 255, 1)';
     ctx.stroke();
 
 

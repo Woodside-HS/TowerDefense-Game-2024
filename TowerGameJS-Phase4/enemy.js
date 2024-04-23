@@ -1,7 +1,10 @@
 class Enemy {
 
-  constructor(game, enemyNumber) {
+  constructor(game, enemyNumber, parent, summon) {
     this.game = game;
+    this.parent = parent;
+    this.summoned = summon;
+    this.summoningEffect = false;
     this.type = enemyNumber+1;
     this.normalImmunities = [false, "targetable"];
     this.normalUpgradedImmunities = [false, "targetable"];
@@ -105,7 +108,8 @@ class Enemy {
       this.img = Enemy.image9;
       this.health = 4000;
       this.summonerEnemy = true;//no art 
-      this.speed = 1; this.baseSpeed = this.speed;
+      this.nextSpawn = 0;
+      this.speed = 0.5; this.baseSpeed = this.speed;
     }else if (this.type == 10){
       this.img = Enemy.image10;
       this.health = 10000;
@@ -121,7 +125,11 @@ class Enemy {
         }
       }
     }
+    if(!this.summoned){
     this.loc = this.currentCell.center.copy();
+    }else{
+      this.loc = this.parent.currentCell.center.copy();
+    }
     this.randomPath = 1;   //boolean to randomize or not
     this.radius = 15.0;
     this.r = 15.0;
@@ -135,10 +143,12 @@ class Enemy {
     this.health;
     this.renderFreezeAura = false;
     this.damages = 0;
-    if(!this.flyingEnemy){
+    if(!this.flyingEnemy && !this.summoned){
     this.targetCell = this.nextTarget();
-    }else{
+    }else if (this.flyingEnemy){
       this.targetCell = this.nextTargetForFlyingEnemy();
+    }else{
+      this.targetCell = this.parent.targetCell;
     }
     this.target = this.targetCell.center;
     this.shape = "circle";
@@ -148,9 +158,11 @@ class Enemy {
     this.hitByFreezeUpgraded = false;
     this.movement = new Movement(this.loc, this.target, this.speed);
     this.deathTimer = null;
-    // Initialize immunities
 
 
+
+    this.clr1 = this.randomColor();
+    this.clr2 = this.randomColor();
   }
 
   run() {
@@ -159,6 +171,13 @@ class Enemy {
     this.specificEnemyUpgrade();
   }
 
+
+  randomColor(){
+    let red = Math.random()*255+1;
+    let green = Math.random()*255+1;
+    let blue = Math.random()*255+1;
+    return 'rgb(' red, green, blue )';
+  }
   specificEnemyUpgrade() {
     if (this.normalEnemy) {
       //probably will be nothing
@@ -232,7 +251,23 @@ class Enemy {
     }
 
     if(this.summonerEnemy){
-
+      this.nextSpawn++;
+      if(this.nextSpawn > 300){
+        this.summomingEffect = true;
+        this.movement.speed = 0;
+      }
+      if(this.nextSpawn > 1200){
+          let randomSummon = Math.round(Math.random()*9);
+          while(randomSummon == 9){
+            randomSummon = Math.round(Math.random()*9);
+          }
+          towerGame.enemies.push(new Enemy(towerGame, randomSummon, this, true));
+          towerGame.enemies[towerGame.enemies.length-1].loc;
+          this.summomingEffect = false;
+          this.nextSpawn = 0;
+          this.movement.speed = this.baseSpeed;
+        
+      }
     }
 
     if(this.bombEnemy){
@@ -279,6 +314,7 @@ class Enemy {
   // render()
   render() {
     let ctx = this.game.context;
+
     ctx.save();
     if(this.visible == false){
       ctx.globalAlpha = 0.3; 
@@ -288,6 +324,7 @@ class Enemy {
     ctx.drawImage(this.img, -this.img.width / 2 , -this.img.height/2);
     ctx.globalAlpha = 1.0;
     ctx.restore();
+
     if (this.slowed < 1) {
       ctx.save();
       ctx.translate(this.loc.x, this.loc.y);
@@ -298,6 +335,7 @@ class Enemy {
       ctx.stroke();
       ctx.restore();
     }
+
     if (this.renderFreezeAura) {
       ctx.save();
       ctx.translate(this.loc.x, this.loc.y);
@@ -309,6 +347,35 @@ class Enemy {
       ctx.stroke();
       ctx.fill();
       ctx.restore();
+    }
+
+    if(this.summomingEffect){
+      ctx.save();
+      ctx.translate(this.currentCell.center.x, this.currentCell.center.y);
+      let gradient = ctx.createLinearGradient(-this.img.width / 2, -this.img.height / 2, this.img.width / 2, this.img.height / 2);
+      gradient.addColorStop(0, "rgba(0, 225, 50, 1)");
+      gradient.addColorStop(1, "rgba(255, 0, 0, 1)");
+      ctx.strokeStyle = gradient;
+      ctx.beginPath();
+      ctx.lineWidth = 2;
+      let length = 60;
+      ctx.arc(0, 0, length, 0, Math.PI *2, false);
+
+      ctx.moveTo(-length/2, -length/2);
+      ctx.arc(-length/2, -length/2, length/4, Math.PI*2, false);
+
+      ctx.moveTo(length/2, -length/2);
+      ctx.arc(length/2, -length/2, length/4, Math.PI*2, false);
+
+      ctx.moveTo(length/2, length/2)
+      ctx.arc(length/2, length/2, length/4, Math.PI*2, false);
+
+      ctx.moveTo(-length/2, length/2)
+      ctx.arc(-length/2, length/2, length/4, Math.PI*2, false);
+      ctx.closePath();
+      ctx.stroke();
+      ctx.restore();
+
     }
 
   }
