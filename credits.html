@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Scrolling Credits</title>
+    <title>The Sea's Surrender</title>
     <style>
-        body, html {
+        body,
+        html {
             overflow: hidden;
             height: 100%;
             margin: 0;
@@ -25,11 +27,13 @@
 
         .scrolling-content {
             position: absolute;
-            bottom: 0; /* Start from the bottom */
+            bottom: 0;
+            /* Start from the bottom */
             white-space: nowrap;
             transform-origin: 50% 100%;
             transform: rotateX(20deg);
-            animation: scroll-up 3000s linear infinite; /* Fixed duration for scrolling */
+            animation: scroll-up 3000s linear infinite;
+            /* Fixed duration for scrolling */
         }
 
         .credits-content {
@@ -37,7 +41,8 @@
             text-align: center;
         }
 
-        .section p, .section h1 {
+        .section p,
+        .section h1 {
             text-align: center;
         }
 
@@ -60,11 +65,17 @@
         }
 
         @keyframes scroll-up {
-            0% { transform: translateZ(0) rotateX(20deg) translateY(100%); }
-            100% { transform: translateZ(0) rotateX(20deg) translateY(-250%); }
+            0% {
+                transform: translateZ(0) rotateX(20deg) translateY(100%);
+            }
+
+            100% {
+                transform: translateZ(0) rotateX(20deg) translateY(-250%);
+            }
         }
     </style>
 </head>
+
 <body>
     <div class="credits-container">
         <div class="scrolling-content">
@@ -73,22 +84,46 @@
                     <p>Credits</p>
                     <h1>The Sea's Surrender</h1>
                 </div>
-                <p>ChatGPT: </p> 
+                <p>ChatGPT: </p>
                 <p>- Background and Character Art</p>
+
                 <p>Eric Ettlin: </p>
                 <p>- Project Manager</p>
-                <p>Bryan Calder ------ Credits code</p>
-                <p>  Prompt Engineer (Background Art)</p>
-                <p>               Basic Upgrade Coder</p>
-                <p>John Gilbert ------ Prompt Engineer (Character Portrait Art)</p>
-                <p>Yoan Renninger ------ Levels</p>
-                <p></p>
-                <p>Logan Thomas ------ A person that exists</p>
-                <p>Patrick Van Hoven ------ Moral Support</p>
-                <p>Anthony Rastellini ----- your mother</p>
-                <p>Kaitlyn Jackson ------ Artwork</p>
-                <p>Carles Witiker ------ LeBronBron james</p>
-                <p>Lebron James ------ My Sunshine</p>
+
+                <p>Bryan Calder: </p>
+                <p>- Credits code</p>
+                <p>- Prompt Engineer (Background Art)</p>
+                <p>- Button Images</p>
+                <p>- Normal Upgrade Code</p>
+
+                <p>John Gilbert: </p>
+                <p>- Prompt Engineer (Character Portrait Art)</p>
+
+                <p>Yoan Renninger: </p>
+                <p>- Level Map Creation (Wall Placement)</p>
+                <p>- 2D Array Grid System Render</p>
+                <p>- Catalog Code and Panel Text</p>
+                <p>- Game States</p>
+
+                <p>Logan Thomas: </p>
+                <p>- Towers</p>
+                <p>- Enemies</p>
+                <p>- Wave Code</p>]
+                <p>- </p>
+
+                <p>Patrick Van Hoven: </p>
+                <p>- Server Setup</p>
+                <p>- General Bugfixer</p>
+
+                <p>Anthony Rastellini:</p>
+                <p>- Photoshop Expert</p>
+
+                <p>Kaitlyn Jackson: </p>
+                <p>- Topdown Tower Art</p>
+
+                <p>Charles Witiker: </p>
+                <p>- Wanted to be here and helped with a few details</p>
+
                 <div class="image-container" id="imageContainer">
                     <!-- Images will be dynamically inserted here -->
                 </div>
@@ -96,24 +131,28 @@
         </div>
     </div>
 
-    <audio id="creditsMusic" src="music.mp3" type="audio/mp3" loop></audio>
+    <audio id="creditsMusic" src="TowerGameJS-Phase4/resources/sounds/creditsMusic.mp3" type="audio/mp3" loop></audio>
 
     <script>
-        function addImage() {
-            let imageContainer = document.getElementById('imageContainer');
-            let img = document.createElement('img');
-            img.src = "image.jpg"; // Update with the correct path to your image
-            img.style.width = "50%"; // Adjust width as needed
-            imageContainer.appendChild(img);
-        }
+        window.addEventListener('load', loadSound, false);
 
-        for (let i = 0; i < 100; i++) {
-            addImage();
-        }
+        // function addImage() {
+        //     let imageContainer = document.getElementById('imageContainer');
+        //     let img = document.createElement('img');
+        //     img.src = "image.jpg"; // Update with the correct path to your image
+        //     img.style.width = "50%"; // Adjust width as needed
+        //     imageContainer.appendChild(img);
+        // }
 
-        let creditsMusic = document.getElementById('creditsMusic');
-        creditsMusic.play();
+        // for (let i = 0; i < 100; i++) {
+        //     addImage();
+        // }
+
+
+            let creditsMusic = document.getElementById('creditsMusic');
+            creditsMusic.play();
 
     </script>
 </body>
+
 </html>

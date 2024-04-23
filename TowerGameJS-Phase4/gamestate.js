@@ -115,7 +115,7 @@ class GameState4 extends GameState { //Catalog
 class GameState5 extends GameState { // game itself
   constructor(game, levelSel) {
     super(game)
-    this.game.health = 100;
+    this.game.health = 1;
     this.game.score = 0
     this.game.bankValue = 1000;
     this.game.gameTime = 0
@@ -125,7 +125,7 @@ class GameState5 extends GameState { // game itself
     this.game.bullets = []
     this.game.cols = Math.floor(this.game.canvas.width / this.game.w);
     this.game.rows = Math.floor(this.game.canvas.height / this.game.w);
-    this.game.backgroundMusic = new Audio('TowerGameJS-Phase4/resources/sounds/Elevator-music.mp3')
+    this.game.backgroundMusic = new Audio('TowerGameJS-Phase4/resources/sounds/creditsMusic.mp3')
     this.game.loadGrid();
     this.game.brushfire();
     this.game.root = this.game.grid[this.game.cols - 1][this.game.rows - 1];
