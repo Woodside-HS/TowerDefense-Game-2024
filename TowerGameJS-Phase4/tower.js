@@ -273,7 +273,6 @@ class Tower {
           (this.ability == "liquify" && enemyImmunties.liquifyUpgradedImmunities[1] == "targetable") 
          
         ) {
-          //the buffing tower does not attack why do you have this as it does not attack
           let dx = this.loc.x - this.target.x;
           let dy = this.loc.y - this.target.y;
           this.towAngle = Math.atan2(dy, dx) - Math.PI;

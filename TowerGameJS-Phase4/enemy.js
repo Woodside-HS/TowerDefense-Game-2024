@@ -3,7 +3,24 @@ class Enemy {
   constructor(game, enemyNumber) {
     this.game = game;
     this.type = enemyNumber+1;
-
+    this.normalImmunities = [false, "targetable"];
+    this.normalUpgradedImmunities = [false, "targetable"];
+    this.fastImmunities = [false, "targetable"];
+    this.fastUpgradedImmunities = [false, "targetable"];
+    this.freezeImmunities = [false, "targetable"];
+    this.freezeUpgradedImmunities = [false, "targetable"];
+    this.explosiveImmunities = [false, "targetable"];
+    this.explosiveUpgradedImmunities = [false, "targetable"];
+    this.rayImmunities = [false, "targetable"];
+    this.rayUpgradedImmunities = [false, "targetable"];
+    this.cannonImmunities = [false, "targetable"];
+    this.cannonUpgradedImmunities = [false, "targetable"];
+    this.bladeStormImmunities = [false, "targetable"];
+    this.bladeStormUpgradedImmunities = [false, "targetable"];
+    this.liquifyImmunities = [false, "targetable"];
+    this.liquifyUpgradedImmunities = [false, "targetable"];
+    this.missileImmunities = [false, "targetable"];
+    this.missileUpgradedImmunities = [false, "targetable"];
     if(this.type == 1){
       this.img = Enemy.image1;
       this.health = 1000;
@@ -40,6 +57,26 @@ class Enemy {
       this.img = Enemy.image7;
       this.health = 2000;
       this.stealthEnemy = true; // octopus
+      this.timeSinceSpawn = 0;
+      this.normalImmunities = [false, "untargetable"];
+      this.normalUpgradedImmunities = [false, "untargetable"];
+      this.fastImmunities = [false, "untargetable"];
+      this.fastUpgradedImmunities = [false, "untargetable"];
+      this.freezeImmunities = [false, "untargetable"];
+      this.freezeUpgradedImmunities = [false, "untargetable"];
+      this.explosiveImmunities = [false, "untargetable"];
+      this.explosiveUpgradedImmunities = [false, "untargetable"];
+      this.rayImmunities = [false, "untargetable"];
+      this.rayUpgradedImmunities = [false, "untargetable"];
+      this.cannonImmunities = [false, "untargetable"];
+      this.cannonUpgradedImmunities = [false, "untargetable"];
+      this.bladeStormImmunities = [false, "untargetable"];
+      this.bladeStormUpgradedImmunities = [false, "untargetable"];
+      this.liquifyImmunities = [false, "untargetable"];
+      this.liquifyUpgradedImmunities = [false, "untargetable"];
+      this.missileImmunities = [false, "untargetable"];
+      this.missileUpgradedImmunities = [false, "untargetable"];
+      this.visible = false;
       this.speed = 1; this.baseSpeed = this.speed;
     }else if (this.type == 8){
       this.img = Enemy.image8;
@@ -94,24 +131,7 @@ class Enemy {
     this.movement = new Movement(this.loc, this.target, this.speed);
     this.deathTimer = null;
     // Initialize immunities
-    this.normalImmunities = [false, "targetable"];
-    this.normalUpgradedImmunities = [false, "targetable"];
-    this.fastImmunities = [false, "targetable"];
-    this.fastUpgradedImmunities = [false, "targetable"];
-    this.freezeImmunities = [false, "targetable"];
-    this.freezeUpgradedImmunities = [false, "targetable"];
-    this.explosiveImmunities = [false, "targetable"];
-    this.explosiveUpgradedImmunities = [false, "targetable"];
-    this.rayImmunities = [false, "targetable"];
-    this.rayUpgradedImmunities = [false, "targetable"];
-    this.cannonImmunities = [false, "targetable"];
-    this.cannonUpgradedImmunities = [false, "targetable"];
-    this.bladeStormImmunities = [false, "targetable"];
-    this.bladeStormUpgradedImmunities = [false, "targetable"];
-    this.liquifyImmunities = [false, "targetable"];
-    this.liquifyUpgradedImmunities = [false, "targetable"];
-    this.missileImmunities = [false, "targetable"];
-    this.missileUpgradedImmunities = [false, "targetable"];
+
 
   }
 
@@ -147,15 +167,15 @@ class Enemy {
       }
     }
     if (this.freezeEnemy) {
-      // for (let i = 0; i < towerGame.towers.length; i++) {
-      //   let distToTower = this.loc.dist(towerGame.towers[i].loc);
-      //   if (distToTower < 120) {
-      //     towerGame.towers[i].coolDown *= 2;
-      //   } else {
-      //     towerGame.towers[i].coolDown = towerGame.towers[i].maxCoolDown;
-      //   }
+      for (let i = 0; i < towerGame.towers.length; i++) {
+        let distToTower = this.loc.dist(towerGame.towers[i].loc);
+        if (distToTower < 120) {
+          towerGame.towers[i].coolDown = towerGame.towers[i].maxCoolDown * 2;
+        } else {
+          towerGame.towers[i].coolDown = towerGame.towers[i].maxCoolDown;
+        }
 
-      // }
+      }
     }
 
     if(this.flyingEnemy) {
@@ -163,7 +183,30 @@ class Enemy {
     }
 
     if(this.stealthEnemy){
+      this.timeSinceSpawn++;
 
+      if(this.timeSinceSpawn > 500){
+      //  console.log(this.timeSinceSpawn)
+        this.visible = true;
+        this.normalImmunities = [false, "targetable"];
+        this.normalUpgradedImmunities = [false, "targetable"];
+        this.fastImmunities = [false, "targetable"];
+        this.fastUpgradedImmunities = [false, "targetable"];
+        this.freezeImmunities = [false, "targetable"];
+        this.freezeUpgradedImmunities = [false, "targetable"];
+        this.explosiveImmunities = [false, "targetable"];
+        this.explosiveUpgradedImmunities = [false, "targetable"];
+        this.rayImmunities = [false, "targetable"];
+        this.rayUpgradedImmunities = [false, "targetable"];
+        this.cannonImmunities = [false, "targetable"];
+        this.cannonUpgradedImmunities = [false, "targetable"];
+        this.bladeStormImmunities = [false, "targetable"];
+        this.bladeStormUpgradedImmunities = [false, "targetable"];
+        this.liquifyImmunities = [false, "targetable"];
+        this.liquifyUpgradedImmunities = [false, "targetable"];
+        this.missileImmunities = [false, "targetable"];
+        this.missileUpgradedImmunities = [false, "targetable"];
+      }
     }
 
     if(this.shieldedEnemy){
@@ -175,7 +218,9 @@ class Enemy {
     }
 
     if(this.bombEnemy){
-      
+      if(this.kill){
+        console.log(this.bombEnemy)
+      }
     }
 
   }
@@ -198,7 +243,6 @@ class Enemy {
   }
   nextTargetForFlyingEnemy() {
     return this.game.root;
-   
   }
   
   oppositeNextTarget() {
@@ -218,9 +262,13 @@ class Enemy {
   render() {
     let ctx = this.game.context;
     ctx.save();
+    if(this.visible == false){
+      ctx.globalAlpha = 0.3; 
+    }
     ctx.translate(this.loc.x, this.loc.y)
     ctx.rotate(this.angle - Math.PI/2);
     ctx.drawImage(this.img, -this.img.width / 2 , -this.img.height/2);
+    ctx.globalAlpha = 1.0;
     ctx.restore();
     if (this.slowed < 1) {
       ctx.save();
@@ -241,7 +289,7 @@ class Enemy {
       ctx.arc(0, 0, 120, 0, Math.PI * 2, false);
       ctx.closePath();
       ctx.stroke();
-     // ctx.fill();
+      ctx.fill();
       ctx.restore();
     }
 
@@ -317,8 +365,10 @@ class Enemy {
           if (!this.freezeImmunities[0]) {
             this.health = this.health - 25 * towerGame.bullets[h].damageMult;
             this.slowed -= 1;
+            this.movement.speed = this.baseSpeed * 0.3;
             setTimeout(() => {
               this.slowed = 1.2;
+              this.speed = this.baseSpeed;
             }, 3500);
           }
           if (!this.freezeUpgradedImmunities[0]) {
@@ -510,31 +560,6 @@ class Enemy {
 }
 
 // end class ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//this.normalImmunities = [false, "targetable"];
-//false if it can't hit the enemy so false of default means yes you can hit
-//targetable is basically if the enemy is immune to the towers attack the tower will still target it unless the targetable
-// is set to something that is not targetable
 
 
-
-
-
-// this.normalImmunities = [false, "targetable"];
-// this.normalUpgradedImmunities = [false, "targetable"];
-// this.fastImmunities = [false, "targetable"];
-// this.fastUpgradedImmunities = [false, "targetable"];
-// this.freezeImmunities = [false, "targetable"];
-// this.freezeUpgradedImmunities = [false, "targetable"];
-// this.explosiveImmunities = [false, "targetable"];
-// this.explosiveUpgradedImmunities = [false, "targetable"];
-// this.rayImmunities = [false, "targetable"];
-// this.rayUpgradedImmunities = [false, "targetable"];
-// this.cannonImmunities = [false, "targetable"];
-// this.cannonUpgradedImmunities = [false, "targetable"];
-// this.bladeStormImmunities = [false, "targetable"];
-// this.bladeStormUpgradedImmunities = [false, "targetable"];
-// this.liquifyImmunities = [false, "targetable"];
-// this.liquifyUpgradedImmunities = [false, "targetable"];
-// this.missileImmunities = [false, "targetable"];
-// this.missileUpgradedImmunities = [false, "targetable"];
 

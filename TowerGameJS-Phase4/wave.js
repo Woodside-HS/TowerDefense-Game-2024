@@ -31,7 +31,7 @@ class Wave {
           }
         }
         if (count < 10) {
-          let randomEnemyType = Math.floor(Math.random() * 10) + 0;
+          let randomEnemyType = Math.floor(Math.random() * 10);
 
           if (unSpawnedEnemies[randomEnemyType] > 0) {
             setTimeout(() => {
