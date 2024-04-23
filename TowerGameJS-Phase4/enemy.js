@@ -81,6 +81,24 @@ class Enemy {
     }else if (this.type == 8){
       this.img = Enemy.image8;
       this.health = 4000;
+      this.normalImmunities = [false, "untargetable"];
+      this.normalUpgradedImmunities = [false, "untargetable"];
+      this.fastImmunities = [false, "untargetable"];
+      this.fastUpgradedImmunities = [false, "untargetable"];
+      this.freezeImmunities = [false, "untargetable"];
+      this.freezeUpgradedImmunities = [false, "untargetable"];
+      this.explosiveImmunities = [false, "targetable"];
+      this.explosiveUpgradedImmunities = [false, "targetable"];
+      this.rayImmunities = [false, "targetable"];
+      this.rayUpgradedImmunities = [false, "targetable"];
+      this.cannonImmunities = [false, "untargetable"];
+      this.cannonUpgradedImmunities = [false, "untargetable"];
+      this.bladeStormImmunities = [false, "untargetable"];
+      this.bladeStormUpgradedImmunities = [false, "untargetable"];
+      this.liquifyImmunities = [false, "untargetable"];
+      this.liquifyUpgradedImmunities = [false, "untargetable"];
+      this.missileImmunities = [false, "untargetable"];
+      this.missileUpgradedImmunities = [false, "untargetable"];
       this.shieldedEnemy = true;//turtle
       this.speed = 1; this.baseSpeed = this.speed;
     }else if (this.type == 9){
