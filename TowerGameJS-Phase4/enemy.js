@@ -5,7 +5,9 @@ class Enemy {
     this.parent = parent;
     this.summoned = summon;
     this.summoningEffect = false;
-    this.type = enemyNumber+1;
+    this.exploding = false;
+    this.countDown = 400;
+    this.type = enemyNumber + 1;
     this.normalImmunities = [false, "targetable"];
     this.normalUpgradedImmunities = [false, "targetable"];
     this.fastImmunities = [false, "targetable"];
@@ -24,39 +26,39 @@ class Enemy {
     this.liquifyUpgradedImmunities = [false, "targetable"];
     this.missileImmunities = [false, "targetable"];
     this.missileUpgradedImmunities = [false, "targetable"];
-    if(this.type == 1){
+    if (this.type == 1) {
       this.img = Enemy.image1;
       this.health = 1000;
       this.normalEnemy = true; //orange guy
       this.speed = 2; this.baseSpeed = this.speed;
-    }else if (this.type == 2){
+    } else if (this.type == 2) {
       this.img = Enemy.image2;
       this.health = 2000;
       this.normalFastEnemy = true; //blue guy
       this.speed = 3.5; this.baseSpeed = this.speed;
-    }else if (this.type == 3){
+    } else if (this.type == 3) {
       this.img = Enemy.image3;
       this.health = 4000;
-      this.layeredEnemy = true; //Dolphin
+      this.jumpyEnemy = true; //Dolphin
       //this is either the last I will do or not do it at all.
       this.speed = 1; this.baseSpeed = this.speed;
-    }else if (this.type == 4){
+    } else if (this.type == 4) {
       this.img = Enemy.image4;
       this.health = 4000;
       this.speedUpSurroundingEnemy = true;//shark
       this.speed = 1; this.baseSpeed = this.speed;
-    }else if (this.type == 5){
+    } else if (this.type == 5) {
       this.img = Enemy.image5;
       this.health = 10000;
       this.freezeEnemy = true;//blue jellyfish
       this.renderFreezeAura = true;
       this.speed = 1.5; this.baseSpeed = this.speed;
-    }else if (this.type == 6){
+    } else if (this.type == 6) {
       this.img = Enemy.image6;
       this.health = 1000;
       this.flyingEnemy = true;//flying fish
       this.speed = 1; this.baseSpeed = this.speed;
-    }else if (this.type == 7){
+    } else if (this.type == 7) {
       this.img = Enemy.image7;
       this.health = 2000;
       this.stealthEnemy = true; // octopus
@@ -81,7 +83,7 @@ class Enemy {
       this.missileUpgradedImmunities = [false, "untargetable"];
       this.visible = false;
       this.speed = 1; this.baseSpeed = this.speed;
-    }else if (this.type == 8){
+    } else if (this.type == 8) {
       this.img = Enemy.image8;
       this.health = 4000;
       this.normalImmunities = [false, "untargetable"];
@@ -104,13 +106,13 @@ class Enemy {
       this.missileUpgradedImmunities = [false, "untargetable"];
       this.shieldedEnemy = true;//turtle
       this.speed = 1; this.baseSpeed = this.speed;
-    }else if (this.type == 9){
+    } else if (this.type == 9) {
       this.img = Enemy.image9;
       this.health = 4000;
       this.summonerEnemy = true;//no art 
       this.nextSpawn = 0;
       this.speed = 0.5; this.baseSpeed = this.speed;
-    }else if (this.type == 10){
+    } else if (this.type == 10) {
       this.img = Enemy.image10;
       this.health = 10000;
       this.bombEnemy = true;//starfish
@@ -125,9 +127,9 @@ class Enemy {
         }
       }
     }
-    if(!this.summoned){
-    this.loc = this.currentCell.center.copy();
-    }else{
+    if (!this.summoned) {
+      this.loc = this.currentCell.center.copy();
+    } else {
       this.loc = this.parent.currentCell.center.copy();
     }
     this.randomPath = 1;   //boolean to randomize or not
@@ -143,11 +145,11 @@ class Enemy {
     this.health;
     this.renderFreezeAura = false;
     this.damages = 0;
-    if(!this.flyingEnemy && !this.summoned){
-    this.targetCell = this.nextTarget();
-    }else if (this.flyingEnemy){
+    if (!this.flyingEnemy && !this.summoned) {
+      this.targetCell = this.nextTarget();
+    } else if (this.flyingEnemy) {
       this.targetCell = this.nextTargetForFlyingEnemy();
-    }else{
+    } else {
       this.targetCell = this.parent.targetCell;
     }
     this.target = this.targetCell.center;
@@ -172,11 +174,11 @@ class Enemy {
   }
 
 
-  randomColor(){
-    let red = Math.random()*255+1;
-    let green = Math.random()*255+1;
-    let blue = Math.random()*255+1;
-    return 'rgb(' red, green, blue )';
+  randomColor() {
+    let red = Math.floor(Math.random() * 256);
+    let green = Math.floor(Math.random() * 256);
+    let blue = Math.floor(Math.random() * 256);
+    return 'rgba(' + red + ',' + green + ',' + blue + ',' + 1 + ')';
   }
   specificEnemyUpgrade() {
     if (this.normalEnemy) {
@@ -187,17 +189,17 @@ class Enemy {
       //probably will be nothing
     }
 
-    if (this.layeredEnemy) {
+    if (this.jumpyEnemy) {
 
     }
     if (this.speedUpSurroundingEnemy) {
-      for( let i = 0; i < towerGame.enemies.length; i ++){
-        if(this != towerGame.enemies[i]){
+      for (let i = 0; i < towerGame.enemies.length; i++) {
+        if (this != towerGame.enemies[i]) {
           let distToEnemy = this.loc.dist(towerGame.enemies[i].loc);
-          if(distToEnemy < 120){
+          if (distToEnemy < 120) {
             towerGame.enemies[i].movement.speed = 1.5 * towerGame.enemies[i].baseSpeed;
 
-          }else{
+          } else {
             towerGame.enemies[i].movement.speed = towerGame.enemies[i].baseSpeed;
           }
         }
@@ -215,15 +217,15 @@ class Enemy {
       }
     }
 
-    if(this.flyingEnemy) {
+    if (this.flyingEnemy) {
 
     }
 
-    if(this.stealthEnemy){
+    if (this.stealthEnemy) {
       this.timeSinceSpawn++;
 
-      if(this.timeSinceSpawn > 500){
-      //  console.log(this.timeSinceSpawn)
+      if (this.timeSinceSpawn > 500) {
+        //  console.log(this.timeSinceSpawn)
         this.visible = true;
         this.normalImmunities = [false, "targetable"];
         this.normalUpgradedImmunities = [false, "targetable"];
@@ -246,33 +248,61 @@ class Enemy {
       }
     }
 
-    if(this.shieldedEnemy){
+    if (this.shieldedEnemy) {
 
     }
 
-    if(this.summonerEnemy){
+    if (this.summonerEnemy) {
       this.nextSpawn++;
-      if(this.nextSpawn > 300){
+      if (this.nextSpawn > 900) {
         this.summomingEffect = true;
         this.movement.speed = 0;
       }
-      if(this.nextSpawn > 1200){
-          let randomSummon = Math.round(Math.random()*9);
-          while(randomSummon == 9){
-            randomSummon = Math.round(Math.random()*9);
-          }
-          towerGame.enemies.push(new Enemy(towerGame, randomSummon, this, true));
-          towerGame.enemies[towerGame.enemies.length-1].loc;
-          this.summomingEffect = false;
-          this.nextSpawn = 0;
-          this.movement.speed = this.baseSpeed;
-        
+      if (this.nextSpawn > 1800) {
+        let randomSummon = Math.round(Math.random() * 7);
+        towerGame.enemies.push(new Enemy(towerGame, randomSummon, this, true));
+        towerGame.enemies[towerGame.enemies.length - 1].loc;
+        this.summomingEffect = false;
+        this.nextSpawn = 0;
+        this.movement.speed = this.baseSpeed;
+
       }
     }
 
-    if(this.bombEnemy){
-      if(this.kill){
-        console.log(this.bombEnemy)
+    if (this.bombEnemy) {
+      if (this.kill || this.exploding) {
+        this.normalImmunities = [true, "untargetable"];
+        this.normalUpgradedImmunities = [true, "untargetable"];
+        this.fastImmunities = [true, "untargetable"];
+        this.fastUpgradedImmunities = [true, "untargetable"];
+        this.freezeImmunities = [true, "untargetable"];
+        this.freezeUpgradedImmunities = [true, "untargetable"];
+        this.explosiveImmunities = [true, "untargetable"];
+        this.explosiveUpgradedImmunities = [true, "untargetable"];
+        this.rayImmunities = [true, "untargetable"];
+        this.rayUpgradedImmunities = [true, "untargetable"];
+        this.cannonImmunities = [true, "untargetable"];
+        this.cannonUpgradedImmunities = [true, "untargetable"];
+        this.bladeStormImmunities = [true, "untargetable"];
+        this.bladeStormUpgradedImmunities = [true, "untargetable"];
+        this.liquifyImmunities = [true, "untargetable"];
+        this.liquifyUpgradedImmunities = [true, "untargetable"];
+        this.missileImmunities = [true, "untargetable"];
+        this.missileUpgradedImmunities = [true, "untargetable"];
+        this.exploding = true;
+        this.countDown--;
+
+        if (this.countDown <= 0) {
+          for (let i = 0; i < towerGame.towers.length; i++) {
+            let distToTower = this.loc.dist(towerGame.towers[i].loc);
+            if (distToTower < 120) {
+              let doDestroyTower = Math.round(Math.random()*5);
+              if (doDestroyTower == 5) {
+                towerGame.towers.splice(i, 1);
+              }
+            }
+          }
+        }
       }
     }
 
@@ -297,7 +327,7 @@ class Enemy {
   nextTargetForFlyingEnemy() {
     return this.game.root;
   }
-  
+
   oppositeNextTarget() {
 
 
@@ -316,12 +346,12 @@ class Enemy {
     let ctx = this.game.context;
 
     ctx.save();
-    if(this.visible == false){
-      ctx.globalAlpha = 0.3; 
+    if (this.visible == false) {
+      ctx.globalAlpha = 0.3;
     }
     ctx.translate(this.loc.x, this.loc.y)
-    ctx.rotate(this.angle - Math.PI/2);
-    ctx.drawImage(this.img, -this.img.width / 2 , -this.img.height/2);
+    ctx.rotate(this.angle - Math.PI / 2);
+    ctx.drawImage(this.img, -this.img.width / 2, -this.img.height / 2);
     ctx.globalAlpha = 1.0;
     ctx.restore();
 
@@ -349,31 +379,53 @@ class Enemy {
       ctx.restore();
     }
 
-    if(this.summomingEffect){
+    if (this.summomingEffect) {
       ctx.save();
-      ctx.translate(this.currentCell.center.x, this.currentCell.center.y);
+      ctx.translate(this.targetCell.center.x, this.targetCell.center.y);
       let gradient = ctx.createLinearGradient(-this.img.width / 2, -this.img.height / 2, this.img.width / 2, this.img.height / 2);
-      gradient.addColorStop(0, "rgba(0, 225, 50, 1)");
-      gradient.addColorStop(1, "rgba(255, 0, 0, 1)");
+      gradient.addColorStop(0, this.clr1);
+      gradient.addColorStop(1, this.clr2);
       ctx.strokeStyle = gradient;
       ctx.beginPath();
       ctx.lineWidth = 2;
       let length = 60;
-      ctx.arc(0, 0, length, 0, Math.PI *2, false);
+      ctx.arc(0, 0, length, 0, Math.PI * 2, false);
 
-      ctx.moveTo(-length/2, -length/2);
-      ctx.arc(-length/2, -length/2, length/4, Math.PI*2, false);
+      ctx.moveTo(-length / 2, -length / 2);
+      ctx.arc(-length / 2, -length / 2, length / 4, Math.PI * 2, false);
 
-      ctx.moveTo(length/2, -length/2);
-      ctx.arc(length/2, -length/2, length/4, Math.PI*2, false);
+      ctx.moveTo(length / 2, -length / 2);
+      ctx.arc(length / 2, -length / 2, length / 4, Math.PI * 2, false);
 
-      ctx.moveTo(length/2, length/2)
-      ctx.arc(length/2, length/2, length/4, Math.PI*2, false);
+      ctx.moveTo(length / 2, length / 2)
+      ctx.arc(length / 2, length / 2, length / 4, Math.PI * 2, false);
 
-      ctx.moveTo(-length/2, length/2)
-      ctx.arc(-length/2, length/2, length/4, Math.PI*2, false);
+      ctx.moveTo(-length / 2, length / 2)
+      ctx.arc(-length / 2, length / 2, length / 4, Math.PI * 2, false);
       ctx.closePath();
       ctx.stroke();
+      ctx.restore();
+
+    }
+
+    if (this.exploding) {
+      ctx.save();
+      ctx.translate(this.loc.x, this.loc.y);
+      let ctx = this.game.context;
+      let blinkColor1 = "rgba(0, 225, 50, 1)";
+      let blinkColor2 = "rgba(255, 0, 0, 1)";
+      let currentColor = blinkColor1;
+      setInterval(() => {
+        currentColor = (currentColor === blinkColor1) ? blinkColor2 : blinkColor1;
+      }, 500);
+      ctx.fillStyle = currentColor;
+      ctx.fillRect(0, 0, this.game.canvas.width, this.game.canvas.height);
+      ctx.beginPath();
+      ctx.lineWidth = 2;
+      ctx.arc(0, 0, this.img.width, 0, Math.PI * 2, false);
+      ctx.closePath();
+      ctx.stroke();
+      ctx.fill();
       ctx.restore();
 
     }
@@ -535,34 +587,34 @@ class Enemy {
     this.angle = Math.atan2(dy, dx);
     if (this.movement.finished) {
       this.currentCell = this.targetCell;
-      if(!this.flyingEnemy){
-      this.targetCell = this.nextTarget();
-      
-      if (this.currentCell == this.game.root) {
-        this.kill = true;
-        towerGame.health--;
-        return;
+      if (!this.flyingEnemy) {
+        this.targetCell = this.nextTarget();
+
+        if (this.currentCell == this.game.root) {
+          this.kill = true;
+          towerGame.health--;
+          return;
+        }
+        if (!this.targetCell) {
+          this.kill = true;   // can happen if user blocks cells while enemies are attacking
+          return;
+        }
+        this.target = this.targetCell.center;
+        this.movement.setTarget(this.loc, this.target);
+      } else {
+        this.targetCell = this.game.root;
+        if (this.currentCell == this.game.root) {
+          this.kill = true;
+          towerGame.health--;
+          return;
+        }
+        if (!this.targetCell) {
+          this.kill = true;   // can happen if user blocks cells while enemies are attacking
+          return;
+        }
+        this.target = this.targetCell.center;
+        this.movement.setTarget(this.loc, this.target);
       }
-      if (!this.targetCell) {
-        this.kill = true;   // can happen if user blocks cells while enemies are attacking
-        return;
-      }
-      this.target = this.targetCell.center;
-      this.movement.setTarget(this.loc, this.target);
-    }else{
-      this.targetCell = this.game.root;
-      if (this.currentCell == this.game.root) {
-        this.kill = true;
-        towerGame.health--;
-        return;
-      }
-      if (!this.targetCell) {
-        this.kill = true;   // can happen if user blocks cells while enemies are attacking
-        return;
-      }
-      this.target = this.targetCell.center;
-      this.movement.setTarget(this.loc, this.target);
-    }
     }
 
   }
