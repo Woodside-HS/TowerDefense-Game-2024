@@ -231,7 +231,9 @@ class Game {
       setTimeout(() => {
         towerGame.numWave++;
         towerGame.wave = new Wave(this, towerGame.numWave);
+
       }, 4000);
+      towerGame.wave.spawnOver = false;
     }
     if (towerState == 1) {
       if (count == 1) {
@@ -461,9 +463,10 @@ class Game {
   // Delete any enemies that have died
   removeEnemies() {
     for (let i = this.enemies.length - 1; i >= 0; i--) {
-      if (this.enemies[i].kill && !this.enemies[i].exploding){
+      if (this.enemies[i].kill && this.enemies[i].type != 10){
         
-      //  this.enemies.splice(i, 1);   // delete this dead enemy
+        this.enemies.splice(i, 1); 
+          // delete this dead enemy
       }
     }
   }
@@ -534,7 +537,7 @@ class Game {
         info.innerHTML = 'Wave <br/>';
         var value = document.createElement('p');
         value.style.fontSize = '10pt';
-        value.innerHTML = '6'
+        value.innerHTML = towerGame.numWave + 1;
         info.appendChild(value);
       }
       if (info.innerHTML.indexOf('Health') != -1) {

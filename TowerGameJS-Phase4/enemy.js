@@ -290,6 +290,7 @@ class Enemy {
         this.missileImmunities = [true, "untargetable"];
         this.missileUpgradedImmunities = [true, "untargetable"];
         this.exploding = true;
+        this.movement.speed = 0;
         this.countDown--;
 
         if (this.countDown <= 0) {
@@ -410,20 +411,16 @@ class Enemy {
     }
 
     if (this.exploding) {
+      console.log("a")
       ctx.save();
       ctx.translate(this.loc.x, this.loc.y);
-      let blinkColor1 = "rgba(0, 225, 50, 1)";
-      let blinkColor2 = "rgba(255, 0, 0, 1)";
-      let currentColor = blinkColor1;
-      setInterval(() => {
-        currentColor = (currentColor === blinkColor1) ? blinkColor2 : blinkColor1;
-      }, 500);
-      ctx.fillStyle = currentColor;
+      ctx.strokeStyle = 'rgba(8, 0, 0, 0.2)';
       ctx.beginPath();
-      ctx.lineWidth = 2;
-      ctx.arc(0, 0, this.img.width, 0, Math.PI * 2, false);
+      
+      ctx.arc(0, 0, this.img.width/2, 0, Math.PI * 2, false);
       ctx.closePath();
       ctx.stroke();
+      ctx.fill();
       ctx.restore();
 
     }
