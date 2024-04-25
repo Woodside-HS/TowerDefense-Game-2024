@@ -25,14 +25,14 @@
             overflow: hidden;
         }
 
-        .scrolling-content {
+        #scrolling-content {
             position: absolute;
             bottom: 0;
             /* Start from the bottom */
             white-space: nowrap;
             transform-origin: 50% 100%;
             transform: rotateX(20deg);
-            animation: scroll-up 3000s linear infinite;
+            animation: scroll-up 30s linear infinite;
             /* Fixed duration for scrolling */
         }
 
@@ -78,7 +78,7 @@
 
 <body>
     <div class="credits-container">
-        <div class="scrolling-content">
+        <div id="scrolling-content">
             <div class="credits-content" id="creditsContent">
                 <div class="section">
                     <p>Credits</p>
@@ -134,7 +134,7 @@
     <audio id="creditsMusic" src="TowerGameJS-Phase4/resources/sounds/creditsMusic.mp3" type="audio/mp3" loop></audio>
 
     <script>
-        window.addEventListener('load', loadSound, false);
+        //window.addEventListener('load', loadSound, false);
 
         // function addImage() {
         //     let imageContainer = document.getElementById('imageContainer');
@@ -148,7 +148,8 @@
         //     addImage();
         // }
 
-
+        const element = document.getElementById("scrolling-content");
+       element.setAttribute("style", "animation:scroll-up 3000s linear infinite" )
             let creditsMusic = document.getElementById('creditsMusic');
             creditsMusic.play();
 
