@@ -67,11 +67,11 @@ json = {"frames": {
 },
 "E90000":
 {
-	"frame": {"x":37,"y":34,"w":35,"h":29},
+	"frame": {"x":340,"y":353,"w":67,"h":64},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":35,"h":29},
-	"sourceSize": {"w":35,"h":29}
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":64},
+	"sourceSize": {"w":67,"h":64}
 },
 "E100000":
 {
