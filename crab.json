@@ -1,0 +1,35 @@
+﻿{"frames": {
+
+"crab0000":
+{
+	"frame": {"x":0,"y":0,"w":309,"h":359},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":309,"h":359},
+	"sourceSize": {"w":309,"h":359}
+},
+"crab20000":
+{
+	"frame": {"x":309,"y":0,"w":974,"h":1133},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":974,"h":1133},
+	"sourceSize": {"w":974,"h":1133}
+},
+"crab30000":
+{
+	"frame": {"x":1283,"y":0,"w":536,"h":624},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":536,"h":624},
+	"sourceSize": {"w":536,"h":624}
+}},
+"meta": {
+	"app": "Adobe Animate",
+	"version": "24.0.2.12",
+	"image": "crab.png",
+	"format": "RGBA8888",
+	"size": {"w":2048,"h":2048},
+	"scale": "1"
+}
+}
