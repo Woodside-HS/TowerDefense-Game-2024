@@ -468,6 +468,9 @@ class Game {
         this.enemies.splice(i, 1); 
           // delete this dead enemy
       }
+      if(this.enemies[i].kill && this.enemies[i].type == 10 && this.enemies[i].explodingAfterMathGrowth >= 120){
+        this.enemies.splice(i, 1);
+      }
     }
   }
 
