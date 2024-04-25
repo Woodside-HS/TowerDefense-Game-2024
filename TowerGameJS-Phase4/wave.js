@@ -121,6 +121,22 @@ AllWaves = generateWaves();
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //DO NOT USE ANY OF THE STUFF BELOW THIS COMMENT PLEASE I BEG YOU
 
 
