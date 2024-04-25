@@ -411,13 +411,13 @@ class Enemy {
     }
 
     if (this.exploding) {
-      console.log("a")
       ctx.save();
       ctx.translate(this.loc.x, this.loc.y);
-      ctx.strokeStyle = 'rgba(8, 0, 0, 0.2)';
+      ctx.strokeStyle = 'rgba(255, 0, 0, 0.5)';
+      ctx.fillStyle = 'rgba(255, 0, 0, 0.2';
       ctx.beginPath();
+      ctx.arc(0, 0, 60 - (Math.abs(this.coolDown*3/20 - 60)), 0, Math.PI * 2, false);
       
-      ctx.arc(0, 0, this.img.width/2, 0, Math.PI * 2, false);
       ctx.closePath();
       ctx.stroke();
       ctx.fill();
