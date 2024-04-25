@@ -41,7 +41,7 @@ class Enemy {
     } else if (this.type == 3) {
       this.img = Enemy.image3;
       this.health = 4000;
-      this.jumpyEnemy = true; //Dolphin
+      this.dolphinEnemy = true; //Dolphin
       //this is either the last I will do or not do it at all.
       this.speed = 1; this.baseSpeed = this.speed;
     } else if (this.type == 4) {
@@ -191,7 +191,7 @@ class Enemy {
       //probably will be nothing
     }
 
-    if (this.jumpyEnemy) {
+    if (this.dolphinEnemy) {
 
     }
     if (this.speedUpSurroundingEnemy) {
@@ -299,6 +299,7 @@ class Enemy {
         if (this.countDown <= 0 && !this.explodingAfterMath) {
           for (let i = 0; i < towerGame.towers.length; i++) {
             let distToTower = this.loc.dist(towerGame.towers[i].loc);
+        
             if (distToTower < 120) {
               let doDestroyTower = Math.round(Math.random()*3);
               if (doDestroyTower == 3) {

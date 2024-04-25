@@ -2,19 +2,19 @@ json = {"frames": {
 
 "E10000":
 {
-	"frame": {"x":513,"y":448,"w":46,"h":64},
+	"frame": {"x":272,"y":331,"w":63,"h":76},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":46,"h":64},
-	"sourceSize": {"w":46,"h":64}
+	"spriteSourceSize": {"x":0,"y":0,"w":63,"h":76},
+	"sourceSize": {"w":63,"h":76}
 },
 "E20000":
 {
-	"frame": {"x":513,"y":392,"w":37,"h":52},
+	"frame": {"x":606,"y":371,"w":37,"h":47},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":37,"h":52},
-	"sourceSize": {"w":37,"h":52}
+	"spriteSourceSize": {"x":0,"y":0,"w":37,"h":47},
+	"sourceSize": {"w":37,"h":47}
 },
 "E30000":
 {

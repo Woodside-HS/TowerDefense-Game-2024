@@ -468,7 +468,8 @@ class Game {
         this.enemies.splice(i, 1); 
           // delete this dead enemy
       }
-      if(this.enemies[i].kill && this.enemies[i].type == 10 && this.enemies[i].explodingAfterMathGrowth >= 120){
+     else if(this.enemies[i].kill && this.enemies[i].type == 10 && this.enemies[i].explodingAfterMathGrowth >= 120
+         || this.enemies[i].currentCell == towerGame.root){
         this.enemies.splice(i, 1);
       }
     }
@@ -731,9 +732,17 @@ class Game {
 
   loadAllWaves(){
     let enemyNumArray = [ //array that tells you the number of each type of enemy for each wave
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-      [2, 2, 2, 2, 2, 0, 0, 0, 0, 0],
-      [2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+      [4, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 4, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 4, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 4, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 4, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 4, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 4, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 4, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 4, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 4],
+
     ];
     for (let i = 0; i < enemyNumArray.length; i++) {
       this.waves[i] = [];
