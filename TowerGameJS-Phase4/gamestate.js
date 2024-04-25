@@ -125,7 +125,7 @@ class GameState5 extends GameState { // game itself
     this.game.bullets = []
     this.game.cols = Math.floor(this.game.canvas.width / this.game.w);
     this.game.rows = Math.floor(this.game.canvas.height / this.game.w);
-    this.game.backgroundMusic = new Audio('TowerGameJS-Phase4/resources/sounds/creditsMusic.mp3')
+    this.game.backgroundMusic = new Audio('TowerGameJS-Phase4/resources/sounds/gameMusic.mp3')
     this.game.loadGrid();
     this.game.brushfire();
     this.game.root = this.game.grid[this.game.cols - 1][this.game.rows - 1];

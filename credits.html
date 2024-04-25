@@ -32,7 +32,7 @@
             white-space: nowrap;
             transform-origin: 50% 100%;
             transform: rotateX(20deg);
-            animation: scroll-up 3000s linear infinite;
+            animation: scroll-up 200s linear infinite;
             /* Fixed duration for scrolling */
         }
 
@@ -84,6 +84,8 @@
                     <p>Credits</p>
                     <h1>The Sea's Surrender</h1>
                 </div>
+
+
                 <p>ChatGPT: </p>
                 <p>- Background and Character Art</p>
 
@@ -94,11 +96,11 @@
                 <p>- Credits code</p>
                 <p>- Prompt Engineer (Background Art)</p>
                 <p>- Button Images</p>
-                <p>- Normal Upgrade Code</p>
-
+                <p>- Normal Upgrades</p>
+              
                 <p>John Gilbert: </p>
                 <p>- Prompt Engineer (Character Portrait Art)</p>
-
+         
                 <p>Yoan Renninger: </p>
                 <p>- Level Map Creation (Wall Placement)</p>
                 <p>- 2D Array Grid System Render</p>
@@ -108,8 +110,8 @@
                 <p>Logan Thomas: </p>
                 <p>- Towers</p>
                 <p>- Enemies</p>
-                <p>- Wave Code</p>]
-                <p>- </p>
+                <p>- Wave System</p>
+                <p>- Final Upgrades</p>
 
                 <p>Patrick Van Hoven: </p>
                 <p>- Server Setup</p>
@@ -134,23 +136,25 @@
     <audio id="creditsMusic" src="TowerGameJS-Phase4/resources/sounds/creditsMusic.mp3" type="audio/mp3" loop></audio>
 
     <script>
-        window.addEventListener('load', loadSound, false);
+        window.addEventListener('mousedown', loadSound, false);
 
-        // function addImage() {
-        //     let imageContainer = document.getElementById('imageContainer');
-        //     let img = document.createElement('img');
-        //     img.src = "image.jpg"; // Update with the correct path to your image
-        //     img.style.width = "50%"; // Adjust width as needed
-        //     imageContainer.appendChild(img);
-        // }
+        function addImage() {
+            let imageContainer = document.getElementById('imageContainer');
+            let img = document.createElement('img');
+            img.src = "image.jpg"; // Update with the correct path to your image
+            img.style.width = "50%"; // Adjust width as needed
+            imageContainer.appendChild(img);
+        }
 
-        // for (let i = 0; i < 100; i++) {
-        //     addImage();
-        // }
+        for (let i = 0; i < 100; i++) {
+            addImage();
+        }
 
-
+        function loadSound() {
             let creditsMusic = document.getElementById('creditsMusic');
             creditsMusic.play();
+            document.getElementById
+        }
 
     </script>
 </body>
