@@ -461,9 +461,10 @@ class Game {
   // Delete any enemies that have died
   removeEnemies() {
     for (let i = this.enemies.length - 1; i >= 0; i--) {
-      if (this.enemies[i].kill)
-        this.enemies.splice(i, 1);   // delete this dead enemy
-
+      if (this.enemies[i].kill && !this.enemies[i].exploding){
+        
+      //  this.enemies.splice(i, 1);   // delete this dead enemy
+      }
     }
   }
 

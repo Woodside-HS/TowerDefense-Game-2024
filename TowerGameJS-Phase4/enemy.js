@@ -302,6 +302,7 @@ class Enemy {
               }
             }
           }
+          this.exploding = false;
         }
       }
     }
@@ -411,7 +412,6 @@ class Enemy {
     if (this.exploding) {
       ctx.save();
       ctx.translate(this.loc.x, this.loc.y);
-      let ctx = this.game.context;
       let blinkColor1 = "rgba(0, 225, 50, 1)";
       let blinkColor2 = "rgba(255, 0, 0, 1)";
       let currentColor = blinkColor1;
@@ -419,13 +419,11 @@ class Enemy {
         currentColor = (currentColor === blinkColor1) ? blinkColor2 : blinkColor1;
       }, 500);
       ctx.fillStyle = currentColor;
-      ctx.fillRect(0, 0, this.game.canvas.width, this.game.canvas.height);
       ctx.beginPath();
       ctx.lineWidth = 2;
       ctx.arc(0, 0, this.img.width, 0, Math.PI * 2, false);
       ctx.closePath();
       ctx.stroke();
-      ctx.fill();
       ctx.restore();
 
     }
