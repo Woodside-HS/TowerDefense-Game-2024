@@ -18,15 +18,14 @@ class Cell {
 
   // render() --
   // draw cells that are occupied and the root cell
-  render() {
+  render(allowCheck) {
     let ctx = this.game.context;
 
     // ctx.strokeStyle = 'white';
     //   ctx.strokeRect(this.loc.x, this.loc.y, this.game.w, this.game.w);
-
-    if (this.occupied) {
-        ctx.drawImage(Cell.wallImage, 0, 0, Cell.wallImage.width, Cell.wallImage.height, this.loc.x, this.loc.y, this.game.w, this.game.w);
-      } 
+    if (this.occupied && allowCheck === true) {
+      ctx.drawImage(Cell.wallImage, 0, 0, Cell.wallImage.width, Cell.wallImage.height, this.loc.x, this.loc.y, this.game.w, this.game.w);
+    }
     else if (this === this.game.root) {
       ctx.fillStyle = "yellow";
       ctx.beginPath();
