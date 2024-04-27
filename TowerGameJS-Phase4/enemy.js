@@ -256,11 +256,11 @@ class Enemy {
 
     if (this.summonerEnemy) {
       this.nextSpawn++;
-      if (this.nextSpawn > 900) {
+      if (this.nextSpawn > 600) {
         this.summomingEffect = true;
         this.movement.speed = 0;
       }
-      if (this.nextSpawn > 1800) {
+      if (this.nextSpawn > 1500) {
         let randomSummon = Math.round(Math.random() * 7);
         towerGame.enemies.push(new Enemy(towerGame, randomSummon, this, true));
         towerGame.enemies[towerGame.enemies.length - 1].loc;
