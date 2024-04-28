@@ -554,10 +554,14 @@ class Game {
     }
   }
   updateCostInfoElement(value) {
+
+
     let infoElements = document.getElementById('infoDiv').getElementsByClassName('infoTileDiv');
     let info = infoElements[infoElements.length - 3];
     info.innerHTML = 'Cost <br/>' + value;
   }
+
+
 
   updateGameTime() {
     var millis = Date.now();
@@ -918,8 +922,10 @@ class Game {
                 console.log("Tower removed and cost refunded.");
                 towerGame.brushfire(); // Re-run the pathfinding algorithm
                 popup.hide(); // Close the popup
+                for(let i = towerGame.blades.length; i >= 0; i --){
+                  this.blades.splice(i, 1);
+                }
               });
-              console.log(refundButton)
               // Upgrade tower logic (You'll need to define it)
               document.getElementById('upgradeButton').addEventListener('click', () => {
                 console.log("Upgrade button clicked");
