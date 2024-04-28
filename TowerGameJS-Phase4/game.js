@@ -919,7 +919,7 @@ class Game {
                 towerGame.brushfire(); // Re-run the pathfinding algorithm
                 popup.hide(); // Close the popup
               });
-
+              console.log(refundButton)
               // Upgrade tower logic (You'll need to define it)
               document.getElementById('upgradeButton').addEventListener('click', () => {
                 console.log("Upgrade button clicked");
