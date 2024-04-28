@@ -87,7 +87,7 @@ class Tower {
   run() {
     this.render();
     this.update();
-    if (!this.liquifyFinal) {
+    if (this.liquifyFinal) {
       this.liquifyFinalUpgrade();
     }
   }
@@ -180,7 +180,7 @@ class Tower {
 
       ctx.restore();
     }
-    if (this.ability == "cannon" && this.chooseTargetArea) {
+    if ((this.ability == "cannon" || this.ability == "missile") && this.chooseTargetArea) {
       ctx.save();
       ctx.strokeStyle = "rgba(0,250,210, 0.8)";
       ctx.fillStyle = "rgba(0, 250, 210, 0.08)";
@@ -211,8 +211,7 @@ class Tower {
       if (this.ability != "bladeStorm") {
         ctx.arc(0, 0, this.range, 0, 2 * Math.PI, false);
       } else {
-        ctx.arc(0, 0, 80, 0, 2 * Math.PI, false);//dont question it
-        //you got questioned this just look 
+        ctx.arc(0, 0, 80, 0, 2 * Math.PI, false);
       }
 
       // Draw the inner circle for minRange

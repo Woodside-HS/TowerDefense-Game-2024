@@ -220,19 +220,19 @@ json = {"frames": {
 },
 "p70000":
 {
-	"frame": {"x":0,"y":176,"w":33,"h":248},
+	"frame": {"x":3,"y":236,"w":21,"h":129},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":33,"h":248},
-	"sourceSize": {"w":33,"h":248}
+	"spriteSourceSize": {"x":0,"y":0,"w":21,"h":129},
+	"sourceSize": {"w":21,"h":129}
 },
 "p80000":
 {
-	"frame": {"x":25, "y":152, "w":10, "h":10},
+	"frame": {"x":43, "y":107, "w":25, "h":9},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":10,"h":10},
-	"sourceSize": {"w":10,"h":10}
+	"spriteSourceSize": {"x":0,"y":0,"w":25,"h":9},
+	"sourceSize": {"w":25,"h":9}
 },
 "p90000":
 {
