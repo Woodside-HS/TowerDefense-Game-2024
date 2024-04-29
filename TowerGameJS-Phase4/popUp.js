@@ -11,8 +11,6 @@ class Popup {
     this.show();
   }
 
-
-
   createButton(cost, id, text, onClickCallback) {
     towerGame.shownBase = true;
     const button = document.createElement('button');
@@ -20,13 +18,11 @@ class Popup {
     button.textContent = text;
     button.style.margin = '0 5px';
     button.onclick = onClickCallback; // Assign the callback function to the click event
-
     button.addEventListener('mouseover', () => {
       button.style.backgroundColor = 'lightgray'; // Change background color on hover
       towerGame.updateCostInfoElement(cost);
-
     });
-
+  
     button.addEventListener('mouseout', () => {
       button.style.backgroundColor = ''; // Revert to original background color when not hovered
       towerGame.updateCostInfoElement('');
@@ -47,14 +43,13 @@ class Popup {
     popup.style.backgroundSize = 'cover'; // Ensure the background covers the whole popup
     popup.style.boxShadow = '0 2px 5px rgba(0,0,0,0.2)';
 
-    const refundButton = this.createButton(this.sellPrice, 'refundButton', 'Refund', () => {
+    const refundButton = this.createButton(Math.floor(this.sellPrice), 'refundButton', 'Refund', () => {
       console.log('Refund button clicked');
       towerGame.shownBase = false;
     });
     const upgradeButton = this.createButton('', 'upgradeButton', 'Upgrade', () => {
       this.upgradeElement = this.createUpgradePopup();
     });
-
     const cancleButton = this.createButton('', 'cancleButton', 'X', () => {
       towerGame.shownBase = false;
       console.log('Cancle button clicked');

@@ -32,20 +32,20 @@ class Blade {
 
 
       ctx.drawImage(this.img, 0 , 0,
-        this.img.width/2, this.img.height/2);
+        this.img.width/1.5, this.img.height/1.5);
 
       ctx.restore();
     } else {
       var ctx = towerGame.context;
       ctx.save();
       ctx.translate(this.towerLoc.x, this.towerLoc.y);
-      ctx.rotate((this.blades + 1) * 0.265 * Math.PI);//idk the png is scuffed so its not perfect
+      ctx.rotate((this.blades + 1) * 0.275 * Math.PI);//idk the png is scuffed so its not perfect
       // but I can not be asked to fix the png yet
       ctx.rotate(this.angle)
 
 
       ctx.drawImage(this.img, 0, 0,
-        this.img.width/2, this.img.height/2);
+        this.img.width/1.5, this.img.height/1.5);
 
       ctx.restore();
     }

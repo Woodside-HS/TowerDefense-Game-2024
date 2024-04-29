@@ -117,7 +117,7 @@ class GameState5 extends GameState { // game itself
     super(game)
     this.game.health = 1;
     this.game.score = 0
-    this.game.bankValue = 1000;
+    this.game.bankValue = 400;
     this.game.gameTime = 0
     this.game.grid = [];
     this.game.towers = [];
@@ -127,6 +127,7 @@ class GameState5 extends GameState { // game itself
     this.game.rows = Math.floor(this.game.canvas.height / this.game.w);
     this.game.backgroundMusic = new Audio('TowerGameJS-Phase4/resources/sounds/gameMusic.mp3')
     this.game.loadGrid();
+    this.game.loadAllWaves();
     this.game.brushfire();
     this.game.root = this.game.grid[this.game.cols - 1][this.game.rows - 1];
     if (levelSel === 1) {
@@ -176,7 +177,7 @@ class GameState5 extends GameState { // game itself
     this.game.removePests();
     this.game.removeMissiles();
     this.game.removeEnemies();
-    this.game.controlWaves();
+    //this.game.controlWaves();
     this.game.backgroundMusic.play();
 
 
@@ -236,6 +237,10 @@ class GameState5 extends GameState { // game itself
     for (let i = 0; i < this.game.rays.length; i++) {
       this.game.rays[i].run();
     }
+    if (this.game.wave) {
+      this.game.wave.run();
+    }
+
 
     // some help text in the bottom left of the canvas
     this.game.context.save();
