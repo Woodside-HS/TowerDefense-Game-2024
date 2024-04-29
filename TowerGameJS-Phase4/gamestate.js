@@ -185,24 +185,24 @@ class GameState5 extends GameState { // game itself
     if (this.game.isRunning) {
       this.game.render();
     }
-    
+
     // draw the grid
-      if (towerGame.placingTower === false) {
-        for (let i = 0; i < this.game.cols; i++) {
-          for (let j = 0; j < this.game.rows; j++) {
-            this.game.grid[i][j].render(false);
-          }
+    if (towerGame.placingTower === false) {
+      for (let i = 0; i < this.game.cols; i++) {
+        for (let j = 0; j < this.game.rows; j++) {
+          this.game.grid[i][j].render(false);
         }
       }
-      if (towerGame.placingTower === true) {
-        for (let i = 0; i < this.game.cols; i++) {
-          for (let j = 0; j < this.game.rows; j++) {
-            this.game.grid[i][j].render(true);
-          }
+    }
+    if (towerGame.placingTower === true) {
+      for (let i = 0; i < this.game.cols; i++) {
+        for (let j = 0; j < this.game.rows; j++) {
+          this.game.grid[i][j].render(true);
         }
       }
-    
-    if (towerGame.gameStateID === 5){
+    }
+
+    if (towerGame.gameStateID === 5) {
       for (let i = 0; i < this.game.cols; i++) {
         for (let j = 0; j < this.game.rows; j++) {
           this.game.grid[i][j].render(true);

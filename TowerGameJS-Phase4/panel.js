@@ -100,7 +100,7 @@ var panelJSON = [{
       pic: "TowerGameJS-Phase4/resources/images/panels/homePanel/help.png",
       picId: "wframe",
       funk: function () {
-        towerGame.gameState.panelInstructions = new Panel(towerGame, 1)
+        towerGame.gameState.panelInstructions = new Panel(towerGame, 1, 450, 800, 375)
         document.getElementById("firstPanel").parentNode.removeChild(document.getElementById("firstPanel"));
       }
     }, {
@@ -126,7 +126,7 @@ var panelJSON = [{
       pic: "TowerGameJS-Phase4/resources/images/panels/back.png",
       picId: "back",
       funk: function () {
-        towerGame.gameState.panelStart = new Panel(towerGame, 0)
+        towerGame.gameState.panelStart = new Panel(towerGame, 0, 400)
         document.getElementById("instructionPanel").parentNode.removeChild(document.getElementById("instructionPanel"))
       }
     }]
@@ -259,8 +259,8 @@ var panelJSON = [{
       funk: function () {
         document.getElementById("catalogHomePanel").parentNode.removeChild(document.getElementById("catalogHomePanel"))
         towerGame.gameState = new GameState1(towerGame)
-        towerGame.currentWaveNum = 0; // Reset the current wave number to 0
-        towerGame.wave = new Wave(towerGame, AllWaves[towerGame.currentWaveNum]); // Create a new Wave instance with the first wave
+      //  towerGame.currentWaveNum = 0; // Reset the current wave number to 0
+      //  towerGame.wave = new Wave(towerGame, AllWaves[towerGame.currentWaveNum]); // Create a new Wave instance with the first wave
         towerGame.wave.referenceTime = 20;
         document.getElementById('fastForward').innerHTML = "Start";
         FRAME_RATE = 30;
