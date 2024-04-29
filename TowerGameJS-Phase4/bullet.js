@@ -39,7 +39,7 @@ class Bullet {
     this.render();
     if (this.ability == "cannon") {
       this.cannonMovement();
-      this.cannonSpinny();
+      //this.cannonSpinny();
     } else if (this.ability == "explosive") {
       this.explosiveRandom();
     }
@@ -92,11 +92,10 @@ class Bullet {
       let bulletFromTowerDist = this.loc.dist(this.towerLoc);
       let towerToLocation = this.towerLoc.dist(this.choosenTargetLoc);
       let total = towerToLocation - bulletFromTowerDist;
-      if (total < 0 || this.spinny == true) {
-        this.spinny = true;
-        this.cannonSpinny();
+      if (total < 0) {
+        this.speed = 0;
       }
-    } else {
+    } else if (this.spinny == true) {
       this.cannonSpinny();
     }
 
