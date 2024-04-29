@@ -160,6 +160,10 @@ var panelJSON = [{
         towerGame.gameState.panelQuit = new Panel(towerGame, 2)
         towerGame.gameState = new GameState1(towerGame)
         document.getElementById("endPanel").parentNode.removeChild(document.getElementById("endPanel"))
+        towerGame.wave = new Wave(towerGame, AllWaves[towerGame.currentWaveNum]); // Create a new Wave instance with the first wave
+        towerGame.wave.referenceTime = 20;
+        document.getElementById('fastForward').innerHTML = "Start"; // Reset the button text to "Start"
+        FRAME_RATE = 30;
       }
     }, {
       name: "Credits Button",
