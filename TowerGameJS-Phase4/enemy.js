@@ -111,7 +111,7 @@ class Enemy {
     } else if (this.type == 9) {
       this.img = Enemy.image9;
       this.health = 4000;
-      this.summonerEnemy = true;//no art 
+      this.summonerEnemy = true;//frog 
       this.nextSpawn = 0;
       this.speed = 0.5; this.baseSpeed = this.speed;
     } else if (this.type == 10) {
@@ -256,11 +256,11 @@ class Enemy {
 
     if (this.summonerEnemy) {
       this.nextSpawn++;
-      if (this.nextSpawn > 900) {
+      if (this.nextSpawn > 600) {
         this.summomingEffect = true;
         this.movement.speed = 0;
       }
-      if (this.nextSpawn > 1800) {
+      if (this.nextSpawn > 1500) {
         let randomSummon = Math.round(Math.random() * 7);
         towerGame.enemies.push(new Enemy(towerGame, randomSummon, this, true));
         towerGame.enemies[towerGame.enemies.length - 1].loc;
@@ -495,7 +495,7 @@ class Enemy {
         if (towerGame.bullets[h].ability == "normal") {
           if (!towerGame.piercingArrow) {
             if (!this.normalImmunities[0]) {
-              this.health = this.health - 500 * towerGame.bullets[h].damageMult;
+              this.health = this.health - 300 * towerGame.bullets[h].damageMult;
               towerGame.bullets.splice(h, 1);
             }
           } else {
@@ -590,7 +590,7 @@ class Enemy {
     if (this.health <= 0) {
       this.kill = true;
       this.deathSound.play();
-      towerGame.bankValue += 10;
+      towerGame.bankValue += (10*this.type);
     }
     this.movement.update();
     let dx = this.targetCell.center.x - this.loc.x;

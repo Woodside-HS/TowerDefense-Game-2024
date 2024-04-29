@@ -64,14 +64,14 @@ class Game {
     this.blades = [];//added with same logic as bullets
     this.allowPlace = true;//to not place when picking a spot to target for two of the towers
     this.explosiveBullets = [];//added with same logic as bullets
-    this.bankValue = 500;
+    this.bankValue =  0;
     this.explosiveBullets = [];
     this.rays = [];
     this.checkOnce = true;
     this.gameStateID = 1;
     this.levelKey;
     this.enemyNum = 20;
-    this.wallCost = 2;
+    this.wallCost = 5;
     this.paused = false;
     this.towerState = 1;
     this.numWave = 0;
@@ -228,6 +228,12 @@ class Game {
 
   run() { // called from draw()
     if(towerGame.wave.spawnOver && towerGame.enemies.length == 0){
+      for(let i = towerGame.bullets.length; i >= 0; i --){
+        towerGame.bullets.splice(i, 1)
+      }
+      for(let i = towerGame.hands.length; i >= 0; i --){
+        towerGame.hands.splice(i, 1)
+      }
       setTimeout(() => {
         towerGame.numWave++;
         towerGame.wave = new Wave(this, towerGame.numWave);
@@ -554,10 +560,14 @@ class Game {
     }
   }
   updateCostInfoElement(value) {
+
+
     let infoElements = document.getElementById('infoDiv').getElementsByClassName('infoTileDiv');
     let info = infoElements[infoElements.length - 3];
     info.innerHTML = 'Cost <br/>' + value;
   }
+
+
 
   updateGameTime() {
     var millis = Date.now();
@@ -656,7 +666,7 @@ class Game {
         innerDiv.style.margin = "5px";
         mtd.appendChild(innerDiv);
         document.getElementById("menuDiv").appendChild(mtd);
-        mtd.cost = 1 * i + 1;
+        mtd.cost = 75 * (i) + 75;
 
 
 
@@ -704,7 +714,7 @@ class Game {
         innerDiv.style.margin = "5px";
         mtd.appendChild(innerDiv);
         document.getElementById("menuDiv").appendChild(mtd);
-        mtd.cost = 1 * i + 1;
+        mtd.cost = 75 * (i) + 75;
 
 
 
@@ -731,17 +741,40 @@ class Game {
   }
 
   loadAllWaves(){
-    let enemyNumArray = [ //array that tells you the number of each type of enemy for each wave
-      [4, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 4, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 4, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 4, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 4, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 4, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 4, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 4, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 4, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 4],
+    let enemyNumArray = [ 
+      //normal (1)
+      //normal fast (2)
+      //normal slow (3)
+      //shark (4)
+      //blue jellyfish (5)
+      //flyingfish (6)
+      //octopus (7)
+      //turtle(8)
+      //frog(9)
+      //starfish(10)
+      [5, 3, 0, 0, 0, 0, 0, 0, 0, 0],
+      [3, 3, 1, 0, 0, 0, 0, 0, 0, 0],
+      [7, 10, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 3, 1, 0, 0, 0, 0, 0, 0],
+      [0, 5, 0, 0, 3, 0, 0, 0, 0, 0],
+
+      [10, 0, 0, 4, 0, 0, 0, 0, 0, 0],
+      [30, 30, 0, 0, 0, 0, 0, 0, 0, 0],
+      [12, 12, 12, 0, 0, 0, 0, 0, 0, 0],
+      [0, 25, 0, 0, 5, 0, 7, 0, 0, 0],
+      [0, 12, 0, 0, 0, 12, 0, 0, 0, 0],
+
+      [8, 8, 0, 0, 0, 8, 8, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 10, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 6, 0],
+      [3, 3, 3, 3, 3, 3, 3, 3, 3, 0],
+      [0, 0, 0, 0, 6, 0, 0, 6, 6, 6],
+
+      [25, 25, 25, 25, 25, 0, 0, 0, 0, 0],
+      [0, 100, 0, 0, 0, 30, 0, 0, 0, 0],
+      [0, 0, 10, 0, 0, 0, 0, 0, 10, 10],
+      [8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+      [0, 0, 0, 0, 0, 25, 25, 0, 0, 25],
 
     ];
     for (let i = 0; i < enemyNumArray.length; i++) {
@@ -918,8 +951,10 @@ class Game {
                 console.log("Tower removed and cost refunded.");
                 towerGame.brushfire(); // Re-run the pathfinding algorithm
                 popup.hide(); // Close the popup
+                for(let i = towerGame.blades.length; i >= 0; i --){
+                  this.blades.splice(i, 1);
+                }
               });
-
               // Upgrade tower logic (You'll need to define it)
               document.getElementById('upgradeButton').addEventListener('click', () => {
                 console.log("Upgrade button clicked");

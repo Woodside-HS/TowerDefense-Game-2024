@@ -32,7 +32,7 @@ class Blade {
 
 
       ctx.drawImage(this.img, 0 , 0,
-        this.img.width/2, this.img.height/2);
+        this.img.width/1.5, this.img.height/1.5);
 
       ctx.restore();
     } else {
@@ -45,7 +45,7 @@ class Blade {
 
 
       ctx.drawImage(this.img, 0, 0,
-        this.img.width/2, this.img.height/2);
+        this.img.width/1.5, this.img.height/1.5);
 
       ctx.restore();
     }

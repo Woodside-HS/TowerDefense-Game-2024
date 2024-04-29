@@ -75,8 +75,8 @@ class Tower {
       this.range = 800;
       this.coolDown = 1000;
     } else if (ability == "ray") {
-      this.range = 200;
-      this.coolDown = 2000;
+      this.range = 450;
+      this.coolDown = 2700;
     }
     this.maxCoolDown = this.coolDown;
 
@@ -87,7 +87,7 @@ class Tower {
   run() {
     this.render();
     this.update();
-    if (!this.liquifyFinal) {
+    if (this.liquifyFinal) {
       this.liquifyFinalUpgrade();
     }
   }
@@ -106,7 +106,7 @@ class Tower {
     if (ability == "normal") {
       this.normalFinalUpgrade();
     } else if (ability == "fast") {
-      this.finalFast = true;//slashing ability
+      this.finalFast = true;
       this.coolDown *= 0.8;
       this.damageMult *= 3;
     } else if (ability == "freeze") {
@@ -180,7 +180,7 @@ class Tower {
 
       ctx.restore();
     }
-    if (this.ability == "cannon" && this.chooseTargetArea) {
+    if ((this.ability == "cannon" || this.ability == "missile") && this.chooseTargetArea) {
       ctx.save();
       ctx.strokeStyle = "rgba(0,250,210, 0.8)";
       ctx.fillStyle = "rgba(0, 250, 210, 0.08)";
@@ -211,8 +211,7 @@ class Tower {
       if (this.ability != "bladeStorm") {
         ctx.arc(0, 0, this.range, 0, 2 * Math.PI, false);
       } else {
-        ctx.arc(0, 0, 80, 0, 2 * Math.PI, false);//dont question it
-        //you got questioned this just look 
+        ctx.arc(0, 0, 80, 0, 2 * Math.PI, false);
       }
 
       // Draw the inner circle for minRange
@@ -402,7 +401,7 @@ class Tower {
 
 
 
-    if (this.ability == "ray" && towerGame.enemies.length != 0) {//I will fix this code eventually
+    if (this.ability == "ray" && towerGame.enemies.length != 0) {
       var a3 = this.loc.x - this.target.x;
       var b3 = this.loc.y - this.target.y;
       var k = Math.sqrt(a3 * a3 + b3 * b3);
