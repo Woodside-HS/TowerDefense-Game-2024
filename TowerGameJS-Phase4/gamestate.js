@@ -184,10 +184,10 @@ class GameState5 extends GameState { // game itself
 
     if (this.game.isRunning) {
       this.game.render();
-      var fastForwardButton = document.getElementById('fastForward');
-      if (fastForwardButton.innerHTML == "Start" && towerGame.gameTime > 20) {
-        fastForwardButton.innerHTML = "Fast Forward";
-      }
+      // var fastForwardButton = document.getElementById('fastForward');
+      // if (fastForwardButton.innerHTML == "Start" && towerGame.gameTime > 20) {
+      //   fastForwardButton.innerHTML = "Fast Forward";
+      // }
     }
 
     // draw the grid
