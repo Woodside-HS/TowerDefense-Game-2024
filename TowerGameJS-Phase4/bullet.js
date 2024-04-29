@@ -31,7 +31,7 @@ class Bullet {
       this.speed = 50;
     }
     if(this.ability == "fast"){
-      this.speed = 5;
+      this.speed = 8;
     }
   }
 
