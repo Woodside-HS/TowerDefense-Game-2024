@@ -37,7 +37,7 @@ class Enemy {
       this.img = Enemy.image2;
       this.health = 2000;
       this.normalFastEnemy = true; //blue guy
-      this.speed = 3.5; this.baseSpeed = this.speed;
+      this.speed = 3; this.baseSpeed = this.speed;
     } else if (this.type == 3) {
       this.img = Enemy.image3;
       this.health = 4000;
