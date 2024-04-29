@@ -38,7 +38,7 @@ class Panel {
     } else if (slideCheck === false) {
       this.y = this.endY;
     }
-    this.panel.style.top = this.y + "px"
+    this.panel.style.top = this.y + "px";
   }
 
   slideDown(start, end, incroment) {

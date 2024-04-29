@@ -57,26 +57,27 @@ class Game {
     this.gameTime = 0;
     this.towers = [];
     this.enemies = [];
+    this.waves = [[]];
     this.bullets = [];
     this.missiles = [];//added with same logic as bullets
     this.hands = [];//added with same logic as bullets (this is the minion guy idk)
     this.blades = [];//added with same logic as bullets
     this.allowPlace = true;//to not place when picking a spot to target for two of the towers
     this.explosiveBullets = [];//added with same logic as bullets
-    this.bankValue = 500;
+    this.bankValue =  0;
     this.explosiveBullets = [];
     this.rays = [];
     this.checkOnce = true;
     this.gameStateID = 1;
     this.levelKey;
     this.enemyNum = 20;
-    this.wallCost = 2;
+    this.wallCost = 5;
     this.paused = false;
     this.towerState = 1;
-
+    this.numWave = 0;
 
     this.loadEmptyImage();
-
+    this.loadAllWaves();
     this.loadEnemyImages();
     this.score = 0;
     this.wave = 0;
@@ -109,14 +110,11 @@ class Game {
     this.canvas.addEventListener('click', this.handleCNVMouseClicked, false);
 
 
-    this.currentWaveNum = 0
-    this.wave = new Wave(this, AllWaves[this.currentWaveNum])
 
     this.mouseX = 0;
     this.mouseY = 0;
     this.w = 50;
-    this.done = false;
-
+    this.firstClick = true;
     this.gameState = new GameState1(this);
 
     // container arrays for cells
@@ -130,13 +128,16 @@ class Game {
     this.root = this.grid[this.cols - 1][this.rows - 1];
     this.brushfire();
     this.loadWallImage();
-
     var button = document.getElementById('pauseButton');
     button.addEventListener('click', this.pause, false);
 
     var fastForwardButton = document.getElementById('fastForward');
     fastForwardButton.addEventListener('click', function () {//upper right hand button
-      if (towerGame.gameTime > 20) { //if game has already started sending enemies
+      if(towerGame.firstClick){
+        towerGame.wave = new Wave(towerGame, towerGame.numWave);
+        towerGame.firstClick = false;
+        FRAME_RATE = 60;
+      }
         if (FRAME_RATE == 30) { //if it is on slow mode
           FRAME_RATE = 60; //make it fast
           fastForwardButton.innerHTML = "Slow Down"; //change the button to say "Slow Down"
@@ -144,10 +145,7 @@ class Game {
           fastForwardButton.innerHTML = "Fast Forward"; //change the button to say "Fast Forward"
           FRAME_RATE = 30; //make it slow
         }
-      } else { //if the game has not started sending enemies
-        towerGame.gameTime = towerGame.wave.referenceTime; //change gameTime to the point when it starts sending enemies
-        fastForwardButton.innerHTML = "Fast Forward"; //change the button to say "Fast Forward"
-      }
+      
     }, false);
 
 
@@ -157,14 +155,14 @@ class Game {
     towerSwitchButton.addEventListener('click', function () {
 
 
-      let d4k = document.getElementById('switchDiv');//bro what is this variable name?
+      let sw = document.getElementById('switchDiv');//bro what is this variable name?
 
       if (towerState == 1) {
         towerState = 2;//just switching positions + rotating to point arrow in correct directions
-        d4k.style.transform = "translate(" + 0 + "px, " + -749 + "px) rotate(180deg)";//
+        sw.style.transform = "translate(" + 0 + "px, " + -749 + "px) rotate(180deg)";//
       } else if (towerState == 2) {
         towerState = 1;
-        d4k.style.transform = "translate(" + 0 + "px, " + -50 + "px)";
+        sw.style.transform = "translate(" + 0 + "px, " + -50 + "px)";
       }
     }, false);
 
@@ -203,7 +201,7 @@ class Game {
   loadEnemyImages() {
     var enemyData = [];
 
-    for (var i = 1; i <= 6; i++) {
+    for (var i = 1; i <= 10; i++) {
       var propName = "E" + i + "0000";
       var f = json.frames[propName].frame;
       enemyData.push(createImageBitmap(ssImage, f.x, f.y, f.w, f.h));
@@ -216,6 +214,10 @@ class Game {
       Enemy.image4 = enemies[3];
       Enemy.image5 = enemies[4];
       Enemy.image6 = enemies[5];
+      Enemy.image7 = enemies[6];
+      Enemy.image8 = enemies[7];
+      Enemy.image9 = enemies[8];
+      Enemy.image10 = enemies[9];
     });
   }
 
@@ -225,7 +227,20 @@ class Game {
   hideImgElement() { this.style.display = "none"; }
 
   run() { // called from draw()
+    if(towerGame.wave.spawnOver && towerGame.enemies.length == 0){
+      for(let i = towerGame.bullets.length; i >= 0; i --){
+        towerGame.bullets.splice(i, 1)
+      }
+      for(let i = towerGame.hands.length; i >= 0; i --){
+        towerGame.hands.splice(i, 1)
+      }
+      setTimeout(() => {
+        towerGame.numWave++;
+        towerGame.wave = new Wave(this, towerGame.numWave);
 
+      }, 4000);
+      towerGame.wave.spawnOver = false;
+    }
     if (towerState == 1) {
       if (count == 1) {
         //  this.createTileDivs();
@@ -449,38 +464,20 @@ class Game {
       }
     }
   }
-  // sendEnemies()
-  // Send a random number of enemies, up to 5, each from a random location
-  // in the top half of the grid.  About half of the enemies will take the
-  // optimal path simply by following the parent chain and about half will
-  // take a path of randomly choosing cells to be next on the path
-  // from all those cells with a distance to the root that is
-  // less than its current location.
-  // A valid cell to start the enemy must have a parent because lack
-  // of a parent means either it is occupied or it is blocked from any path.
-  sendEnemies() {
-    var numEnemies = Math.random() * 5;     // up to 5 enemies
 
-    for (i = 0; i < numEnemies; i++) {
-      for (j = 0; j < 3; j++) { // try 3 times to find valid start cell
-        this.enemies.push(new Enemy(this));
-      }
-    }
-  }
-  controlWaves() {
-    if (this.wave.isWaveOver()) {
-      this.currentWaveNum += 1
-      this.wave = new Wave(this, AllWaves[this.currentWaveNum])
-    } else {
-      this.wave.run()
-    }
-  }
+
   // Delete any enemies that have died
   removeEnemies() {
     for (let i = this.enemies.length - 1; i >= 0; i--) {
-      if (this.enemies[i].kill)
-        this.enemies.splice(i, 1);   // delete this dead enemy
-
+      if (this.enemies[i].kill && this.enemies[i].type != 10){
+        
+        this.enemies.splice(i, 1); 
+          // delete this dead enemy
+      }
+     else if(this.enemies[i].kill && this.enemies[i].type == 10 && this.enemies[i].explodingAfterMathGrowth >= 120
+         || this.enemies[i].currentCell == towerGame.root){
+        this.enemies.splice(i, 1);
+      }
     }
   }
 
@@ -518,7 +515,7 @@ class Game {
     }
   }
 
-  updateInfoElements(time) {
+  updateInfoElements() {
     let infoElements = document.getElementById('infoDiv').getElementsByClassName('infoTileDiv');
     for (let i = 0; i < infoElements.length - 1; i++) {
       let info = infoElements[i];
@@ -536,7 +533,7 @@ class Game {
         info.innerHTML = 'Time <br/>';
         var value = document.createElement('p');
         value.style.fontSize = '10pt';
-        value.innerHTML = time;
+        value.innerHTML = this.updateGameTime();
         info.appendChild(value);
       }
       if (info.innerHTML.indexOf('Score') != -1) {
@@ -550,7 +547,7 @@ class Game {
         info.innerHTML = 'Wave <br/>';
         var value = document.createElement('p');
         value.style.fontSize = '10pt';
-        value.innerHTML = this.wave.waveJson.name;
+        value.innerHTML = towerGame.numWave + 1;
         info.appendChild(value);
       }
       if (info.innerHTML.indexOf('Health') != -1) {
@@ -563,16 +560,21 @@ class Game {
     }
   }
   updateCostInfoElement(value) {
+
+
     let infoElements = document.getElementById('infoDiv').getElementsByClassName('infoTileDiv');
     let info = infoElements[infoElements.length - 3];
     info.innerHTML = 'Cost <br/>' + value;
   }
+
+
 
   updateGameTime() {
     var millis = Date.now();
     if (millis - this.lastTime >= 1000) {
       this.gameTime++;
       this.lastTime = millis;
+      return this.gameTime;
     }
     return this.gameTime;
   }
@@ -664,7 +666,7 @@ class Game {
         innerDiv.style.margin = "5px";
         mtd.appendChild(innerDiv);
         document.getElementById("menuDiv").appendChild(mtd);
-        mtd.cost = 1 * i + 1;
+        mtd.cost = 75 * (i) + 75;
 
 
 
@@ -712,7 +714,7 @@ class Game {
         innerDiv.style.margin = "5px";
         mtd.appendChild(innerDiv);
         document.getElementById("menuDiv").appendChild(mtd);
-        mtd.cost = 1 * i + 1;
+        mtd.cost = 75 * (i) + 75;
 
 
 
@@ -737,6 +739,54 @@ class Game {
   setBankValue(refund) {
     this.bankValue += refund;
   }
+
+  loadAllWaves(){
+    let enemyNumArray = [ 
+      //normal (1)
+      //normal fast (2)
+      //normal slow (3)
+      //shark (4)
+      //blue jellyfish (5)
+      //flyingfish (6)
+      //octopus (7)
+      //turtle(8)
+      //frog(9)
+      //starfish(10)
+      [5, 3, 0, 0, 0, 0, 0, 0, 0, 0],
+      [3, 3, 1, 0, 0, 0, 0, 0, 0, 0],
+      [7, 10, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 3, 1, 0, 0, 0, 0, 0, 0],
+      [0, 5, 0, 0, 3, 0, 0, 0, 0, 0],
+
+      [10, 0, 0, 4, 0, 0, 0, 0, 0, 0],
+      [30, 30, 0, 0, 0, 0, 0, 0, 0, 0],
+      [12, 12, 12, 0, 0, 0, 0, 0, 0, 0],
+      [0, 25, 0, 0, 5, 0, 7, 0, 0, 0],
+      [0, 12, 0, 0, 0, 12, 0, 0, 0, 0],
+
+      [8, 8, 0, 0, 0, 8, 8, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 10, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 6, 0],
+      [3, 3, 3, 3, 3, 3, 3, 3, 3, 0],
+      [0, 0, 0, 0, 6, 0, 0, 6, 6, 6],
+
+      [25, 25, 25, 25, 25, 0, 0, 0, 0, 0],
+      [0, 100, 0, 0, 0, 30, 0, 0, 0, 0],
+      [0, 0, 10, 0, 0, 0, 0, 0, 10, 10],
+      [8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+      [0, 0, 0, 0, 0, 25, 25, 0, 0, 25],
+
+    ];
+    for (let i = 0; i < enemyNumArray.length; i++) {
+      this.waves[i] = [];
+      for (let j = 0; j < enemyNumArray[i].length; j++) {
+          this.waves[i].push(enemyNumArray[i][j]);
+      }
+  }
+  
+        }
+
+
   //  Logic to add tower +++++++++++++++++++++++
   canAddTower(cell) {
     // add conditions before allowing user to place turret
@@ -901,8 +951,10 @@ class Game {
                 console.log("Tower removed and cost refunded.");
                 towerGame.brushfire(); // Re-run the pathfinding algorithm
                 popup.hide(); // Close the popup
+                for(let i = towerGame.blades.length; i >= 0; i --){
+                  this.blades.splice(i, 1);
+                }
               });
-
               // Upgrade tower logic (You'll need to define it)
               document.getElementById('upgradeButton').addEventListener('click', () => {
                 console.log("Upgrade button clicked");
