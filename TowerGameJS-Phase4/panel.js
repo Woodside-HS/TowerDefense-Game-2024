@@ -146,8 +146,8 @@ var panelJSON = [{
       picId: "wframe",
       funk: function () {
         towerGame.gameState = new GameState2(towerGame);
-        towerGame.currentWaveNum = 0; // Reset the current wave number to 0
-        towerGame.wave = new Wave(towerGame, AllWaves[towerGame.currentWaveNum]); // Create a new Wave instance with the first wave
+        towerGame.numWave = 0;
+        towerGame.firstClick = true;
         towerGame.wave.referenceTime = 20;
         document.getElementById('fastForward').innerHTML = "Start";
         FRAME_RATE = 30;
@@ -163,7 +163,9 @@ var panelJSON = [{
         towerGame.gameState.panelQuit = new Panel(towerGame, 2)
         towerGame.gameState = new GameState1(towerGame)
         document.getElementById("endPanel").parentNode.removeChild(document.getElementById("endPanel"))
-        towerGame.wave = new Wave(towerGame, AllWaves[towerGame.currentWaveNum]); // Create a new Wave instance with the first wave
+        towerGame.numWave = 0;
+        towerGame.firstClick = true;
+        towerGame.wave.spawnOver = false;
         towerGame.wave.referenceTime = 20;
         document.getElementById('fastForward').innerHTML = "Start"; // Reset the button text to "Start"
         FRAME_RATE = 30;
@@ -383,8 +385,10 @@ var panelJSON = [{
         document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
         document.getElementById("towerInfoPanel2").parentNode.removeChild(document.getElementById("towerInfoPanel2"))
         towerGame.gameState = new GameState1(towerGame)
-        towerGame.currentWaveNum = 0; // Reset the current wave number to 0
-        towerGame.wave = new Wave(towerGame, AllWaves[towerGame.currentWaveNum]); // Create a new Wave instance with the first wave
+        towerGame.numWave = 0;
+        towerGame.firstClick = true;
+        towerGame.wave.spawnOver = false;
+
         towerGame.wave.referenceTime = 20;
         document.getElementById('fastForward').innerHTML = "Start";
         FRAME_RATE = 30;

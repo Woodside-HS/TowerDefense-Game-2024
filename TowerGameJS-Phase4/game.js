@@ -235,12 +235,13 @@ class Game {
       for (let i = towerGame.hands.length; i >= 0; i--) {
         towerGame.hands.splice(i, 1)
       }
-      setTimeout(() => {
-        towerGame.numWave++;
-        towerGame.wave = new Wave(this, towerGame.numWave);
-
-      }, 4000);
       towerGame.wave.spawnOver = false;
+      setTimeout(() => {
+        if (towerGame.numWave != 0) {
+          towerGame.numWave++;
+          towerGame.wave = new Wave(this, towerGame.numWave);
+        }
+      }, 4000);
     }
     if (towerState == 1) {
       if (count == 1) {
@@ -741,8 +742,8 @@ class Game {
     this.bankValue += refund;
   }
 
-  loadAllWaves(){
-     this.enemyNumArray = [ 
+  loadAllWaves() {
+    this.enemyNumArray = [
       //normal (1)
       //normal fast (2)
       //normal slow (3)
