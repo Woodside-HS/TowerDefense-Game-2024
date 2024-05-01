@@ -75,6 +75,7 @@ class Game {
     this.paused = false;
     this.towerState = 1;
     this.numWave = 0;
+    this.enemyNumArray;
 
     this.loadEmptyImage();
     this.loadAllWaves();
@@ -741,7 +742,7 @@ class Game {
   }
 
   loadAllWaves() {
-    let enemyNumArray = [
+    this.enemyNumArray = [
       //normal (1)
       //normal fast (2)
       //normal slow (3)
@@ -756,7 +757,7 @@ class Game {
       [3, 2, 1, 0, 0, 0, 0, 0, 0, 0],
       [7, 10, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 3, 1, 0, 0, 0, 0, 0, 0],
-      [0, 5, 0, 0, 3, 0, 0, 0, 0, 0],
+      [0, 5, 0, 0, 3, 0, 0, 0, 0, 0], 
 
       [10, 0, 0, 4, 0, 0, 0, 0, 0, 0],
       [30, 30, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -777,10 +778,10 @@ class Game {
       [0, 0, 0, 0, 0, 25, 25, 0, 0, 25],
 
     ];
-    for (let i = 0; i < enemyNumArray.length; i++) {
+    for (let i = 0; i < this.enemyNumArray.length; i++) {
       this.waves[i] = [];
-      for (let j = 0; j < enemyNumArray[i].length; j++) {
-        this.waves[i].push(enemyNumArray[i][j]);
+      for (let j = 0; j < this.enemyNumArray[i].length; j++) {
+        this.waves[i].push(this.enemyNumArray[i][j]);
       }
     }
 
