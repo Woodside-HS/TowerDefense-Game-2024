@@ -65,6 +65,7 @@ class Game {
     this.allowPlace = true;//to not place when picking a spot to target for two of the towers
     this.explosiveBullets = [];//added with same logic as bullets
     this.bankValue = 0;
+    this.enemyNumArray = [];
     this.explosiveBullets = [];
     this.enemyNumArray = [];
     this.rays = [];
@@ -236,12 +237,13 @@ class Game {
       for (let i = towerGame.hands.length; i >= 0; i--) {
         towerGame.hands.splice(i, 1)
       }
-      setTimeout(() => {
-        towerGame.numWave++;
-        towerGame.wave = new Wave(this, towerGame.numWave);
-
-      }, 4000);
       towerGame.wave.spawnOver = false;
+      setTimeout(() => {
+        if (towerGame.numWave != 0) {
+          towerGame.numWave++;
+          towerGame.wave = new Wave(this, towerGame.numWave);
+        }
+      }, 4000);
     }
     if (towerState == 1) {
       if (count == 1) {
@@ -1077,3 +1079,5 @@ class Game {
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Other
   } // end Game class +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 }
+
+
