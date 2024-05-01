@@ -91,6 +91,7 @@ class Popup {
     });
     cost = Math.ceil(this.tower.cost * 1.2);
     const rangeButton = this.createButton(cost, 'rangeButton', 'Range', () => {
+      if(towerGame.bankValue >= Math.ceil(this.tower.cost * 1.2)){
       this.tower.rangeUpgrade();
       console.log("Range increased by 20%");
       this.tower.upgradedRange = true;
@@ -98,6 +99,7 @@ class Popup {
       this.sellPrice += this.tower.cost * 1.2;
       this.hideUpgrade();
       towerGame.shownBase = false;
+      }
     });
     cost = Math.ceil(this.tower.cost * 1.35)
     const cooldownButton = this.createButton(cost, 'cooldownButton', 'Cooldown', () => {
