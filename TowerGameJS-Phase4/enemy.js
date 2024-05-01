@@ -30,12 +30,12 @@ class Enemy {
     this.missileUpgradedImmunities = [false, "targetable"];
     if (this.type == 1) {
       this.img = Enemy.image1;
-      this.health = 1000;
+      this.health = 2000;
       this.normalEnemy = true; //orange guy
       this.speed = 2; this.baseSpeed = this.speed;
     } else if (this.type == 2) {
       this.img = Enemy.image2;
-      this.health = 2000;
+      this.health = 1000;
       this.normalFastEnemy = true; //blue guy
       this.speed = 3; this.baseSpeed = this.speed;
     } else if (this.type == 3) {
@@ -46,12 +46,12 @@ class Enemy {
       this.speed = 1; this.baseSpeed = this.speed;
     } else if (this.type == 4) {
       this.img = Enemy.image4;
-      this.health = 4000;
+      this.health = 3000;
       this.speedUpSurroundingEnemy = true;//shark
       this.speed = 1; this.baseSpeed = this.speed;
     } else if (this.type == 5) {
       this.img = Enemy.image5;
-      this.health = 10000;
+      this.health = 1500;
       this.freezeEnemy = true;//blue jellyfish
       this.renderFreezeAura = true;
       this.speed = 1.5; this.baseSpeed = this.speed;

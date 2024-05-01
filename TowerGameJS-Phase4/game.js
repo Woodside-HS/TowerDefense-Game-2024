@@ -64,7 +64,7 @@ class Game {
     this.blades = [];//added with same logic as bullets
     this.allowPlace = true;//to not place when picking a spot to target for two of the towers
     this.explosiveBullets = [];//added with same logic as bullets
-    this.bankValue =  0;
+    this.bankValue = 0;
     this.explosiveBullets = [];
     this.rays = [];
     this.checkOnce = true;
@@ -133,19 +133,19 @@ class Game {
 
     var fastForwardButton = document.getElementById('fastForward');
     fastForwardButton.addEventListener('click', function () {//upper right hand button
-      if(towerGame.firstClick){
+      if (towerGame.firstClick) {
         towerGame.wave = new Wave(towerGame, towerGame.numWave);
         towerGame.firstClick = false;
         FRAME_RATE = 60;
       }
-        if (FRAME_RATE == 30) { //if it is on slow mode
-          FRAME_RATE = 60; //make it fast
-          fastForwardButton.innerHTML = "Slow Down"; //change the button to say "Slow Down"
-        } else { //if it is on fast mode
-          fastForwardButton.innerHTML = "Fast Forward"; //change the button to say "Fast Forward"
-          FRAME_RATE = 30; //make it slow
-        }
-      
+      if (FRAME_RATE == 30) { //if it is on slow mode
+        FRAME_RATE = 60; //make it fast
+        fastForwardButton.innerHTML = "Slow Down"; //change the button to say "Slow Down"
+      } else { //if it is on fast mode
+        fastForwardButton.innerHTML = "Fast Forward"; //change the button to say "Fast Forward"
+        FRAME_RATE = 30; //make it slow
+      }
+
     }, false);
 
 
@@ -227,11 +227,11 @@ class Game {
   hideImgElement() { this.style.display = "none"; }
 
   run() { // called from draw()
-    if(towerGame.wave.spawnOver && towerGame.enemies.length == 0){
-      for(let i = towerGame.bullets.length; i >= 0; i --){
+    if (towerGame.wave.spawnOver && towerGame.enemies.length == 0) {
+      for (let i = towerGame.bullets.length; i >= 0; i--) {
         towerGame.bullets.splice(i, 1)
       }
-      for(let i = towerGame.hands.length; i >= 0; i --){
+      for (let i = towerGame.hands.length; i >= 0; i--) {
         towerGame.hands.splice(i, 1)
       }
       setTimeout(() => {
@@ -469,13 +469,13 @@ class Game {
   // Delete any enemies that have died
   removeEnemies() {
     for (let i = this.enemies.length - 1; i >= 0; i--) {
-      if (this.enemies[i].kill && this.enemies[i].type != 10){
-        
-        this.enemies.splice(i, 1); 
-          // delete this dead enemy
+      if (this.enemies[i].kill && this.enemies[i].type != 10) {
+
+        this.enemies.splice(i, 1);
+        // delete this dead enemy
       }
-     else if(this.enemies[i].kill && this.enemies[i].type == 10 && this.enemies[i].explodingAfterMathGrowth >= 120
-         || this.enemies[i].currentCell == towerGame.root){
+      else if (this.enemies[i].kill && this.enemies[i].type == 10 && this.enemies[i].explodingAfterMathGrowth >= 120
+        || this.enemies[i].currentCell == towerGame.root) {
         this.enemies.splice(i, 1);
       }
     }
@@ -740,8 +740,8 @@ class Game {
     this.bankValue += refund;
   }
 
-  loadAllWaves(){
-    let enemyNumArray = [ 
+  loadAllWaves() {
+    let enemyNumArray = [
       //normal (1)
       //normal fast (2)
       //normal slow (3)
@@ -752,8 +752,8 @@ class Game {
       //turtle(8)
       //frog(9)
       //starfish(10)
-      [5, 3, 0, 0, 0, 0, 0, 0, 0, 0],
-      [3, 3, 1, 0, 0, 0, 0, 0, 0, 0],
+      [4, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [3, 2, 1, 0, 0, 0, 0, 0, 0, 0],
       [7, 10, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 3, 1, 0, 0, 0, 0, 0, 0],
       [0, 5, 0, 0, 3, 0, 0, 0, 0, 0],
@@ -780,11 +780,11 @@ class Game {
     for (let i = 0; i < enemyNumArray.length; i++) {
       this.waves[i] = [];
       for (let j = 0; j < enemyNumArray[i].length; j++) {
-          this.waves[i].push(enemyNumArray[i][j]);
+        this.waves[i].push(enemyNumArray[i][j]);
       }
+    }
+
   }
-  
-        }
 
 
   //  Logic to add tower +++++++++++++++++++++++
@@ -951,7 +951,7 @@ class Game {
                 console.log("Tower removed and cost refunded.");
                 towerGame.brushfire(); // Re-run the pathfinding algorithm
                 popup.hide(); // Close the popup
-                for(let i = towerGame.blades.length; i >= 0; i --){
+                for (let i = towerGame.blades.length; i >= 0; i--) {
                   this.blades.splice(i, 1);
                 }
               });

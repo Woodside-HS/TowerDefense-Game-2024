@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>The Sea's Surrender</title>
+    <style>
+        body,
+        html {
+            overflow: hidden;
+            height: 100%;
+            margin: 0;
+            background: black;
+            color: yellow;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .credits-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            perspective: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            overflow: hidden;
+        }
+
+        #scrolling-content {
+            position: absolute;
+            bottom: 0;
+            /* Start from the bottom */
+            white-space: nowrap;
+            transform-origin: 50% 100%;
+            transform: rotateX(20deg);
+            animation: scroll-up 500s linear infinite;
+            /* Fixed duration for scrolling */
+        }
+
+        .credits-content {
+            font-size: 33px;
+            text-align: center;
+        }
+
+        .section p,
+        .section h1 {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 150px;
+            margin: 0 auto;
+        }
+
+        .credits-content p {
+            font-size: 75px;
+            margin: 0 auto;
+            margin-bottom: 15px;
+        }
+
+        .image-container img {
+            display: block;
+            margin: 20px auto;
+            max-width: 100%;
+            height: auto;
+        }
+
+        @keyframes scroll-up {
+            0% {
+                transform: translateZ(0) rotateX(20deg) translateY(100%);
+            }
+
+            100% {
+                transform: translateZ(0) rotateX(20deg) translateY(-250%);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="credits-container">
+        <div id="scrolling-content">
+            <div class="credits-content" id="creditsContent">
+                <div class="section">
+                    <p>Click on Screen</p>
+                    <p>Credits</p>
+                    <h1>The Sea's Surrender</h1>
+                </div>
+
+
+                <p>ChatGPT: </p>
+                <p>- Background and Character Art</p>
+
+                <p>Eric Ettlin: </p>
+                <p>- Project Manager</p>
+                <p>- Mentor</p>
+                <p>Bryan Calder: </p>
+                <p>- Credits code</p>
+                <p>- Prompt Engineer (Background Art)</p>
+                <p>- Button Images</p>
+                <p>- Normal Upgrades</p>
+              
+                <p>John Gilbert: </p>
+                <p>- Prompt Engineer (Character Portrait Art)</p>
+         
+                <p>Yoan Renninger: </p>
+                <p>- Level Map Creation (Wall Placement)</p>
+                <p>- 2D Array Grid System Render</p>
+                <p>- Catalog Code and Panel Text</p>
+                <p>- Game States</p>
+
+                <p>Logan Thomas: </p>
+                <p>- Towers</p>
+                <p>- Enemies</p>
+                <p>- Wave System</p>
+                <p>- Final Upgrades</p>
+
+                <p>Patrick Van Hoven: </p>
+                <p>- Server Setup</p>
+                <p>- General Bugfixer</p>
+
+                <p>Anthony Rastellini:</p>
+                <p>- Photoshop Expert</p>
+
+                <p>Kaitlyn Jackson: </p>
+                <p>- Topdown Tower Art</p>
+
+                <p>Charles Weickert: </p>
+                <p>- Wanted to be here and helped with a few details</p>
+
+                <div class="image-container" id="imageContainer">
+                    <!-- Images will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <audio id="creditsMusic" src="TowerGameJS-Phase4/resources/sounds/creditsMusic.mp3" type="audio/mp3" loop></audio>
+
+    <script>
+        window.addEventListener('mousedown', loadSound, false);
+
+        // function addImage() {
+        //     let imageContainer = document.getElementById('imageContainer');
+        //     let img = document.createElement('img');
+        //     img.src = "image.jpg"; // Update with the correct path to your image
+        //     img.style.width = "50%"; // Adjust width as needed
+        //     imageContainer.appendChild(img);
+        // }
+
+        // for (let i = 0; i < 100; i++) {
+        //     addImage();
+        // }
+
+        function loadSound() {
+            let creditsMusic = document.getElementById('creditsMusic');
+            let element = document.getElementById("scrolling-content");
+            element.setAttribute("style", "animation: scroll-up 100s linear infinite");
+            creditsMusic.play();
+            
+        }
+
+    </script>
+</body>
+
+</html>

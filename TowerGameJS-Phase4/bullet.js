@@ -30,8 +30,8 @@ class Bullet {
     if (this.ability == "cannon") {
       this.speed = 50;
     }
-    if(this.ability == "fast"){
-      this.speed = 5;
+    if (this.ability == "fast") {
+      this.speed = 8;
     }
   }
 
@@ -43,27 +43,27 @@ class Bullet {
     } else if (this.ability == "explosive") {
       this.explosiveRandom();
     }
-      this.update();
-    }
-    
-  
+    this.update();
+  }
+
+
   explosiveRandom() {
-    if(!this.randomChoosenTarget){
-    let can = this.chooseRandomExplosiveSpot();
-    let angleOfTarget = Math.atan2(can.loc.y - this.loc.y, can.loc.x - this.loc.x);
+    if (!this.randomChoosenTarget) {
+      let can = this.chooseRandomExplosiveSpot();
+      let angleOfTarget = Math.atan2(can.loc.y - this.loc.y, can.loc.x - this.loc.x);
       this.randomChoosenTarget = true;
       this.cannonAngle = angleOfTarget;
       this.choosenTarget = true;
       this.choosenTargetLoc = new vector2d(can.loc.x, can.loc.y);
     }
-      this.loc.y += Math.sin(this.cannonAngle) * this.speed;
-      this.loc.x += Math.cos(this.cannonAngle) * this.speed;
-      let bulletFromTowerDist = this.loc.dist(this.towerLoc);
-      let towerToLocation = this.towerLoc.dist(this.choosenTargetLoc);
-      let total = towerToLocation - bulletFromTowerDist;
-      if(total < 0){
-        this.speed = 0;
-      
+    this.loc.y += Math.sin(this.cannonAngle) * this.speed;
+    this.loc.x += Math.cos(this.cannonAngle) * this.speed;
+    let bulletFromTowerDist = this.loc.dist(this.towerLoc);
+    let towerToLocation = this.towerLoc.dist(this.choosenTargetLoc);
+    let total = towerToLocation - bulletFromTowerDist;
+    if (total < 0) {
+      this.speed = 0;
+
     }
   }
   chooseRandomExplosiveSpot() {
