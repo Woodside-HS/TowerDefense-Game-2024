@@ -66,6 +66,7 @@ class Game {
     this.explosiveBullets = [];//added with same logic as bullets
     this.bankValue = 0;
     this.explosiveBullets = [];
+    this.enemyNumArray = [];
     this.rays = [];
     this.checkOnce = true;
     this.gameStateID = 1;
