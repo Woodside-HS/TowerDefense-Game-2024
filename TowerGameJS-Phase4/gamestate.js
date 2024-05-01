@@ -26,6 +26,8 @@ class GameState1 extends GameState { // Start Screen
     document.getElementById('infoDiv').style.visibility = 'hidden'; // Make info tiles invisible on start page
     document.getElementById('menuDiv').style.visibility = 'hidden';
     document.getElementById('switchDiv').style.visibility = 'hidden';
+
+   
   }
   run() {
     if (this.panelStart) {
@@ -35,6 +37,8 @@ class GameState1 extends GameState { // Start Screen
     if (this.panelInstructions) {
       this.panelInstructions.render(true)
     }
+
+   
   }
 }
 class GameState2 extends GameState { // Level screen
@@ -58,7 +62,11 @@ class GameState3 extends GameState { // end screen
     super(game)
     this.game.gameStateID = 3
     this.game.enemies = []
-    this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/endScreen.jpg')"
+    if(towerGame.numWave > towerGame.enemyNumArray.length){
+      this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/winScreen.jpg')";
+    } else {
+      this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/endScreen.jpg')";
+    }
     this.panelQuit = new Panel(this, 2)
     this.panelCredits = 0
     this.panelStart = 0
@@ -84,11 +92,12 @@ class GameState4 extends GameState { //Catalog
     towerGame.gameStateID = 4;
 
     this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/catalog.jpg')"
-    this.catalogPanel = new Panel(this, 5);
+    // this.catalogPanel = new Panel(this, 5);
     this.specificTowerPanel = 0;
     this.towerPanel1 = 0;
     this.towerPanel2 = 0;
     this.towerPanel3 = 0;
+    
 
     document.getElementById('infoDiv').style.visibility = 'hidden'; // Make info tiles invisible on start page
     document.getElementById('menuDiv').style.visibility = 'hidden';
@@ -97,14 +106,14 @@ class GameState4 extends GameState { //Catalog
 
   run() {
     this.game.render();
-    this.catalogPanel.render(false);
-
+    // this.catalogPanel.render(false);
     if (this.towerPanel1) {
       this.towerPanel1.render(false);
       this.towerPanel2.render(false);
       this.towerPanel3.render(false);
     }
-
+    
+  
     if (this.specificTowerPanel) {
       this.specificTowerPanel.render(true);
     }
@@ -115,7 +124,7 @@ class GameState4 extends GameState { //Catalog
 class GameState5 extends GameState { // game itself
   constructor(game, levelSel) {
     super(game)
-    this.game.health = 100;
+    this.game.health = 1;
     this.game.score = 0
     this.game.bankValue = 400;
     this.game.gameTime = 0
@@ -125,7 +134,7 @@ class GameState5 extends GameState { // game itself
     this.game.bullets = []
     this.game.cols = Math.floor(this.game.canvas.width / this.game.w);
     this.game.rows = Math.floor(this.game.canvas.height / this.game.w);
-    this.game.backgroundMusic = new Audio('TowerGameJS-Phase4/resources/sounds/Elevator-music.mp3')
+    this.game.backgroundMusic = new Audio('TowerGameJS-Phase4/resources/sounds/gameMusic.mp3')
     this.game.loadGrid();
     this.game.loadAllWaves();
     this.game.brushfire();
