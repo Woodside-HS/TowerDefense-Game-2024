@@ -65,6 +65,7 @@ class Game {
     this.allowPlace = true;//to not place when picking a spot to target for two of the towers
     this.explosiveBullets = [];//added with same logic as bullets
     this.bankValue = 0;
+    this.enemyNumArray = [];
     this.explosiveBullets = [];
     this.rays = [];
     this.checkOnce = true;
@@ -740,8 +741,8 @@ class Game {
     this.bankValue += refund;
   }
 
-  loadAllWaves() {
-    let enemyNumArray = [
+  loadAllWaves(){
+     this.enemyNumArray = [ 
       //normal (1)
       //normal fast (2)
       //normal slow (3)
@@ -777,10 +778,10 @@ class Game {
       [0, 0, 0, 0, 0, 25, 25, 0, 0, 25],
 
     ];
-    for (let i = 0; i < enemyNumArray.length; i++) {
+    for (let i = 0; i < this.enemyNumArray.length; i++) {
       this.waves[i] = [];
-      for (let j = 0; j < enemyNumArray[i].length; j++) {
-        this.waves[i].push(enemyNumArray[i][j]);
+      for (let j = 0; j < this.enemyNumArray[i].length; j++) {
+        this.waves[i].push(this.enemyNumArray[i][j]);
       }
     }
 
