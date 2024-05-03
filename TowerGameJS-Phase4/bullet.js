@@ -39,7 +39,6 @@ class Bullet {
     this.render();
     if (this.ability == "cannon") {
       this.cannonMovement();
-      //this.cannonSpinny();
     } else if (this.ability == "explosive") {
       this.explosiveRandom();
     }
