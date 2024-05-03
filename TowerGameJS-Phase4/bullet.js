@@ -33,6 +33,9 @@ class Bullet {
     if (this.ability == "fast") {
       this.speed = 8;
     }
+    if(this.ability == "fast" && this.fastUpgradeFinal){
+      
+    }
   }
 
   run() {
@@ -130,30 +133,14 @@ class Bullet {
     return this.spots[j];
   }
   render() {
-
     var ctx = towerGame.context;
     ctx.save();
     ctx.translate(this.loc.x, this.loc.y);
-    ctx.rotate(this.angle + Math.PI / 2)
-
+    ctx.rotate(this.angle + Math.PI / 2);
     ctx.drawImage(this.img, -this.img.width / 2, -this.img.height / 2);
-
     ctx.restore();
 
-    if (this.fastUpgradeFinal && this.slashArc > 0) {
-      let clr = 'rgba(0, 100, 0, 0.12)'
-      var ctx = towerGame.context;
-      ctx.save();
-      ctx.strokeStyle = clr;
-      ctx.fillStyle = clr;
-      ctx.translate(this.loc.x, this.loc.y);
-      ctx.moveTo(0, 0);
-      ctx.ellipse(0, 0, this.slashArc, this.slashArc / 2, this.angle, 0, Math.PI * 2, true)
-      ctx.stroke();
-      ctx.fill();
-      ctx.restore();
-      this.slashArc -= 0.3;
-    }
+
   }
 
   update() {
@@ -163,6 +150,10 @@ class Bullet {
   }
 
 
+
+  finalUpgradeSlashAttack(){
+
+  }
   checkCollide(shape1, shape2) {
 
     if (shape1.shape === "circle") {
