@@ -138,6 +138,7 @@ class Game {
     fastForwardButton.addEventListener('click', function () {//upper right hand button
       if (towerGame.firstClick) {
         towerGame.wave = new Wave(towerGame, towerGame.numWave);
+        towerGame.numWave ++;
         towerGame.firstClick = false;
         FRAME_RATE = 60;
       }
