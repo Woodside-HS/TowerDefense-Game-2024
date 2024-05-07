@@ -1,7 +1,7 @@
 class Enemy {
 
   constructor(game, enemyNumber, parent, summon) {
-    console.log(towerGame.numWave)
+
     this.game = game;
     this.parent = parent;
     this.summoned = summon;
@@ -121,6 +121,10 @@ class Enemy {
       this.bombEnemy = true;//starfish
       this.speed = 1; this.baseSpeed = this.speed;
     }
+if(towerGame.numWave != 0){
+    this.health *= console.log(299.97 * (Math.log(0.0019 * towerGame.numWave+1)) ** 1.2 + 1);
+}
+
     // currentCell is the start position of the enemies
     this.currentCell = [1][1];
     for (let row = 0; row < this.game.levelKey.length; row++) {
