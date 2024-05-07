@@ -557,7 +557,7 @@ class Game {
         info.innerHTML = 'Wave <br/>';
         var value = document.createElement('p');
         value.style.fontSize = '10pt';
-        value.innerHTML = towerGame.numWave + 1;
+        value.innerHTML = towerGame.numWave;
         info.appendChild(value);
       }
       if (info.innerHTML.indexOf('Health') != -1) {
