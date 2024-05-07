@@ -30,21 +30,25 @@ class Bullet {
     if (this.ability == "cannon") {
       this.speed = 50;
     }
-    if (this.ability == "fast") {
+    if (this.ability == "fast" && !this.fastUpgradeFinal) {
       this.speed = 8;
     }
-    if(this.ability == "fast" && this.fastUpgradeFinal){
-      
-    }
+
+
   }
 
   run() {
+    if(this.ability == "fast" && this.fastUpgradeFinal){
+      this.finalUpgradeSlashAttack();
+    }else{
     this.render();
+    }
     if (this.ability == "cannon") {
       this.cannonMovement();
     } else if (this.ability == "explosive") {
       this.explosiveRandom();
     }
+
     this.update();
   }
 
@@ -152,7 +156,20 @@ class Bullet {
 
 
   finalUpgradeSlashAttack(){
-
+    if (this.slashArc > 0) {
+      let clr = 'rgba(0, 100, 0, 0.12)'
+      var ctx = towerGame.context;
+      ctx.save();
+      ctx.strokeStyle = clr;
+      ctx.fillStyle = clr;
+      ctx.translate(this.loc.x, this.loc.y);
+      ctx.moveTo(0, 0);
+      ctx.ellipse(0, 0, this.slashArc, this.slashArc / 2, this.angle, 0, Math.PI * 2, true)
+      ctx.stroke();
+      ctx.fill();
+      ctx.restore();
+      this.slashArc -= 0.3;
+    }
   }
   checkCollide(shape1, shape2) {
 
