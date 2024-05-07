@@ -1,6 +1,7 @@
 class Enemy {
 
   constructor(game, enemyNumber, parent, summon) {
+    console.log(towerGame.numWave)
     this.game = game;
     this.parent = parent;
     this.summoned = summon;
@@ -495,7 +496,7 @@ class Enemy {
         if (towerGame.bullets[h].ability == "normal") {
           if (!towerGame.piercingArrow) {
             if (!this.normalImmunities[0]) {
-              this.health = this.health - 300 * towerGame.bullets[h].damageMult;
+              this.health = this.health - 750 * towerGame.bullets[h].damageMult;
               towerGame.bullets.splice(h, 1);
             }
           } else {
@@ -505,10 +506,10 @@ class Enemy {
           }
         } else if (towerGame.bullets[h].ability == "fast") {
           if (!this.fastImmunities[0]) {
-            this.health = this.health - 350 * towerGame.bullets[h].damageMult;
+            this.health = this.health - 500 * towerGame.bullets[h].damageMult;
             towerGame.bullets.splice(h, 1);
           } else if (!this.fastUpgradedImmunities) {
-            this.health = this.health - 350 * towerGame.bullets[h].damageMult;
+            this.health = this.health - 500 * towerGame.bullets[h].damageMult;
             towerGame.bullets.splice(h, 1);
           }
         } else if (towerGame.bullets[h].ability == "freeze") {

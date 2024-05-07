@@ -127,7 +127,7 @@ class GameState5 extends GameState { // game itself
     this.game.health = 100;
     this.game.score = 0
     this.game.bankValue = 400;
-    this.game.gameTime = 0
+    this.game.gameTime = 0;
     this.game.grid = [];
     this.game.towers = [];
     this.game.enemies = [];
