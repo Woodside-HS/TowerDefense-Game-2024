@@ -46,8 +46,9 @@ class GameState2 extends GameState { // Level screen
     super(game);
     towerGame.gameStateID = 6;
     this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/levelSelector.jpg')"
-    this.panelLvlSelector = new Panel(this, 3, 400);;
+    this.panelLvlSelector = new Panel(this, 3, 300);;
     this.customPanel = 0;
+    this.panelQuit = 0;
 
   }
 
@@ -56,7 +57,9 @@ class GameState2 extends GameState { // Level screen
     if (this.customPanel) {
       this.customPanel.render(true);
     }
-    
+    if(this.panelQuit){
+      this.panelQuit.render(false)
+    }
     if (this.panelLvlSelector) {
       this.panelLvlSelector.render(true);
     }
@@ -122,7 +125,7 @@ class GameState4 extends GameState { //Catalog
 
 
     if (this.specificTowerPanel) {
-      this.specificTowerPanel.render(true);
+      this.specificTowerPanel.render(false);
     }
   }
 }
