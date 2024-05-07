@@ -92,6 +92,7 @@ var panelJSON = [{
       picId: "play",
       funk: function () {
         towerGame.gameState = new GameState2(towerGame)
+        // towerGame.gameState.panelLvlSelector = new Panel(this, 3, 400);
         document.getElementById("firstPanel").parentNode.removeChild(document.getElementById("firstPanel"))
       }
     }, {
@@ -220,7 +221,7 @@ var panelJSON = [{
       pic: "TowerGameJS-Phase4/resources/images/panels/levelSelPanel/custom.png",
       picId: "frame4",
       funk: function () {
-        towerGame.gameState = new GameState5(towerGame, 4)
+        towerGame.gameState.customPanel = new Panel(towerGame, 18)
         document.getElementById("levelSelector").parentNode.removeChild(document.getElementById("levelSelector"))
 
       }
@@ -423,7 +424,7 @@ var panelJSON = [{
 }, { //panel 9
   name: "Knight Catalog",
   id: "knightCata",
-  pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanels/archerCatalog.png",
+  pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanels/knightCatalog.png",
   picId: "knightCata",
   buttonJSON: [{
     name: "Back Button",
@@ -582,5 +583,39 @@ var panelJSON = [{
     }
   }
   ]
+}, { //panel 18
+  name: "Custom Map Choice",
+  id: "customChoice",
+  pic: "TowerGameJS-Phase4/resources/images/bg/customMapSel.jpg",
+  picId: "choicePic",
+  buttonJSON: [{
+    name: "Cabin Button",
+    id: "cabinButt",
+    pic: "TowerGameJS-Phase4/resources/images/panels/customChoicePanel/shipCabinButt.png",
+    picId: "cabinPic",
+    funk: function () {
+      towerGame.gameState = new GameState5(5, 4, "url('TowerGameJS-Phase4/resources/images/bg/levels/level1.png')")
+      document.getElementById("customChoice").parentNode.removeChild(document.getElementById("customChoice"))
+    }
+  }, {
+    name: "Deck Button",
+    id: "deckButt",
+    pic: "TowerGameJS-Phase4/resources/images/panels/customChoicePanel/shipDeckButt.png",
+    picId: "deckPick",
+    funk: function () {
+      towerGame.gameState = new GameState5(5, 4, "url('TowerGameJS-Phase4/resources/images/bg/levels/level2.png')")
+      document.getElementById("customChoice").parentNode.removeChild(document.getElementById("customChoice"))
+    }
+}, {
+  name: "Dock Button",
+  id: "Dock Butt",
+  pic: "TowerGameJS-Phase4/resources/images/panels/customChoicePanel/shipDockButt.png",
+  picId: "dockPick",
+  funk: function () {
+    towerGame.gameState = new GameState5(5, 4, "url('TowerGameJS-Phase4/resources/images/bg/levels/level3.png')")
+    document.getElementById("customChoice").parentNode.removeChild(document.getElementById("customChoice"))
+  }
+}
+]
 }
 ]

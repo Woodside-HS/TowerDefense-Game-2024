@@ -67,6 +67,7 @@ class Game {
     this.bankValue = 0;
     this.enemyNumArray = [];
     this.explosiveBullets = [];
+    this.enemyNumArray = [];
     this.rays = [];
     this.checkOnce = true;
     this.gameStateID = 1;
@@ -76,6 +77,7 @@ class Game {
     this.paused = false;
     this.towerState = 1;
     this.numWave = 0;
+    this.enemyNumArray;
 
     this.loadEmptyImage();
     this.loadAllWaves();
@@ -766,7 +768,7 @@ class Game {
       [3, 2, 1, 0, 0, 0, 0, 0, 0, 0],
       [7, 10, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 3, 1, 0, 0, 0, 0, 0, 0],
-      [0, 5, 0, 0, 3, 0, 0, 0, 0, 0],
+      [0, 5, 0, 0, 3, 0, 0, 0, 0, 0], 
 
       [10, 0, 0, 4, 0, 0, 0, 0, 0, 0],
       [30, 30, 0, 0, 0, 0, 0, 0, 0, 0],
