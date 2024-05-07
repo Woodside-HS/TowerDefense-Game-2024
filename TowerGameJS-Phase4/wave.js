@@ -19,7 +19,11 @@ class Wave {
     
     let NumberOfEnemiesInWave = 0;
     for(let i = 0; i < towerGame.waves[this.waveNumber].length; i ++){
+      if(){
       NumberOfEnemiesInWave += towerGame.waves[this.waveNumber][i];
+      } else {
+        towerGame.gameState = new GameState3();
+      }
     }
 
     if (!this.spawnOver) {

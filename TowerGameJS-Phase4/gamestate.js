@@ -62,7 +62,7 @@ class GameState3 extends GameState { // end screen
     super(game)
     this.game.gameStateID = 3
     this.game.enemies = []
-    if(towerGame.numWave > towerGame.enemyNumArray.length){
+    if(towerGame.numWave > towerGame.enemyNumArray.length-1){
       this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/winScreen.jpg')";
     } else {
       this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/endScreen.jpg')";
