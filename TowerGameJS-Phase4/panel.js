@@ -92,7 +92,7 @@ var panelJSON = [{
       picId: "play",
       funk: function () {
         towerGame.gameState = new GameState2(towerGame)
-        // towerGame.gameState.panelLvlSelector = new Panel(this, 3, 400);
+        
         document.getElementById("firstPanel").parentNode.removeChild(document.getElementById("firstPanel"))
       }
     }, {
@@ -586,7 +586,7 @@ var panelJSON = [{
 }, { //panel 18
   name: "Custom Map Choice",
   id: "customChoice",
-  pic: "TowerGameJS-Phase4/resources/images/bg/customMapSel.jpg",
+  pic: "",
   picId: "choicePic",
   buttonJSON: [{
     name: "Cabin Button",
@@ -594,7 +594,7 @@ var panelJSON = [{
     pic: "TowerGameJS-Phase4/resources/images/panels/customChoicePanel/shipCabinButt.png",
     picId: "cabinPic",
     funk: function () {
-      towerGame.gameState = new GameState5(5, 4, "url('TowerGameJS-Phase4/resources/images/bg/levels/level1.png')")
+      towerGame.gameState = new GameState5(towerGame, 4, "url('TowerGameJS-Phase4/resources/images/bg/levels/level1.png')")
       document.getElementById("customChoice").parentNode.removeChild(document.getElementById("customChoice"))
     }
   }, {
@@ -603,16 +603,16 @@ var panelJSON = [{
     pic: "TowerGameJS-Phase4/resources/images/panels/customChoicePanel/shipDeckButt.png",
     picId: "deckPick",
     funk: function () {
-      towerGame.gameState = new GameState5(5, 4, "url('TowerGameJS-Phase4/resources/images/bg/levels/level2.png')")
+      towerGame.gameState = new GameState5(towerGame, 4, "url('TowerGameJS-Phase4/resources/images/bg/levels/level2.png')")
       document.getElementById("customChoice").parentNode.removeChild(document.getElementById("customChoice"))
     }
 }, {
   name: "Dock Button",
   id: "Dock Butt",
-  pic: "TowerGameJS-Phase4/resources/images/panels/customChoicePanel/shipDockButt.png",
+  pic: "TowerGameJS-Phase4/resources/images/panels/customChoicePanel/villageDockButt.png",
   picId: "dockPick",
   funk: function () {
-    towerGame.gameState = new GameState5(5, 4, "url('TowerGameJS-Phase4/resources/images/bg/levels/level3.png')")
+    towerGame.gameState = new GameState5(towerGame, 4, "url('TowerGameJS-Phase4/resources/images/bg/levels/level3.png')")
     document.getElementById("customChoice").parentNode.removeChild(document.getElementById("customChoice"))
   }
 }
