@@ -23,7 +23,7 @@ class Bullet {
     this.choosenTargetLoc = 0;
     this.cannonAngle;
     this.damageMult = damageMult;
-    this.slashArc = 80;
+    this.slashArc = -60;
     if (this.ability == "freeze") {
       this.speed = 10;
     }
@@ -49,7 +49,7 @@ class Bullet {
       this.explosiveRandom();
     }
 
-    this.update();
+  //  this.update();
   }
 
 
@@ -164,11 +164,12 @@ class Bullet {
       ctx.fillStyle = clr;
       ctx.translate(this.loc.x, this.loc.y);
       ctx.moveTo(0, 0);
-      ctx.ellipse(0, 0, this.slashArc, this.slashArc / 2, this.angle, 0, Math.PI * 2, true)
+      ctx.rotate(this.slashArc);
+      ctx.drawImage(this.img, -this.img.width, -this.img.height);
       ctx.stroke();
       ctx.fill();
       ctx.restore();
-      this.slashArc -= 0.3;
+      this.slashArc += 0.06;
     }
   }
   checkCollide(shape1, shape2) {
