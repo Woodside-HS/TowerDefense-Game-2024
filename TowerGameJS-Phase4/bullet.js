@@ -23,7 +23,7 @@ class Bullet {
     this.choosenTargetLoc = 0;
     this.cannonAngle;
     this.damageMult = damageMult;
-    this.slashArc = -60;
+    this.slashArc = 0;
     if (this.ability == "freeze") {
       this.speed = 10;
     }
@@ -156,7 +156,7 @@ class Bullet {
 
 
   finalUpgradeSlashAttack(){
-    if (this.slashArc > 0) {
+  
       let clr = 'rgba(0, 100, 0, 0.12)'
       var ctx = towerGame.context;
       ctx.save();
@@ -169,8 +169,9 @@ class Bullet {
       ctx.stroke();
       ctx.fill();
       ctx.restore();
-      this.slashArc += 0.06;
-    }
+      this.slashArc += 0.02*Math.PI;
+    
+    
   }
   checkCollide(shape1, shape2) {
 

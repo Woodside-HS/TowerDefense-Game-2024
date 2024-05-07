@@ -228,11 +228,13 @@ class Game {
   hideImgElement() { this.style.display = "none"; }
 
   run() { // called from draw()
-    for (let i = towerGame.bullets.length; i > 0; i--) {
-     if(towerGame.bullets[i].slashArc > 60){
-      towerGame.bullets.splice(i, 1);
-     }
-    }
+   for (let i = 0; i < towerGame.bullets.length; i ++) {
+
+    if(towerGame.bullets[i].slashArc > Math.PI*2){
+     towerGame.bullets.splice(i, 1);
+    
+  }
+   }
     if (towerGame.wave.spawnOver && towerGame.enemies.length == 0) {
       for (let i = towerGame.bullets.length; i >= 0; i--) {
         towerGame.bullets.splice(i, 1)
