@@ -41,7 +41,7 @@ class Enemy {
       this.speed = 3; this.baseSpeed = this.speed;
     } else if (this.type == 3) {
       this.img = Enemy.image3;
-      this.health = 4000;
+      this.health = 5000;
       this.dolphinEnemy = true; //Dolphin
       //this is either the last I will do or not do it at all.
       this.speed = 1; this.baseSpeed = this.speed;
@@ -52,7 +52,7 @@ class Enemy {
       this.speed = 1; this.baseSpeed = this.speed;
     } else if (this.type == 5) {
       this.img = Enemy.image5;
-      this.health = 1500;
+      this.health = 4000;
       this.freezeEnemy = true;//blue jellyfish
       this.renderFreezeAura = true;
       this.speed = 1.5; this.baseSpeed = this.speed;
@@ -121,8 +121,9 @@ class Enemy {
       this.bombEnemy = true;//starfish
       this.speed = 1; this.baseSpeed = this.speed;
     }
-if(towerGame.numWave != 0){
-    this.health *= console.log(299.97 * (Math.log(0.0019 * towerGame.numWave+1)) ** 1.2 + 1);
+if(towerGame.numWave != 1){
+    this.health *= 299.97 * (Math.log(0.0019 * towerGame.numWave+1)) ** 1.2 + 1;
+   
 }
 
     // currentCell is the start position of the enemies
@@ -172,6 +173,17 @@ if(towerGame.numWave != 0){
 
     this.clr1 = this.randomColor();
     this.clr2 = this.randomColor();
+
+
+    //towers damage
+    this.normalDamage = 500;
+    this.fastDamage = 350;
+    this.freezeDamage = 10;
+    this.explosiveDamage = 100;
+    this.cannonDamaage = 1600;
+    this.bladeStormDamage = 125;
+    this.liquifyDamage = 15;
+    this.missileDamage = 400;
   }
 
   run() {
@@ -461,11 +473,11 @@ if(towerGame.numWave != 0){
       if (this.checkCollide(this, towerGame.missiles[h])) {
         if (towerGame.missiles[h].ability == "missile") {
           if (!this.missileImmunities[0]) {
-            this.health -= 800 * towerGame.missiles[h].damageMult;
+            this.health -= this.missileDamage * towerGame.missiles[h].damageMult;
             towerGame.missiles.splice(h, 1);
           }
         } else if (!this.missileUpgradedImmunities[0]) {
-          this.health -= 800 * towerGame.missiles[h].damageMult;
+          this.health -= this.missileDamage * towerGame.missiles[h].damageMult;
           towerGame.missiles.splice(h, 1);
         }
       }
@@ -474,9 +486,9 @@ if(towerGame.numWave != 0){
       if (this.checkCollide(this, towerGame.hands[h])) {
         if (towerGame.hands[h].ability == "liquify") {
           if (!this.liquifyImmunities[0]) {
-            this.health -= 10 * towerGame.hands[h].damageMult;
+            this.health -= this.liquifyDamage * towerGame.hands[h].damageMult;
           } else if (!this.liquifyUpgradedImmunities[0]) {
-            this.health -= 10 * towerGame.hands[h].damageMult;
+            this.health -= this.liquifyDamage * towerGame.hands[h].damageMult;
           }
 
         }
@@ -486,9 +498,9 @@ if(towerGame.numWave != 0){
       if (this.checkCollide(this, towerGame.blades[h])) {
         if (towerGame.blades[h].ability == "bladeStorm") {
           if (!this.bladeStormImmunities[0]) {
-            this.health -= 100 * towerGame.blades[h].damageMult;
+            this.health -= this.bladeStormDamage * towerGame.blades[h].damageMult;
           } else if (!this.bladeStormUpgradedImmunities[0]) {
-            this.health -= 100 * towerGame.blades[h].damageMult;
+            this.health -= this.bladeStormDamage * towerGame.blades[h].damageMult;
           }
         }
       }
@@ -500,25 +512,25 @@ if(towerGame.numWave != 0){
         if (towerGame.bullets[h].ability == "normal") {
           if (!towerGame.piercingArrow) {
             if (!this.normalImmunities[0]) {
-              this.health = this.health - 750 * towerGame.bullets[h].damageMult;
+              this.health = this.health - this.normalDamage * towerGame.bullets[h].damageMult;
               towerGame.bullets.splice(h, 1);
             }
           } else {
             if (!this.normalUpgradedImmunities[0]) {
-              this.health = this.health - 150 * towerGame.bullets[h].damageMult;
+              this.health = this.health - (this.normalDamage*0.2) * towerGame.bullets[h].damageMult;
             }
           }
         } else if (towerGame.bullets[h].ability == "fast") {
           if (!this.fastImmunities[0]) {
-            this.health = this.health - 500 * towerGame.bullets[h].damageMult;
+            this.health = this.health - this.fastDamage * towerGame.bullets[h].damageMult;
             towerGame.bullets.splice(h, 1);
           } else if (!this.fastUpgradedImmunities) {
-            this.health = this.health - 500 * towerGame.bullets[h].damageMult;
+            this.health = this.health - this.fastDamage * towerGame.bullets[h].damageMult;
             towerGame.bullets.splice(h, 1);
           }
         } else if (towerGame.bullets[h].ability == "freeze") {
           if (!this.freezeImmunities[0]) {
-            this.health = this.health - 25 * towerGame.bullets[h].damageMult;
+            this.health = this.health - this.freezeDamage * towerGame.bullets[h].damageMult;
             this.slowed -= 1;
             this.movement.speed = this.baseSpeed * 0.3;
             setTimeout(() => {
@@ -537,15 +549,15 @@ if(towerGame.numWave != 0){
           }
         } else if (towerGame.bullets[h].ability == "cannon") {
           if (!this.cannonImmunities[0]) {
-            this.health = this.health - 500 * towerGame.bullets[h].damageMult;
+            this.health = this.health - this.cannonDamage * towerGame.bullets[h].damageMult;
             towerGame.bullets.splice(h, 1);
           } else if (!this.cannonUpgradedImmunities[0]) {
-            this.health = this.health - 500 * towerGame.bullets[h].damageMult;
+            this.health = this.health - this.cannonDamage * towerGame.bullets[h].damageMult;
             towerGame.bullets.splice(h, 1);
           }
         } else if (towerGame.bullets[h].ability == "explosive") {
           if (!this.explosiveImmunities[0]) {
-            this.health = this.health - 100 * towerGame.bullets[h].damageMult;
+            this.health = this.health - this.explosiveDamage * towerGame.bullets[h].damageMult;
             if (this.health <= 0) {
               this.kill = true;
             }
@@ -557,7 +569,7 @@ if(towerGame.numWave != 0){
         }
         else if (towerGame.bullets[h].ability == "explosive") {
           if (!this.explosiveImmunities[0] || !this.explosiveUpgradedImmunities[0]) {
-            this.health -= 100 * towerGame.bullets[h].damageMult;
+            this.health -= this.explosiveDamage * towerGame.bullets[h].damageMult;
             if (this.health <= 0) {
               this.kill = true;
             }

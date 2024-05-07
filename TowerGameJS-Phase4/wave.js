@@ -41,7 +41,7 @@ class Wave {
             setTimeout(() => {
               towerGame.enemies.push(new Enemy(towerGame, randomEnemyType));
               spawnedEnemies++;
-            }, 1200 * numberEnemy + 600);
+            }, (1200-this.waveNumber*30) * numberEnemy + 600);
             numberEnemy++;
             unSpawnedEnemies[randomEnemyType]--;
           }

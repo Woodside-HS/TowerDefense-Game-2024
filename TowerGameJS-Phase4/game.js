@@ -460,8 +460,11 @@ class Game {
     if (tower) {
       return function () {
         cell.hasTower = false;
-        towerGame.towers.splice(towerGame.towers.indexOf(tower))
+        console.log(tower.cost)
+        towerGame.bankValue += (tower.cost);
+        towerGame.towers.splice(towerGame.towers.indexOf(tower));
         towerGame.towerErrorBanner = true;
+
       }
     } else {
       return function () {
