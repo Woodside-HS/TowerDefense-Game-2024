@@ -38,11 +38,11 @@ class Bullet {
   }
 
   run() {
-    if(this.ability == "fast" && this.fastUpgradeFinal){
+  ////  if(this.ability == "fast" && this.fastUpgradeFinal){
       this.finalUpgradeSlashAttack();
-    }else{
-    this.render();
-    }
+   // }else{
+   // this.render();
+   // }
     if (this.ability == "cannon") {
       this.cannonMovement();
     } else if (this.ability == "explosive") {
