@@ -32,6 +32,8 @@ class Bullet {
     }
     if (this.ability == "fast" && !this.fastUpgradeFinal) {
       this.speed = 8;
+    }else if(this.ability == "fast"){
+      this.speed = 0;
     }
 
 
@@ -165,11 +167,11 @@ class Bullet {
       ctx.translate(this.loc.x, this.loc.y);
       ctx.moveTo(0, 0);
       ctx.rotate(this.slashArc);
-      ctx.drawImage(this.img, -this.img.width, -this.img.height);
+      ctx.drawImage(this.img, -this.img.width*1.6, -this.img.height*1.6);
       ctx.stroke();
       ctx.fill();
       ctx.restore();
-      this.slashArc += 0.02*Math.PI;
+      this.slashArc += 0.04*Math.PI;
     
     
   }
