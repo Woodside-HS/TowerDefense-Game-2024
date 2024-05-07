@@ -65,11 +65,12 @@ class GameState2 extends GameState { // Level screen
 }
 
 class GameState3 extends GameState { // end screen
-  constructor(game) {
+  constructor(game, stateOfEnd) {
     super(game)
+    this.stateOfEnd = stateOfEnd;
     this.game.gameStateID = 3;
     this.game.enemies = []
-    if (towerGame.numWave > towerGame.enemyNumArray.length - 1) {
+    if (this.stateOfEnd == "win") {
       this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/winScreen.jpg')";
     } else {
       this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/endScreen.jpg')";
@@ -282,7 +283,7 @@ class GameState5 extends GameState { // game itself
       }
     }
     if (this.game.health <= 0) {
-      this.game.gameState = new GameState3(this.game)
+      this.game.gameState = new GameState3(this.game, "lose");
     }
     if (this.game.isRunning) {
       this.game.banner();
