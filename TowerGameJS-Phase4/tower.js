@@ -107,7 +107,7 @@ class Tower {
       this.normalFinalUpgrade();
     } else if (ability == "fast") {
       this.finalFast = true;
-      this.coolDown *= 0.8;
+      this.coolDown *= 2;
       this.damageMult *= 3;
     } else if (ability == "freeze") {
       this.finalFreeze = true;
