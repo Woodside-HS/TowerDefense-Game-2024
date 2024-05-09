@@ -895,10 +895,7 @@ class Game {
       //follow mouse
       towerGame.towers[towerGame.towers.length - 1].loc.x = this.mouseX;
       towerGame.towers[towerGame.towers.length - 1].loc.y = this.mouseY;
-    if(this.tileClicked() || towerGame.createTower(this)){
-      towerGame.placingTower = true;
-
-    }
+    
     }
   }
 
