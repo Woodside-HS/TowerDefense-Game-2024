@@ -469,7 +469,6 @@ if(towerGame.numWave != 1){
   // find a new target and rotate the velocity in the direaction
   // of the new target.
   update() {
-    console.log(towerGame.bullets)
     for (let h = 0; h < towerGame.missiles.length; h++) {
       if (this.checkCollide(this, towerGame.missiles[h])) {
         if (towerGame.missiles[h].ability == "missile") {
