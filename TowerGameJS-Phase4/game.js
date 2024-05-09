@@ -876,10 +876,9 @@ class Game {
     if (towerGame.placingTower === true) return;
     if (towerGame.createTower(this))
       towerGame.placingTower = true;
-
-
-
   }
+
+  
   //  ++++++++++++++++++++++++++++++++++++++++++++++++++    mouse handlers
 
   handleCNVMouseOver() {
