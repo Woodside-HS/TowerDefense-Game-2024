@@ -293,15 +293,15 @@ class Enemy {
         this.missileUpgradedImmunities = [true, "untargetable"];
         this.exploding = true;
         this.movement.speed = 0;
-        if(this.countDown >= 1){
-        this.countDown--;
+        if (this.countDown >= 1) {
+          this.countDown--;
         }
         if (this.countDown <= 0 && !this.explodingAfterMath) {
           for (let i = 0; i < towerGame.towers.length; i++) {
             let distToTower = this.loc.dist(towerGame.towers[i].loc);
-        
+
             if (distToTower < 120) {
-              let doDestroyTower = Math.round(Math.random()*3);
+              let doDestroyTower = Math.round(Math.random() * 3);
               if (doDestroyTower == 3) {
                 towerGame.towers.splice(i, 1);
               }
@@ -421,16 +421,16 @@ class Enemy {
       ctx.strokeStyle = 'rgba(255, 0, 0, 0.5)';
       ctx.fillStyle = 'rgba(255, 0, 0, 0.2';
       ctx.beginPath();
-      
-      ctx.arc(0, 0, 60 - (Math.abs(this.countDown*3/20 - 55)), 0, Math.PI * 2, false);
-      
+
+      ctx.arc(0, 0, 60 - (Math.abs(this.countDown * 3 / 20 - 55)), 0, Math.PI * 2, false);
+
       ctx.closePath();
       ctx.stroke();
       ctx.fill();
       ctx.restore();
 
     }
-    if(this.explodingAfterMath){
+    if (this.explodingAfterMath) {
       ctx.save();
       ctx.translate(this.loc.x, this.loc.y);
       ctx.strokeStyle = 'rgba(255, 0, 0, 0.5)';
@@ -590,7 +590,7 @@ class Enemy {
     if (this.health <= 0) {
       this.kill = true;
       this.deathSound.play();
-      towerGame.bankValue += (10*this.type);
+      towerGame.bankValue += (10 * this.type);
     }
     this.movement.update();
     let dx = this.targetCell.center.x - this.loc.x;
