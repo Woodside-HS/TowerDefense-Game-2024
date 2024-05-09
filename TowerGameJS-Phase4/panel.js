@@ -406,9 +406,6 @@ var panelJSON = [{
         towerGame.gameState = new GameState1(towerGame)
         towerGame.numWave = 0;
         towerGame.firstClick = true;
-        towerGame.wave.spawnOver = false;
-
-        towerGame.wave.referenceTime = 20;
         document.getElementById('fastForward').innerHTML = "Start";
         FRAME_RATE = 30;
         document.getElementById("cataHome").parentNode.removeChild(document.getElementById("cataHome"))

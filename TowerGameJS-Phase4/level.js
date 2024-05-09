@@ -3,7 +3,7 @@
 // 'b' stands for block, which will make that cell occupied with a wall.
 // 'e' stands for end, which is where the enemies need to end up.
 // 'p' stands for path, which is the set path that the enemies will use.
-let customLevel = [ // this is the custom level, ment to be created in the game, not the code (here)
+let customLevel = [ // this is the custom level, meant to be created in the game, not the code (here)
     ['s', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'b', ' '],
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
