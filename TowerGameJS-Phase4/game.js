@@ -921,7 +921,7 @@ class Game {
 
     if (towerGame.placingTower && towerGame.canAddTower(cell)) {
 
-     // towerGame.placeTower(cell);
+      towerGame.placeTower(cell);
     }
     else if (!towerGame.placingTower && !cell.hasTower) {
       // toggle the occupied property of the clicked cell
