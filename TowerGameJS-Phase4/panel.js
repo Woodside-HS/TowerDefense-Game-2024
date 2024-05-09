@@ -531,7 +531,7 @@ var panelJSON = [{
 }, { //panel 14
   name: "Bladestorm Catalog",
   id: "bladestormCata",
-  pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanels/bladestormCatalog.png",
+  pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanels/bladeStormCatalog.png",
   picId: "bladeCata",
   buttonJSON: [{
     name: "Back Button",
