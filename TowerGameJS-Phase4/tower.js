@@ -40,6 +40,8 @@ class Tower {
     this.finalCannon = false;
     this.finalFreeze = false;
     this.closestCell = 0;
+    this.finalRay = false;
+    this.deathByRay = false;
     this.buffConstant = 0.8; //multiply cooldown by buffConstant
     if (ability == "freeze") {
       this.coolDown = 1000;
@@ -107,7 +109,7 @@ class Tower {
       this.normalFinalUpgrade();
     } else if (ability == "fast") {
       this.finalFast = true;
-      this.coolDown *= 0.8;
+      this.coolDown *= 2;
       this.damageMult *= 3;
     } else if (ability == "freeze") {
       this.finalFreeze = true;
@@ -115,6 +117,7 @@ class Tower {
       this.coolDown *= 0.5;
     } else if (ability == "ray") {
       this.range *= 3;
+      this.finalRay = true;
     } else if (ability == "cannon") {
       this.finalCannon = true;
     } else if (ability == "bladeStorm") {
@@ -401,7 +404,7 @@ class Tower {
 
 
 
-    if (this.ability == "ray" && towerGame.enemies.length != 0) {
+    if (this.ability == "ray" && towerGame.enemies.length != 0 && this.finalRay == false) {
       var a3 = this.loc.x - this.target.x;
       var b3 = this.loc.y - this.target.y;
       var k = Math.sqrt(a3 * a3 + b3 * b3);
@@ -412,6 +415,7 @@ class Tower {
 
           towerGame.enemies[this.findEnemyIndex()].isLocked = true;
           towerGame.enemies[this.findEnemyIndex()].deathTimer = this.coolDown;
+          towerGame.enemies[this.findEnemyIndex()].deathByRay = true;
         } else {
           towerGame.rays = [];
         }
