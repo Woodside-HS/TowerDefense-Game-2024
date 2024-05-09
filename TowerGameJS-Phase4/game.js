@@ -114,6 +114,8 @@ class Game {
 
     this.mouseX = 0;
     this.mouseY = 0;
+    this.w = 50;
+    if(this.gameStateID == 5){
     this.w = 25;
     this.firstClick = true;
     this.gameState = new GameState1(this);
