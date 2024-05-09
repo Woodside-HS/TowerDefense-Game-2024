@@ -439,7 +439,7 @@ var panelJSON = [{
 }, { //panel 9
   name: "Knight Catalog",
   id: "knightCata",
-  pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanels/knightCatalog.png",
+  pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanels/archerCatalog.png",
   picId: "knightCata",
   buttonJSON: [{
     name: "Back Button",
@@ -529,7 +529,7 @@ var panelJSON = [{
 }, { //panel 14
   name: "Bladestorm Catalog",
   id: "bladestormCata",
-  pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanels/bladestormCatalog.png",
+  pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanels/bladeStormCatalog.png",
   picId: "bladeCata",
   buttonJSON: [{
     name: "Back Button",
