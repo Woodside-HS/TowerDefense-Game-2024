@@ -485,7 +485,9 @@ class Game {
   removeEnemies() {
     for (let i = this.enemies.length - 1; i >= 0; i--) {
       if (this.enemies[i].kill && this.enemies[i].type != 10) {
-
+        if(this.enemies[i].deathByRay){
+          
+        }
         this.enemies.splice(i, 1);
         // delete this dead enemy
       }
@@ -961,6 +963,7 @@ class Game {
 
               document.getElementById('refundButton').addEventListener('click', () => {
                 towerGame.setBankValue(Math.floor(popup.sellPrice)); // Refund the cost of the tower
+                
                 towerGame.towers.splice(i, 1); // Remove the tower from the array
                 cell.hasTower = false; // Update the cell's state
                 console.log("Tower removed and cost refunded.");
