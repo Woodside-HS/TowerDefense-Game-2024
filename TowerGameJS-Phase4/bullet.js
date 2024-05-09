@@ -141,9 +141,14 @@ class Bullet {
   render() {
     var ctx = towerGame.context;
     ctx.save();
+    ctx.strokeStyle = "rgba(0, 0, 0 , 1)";
+    ctx.fillStyle = "rgba(0, 0, 0 , 1)";
     ctx.translate(this.loc.x, this.loc.y);
     ctx.rotate(this.angle + Math.PI / 2);
     ctx.drawImage(this.img, -this.img.width / 2, -this.img.height / 2);
+    ctx.ellipse(0, 0, this.img.width/2, this.img.width/2, 0, 0, Math.PI*2, false);
+    ctx.stroke();
+    ctx.fill();
     ctx.restore();
 
 
