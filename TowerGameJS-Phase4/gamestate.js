@@ -148,7 +148,7 @@ class GameState5 extends GameState { // game itself
     this.game.loadGrid();
     this.game.loadAllWaves();
     this.game.brushfire();
-
+    
 
     this.game.root = this.game.grid[this.game.cols - 1][this.game.rows - 1];
     if (levelSel === 1) {

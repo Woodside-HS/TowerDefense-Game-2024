@@ -234,13 +234,14 @@ var panelJSON = [{
         document.getElementById("levelSelector").parentNode.removeChild(document.getElementById("levelSelector"))
      
         towerGame.gameState = new GameState1(towerGame)
-        document.getElementById("levelSelector").parentNode.removeChild(document.getElementById("levelSelector"))
+        
         towerGame.numWave = 0;
         towerGame.firstClick = true;
         towerGame.wave.spawnOver = false;
         towerGame.wave.referenceTime = 20;
         document.getElementById('fastForward').innerHTML = "Start"; // Reset the button text to "Start"
         FRAME_RATE = 30;
+        document.getElementById("levelSelector").parentNode.removeChild(document.getElementById("levelSelector"))
       }
     }
   ]
@@ -611,7 +612,7 @@ var panelJSON = [{
     pic: "TowerGameJS-Phase4/resources/images/panels/customChoicePanel/shipCabinButt.png",
     picId: "cabinPic",
     funk: function () {
-      towerGame.gameState = new GameState5(towerGame, 4, "url('TowerGameJS-Phase4/resources/images/bg/levels/level1.jpg")
+      towerGame.gameState = new GameState5(towerGame, 4, "url('TowerGameJS-Phase4/resources/images/bg/levels/level1.png")
       document.getElementById("customChoice").parentNode.removeChild(document.getElementById("customChoice"))
     }
   }, {
