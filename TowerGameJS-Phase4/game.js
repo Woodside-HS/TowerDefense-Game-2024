@@ -56,6 +56,7 @@ class Game {
     this.towerType = 0;
     this.gameTime = 0;
     this.towers = [];
+    
     this.enemies = [];
     this.waves = [[]];
     this.bullets = [];
@@ -117,9 +118,7 @@ class Game {
     this.mouseX = 0;
     this.mouseY = 0;
     this.w = 50;
-   if(this.gameStateID == 5){
-    this.w = 25;
-    }
+   
     this.firstClick = true;
     this.gameState = new GameState1(this);
 
