@@ -92,7 +92,7 @@ var panelJSON = [{
       picId: "play",
       funk: function () {
         towerGame.gameState = new GameState2(towerGame)
-        
+
         document.getElementById("firstPanel").parentNode.removeChild(document.getElementById("firstPanel"))
       }
     }, {
@@ -233,15 +233,7 @@ var panelJSON = [{
       picId: "home",
       funk: function () {
         document.getElementById("levelSelector").parentNode.removeChild(document.getElementById("levelSelector"))
-     
         towerGame.gameState = new GameState1(towerGame)
-        
-        towerGame.numWave = 0;
-        towerGame.firstClick = true;
-        towerGame.wave.spawnOver = false;
-        towerGame.wave.referenceTime = 20;
-        document.getElementById('fastForward').innerHTML = "Start"; // Reset the button text to "Start"
-        FRAME_RATE = 30;
         document.getElementById("levelSelector").parentNode.removeChild(document.getElementById("levelSelector"))
       }
     }
@@ -548,7 +540,7 @@ var panelJSON = [{
 }, { //panel 15
   name: "Vampire Catalog",
   id: "vampireCata",
-  pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanels/bladestormCatalog.png",
+  pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanels/vampireCatalog.png",
   picId: "vampCata",
   buttonJSON: [{
     name: "Back Button",
@@ -622,16 +614,16 @@ var panelJSON = [{
       towerGame.gameState = new GameState5(towerGame, 4, "url('TowerGameJS-Phase4/resources/images/bg/levels/level2.jpg')")
       document.getElementById("customChoice").parentNode.removeChild(document.getElementById("customChoice"))
     }
-}, {
-  name: "Dock Button",
-  id: "Dock Butt",
-  pic: "TowerGameJS-Phase4/resources/images/panels/customChoicePanel/villageDockButt.png",
-  picId: "dockPick",
-  funk: function () {
-    towerGame.gameState = new GameState5(towerGame, 4, "url('TowerGameJS-Phase4/resources/images/bg/levels/level3.jpg')")
-    document.getElementById("customChoice").parentNode.removeChild(document.getElementById("customChoice"))
+  }, {
+    name: "Dock Button",
+    id: "Dock Butt",
+    pic: "TowerGameJS-Phase4/resources/images/panels/customChoicePanel/villageDockButt.png",
+    picId: "dockPick",
+    funk: function () {
+      towerGame.gameState = new GameState5(towerGame, 4, "url('TowerGameJS-Phase4/resources/images/bg/levels/level3.jpg')")
+      document.getElementById("customChoice").parentNode.removeChild(document.getElementById("customChoice"))
+    }
   }
-}
-]
+  ]
 }
 ]
