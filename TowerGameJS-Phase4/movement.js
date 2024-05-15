@@ -22,8 +22,8 @@ class Movement {
                 this.finished = true; // Set finished flag to true
             } else {
                 // Move loc location by displacement
-                
-                this.loc.add(displacement);
+               
+                 this.loc.add(displacement);
   
             }
         }
