@@ -137,7 +137,7 @@ class GameState5 extends GameState { // game itself
     super(game)
     this.game.health = 100;
     this.game.score = 0
-    this.game.bankValue = 0;
+    this.game.bankValue = 200;
     this.game.gameTime = 0;
     this.game.grid = [];
     this.game.towers = [];
@@ -146,7 +146,8 @@ class GameState5 extends GameState { // game itself
     this.game.cols = Math.floor(this.game.canvas.width / this.game.w);
     this.game.rows = Math.floor(this.game.canvas.height / this.game.w);
     this.game.backgroundMusic = new Audio('TowerGameJS-Phase4/resources/sounds/gameMusic.mp3')
-    if(this.game.gameStateID == 5){
+    if(this.game.gameStateID === 5){
+      console.log("a")
     this.game.w = 25;
     this.game.cols*=2;
     this.game.rows*=2;
@@ -172,6 +173,7 @@ class GameState5 extends GameState { // game itself
     // This is geared to be able to add more levels in the future, as
     // there are currently only 3.
     if (this.game.gameStateID === 5) {
+      console.log(this.game.cols + " " + this.game.rows)
       this.game.levelRender(customLevel);
       this.game.levelKey = customLevel;
       this.game.canvas.canDiv.style.backgroundImage = custom;
