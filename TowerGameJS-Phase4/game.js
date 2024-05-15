@@ -56,6 +56,7 @@ class Game {
     this.towerType = 0;
     this.gameTime = 0;
     this.towers = [];
+    
     this.enemies = [];
     this.waves = [[]];
     this.bullets = [];
@@ -67,6 +68,7 @@ class Game {
     this.bankValue = 0;
     this.enemyNumArray = [];
     this.explosiveBullets = [];
+    this.enemyNumArray = [];
     this.rays = [];
     this.checkOnce = true;
     this.gameStateID = 1;
@@ -76,6 +78,7 @@ class Game {
     this.paused = false;
     this.towerState = 1;
     this.numWave = 0;
+    this.enemyNumArray = [];
 
     this.loadEmptyImage();
     this.loadAllWaves();
@@ -115,9 +118,7 @@ class Game {
     this.mouseX = 0;
     this.mouseY = 0;
     this.w = 50;
-   if(this.gameStateID == 5){
-    this.w = 25;
-    }
+   
     this.firstClick = true;
     this.gameState = new GameState1(this);
 
@@ -139,7 +140,7 @@ class Game {
     fastForwardButton.addEventListener('click', function () {//upper right hand button
       if (towerGame.firstClick) {
         towerGame.wave = new Wave(towerGame, towerGame.numWave);
-        towerGame.numWave++;
+        towerGame.numWave ++;
         towerGame.firstClick = false;
         FRAME_RATE = 60;
       }
@@ -232,13 +233,6 @@ class Game {
   hideImgElement() { this.style.display = "none"; }
 
   run() { // called from draw()
-   for (let i = 0; i < towerGame.bullets.length; i ++) {
-
-    if(towerGame.bullets[i].slashArc > Math.PI*2){
-     towerGame.bullets.splice(i, 1);
-    
-  }
-   }
     if (towerGame.wave.spawnOver && towerGame.enemies.length == 0) {
       for (let i = towerGame.bullets.length; i >= 0; i--) {
         towerGame.bullets.splice(i, 1)
@@ -461,11 +455,8 @@ class Game {
     if (tower) {
       return function () {
         cell.hasTower = false;
-        console.log(tower.cost)
-        towerGame.bankValue += (tower.cost);
-        towerGame.towers.splice(towerGame.towers.indexOf(tower));
+        towerGame.towers.splice(towerGame.towers.indexOf(tower))
         towerGame.towerErrorBanner = true;
-
       }
     } else {
       return function () {
@@ -486,9 +477,7 @@ class Game {
   removeEnemies() {
     for (let i = this.enemies.length - 1; i >= 0; i--) {
       if (this.enemies[i].kill && this.enemies[i].type != 10) {
-        if(this.enemies[i].deathByRay){
-          
-        }
+
         this.enemies.splice(i, 1);
         // delete this dead enemy
       }
@@ -565,7 +554,7 @@ class Game {
         info.innerHTML = 'Wave <br/>';
         var value = document.createElement('p');
         value.style.fontSize = '10pt';
-        value.innerHTML = towerGame.numWave;
+        value.innerHTML = towerGame.numWave + 1;
         info.appendChild(value);
       }
       if (info.innerHTML.indexOf('Health') != -1) {
@@ -774,7 +763,7 @@ class Game {
       [3, 2, 1, 0, 0, 0, 0, 0, 0, 0],
       [7, 10, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 3, 1, 0, 0, 0, 0, 0, 0],
-      [0, 5, 0, 0, 3, 0, 0, 0, 0, 0],
+      [0, 5, 0, 0, 3, 0, 0, 0, 0, 0], 
 
       [10, 0, 0, 4, 0, 0, 0, 0, 0, 0],
       [30, 30, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -889,10 +878,8 @@ class Game {
     if (towerGame.placingTower === true) return;
     if (towerGame.createTower(this))
       towerGame.placingTower = true;
-
-
-
   }
+
   //  ++++++++++++++++++++++++++++++++++++++++++++++++++    mouse handlers
 
   handleCNVMouseOver() {
@@ -910,7 +897,7 @@ class Game {
       //follow mouse
       towerGame.towers[towerGame.towers.length - 1].loc.x = this.mouseX;
       towerGame.towers[towerGame.towers.length - 1].loc.y = this.mouseY;
-
+    
     }
   }
 
@@ -963,7 +950,6 @@ class Game {
 
               document.getElementById('refundButton').addEventListener('click', () => {
                 towerGame.setBankValue(Math.floor(popup.sellPrice)); // Refund the cost of the tower
-                
                 towerGame.towers.splice(i, 1); // Remove the tower from the array
                 cell.hasTower = false; // Update the cell's state
                 console.log("Tower removed and cost refunded.");
@@ -1003,7 +989,7 @@ class Game {
           if (towerGame.placingTower && towerGame.canAddTower(towerGame.grid[col][row])) {
             towerGame.placeTower(towerGame.grid[col][row]);
           }
-          else if (!towerGame.placingTower && !towerGame.grid[col][row].hasTower) {
+          else if (!towerGame.placingTower && !towerGame.grid[col][row].hasTower && key != customLevel) {
             // toggle the occupied property of the clicked cell
             towerGame.grid[col][row].occupied = true;
             towerGame.brushfire(towerGame.undo(towerGame.grid[col][row]));
