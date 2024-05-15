@@ -74,7 +74,7 @@ class GameState3 extends GameState { // end screen
     this.game.gameStateID = 3;
     this.game.enemies = []
     if (this.stateOfEnd == "win") {
-      this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/winScreen.jpg')";
+      this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/winscreen.jpg')";
     } else {
       this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/endScreen.jpg')";
     }
@@ -141,11 +141,17 @@ class GameState5 extends GameState { // game itself
     this.game.gameTime = 0;
     this.game.grid = [];
     this.game.towers = [];
+    this.game.w;
     this.game.enemies = [];
     this.game.bullets = []
     this.game.cols = Math.floor(this.game.canvas.width / this.game.w);
     this.game.rows = Math.floor(this.game.canvas.height / this.game.w);
     this.game.backgroundMusic = new Audio('TowerGameJS-Phase4/resources/sounds/gameMusic.mp3')
+     if(this.game.gameStateID == 5){
+    this.game.cols*=2;
+     this.game.rows*=2;
+     this.game.w = 25;
+     }
     this.game.loadGrid();
     this.game.loadAllWaves();
     this.game.brushfire();
@@ -162,6 +168,7 @@ class GameState5 extends GameState { // game itself
       this.game.gameStateID = 5;
     }
 
+  
     // calls the grid created in level.js, creating the set path
     // and loading in the correct background for that level.
     // This is geared to be able to add more levels in the future, as
@@ -170,18 +177,22 @@ class GameState5 extends GameState { // game itself
       this.game.levelRender(customLevel);
       this.game.levelKey = customLevel;
       this.game.canvas.canDiv.style.backgroundImage = custom;
+   
     } else if (this.game.gameStateID === 6) {
       this.game.levelRender(level1Key);
       this.game.levelKey = level1Key;
       this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/levels/level1.png')"
+
     } else if (this.game.gameStateID === 7) {
       this.game.levelRender(level2Key);
       this.game.levelKey = level2Key;
       this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/levels/level2.jpg')"
+  
     } else if (this.game.gameStateID === 8) {
       this.game.levelRender(level3Key);
       this.game.levelKey = level3Key;
       this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/levels/level3.jpg')"
+
     }
 
     document.getElementById('infoDiv').style.visibility = 'visible'; // Make info tiles invisible on start page
@@ -189,7 +200,7 @@ class GameState5 extends GameState { // game itself
     document.getElementById('switchDiv').style.visibility = 'visible';
   }
   init() {
-    //need this to make code run even though neothing is init (like the pun?)
+    //need this to make code run even though nothing is init (like the pun?)
   }
   run() {
 
