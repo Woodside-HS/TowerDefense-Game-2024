@@ -370,20 +370,15 @@ if(towerGame.numWave != 1){
     let ctx = this.game.context;
 
     ctx.save();
-    ctx.strokeStyle = "rgba(0, 0, 0 , 1)";
-    ctx.fillStyle = "rgba(0, 0, 0 , 1)";
     if (this.visible == false) {
       ctx.globalAlpha = 0.3;
     }
-    ctx.translate(this.loc.x, this.loc.y);
+    ctx.translate(this.loc.x, this.loc.y)
     ctx.rotate(this.angle - Math.PI / 2);
   if(towerGame.gameStateID != 5){
-    
-    ctx.moveTo(0,0);
+   
+  
     ctx.drawImage(this.img, -this.img.width / 2, -this.img.height / 2);
-    ctx.ellipse(0, 0, this.img.width/2, this.img.width/2, 0, 0, Math.PI*2, false);
-    ctx.stroke();
-    ctx.fill();
     }else{
      ctx.drawImage(this.img, -this.img.width/2, -this.img.height/2); 
     }
