@@ -221,6 +221,7 @@ var panelJSON = [{
       pic: "TowerGameJS-Phase4/resources/images/panels/levelSelPanel/custom.png",
       picId: "frame4",
       funk: function () {
+        towerGame.gameStateID = 5;
         towerGame.gameState.customPanel = new Panel(towerGame, 18, 350)
         document.getElementById("levelSelector").parentNode.removeChild(document.getElementById("levelSelector"))
 
