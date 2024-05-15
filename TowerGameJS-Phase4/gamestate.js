@@ -44,7 +44,6 @@ class GameState1 extends GameState { // Start Screen
 class GameState2 extends GameState { // Level screen
   constructor(game) {
     super(game);
-    towerGame.gameStateID = 6;
     this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/levelSelector.jpg')"
     this.panelLvlSelector = new Panel(this, 3, 300);;
     this.customPanel = 0;
@@ -147,7 +146,7 @@ class GameState5 extends GameState { // game itself
     this.game.cols = Math.floor(this.game.canvas.width / this.game.w);
     this.game.rows = Math.floor(this.game.canvas.height / this.game.w);
     this.game.backgroundMusic = new Audio('TowerGameJS-Phase4/resources/sounds/gameMusic.mp3')
-     if(this.game.gameStateID == 5){
+     if(this.game.gameStateID === 5){
     this.game.cols*=2;
      this.game.rows*=2;
      this.game.w = 25;

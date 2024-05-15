@@ -222,6 +222,7 @@ var panelJSON = [{
       picId: "frame4",
       funk: function () {
         towerGame.gameState.customPanel = new Panel(towerGame, 18, 350)
+        towerGame.gameStateID = 5;
         document.getElementById("levelSelector").parentNode.removeChild(document.getElementById("levelSelector"))
 
       }
