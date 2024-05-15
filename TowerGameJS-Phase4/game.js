@@ -926,11 +926,10 @@ class Game {
     else if (!towerGame.placingTower && !cell.hasTower) {
       // toggle the occupied property of the clicked cell
       if (!cell.occupied && towerGame.bankValue >= towerGame.wallCost && towerGame.allowPlace && towerGame.gameStateID === 5) {
-        console.log(towerGame.allowPlace)
         towerGame.bankValue -= towerGame.wallCost;
         cell.occupied = true;
       }
-      else if (towerGame.allowPlace && towerGame.gameStateID === 5) {
+      else if (towerGame.allowPlace && towerGame.gameStateID === 5 && cell.hasTower) {
         towerGame.bankValue += towerGame.wallCost;
         cell.occupied = false;
       }
