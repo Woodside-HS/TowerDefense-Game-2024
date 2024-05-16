@@ -48,7 +48,14 @@ var vector2d = function (vx, vy) {
         dist: function (vec2) {
             return(vec2.copy().sub(this).length());
         },
-
+        limit: function (max) {
+            if (this.length() > max) {
+                this.normalize();
+                this.multiply(max);
+            }
+            return this;
+        },
+    
         
         mag: function(vec2) {
             return Math.sqrt((vec2.x - this.x) ** 2 + (vec2.y - this.y) ** 2);

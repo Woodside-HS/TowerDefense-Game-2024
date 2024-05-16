@@ -14,7 +14,17 @@ class Movement {
           ctx.strokeStyle = "rgba(0,250,210, 0.8)";
           ctx.fillStyle = "rgba(0, 250, 210, 0.08)";
           ctx.beginPath();
-          ctx.arc(0, 0, 25, 0, Math.PI * 2, false);
+          ctx.arc(0, 0, 2, 0, Math.PI * 2, false);
+          ctx.closePath();
+          ctx.stroke();
+          ctx.fill();
+          ctx.restore();
+          ctx.save();
+          ctx.translate(this.loc.x, this.loc.y);
+          ctx.strokeStyle = "rgba(0,250,210, 0.8)";
+          ctx.fillStyle = "rgba(0, 250, 210, 0.08)";
+          ctx.beginPath();
+          ctx.arc(0, 0, 2, 0, Math.PI * 2, false);
           ctx.closePath();
           ctx.stroke();
           ctx.fill();
@@ -43,22 +53,21 @@ class Movement {
 
     update() {
         if (!this.finished) {
-
             this.acc = this.loc.subGet(this.target);
             this.acc.normalize();
-            this.acc.multiply(this.speed/300);
-            this.vel.add(this.acc); 
-
-          
-
-            if (this.loc.dist(this.target) < 2) {
+            if(this.loc.dist(this.target) > 35){
+            this.acc.multiply(this.speed/60);
+            }else{
+                this.vel.multiply(0.82)
+                this.acc.multiply(this.speed/45);
+            }
+            this.vel.add(this.acc);
+            this.vel.limit(this.speed/2);
+            if (this.loc.dist(this.target) < 8) {
                 this.loc = this.target.copy(); 
                 this.finished = true; 
-                console.log(this.vel);
-                console.log(this.acc)
-                this.vel = new vector2d(0, 0);
-                this.acc = new vector2d(0, 0);
-              
+
+             
             } else {
                 
                  this.loc.add(this.vel);
