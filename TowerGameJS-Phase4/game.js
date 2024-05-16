@@ -310,7 +310,6 @@ class Game {
 
     //code to display invalid grid banner
     if (this.invalidGridBanner == true) {
-      console.log("working");
       this.context.beginPath();
       this.context.rect(180, 220, 580, 250);
       this.context.strokeStyle = "#3B6C8E";
@@ -455,6 +454,7 @@ class Game {
     if (tower) {
       return function () {
         cell.hasTower = false;
+        towerGame.bankValue += tower.cost;
         towerGame.towers.splice(towerGame.towers.indexOf(tower))
         towerGame.towerErrorBanner = true;
       }
@@ -554,7 +554,7 @@ class Game {
         info.innerHTML = 'Wave <br/>';
         var value = document.createElement('p');
         value.style.fontSize = '10pt';
-        value.innerHTML = towerGame.numWave + 1;
+        value.innerHTML = towerGame.numWave;
         info.appendChild(value);
       }
       if (info.innerHTML.indexOf('Health') != -1) {

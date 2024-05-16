@@ -39,6 +39,7 @@ class Tower {
     this.bladeFinal = false;
     this.finalCannon = false;
     this.finalFreeze = false;
+    this.fastUpgradeFinal = false;
     this.closestCell = 0;
     this.finalRay = false;
     this.deathByRay = false;
@@ -108,7 +109,7 @@ class Tower {
     if (ability == "normal") {
       this.normalFinalUpgrade();
     } else if (ability == "fast") {
-      this.finalFast = true;
+      this.fastUpgradeFinal = true;
       this.coolDown *= 2;
       this.damageMult *= 3;
     } else if (ability == "freeze") {
@@ -356,7 +357,7 @@ class Tower {
       // reset lastTime to current time
       this.lastTime = millis;
       let bulletLocation = vector2d(this.loc.x, this.loc.y);
-      let b = new Bullet(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.mouseLoc, this.loc, this.damageMult, this.finalCannon, this.finalFast, this.finalFreeze);
+      let b = new Bullet(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.mouseLoc, this.loc, this.damageMult, this.finalCannon, this.fastUpgradeFinal, this.finalFreeze);
       let q = new Missile(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.damageMult);
       let h = new Liquify(bulletLocation, this.bulletImg, this.towAngle, this.ability, "basic", this.damageMult);
       if (this.ability == "fast" || this.ability == "normal"

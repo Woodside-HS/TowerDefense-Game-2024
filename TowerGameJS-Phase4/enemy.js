@@ -527,7 +527,7 @@ if(towerGame.numWave != 1){
             }
           }
         } else if (towerGame.bullets[h].ability == "fast") {
-          if (!this.fastImmunities[0] && this.fastUpgradeFinal == false) {
+          if (!this.fastImmunities[0] && towerGame.bullets[h].fastUpgradeFinal == false) {
             this.health = this.health - this.fastDamage * towerGame.bullets[h].damageMult;
             towerGame.bullets.splice(h, 1);
           } else{
