@@ -2,8 +2,8 @@ class Movement {
     constructor(loc, target, speed) {
         this.loc = loc; 
         this.target = target;
-       // this.vel = vector2d(0, 0);
-       // this.acc = vector2d(0, 0);
+        this.vel = vector2d(0, 0);
+        this.acc = vector2d(0, 0);
         this.speed = speed; 
         this.finished = false; 
     }
@@ -29,26 +29,26 @@ class Movement {
         }
     }
 
-    // update() {
-    //     if (!this.finished) {
+    update() {
+        if (!this.finished) {
 
-    //         this.acc = vector2d.subGetNew(this.loc, this.target);
-    //         this.acc.normalize();
-    //         this.acc.multiply(this.speed/3);
-    //         this.vel.add(this.acc); 
+            this.acc = this.loc.subGetNew(this.target);
+            this.acc.normalize();
+            this.acc.multiply(this.speed/3);
+            this.vel.add(this.acc); 
 
-    //         let displacement = direction.multiply(this.speed);
+            let displacement = direction.multiply(this.speed);
 
-    //         if (displacement.length() >= distance) {
-    //             this.loc = this.target.copy(); 
-    //             this.finished = true; 
-    //         } else {
+            if (displacement.length() >= distance) {
+                this.loc = this.target.copy(); 
+                this.finished = true; 
+            } else {
                 
-    //              this.loc.add(this.vel);
+                 this.loc.add(this.vel);
                  
-    //         }
-    //     }
-    // }
+            }
+        }
+    }
     setTarget(loc, newTarget) {
         this.loc = loc;
         this.target = newTarget;
