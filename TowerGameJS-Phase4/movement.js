@@ -22,7 +22,7 @@ class Movement {
                 this.loc = this.target.copy(); 
                 this.finished = true; 
             } else {
-                
+            
                  this.loc.add(displacement);
                  
             }
