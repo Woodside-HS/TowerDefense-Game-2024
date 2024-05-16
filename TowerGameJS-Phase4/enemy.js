@@ -160,7 +160,7 @@ if(towerGame.numWave != 1){
     } else {
       this.targetCell = this.parent.targetCell;
     }
-    this.target = this.targetCell.center;
+    this.target = this.targetCell.center.copy();
     this.shape = "circle";
     this.kill = false;
     this.angle = this.vel.angle();
