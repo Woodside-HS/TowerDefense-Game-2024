@@ -160,7 +160,7 @@ if(towerGame.numWave != 1){
     } else {
       this.targetCell = this.parent.targetCell;
     }
-    this.target = this.targetCell.center.copy();
+    this.target = this.targetCell.center;
     this.shape = "circle";
     this.kill = false;
     this.angle = this.vel.angle();
@@ -345,6 +345,7 @@ if(towerGame.numWave != 1){
         candidates.push(this.currentCell.neighbors[i]);
     }
     // randomly pick one of the candidates
+    console.log( candidates[Math.floor(Math.random() * candidates.length)]);
     return candidates[Math.floor(Math.random() * candidates.length)];
 
   }
