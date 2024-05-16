@@ -617,6 +617,7 @@ if(towerGame.numWave != 1){
       towerGame.bankValue += (10*this.type);
     }
     this.movement.update();
+    this.movement.render();
     let dx = this.targetCell.center.x - this.loc.x;
     let dy = this.targetCell.center.y - this.loc.y;
 
@@ -649,7 +650,9 @@ if(towerGame.numWave != 1){
           this.kill = true;   // can happen if user blocks cells while enemies are attacking
           return;
         }
+        
         this.target = this.targetCell.center;
+        console.log(this.target)
         this.movement.setTarget(this.loc, this.target);
       }
     }

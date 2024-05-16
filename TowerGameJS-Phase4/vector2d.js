@@ -85,14 +85,16 @@ var vector2d = function (vx, vy) {
         // normalize() method turns the vector into a unit length vector
         // pointing in the same direction.
         normalize: function () {
-            var len = Math.sqrt(vec.x * vec.x + vec.y * vec.y);
-            if (len) {
-                vec.x /= len;
-                vec.y /= len;
-            }
-            return(this);
-        },
+            let mag = Math.sqrt(Math.pow(this.x,2) + Math.pow(this.y,2));
 
+            this.x /= mag;
+            this.y /= mag;
+        },
+        subGet: function (other){
+            let xOffSet = other.x - this.x;
+            let yOffSet = other.y - this.y;
+            return vector2d(xOffSet, yOffSet);
+         },
         // Rotates the vector by an angle specified in radians.
         rotate: function (angle) {
             var x = vec.x,
