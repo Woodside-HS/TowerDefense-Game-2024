@@ -590,7 +590,7 @@ class Game {
 
   // +++++++++++++++++++++++++++++++++++++++++++  load a 2D array with cells
   loadGrid() {
-console.log(this.cols + " " + this.rows)
+
     for (var i = 0; i < this.cols; i++) {     // columns of rows
       this.grid[i] = [];
       for (var j = 0; j < this.rows; j++) {
