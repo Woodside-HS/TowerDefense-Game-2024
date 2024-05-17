@@ -145,7 +145,8 @@ class GameState5 extends GameState { // game itself
     this.game.enemies = [];
     this.game.bullets = []
     this.game.backgroundMusic = new Audio('TowerGameJS-Phase4/resources/sounds/gameMusic.mp3')
-
+    this.cols = 18;
+    this.rows = 15;
     this.game.loadGrid();
     this.game.loadAllWaves();
     this.game.brushfire();
