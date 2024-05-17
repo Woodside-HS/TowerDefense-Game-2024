@@ -20,7 +20,8 @@ class Wave {
     let NumberOfEnemiesInWave = 0;
     for(let i = 0; i < towerGame.waves[this.waveNumber].length; i ++){
        if(towerGame.numWave < towerGame.waves[this.waveNumber].length-1){
-      towerGame.numWave += towerGame.waves[this.waveNumber][i];
+        console.log(towerGame.numWave + " " + towerGame.waves.length)
+    //  towerGame.numWave += towerGame.waves[this.waveNumber][i];
        } else {
          towerGame.gameState = new GameState3(towerGame, "win");
        }
