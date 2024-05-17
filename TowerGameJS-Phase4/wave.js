@@ -16,12 +16,10 @@ class Wave {
     let spawnedEnemies = 0;
     let numberEnemy = 1;
     let unSpawnedEnemies = towerGame.waves[this.waveNumber];
-    
-    let NumberOfEnemiesInWave = 0;
+
     for(let i = 0; i < towerGame.waves[this.waveNumber].length; i ++){
-       if(towerGame.numWave < towerGame.waves[this.waveNumber].length-1){
-        console.log(towerGame.numWave + " " + towerGame.waves.length)
-    //  towerGame.numWave += towerGame.waves[this.waveNumber][i];
+       if(towerGame.numWave < towerGame.waves.length){
+
        } else {
          towerGame.gameState = new GameState3(towerGame, "win");
        }

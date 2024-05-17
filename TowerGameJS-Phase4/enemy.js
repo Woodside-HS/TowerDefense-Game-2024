@@ -144,6 +144,7 @@ if(towerGame.numWave != 1){
     this.radius = 15.0;
     this.r = 15.0;
     this.vel = vector2d(0, 0); // Initialize velocity vector
+    this.acc = vector2d(0, 0)
     this.count = 0;
     this.slowed = 1.2;
     this.isLocked = false;
@@ -163,7 +164,7 @@ if(towerGame.numWave != 1){
     this.target = this.targetCell.center.copy();
     this.shape = "circle";
     this.kill = false;
-    this.angle = this.vel.angle();
+    this.angle = this.acc.angle();
     this.img; // image for enemy
     this.hitByFreezeUpgraded = false;
     this.movement = new Movement(this.loc, this.target, this.speed);
@@ -622,7 +623,7 @@ if(towerGame.numWave != 1){
     let dy = this.targetCell.center.y - this.loc.y;
 
     // Calculate angle of rotation
-    this.angle = Math.atan2(dy, dx);
+    this.angle = this.movement.vel.angle();
     if (this.movement.finished) {
       this.currentCell = this.targetCell;
       if (!this.flyingEnemy) {
