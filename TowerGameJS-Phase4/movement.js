@@ -58,7 +58,7 @@ class Movement {
             if(this.loc.dist(this.target) > 35){
             this.acc.multiply(this.speed/60);
             }else{
-                this.vel.multiply(0.93)
+                this.vel.multiply(0.899)
                 this.acc.multiply(this.speed/45);
             }
             this.vel.add(this.acc);
