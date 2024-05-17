@@ -1007,22 +1007,23 @@ class Game {
   levelRender(key) { //premade level render
     //they are called levels, but are really just maps. 
     //you don't have to complete the previous one to go to the next one
+    console.log(key)
     for (let row = 0; row < key.length; row++) {
       for (let col = 0; col < key[0].length; col++) {
         if (key[row][col] === 'b') {
           if (towerGame.placingTower && towerGame.canAddTower(towerGame.grid[col][row])) {
             towerGame.placeTower(towerGame.grid[col][row]);
           }
-          else if (!towerGame.placingTower && !towerGame.grid[col][row].hasTower && key != customLevel) {
+          else if (!towerGame.placingTower && !towerGame.grid[col][row].hasTower) {
             // toggle the occupied property of the clicked cell
             towerGame.grid[col][row].occupied = true;
             towerGame.brushfire(towerGame.undo(towerGame.grid[col][row]));
-     //     }
+          }
         } else if (key[row][col] === 'e') {
           this.root = this.grid[col][row];
         }
       }
-    }
+    //}
   }
 }
 
