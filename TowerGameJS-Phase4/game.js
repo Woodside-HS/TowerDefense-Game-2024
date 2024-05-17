@@ -1020,12 +1020,12 @@ console.log(this.cols + " " + this.rows)
             // toggle the occupied property of the clicked cell
             towerGame.grid[col][row].occupied = true;
             towerGame.brushfire(towerGame.undo(towerGame.grid[col][row]));
-     //     }
+          }
         } else if (key[row][col] === 'e') {
           this.root = this.grid[col][row];
         }
       }
-    }
+   // }
   }
 }
 
