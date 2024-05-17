@@ -369,12 +369,10 @@ class Game {
     // Initialize each cell in the grid to have a distance that
     // is the greatest possible.  Initialize each cell to
     // have no parent and populate it's array of neighbors
-
-
-    for (var i = 0; i < 18; i++) {
-      for (var j = 0; j < 15; j++) {
+    for (var i = 0; i < this.cols; i++) {
+      for (var j = 0; j < this.rows; j++) {
         var cell = this.grid[i][j];
-        cell.dist = i * j * 5;     // set distance to max
+        cell.dist = this.cols * this.rows * 5;     // set distance to max
         cell.vec = null;    // clear parent vector
         cell.parent = 0;    // clear parent
         cell.addNeighbors(this, this.grid); // fill the neighbors array
@@ -590,7 +588,6 @@ class Game {
 
   // +++++++++++++++++++++++++++++++++++++++++++  load a 2D array with cells
   loadGrid() {
-
     for (var i = 0; i < this.cols; i++) {     // columns of rows
       this.grid[i] = [];
       for (var j = 0; j < this.rows; j++) {
