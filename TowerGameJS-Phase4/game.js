@@ -1007,7 +1007,6 @@ class Game {
   levelRender(key) { //premade level render
     //they are called levels, but are really just maps. 
     //you don't have to complete the previous one to go to the next one
-    console.log(key)
     for (let row = 0; row < key.length; row++) {
       for (let col = 0; col < key[0].length; col++) {
         if (key[row][col] === 'b') {

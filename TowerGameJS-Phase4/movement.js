@@ -56,10 +56,16 @@ class Movement {
             this.acc = this.loc.subGet(this.target);
             this.acc.normalize();
             if(this.loc.dist(this.target) > 35){
-            this.acc.multiply(this.speed/60);
+                if(towerGame.w == 25){
+                    this.acc.multiply(0.5);
+                }
+            this.acc.multiply(this.speed/100);
             }else{
-                this.vel.multiply(0.899)
-                this.acc.multiply(this.speed/45);
+                if(towerGame.w == 25){
+                    this.acc.multiply(0.5);
+                }
+             this.vel.multiply(0.91);
+                this.acc.multiply(this.speed/50);
             }
             this.vel.add(this.acc);
             this.vel.limit(this.speed/2);
