@@ -31,7 +31,7 @@ class Enemy {
     this.missileUpgradedImmunities = [false, "targetable"];
     if (this.type == 1) {
       this.img = Enemy.image1;
-      this.health = 2000;
+      this.health = 1500;
       this.normalEnemy = true; //orange guy
       this.speed = 2; this.baseSpeed = this.speed;
     } else if (this.type == 2) {
@@ -122,7 +122,7 @@ class Enemy {
       this.speed = 1; this.baseSpeed = this.speed;
     }
 if(towerGame.numWave != 1){
-    this.health *= 900 * (Math.log(0.0019 * towerGame.numWave+1)) ** 1.2 + 1;
+    this.health *= 300 * (Math.log(0.0019 * towerGame.numWave+1)) ** 1.2 + 1;
    
 }
 
@@ -178,7 +178,7 @@ if(towerGame.numWave != 1){
 
     //towers damage
     this.normalDamage = 500;
-    this.fastDamage = 450;
+    this.fastDamage = 750;
     this.freezeDamage = 10;
     this.explosiveDamage = 100;
     this.cannonDamaage = 1600;
@@ -615,7 +615,7 @@ if(towerGame.numWave != 1){
     if (this.health <= 0) {
       this.kill = true;
       this.deathSound.play();
-      towerGame.bankValue += (10*this.type);
+      towerGame.bankValue += (15 + 5*this.type);
     }
     this.movement.update();
     this.movement.render();

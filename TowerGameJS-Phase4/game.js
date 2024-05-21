@@ -242,9 +242,11 @@ class Game {
       }
       towerGame.wave.spawnOver = false;
       setTimeout(() => {
-        if (towerGame.numWave != 0) {
-          towerGame.numWave++;
+        if (towerGame.numWave != (0)) {
           towerGame.wave = new Wave(this, towerGame.numWave);
+          console.log(towerGame.numWave);
+          towerGame.numWave++;
+          
         }
       }, 4000);
     }
@@ -762,7 +764,7 @@ class Game {
       [5, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       [5, 4, 1, 0, 0, 0, 0, 0, 0, 0],
       [7, 10, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 3, 1, 0, 0, 0, 0, 0, 0],
+      [0, 0, 3, 2, 0, 0, 0, 0, 0, 0],
       [0, 5, 0, 0, 3, 0, 0, 0, 0, 0], 
 
       [10, 0, 0, 4, 0, 0, 0, 0, 0, 0],

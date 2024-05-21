@@ -57,6 +57,7 @@ class Tower {
 
     else if (ability == "fast") {
       this.coolDown = 500;
+   
     }
     else if (ability == "cannon") {
       this.coolDown = 1000;
