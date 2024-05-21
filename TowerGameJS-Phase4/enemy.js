@@ -60,7 +60,7 @@ class Enemy {
       this.img = Enemy.image6;
       this.health = 1000;
       this.flyingEnemy = true;//flying fish
-      this.speed = 1; this.baseSpeed = this.speed;
+      this.speed = 3; this.baseSpeed = this.speed;
     } else if (this.type == 7) {
       this.img = Enemy.image7;
       this.health = 2000;
@@ -122,7 +122,7 @@ class Enemy {
       this.speed = 1; this.baseSpeed = this.speed;
     }
 if(towerGame.numWave != 1){
-    this.health *= 299.97 * (Math.log(0.0019 * towerGame.numWave+1)) ** 1.2 + 1;
+    this.health *= 900 * (Math.log(0.0019 * towerGame.numWave+1)) ** 1.2 + 1;
    
 }
 

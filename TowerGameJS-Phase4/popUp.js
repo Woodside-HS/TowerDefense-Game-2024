@@ -91,14 +91,14 @@ class Popup {
       towerGame.shownBase = false;
       }
     });
-    cost = Math.ceil(this.tower.cost * 1.2);
+    cost = Math.ceil(this.tower.cost * 0.6);
     const rangeButton = this.createButton(cost, 'rangeButton', 'Range', () => {
-      if(towerGame.bankValue >= Math.ceil(this.tower.cost * 1.2)){
+      if(towerGame.bankValue >= Math.ceil(this.tower.cost * 0.6)){
       this.tower.rangeUpgrade();
       console.log("Range increased by 20%");
       this.tower.upgradedRange = true;
-      towerGame.bankValue -= Math.ceil(this.tower.cost * 1.2);
-      this.sellPrice += this.tower.cost * 1.2;
+      towerGame.bankValue -= Math.ceil(this.tower.cost * 0.6);
+      this.sellPrice += this.tower.cost * 0.6;
       this.hideUpgrade();
       towerGame.shownBase = false;
       }
