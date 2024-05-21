@@ -432,7 +432,7 @@ var panelJSON = [{
 }, { //panel 9
   name: "Knight Catalog",
   id: "knightCata",
-  pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanels/archerCatalog.png",
+  pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanels/knightCatalog.png",
   picId: "knightCata",
   buttonJSON: [{
     name: "Back Button",
@@ -484,10 +484,10 @@ var panelJSON = [{
   }
   ]
 }, { //panel 12
-  name: "Sniper Catalog",
-  id: "sniperCata",
-  pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanels/archerCatalog.png",
-  picId: "sniperCata",
+  name: "Marksman Catalog",
+  id: "markCata",
+  pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanels/marksmanCatalog.png",
+  picId: "marksCata",
   buttonJSON: [{
     name: "Back Button",
     id: "back",
@@ -497,7 +497,7 @@ var panelJSON = [{
       towerGame.gameState.towerPanel1 = new Panel(towerGame, 5, 180, 800, 290)
       towerGame.gameState.towerPanel2 = new Panel(towerGame, 6, 180, 100, 290)
       towerGame.gameState.towerPanel3 = new Panel(towerGame, 7, 650, 450, 86)
-      document.getElementById("sniperCata").parentNode.removeChild(document.getElementById("sniperCata"))
+      document.getElementById("markCata").parentNode.removeChild(document.getElementById("markCata"))
     }
   }
   ]
