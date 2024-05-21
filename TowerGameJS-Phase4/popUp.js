@@ -79,15 +79,15 @@ class Popup {
 
     // Creating buttons for the upgrade popup
     console.log(this.tower.upgradedRange + "    " + this.tower.upgradedCoolDown + "    " + this.tower.upgradedDamage);
-    let cost = Math.ceil(this.tower.cost * 4)
+    let cost = Math.ceil(this.tower.cost * 2)
     const finalUpgrade = this.createButton(cost, 'finalUpgrade', 'Final', () => {
-      if(towerGame.bankValue >= Math.ceil(this.tower.cost * 4)){
+      if(towerGame.bankValue >= Math.ceil(this.tower.cost * 2)){
       this.tower.finalUpgrade(this.tower.ability);
       console.log("Final Upgrade");
       this.tower.upgradedFinal = true;
       this.hideUpgrade();
-      towerGame.bankValue -= Math.ceil(this.tower.cost * 4);
-      this.sellPrice += this.tower.cost * 4;
+      towerGame.bankValue -= Math.ceil(this.tower.cost * 2);
+      this.sellPrice += this.tower.cost * 2;
       towerGame.shownBase = false;
       }
     });

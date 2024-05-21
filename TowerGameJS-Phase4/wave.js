@@ -47,7 +47,7 @@ class Wave {
         } else {
           setTimeout(() => {
           this.spawnOver = true;
-        }, 1200 * numberEnemy + 600);
+        }, 1200);
           break;
         }
       }

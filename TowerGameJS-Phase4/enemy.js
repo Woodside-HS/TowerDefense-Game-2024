@@ -41,7 +41,7 @@ class Enemy {
       this.speed = 3; this.baseSpeed = this.speed;
     } else if (this.type == 3) {
       this.img = Enemy.image3;
-      this.health = 5000;
+      this.health = 3333;
       this.dolphinEnemy = true; //Dolphin
       //this is either the last I will do or not do it at all.
       this.speed = 1; this.baseSpeed = this.speed;
@@ -608,7 +608,9 @@ if(towerGame.numWave != 1){
     if (this.isLocked) {
       setTimeout(() => {
         this.kill = true;
+     
       }, this.deathTimer);
+
     }
 
     // Handle reaching target and updating path

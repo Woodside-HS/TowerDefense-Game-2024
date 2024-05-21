@@ -136,7 +136,7 @@ class GameState5 extends GameState { // game itself
     super(game)
     this.game.health = 100;
     this.game.score = 0
-    this.game.bankValue = 200;
+    this.game.bankValue = 2000;
     this.game.gameTime = 0;
     this.game.grid = [];
     this.game.towers = [];
@@ -273,6 +273,9 @@ class GameState5 extends GameState { // game itself
     }
     for (let i = 0; i < this.game.rays.length; i++) {
       this.game.rays[i].run();
+    }
+    for (let i = 0; i < this.game.secondRays.length; i++) {
+      this.game.secondRays[i].run();
     }
     if (this.game.wave) {
       this.game.wave.run();

@@ -80,7 +80,7 @@ class Tower {
       this.coolDown = 1000;
     } else if (ability == "ray") {
       this.range = 450;
-      this.coolDown = 2700;
+      this.coolDown = 2000;
     }
     this.maxCoolDown = this.coolDown;
 
@@ -97,13 +97,13 @@ class Tower {
   }
 
   damageUpgrade() {
-    this.damageMult *= 1.2;
+    this.damageMult *= 1.4;
   }
   coolDownUpgrade() {
-    this.coolDown *= 0.8;
+    this.coolDown *= 0.7;
   }
   rangeUpgrade() {
-    this.range *= 1.2;
+    this.range *= 1.25;
 
   }
   finalUpgrade(ability) {
@@ -406,16 +406,20 @@ class Tower {
 
 
 
-    if (this.ability == "ray" && towerGame.enemies.length != 0 && this.finalRay == false) {
+    if (this.ability == "ray" && towerGame.enemies.length != 0) {
       var a3 = this.loc.x - this.target.x;
       var b3 = this.loc.y - this.target.y;
       var k = Math.sqrt(a3 * a3 + b3 * b3);
       if (k < this.range && towerGame.enemies.length != 0 && this.target.x != towerGame.canvas.mouseX) {
+        console.log("A")
         var rys = new LockOn(this.loc, this.target);
         rys.run();
         if (this.findEnemyIndex() < towerGame.enemies.length) {
 
           towerGame.enemies[this.findEnemyIndex()].isLocked = true;
+          if(this.finalRay){
+          towerGame.enemies[this.findEnemyIndex()].secondTarget = true;
+          }
           towerGame.enemies[this.findEnemyIndex()].deathTimer = this.coolDown;
           towerGame.enemies[this.findEnemyIndex()].deathByRay = true;
         } else {
