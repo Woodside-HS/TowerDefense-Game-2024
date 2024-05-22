@@ -40,14 +40,14 @@ class Wave {
             setTimeout(() => {
               towerGame.enemies.push(new Enemy(towerGame, randomEnemyType));
               spawnedEnemies++;
-            }, (800-this.waveNumber*20) * numberEnemy + 600);
+            }, (1300-this.waveNumber*20) * numberEnemy + 600);
             numberEnemy++;
             unSpawnedEnemies[randomEnemyType]--;
           }
         } else {
           setTimeout(() => {
           this.spawnOver = true;
-        }, 1200);
+        }, 2500 );
           break;
         }
       }
