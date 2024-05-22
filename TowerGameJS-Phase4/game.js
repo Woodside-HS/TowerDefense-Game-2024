@@ -495,7 +495,7 @@ class Game {
           
         }
         this.secondRays.push(new LockOn(this.deathLoc, this.enemies[this.index].loc));
-       
+
         towerGame.enemies[this.index].isLocked = true;
         towerGame.enemies[this.index].deathTimer = 5000;
         towerGame.enemies[this.index].deathByRay = true;
@@ -503,10 +503,13 @@ class Game {
           this.secondRays.splice(0, 1);
         }, 5000);
        }
+       towerGame.bankValue += (15 + 5*this.enemies[i].type);
        this.enemies.splice(i, 1);
       }
       else if (this.enemies[i].kill && this.enemies[i].type == 10 && this.enemies[i].explodingAfterMathGrowth >= 120
         || this.enemies[i].currentCell == towerGame.root) {
+          console.log(this.enemies[i].type)
+          towerGame.bankValue += (15 + 5*this.enemies[i].type);
         this.enemies.splice(i, 1);
       }
     }
