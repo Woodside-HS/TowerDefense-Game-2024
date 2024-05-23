@@ -103,25 +103,25 @@ class Popup {
       towerGame.shownBase = false;
       }
     });
-    cost = Math.ceil(this.tower.cost * 1.35)
+    cost = Math.ceil(this.tower.cost * 1)
     const cooldownButton = this.createButton(cost, 'cooldownButton', 'Cooldown', () => {
-      if(towerGame.bankValue >= Math.ceil(this.tower.cost * 1.35)){
+      if(towerGame.bankValue >= Math.ceil(this.tower.cost * 1)){
       this.tower.coolDownUpgrade();
       console.log("Cooldown decreased by 20%");
       this.tower.upgradedCoolDown = true;
-      towerGame.bankValue -= Math.ceil(this.tower.cost * 1.35);
-      this.sellPrice += this.tower.cost * 1.35;
+      towerGame.bankValue -= Math.ceil(this.tower.cost * 1);
+      this.sellPrice += this.tower.cost * 1;
       this.hideUpgrade();
       towerGame.shownBase = false;
       }
     });
-    cost = Math.ceil(this.tower.cost * 1.5)
+    cost = Math.ceil(this.tower.cost * 1.25)
     const damageButton = this.createButton(cost, 'damageButton', 'Damage', () => {
-      if(towerGame.bankValue >= Math.ceil(this.tower.cost * 1.5)){
+      if(towerGame.bankValue >= Math.ceil(this.tower.cost * 1.25)){
       console.log("Damage increased by 20%");
       this.tower.upgradedDamage = true;
-      towerGame.bankValue -= Math.ceil(this.tower.cost * 1.5);
-      this.sellPrice += this.tower.cost * 1.5;
+      towerGame.bankValue -= Math.ceil(this.tower.cost * 1.25);
+      this.sellPrice += this.tower.cost * 1.25;
       this.tower.damageUpgrade();
       this.hideUpgrade();
       towerGame.shownBase = false;
