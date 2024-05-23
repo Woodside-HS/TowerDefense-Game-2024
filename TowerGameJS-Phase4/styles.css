@@ -32,9 +32,16 @@ body {
   background-color: #6666ff;
 }
 
-#fastForward:hover {
-  background-color: #ffffff;
-  background-image: url("resources/images/bBtn 2 small.png");
+#fastForward {
+  background-image: url("resources/images/start.png");
+}
+
+#fastForward.fast {
+  background-image: url("resources/images/regSpeed.png");
+}
+
+#fastForward.slow {
+  background-image: url("resources/images/fastSpeed.png");
 }
 
 
@@ -79,12 +86,15 @@ body {
 
 #pauseButton {
   background-color: white;
-  background-image: url("resources/images/bBtn 1 small.png");
+  background-image: url("resources/images/pause.png");
 }
 
-#pauseButton:hover {
-  background-color: white;
-  background-image: url("resources/images/bBtn 2 small.png");
+#pauseButton.play {
+  background-image: url("resources/images/play.png");
+}
+
+#pauseButton.pause {
+  background-image: url("resources/images/pause.png");
 }
 
 .infoTileDiv {
@@ -96,11 +106,44 @@ body {
   float: left;
   margin-left: 4%;
   margin-top: 10px;
-  /*padding-top: 15px;*/
   font-family: Garamond, serif;
   font-size: 12pt;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  text-align: center;
 }
 
+
+#bankTile {
+  background-color: white;
+  background-image: url("resources/images/bank.png");
+}
+
+#timeTile {
+  background-color: white;
+  background-image: url("resources/images/time.png");
+}
+
+#healthTile {
+  background-color: white;
+  background-image: url("resources/images/health.png");
+}
+
+#costTile {
+  background-color: white;
+  background-image: url("resources/images/cost.png");
+}
+
+#scoreTile {
+  background-color: white;
+  background-image: url("resources/images/score.png");
+}
+
+#waveTile {
+  background-color: white;
+  background-image: url("resources/images/wave.png");
+}
 .menuTileDiv {
   background-color: #DDD;
   background-image: url("wframe.png");
