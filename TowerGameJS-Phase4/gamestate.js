@@ -136,7 +136,7 @@ class GameState5 extends GameState { // game itself
     super(game)
     this.game.health = 100;
     this.game.score = 0
-    this.game.bankValue = 400;
+    this.game.bankValue = 250;
     this.game.gameTime = 0;
     this.game.grid = [];
     this.game.towers = [];
@@ -173,6 +173,7 @@ class GameState5 extends GameState { // game itself
     // This is geared to be able to add more levels in the future, as
     // there are currently only 3.
     if (this.game.gameStateID === 5) {
+      console.log(this.game.cols + " " + this.game.rows)
       this.game.levelRender(customLevel);
       this.game.levelKey = customLevel;
       this.game.canvas.canDiv.style.backgroundImage = custom;
@@ -272,6 +273,9 @@ class GameState5 extends GameState { // game itself
     }
     for (let i = 0; i < this.game.rays.length; i++) {
       this.game.rays[i].run();
+    }
+    for (let i = 0; i < this.game.secondRays.length; i++) {
+      this.game.secondRays[i].run();
     }
     if (this.game.wave) {
       this.game.wave.run();

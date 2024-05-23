@@ -56,13 +56,15 @@ class Game {
     this.towerType = 0;
     this.gameTime = 0;
     this.towers = [];
-    
+    this.secondTarget = false;
+    this.deathLoc;
     this.enemies = [];
     this.waves = [[]];
     this.bullets = [];
     this.missiles = [];//added with same logic as bullets
     this.hands = [];//added with same logic as bullets (this is the minion guy idk)
     this.blades = [];//added with same logic as bullets
+    this.secondRays = [];
     this.allowPlace = true;//to not place when picking a spot to target for two of the towers
     this.explosiveBullets = [];//added with same logic as bullets
     this.bankValue = 0;
@@ -79,7 +81,7 @@ class Game {
     this.towerState = 1;
     this.numWave = 0;
     this.enemyNumArray = [];
-
+    this.index;
     this.loadEmptyImage();
     this.loadAllWaves();
     this.loadEnemyImages();
@@ -242,9 +244,11 @@ class Game {
       }
       towerGame.wave.spawnOver = false;
       setTimeout(() => {
-        if (towerGame.numWave != 0) {
-          towerGame.numWave++;
+        if (towerGame.numWave != (0)) {
           towerGame.wave = new Wave(this, towerGame.numWave);
+          console.log(towerGame.numWave);
+          towerGame.numWave++;
+          
         }
       }, 4000);
     }
@@ -310,7 +314,6 @@ class Game {
 
     //code to display invalid grid banner
     if (this.invalidGridBanner == true) {
-      console.log("working");
       this.context.beginPath();
       this.context.rect(180, 220, 580, 250);
       this.context.strokeStyle = "#3B6C8E";
@@ -332,7 +335,6 @@ class Game {
 
     //invalid tower placement banner
     if (this.towerErrorBanner == true) {
-      console.log("working");
       this.context.beginPath();
       this.context.rect(180, 220, 580, 250);
       this.context.strokeStyle = "#3B6C8E";
@@ -455,6 +457,7 @@ class Game {
     if (tower) {
       return function () {
         cell.hasTower = false;
+        towerGame.bankValue += tower.cost;
         towerGame.towers.splice(towerGame.towers.indexOf(tower))
         towerGame.towerErrorBanner = true;
       }
@@ -477,18 +480,43 @@ class Game {
   removeEnemies() {
     for (let i = this.enemies.length - 1; i >= 0; i--) {
       if (this.enemies[i].kill && this.enemies[i].type != 10) {
+        if(this.enemies[i].secondTarget){
+          this.secondTarget = true;
+          this.deathLoc = this.enemies[i].loc;
+         }
+       if(this.secondTarget){
+        for(let i = 0; i < this.enemies.length; i ++){
+          let dist = this.enemies[i].loc.dist(this.deathLoc);
+          let closestDist = 10000;
+          if(dist < closestDist){
+            closestDist = dist;
+            this.index = i;
+          }
+          
+        }
+        this.secondRays.push(new LockOn(this.deathLoc, this.enemies[this.index].loc));
 
-        this.enemies.splice(i, 1);
-        // delete this dead enemy
+        towerGame.enemies[this.index].isLocked = true;
+        towerGame.enemies[this.index].deathTimer = 5000;
+        towerGame.enemies[this.index].deathByRay = true;
+        setTimeout(() => {
+          this.secondRays.splice(0, 1);
+        }, 5000);
+       }
+       towerGame.bankValue += (15 + 5*this.enemies[i].type);
+       this.enemies.splice(i, 1);
       }
       else if (this.enemies[i].kill && this.enemies[i].type == 10 && this.enemies[i].explodingAfterMathGrowth >= 120
         || this.enemies[i].currentCell == towerGame.root) {
+          console.log(this.enemies[i].type)
+          towerGame.bankValue += (15 + 5*this.enemies[i].type);
         this.enemies.splice(i, 1);
       }
     }
   }
 
   removeBullets() {
+  
     if (this.bullets.length < 1) return;
     for (let i = this.bullets.length - 1; i >= 0; i--) {
 
@@ -496,6 +524,9 @@ class Game {
         this.bullets[i].loc.x > this.canvas.width ||
         this.bullets[i].loc.y < 0 ||
         this.bullets[i].loc.y > this.canvas.height) {
+        this.bullets.splice(i, 1);
+      }
+      if(this.bullets[i].lifeSpan <= 0){
         this.bullets.splice(i, 1);
       }
 
@@ -554,7 +585,7 @@ class Game {
         info.innerHTML = 'Wave <br/>';
         var value = document.createElement('p');
         value.style.fontSize = '10pt';
-        value.innerHTML = towerGame.numWave + 1;
+        value.innerHTML = towerGame.numWave;
         info.appendChild(value);
       }
       if (info.innerHTML.indexOf('Health') != -1) {
@@ -673,7 +704,7 @@ class Game {
         innerDiv.style.margin = "5px";
         mtd.appendChild(innerDiv);
         document.getElementById("menuDiv").appendChild(mtd);
-        mtd.cost = 75 * (i) + 75;
+        mtd.cost = 50 * (i) + 100;
 
 
 
@@ -721,7 +752,7 @@ class Game {
         innerDiv.style.margin = "5px";
         mtd.appendChild(innerDiv);
         document.getElementById("menuDiv").appendChild(mtd);
-        mtd.cost = 75 * (i) + 75;
+        mtd.cost = 50 * (i) + 100;
 
 
 
@@ -759,10 +790,10 @@ class Game {
       //turtle(8)
       //frog(9)
       //starfish(10)
-      [4, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [3, 2, 1, 0, 0, 0, 0, 0, 0, 0],
+      [2, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [5, 4, 1, 0, 0, 0, 0, 0, 0, 0],
       [7, 10, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 3, 1, 0, 0, 0, 0, 0, 0],
+      [0, 0, 3, 2, 0, 0, 0, 0, 0, 0],
       [0, 5, 0, 0, 3, 0, 0, 0, 0, 0], 
 
       [10, 0, 0, 4, 0, 0, 0, 0, 0, 0],
@@ -783,6 +814,30 @@ class Game {
       [8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
       [0, 0, 0, 0, 0, 25, 25, 0, 0, 25],
 
+
+      // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+
+      // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      
+      // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+
+      // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     ];
     for (let i = 0; i < this.enemyNumArray.length; i++) {
       this.waves[i] = [];
@@ -913,11 +968,10 @@ class Game {
     else if (!towerGame.placingTower && !cell.hasTower) {
       // toggle the occupied property of the clicked cell
       if (!cell.occupied && towerGame.bankValue >= towerGame.wallCost && towerGame.allowPlace && towerGame.gameStateID === 5) {
-        console.log(towerGame.allowPlace)
         towerGame.bankValue -= towerGame.wallCost;
         cell.occupied = true;
       }
-      else if (towerGame.allowPlace && towerGame.gameStateID === 5) {
+      else if (towerGame.allowPlace && towerGame.gameStateID === 5 && cell.hasTower) {
         towerGame.bankValue += towerGame.wallCost;
         cell.occupied = false;
       }
@@ -1000,8 +1054,9 @@ class Game {
           this.root = this.grid[col][row];
         }
       }
-    }
+    //}
   }
+}
 
 
 

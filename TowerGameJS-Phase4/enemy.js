@@ -31,7 +31,7 @@ class Enemy {
     this.missileUpgradedImmunities = [false, "targetable"];
     if (this.type == 1) {
       this.img = Enemy.image1;
-      this.health = 2000;
+      this.health = 1500;
       this.normalEnemy = true; //orange guy
       this.speed = 2; this.baseSpeed = this.speed;
     } else if (this.type == 2) {
@@ -41,7 +41,7 @@ class Enemy {
       this.speed = 3; this.baseSpeed = this.speed;
     } else if (this.type == 3) {
       this.img = Enemy.image3;
-      this.health = 5000;
+      this.health = 3333;
       this.dolphinEnemy = true; //Dolphin
       //this is either the last I will do or not do it at all.
       this.speed = 1; this.baseSpeed = this.speed;
@@ -60,7 +60,7 @@ class Enemy {
       this.img = Enemy.image6;
       this.health = 1000;
       this.flyingEnemy = true;//flying fish
-      this.speed = 1; this.baseSpeed = this.speed;
+      this.speed = 3; this.baseSpeed = this.speed;
     } else if (this.type == 7) {
       this.img = Enemy.image7;
       this.health = 2000;
@@ -122,7 +122,7 @@ class Enemy {
       this.speed = 1; this.baseSpeed = this.speed;
     }
 if(towerGame.numWave != 1){
-    this.health *= 299.97 * (Math.log(0.0019 * towerGame.numWave+1)) ** 1.2 + 1;
+    this.health *= 600 * (Math.log(0.0019 * towerGame.numWave+1)) ** 1.2 + 1;
    
 }
 
@@ -144,6 +144,7 @@ if(towerGame.numWave != 1){
     this.radius = 15.0;
     this.r = 15.0;
     this.vel = vector2d(0, 0); // Initialize velocity vector
+    this.acc = vector2d(0, 0)
     this.count = 0;
     this.slowed = 1.2;
     this.isLocked = false;
@@ -160,10 +161,10 @@ if(towerGame.numWave != 1){
     } else {
       this.targetCell = this.parent.targetCell;
     }
-    this.target = this.targetCell.center;
+    this.target = this.targetCell.center.copy();
     this.shape = "circle";
     this.kill = false;
-    this.angle = this.vel.angle();
+    this.angle = this.acc.angle();
     this.img; // image for enemy
     this.hitByFreezeUpgraded = false;
     this.movement = new Movement(this.loc, this.target, this.speed);
@@ -177,10 +178,10 @@ if(towerGame.numWave != 1){
 
     //towers damage
     this.normalDamage = 500;
-    this.fastDamage = 450;
+    this.fastDamage = 750;
     this.freezeDamage = 10;
     this.explosiveDamage = 100;
-    this.cannonDamaage = 1600;
+    this.cannonDamage = 3200;
     this.bladeStormDamage = 125;
     this.liquifyDamage = 15;
     this.missileDamage = 400;
@@ -527,7 +528,7 @@ if(towerGame.numWave != 1){
             }
           }
         } else if (towerGame.bullets[h].ability == "fast") {
-          if (!this.fastImmunities[0] && this.fastUpgradeFinal == false) {
+          if (!this.fastImmunities[0] && towerGame.bullets[h].fastUpgradeFinal == false) {
             this.health = this.health - this.fastDamage * towerGame.bullets[h].damageMult;
             towerGame.bullets.splice(h, 1);
           } else{
@@ -607,21 +608,24 @@ if(towerGame.numWave != 1){
     if (this.isLocked) {
       setTimeout(() => {
         this.kill = true;
+     
       }, this.deathTimer);
+
     }
 
     // Handle reaching target and updating path
     if (this.health <= 0) {
       this.kill = true;
       this.deathSound.play();
-      towerGame.bankValue += (10*this.type);
+    //  towerGame.bankValue += (15 + 5*this.type);
     }
     this.movement.update();
+    this.movement.render();
     let dx = this.targetCell.center.x - this.loc.x;
     let dy = this.targetCell.center.y - this.loc.y;
 
     // Calculate angle of rotation
-    this.angle = Math.atan2(dy, dx);
+    this.angle = this.movement.vel.angle();
     if (this.movement.finished) {
       this.currentCell = this.targetCell;
       if (!this.flyingEnemy) {
@@ -649,7 +653,9 @@ if(towerGame.numWave != 1){
           this.kill = true;   // can happen if user blocks cells while enemies are attacking
           return;
         }
+        
         this.target = this.targetCell.center;
+        console.log(this.target)
         this.movement.setTarget(this.loc, this.target);
       }
     }
