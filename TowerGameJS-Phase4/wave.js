@@ -17,13 +17,12 @@ class Wave {
     let numberEnemy = 1;
     let unSpawnedEnemies = towerGame.waves[this.waveNumber];
 
-    for(let i = 0; i < towerGame.waves[this.waveNumber].length; i ++){
-       if(towerGame.numWave < towerGame.waves.length){
-
+    
+       if(towerGame.numWave >= towerGame.waves.length){
+        towerGame.gameState = new GameState3(towerGame, "win");
        } else {
-         towerGame.gameState = new GameState3(towerGame, "win");
-       }
-   }
+       
+   
 
     if (!this.spawnOver) {
       while (unSpawnedEnemies.length > 0) {
@@ -47,10 +46,11 @@ class Wave {
         } else {
           setTimeout(() => {
           this.spawnOver = true;
-        }, 2500 );
+        }, 2400 );
           break;
         }
       }
     }
   }
+}
 }
