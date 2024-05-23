@@ -8,27 +8,27 @@ class Movement {
         this.finished = false; 
     }
     render(){
-        var ctx = towerGame.context;
-          ctx.save();
-          ctx.translate(this.target.x, this.target.y);
-          ctx.strokeStyle = "rgba(0,250,210, 0.8)";
-          ctx.fillStyle = "rgba(0, 250, 210, 0.08)";
-          ctx.beginPath();
-          ctx.arc(0, 0, 2, 0, Math.PI * 2, false);
-          ctx.closePath();
-          ctx.stroke();
-          ctx.fill();
-          ctx.restore();
-          ctx.save();
-          ctx.translate(this.loc.x, this.loc.y);
-          ctx.strokeStyle = "rgba(0,250,210, 0.8)";
-          ctx.fillStyle = "rgba(0, 250, 210, 0.08)";
-          ctx.beginPath();
-          ctx.arc(0, 0, 2, 0, Math.PI * 2, false);
-          ctx.closePath();
-          ctx.stroke();
-          ctx.fill();
-          ctx.restore();
+        // var ctx = towerGame.context;
+        //   ctx.save();
+        //   ctx.translate(this.target.x, this.target.y);
+        //   ctx.strokeStyle = "rgba(0,250,210, 0.8)";
+        //   ctx.fillStyle = "rgba(0, 250, 210, 0.08)";
+        //   ctx.beginPath();
+        //   ctx.arc(0, 0, 2, 0, Math.PI * 2, false);
+        //   ctx.closePath();
+        //   ctx.stroke();
+        //   ctx.fill();
+        //   ctx.restore();
+        //   ctx.save();
+        //   ctx.translate(this.loc.x, this.loc.y);
+        //   ctx.strokeStyle = "rgba(0,250,210, 0.8)";
+        //   ctx.fillStyle = "rgba(0, 250, 210, 0.08)";
+        //   ctx.beginPath();
+        //   ctx.arc(0, 0, 2, 0, Math.PI * 2, false);
+        //   ctx.closePath();
+        //   ctx.stroke();
+        //   ctx.fill();
+        //   ctx.restore();
     }
     // update() {
     //     if (!this.finished) {
