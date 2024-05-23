@@ -246,7 +246,6 @@ class Game {
       setTimeout(() => {
         if (towerGame.numWave != (0)) {
           towerGame.wave = new Wave(this, towerGame.numWave);
-          console.log(towerGame.numWave);
           towerGame.numWave++;
           
         }
@@ -525,6 +524,7 @@ class Game {
         this.bullets[i].loc.y < 0 ||
         this.bullets[i].loc.y > this.canvas.height)
       || this.bullets[i].lifeSpan <= 0) {
+
         this.bullets.splice(i, 1);
       }
       
@@ -789,6 +789,7 @@ class Game {
       //turtle(8)
       //frog(9)
       //starfish(10)
+
       // [5, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       // [5, 4, 1, 0, 0, 0, 0, 0, 0, 0],
       // [7, 10, 0, 0, 0, 0, 0, 0, 0, 0],
