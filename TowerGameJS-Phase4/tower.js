@@ -411,7 +411,6 @@ class Tower {
       var b3 = this.loc.y - this.target.y;
       var k = Math.sqrt(a3 * a3 + b3 * b3);
       if (k < this.range && towerGame.enemies.length != 0 && this.target.x != towerGame.canvas.mouseX) {
-        console.log("A")
         var rys = new LockOn(this.loc, this.target);
         rys.run();
         if (this.findEnemyIndex() < towerGame.enemies.length) {
