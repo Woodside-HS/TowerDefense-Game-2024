@@ -519,15 +519,15 @@ class Game {
     if (this.bullets.length < 1) return;
     for (let i = this.bullets.length - 1; i >= 0; i--) {
 
-      if (this.bullets[i].loc.x < 0 ||
+      if ((this.bullets[i].loc.x < 0 ||
         this.bullets[i].loc.x > this.canvas.width ||
         this.bullets[i].loc.y < 0 ||
-        this.bullets[i].loc.y > this.canvas.height) {
-        this.bullets.splice(i, 1);
-        
-      }else if(this.bullets[i].lifeSpan == 0){
+        this.bullets[i].loc.y > this.canvas.height)
+      || this.bullets[i].lifeSpan <= 0) {
+
         this.bullets.splice(i, 1);
       }
+      
 
     }
   }
@@ -789,17 +789,19 @@ class Game {
       //turtle(8)
       //frog(9)
       //starfish(10)
+
+
       [5, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       [5, 4, 1, 0, 0, 0, 0, 0, 0, 0],
       [7, 10, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 3, 3, 0, 0, 0, 0, 0, 0],
+      [0, 0, 3, 2, 0, 0, 0, 0, 0, 0],
       [0, 5, 0, 0, 3, 0, 0, 0, 0, 0], 
 
-      [10, 0, 0, 4, 0, 2, 0, 0, 0, 0],
+      [10, 0, 0, 4, 0, 0, 0, 0, 0, 0],
       [30, 30, 0, 0, 0, 0, 0, 0, 0, 0],
       [12, 12, 12, 0, 0, 0, 0, 0, 0, 0],
       [0, 25, 0, 0, 5, 0, 7, 0, 0, 0],
-      [0, 12, 0, 0, 0, 12, 0, 0, 0, 0],
+      [0, 12, 0, 4, 0, 24, 0, 0, 0, 0],
 
       [8, 8, 0, 0, 0, 8, 8, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 10, 0, 0],
@@ -825,6 +827,7 @@ class Game {
       // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+
       
       // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
