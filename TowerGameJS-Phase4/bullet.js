@@ -12,8 +12,9 @@ class Bullet {
     this.towerLoc = towerLoc;
     this.speed = 15;
     this.r = 30;
+    this.lifeSpan = -1;
     this.choosenTarget = false;
-    this.shape = "circle";
+    this.shape = "square";
     this.cannonBulletAngle = 0;
     this.angle = angle;
     this.img = bImg;
@@ -23,27 +24,40 @@ class Bullet {
     this.choosenTargetLoc = 0;
     this.cannonAngle;
     this.damageMult = damageMult;
-    this.slashArc = 80;
+    this.slashArc = 0;
     if (this.ability == "freeze") {
       this.speed = 10;
     }
     if (this.ability == "cannon") {
       this.speed = 50;
+      this.lifeSpan = 750;
     }
-    if (this.ability == "fast") {
-      this.speed = 8;
+    if (this.ability == "fast" && !this.fastUpgradeFinal) {
+      this.speed = 13;
+    }else if(this.ability == "fast"){
+      this.speed = 0;
     }
+    if(this.ability == "cannon"){
+      this.lifeSpan = 1000;
+    }
+
+
   }
 
   run() {
-    this.render();
+  if(this.ability == "fast" && this.fastUpgradeFinal){
+      this.finalUpgradeSlashAttack();
+    }else{
+   this.render();
+    }
     if (this.ability == "cannon") {
       this.cannonMovement();
-      //this.cannonSpinny();
     } else if (this.ability == "explosive") {
       this.explosiveRandom();
     }
-    this.update();
+
+   this.update();
+   this.lifeSpan --;
   }
 
 
@@ -131,30 +145,14 @@ class Bullet {
     return this.spots[j];
   }
   render() {
-
     var ctx = towerGame.context;
     ctx.save();
     ctx.translate(this.loc.x, this.loc.y);
-    ctx.rotate(this.angle + Math.PI / 2)
-
+    ctx.rotate(this.angle + Math.PI / 2);
     ctx.drawImage(this.img, -this.img.width / 2, -this.img.height / 2);
-
     ctx.restore();
 
-    if (this.fastUpgradeFinal && this.slashArc > 0) {
-      let clr = 'rgba(0, 100, 0, 0.12)'
-      var ctx = towerGame.context;
-      ctx.save();
-      ctx.strokeStyle = clr;
-      ctx.fillStyle = clr;
-      ctx.translate(this.loc.x, this.loc.y);
-      ctx.moveTo(0, 0);
-      ctx.ellipse(0, 0, this.slashArc, this.slashArc / 2, this.angle, 0, Math.PI * 2, true)
-      ctx.stroke();
-      ctx.fill();
-      ctx.restore();
-      this.slashArc -= 0.3;
-    }
+
   }
 
   update() {
@@ -164,6 +162,25 @@ class Bullet {
   }
 
 
+
+  finalUpgradeSlashAttack(){
+  
+      let clr = 'rgba(0, 100, 0, 0.12)'
+      var ctx = towerGame.context;
+      ctx.save();
+      ctx.strokeStyle = clr;
+      ctx.fillStyle = clr;
+      ctx.translate(this.loc.x, this.loc.y);
+      ctx.moveTo(0, 0);
+      ctx.rotate(this.slashArc);
+      ctx.drawImage(this.img, -this.img.width*1.6, -this.img.height*1.6);
+      ctx.stroke();
+      ctx.fill();
+      ctx.restore();
+      this.slashArc += 0.04*Math.PI;
+    
+    
+  }
   checkCollide(shape1, shape2) {
 
     if (shape1.shape === "circle") {
@@ -171,8 +188,7 @@ class Bullet {
         //circle-circle
         if (shape1.r + shape2.r >= shape1.loc.copy().dist(shape2.loc)) return true;
         return false;
-      } else if (shape2.shape === "square") {//this does not work for rectangles but its close enought for a 57x50 thing
-        //circle-square
+      } else if (shape2.shape === "square") {
         let topLeft = shape2.loc;
         let topRight = new vector2d(shape2.loc.x + shape2.w, shape2.loc.y);
         let bottomRight = new vector2d(shape2.loc.x + shape2.w, shape2.loc.y + shape2.w);

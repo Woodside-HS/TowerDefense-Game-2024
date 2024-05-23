@@ -27,7 +27,7 @@ class GameState1 extends GameState { // Start Screen
     document.getElementById('menuDiv').style.visibility = 'hidden';
     document.getElementById('switchDiv').style.visibility = 'hidden';
 
-   
+
   }
   run() {
     if (this.panelStart) {
@@ -38,32 +38,42 @@ class GameState1 extends GameState { // Start Screen
       this.panelInstructions.render(true)
     }
 
-   
+
   }
 }
 class GameState2 extends GameState { // Level screen
   constructor(game) {
     super(game);
-    towerGame.gameStateID = 6;
     this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/levelSelector.jpg')"
-    this.panelLvlSelector = new Panel(this, 3, 400);
+    this.panelLvlSelector = new Panel(this, 3, 300);;
+    this.customPanel = 0;
+    this.panelQuit = 0;
 
   }
 
   run() {
     this.game.render();
-    this.panelLvlSelector.render(true);
+    if (this.customPanel) {
+      this.customPanel.render(true);
+    }
+    if(this.panelQuit){
+      this.panelQuit.render(false)
+    }
+    if (this.panelLvlSelector) {
+      this.panelLvlSelector.render(true);
+    }
   }
 
 }
 
 class GameState3 extends GameState { // end screen
-  constructor(game) {
+  constructor(game, stateOfEnd) {
     super(game)
-    this.game.gameStateID = 3
+    this.stateOfEnd = stateOfEnd;
+    this.game.gameStateID = 3;
     this.game.enemies = []
-    if(towerGame.numWave > towerGame.enemyNumArray.length){
-      this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/winScreen.jpg')";
+    if (this.stateOfEnd == "win") {
+      this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/winscreen.jpg')";
     } else {
       this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/endScreen.jpg')";
     }
@@ -92,12 +102,12 @@ class GameState4 extends GameState { //Catalog
     towerGame.gameStateID = 4;
 
     this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/catalog.jpg')"
-    // this.catalogPanel = new Panel(this, 5);
+
     this.specificTowerPanel = 0;
     this.towerPanel1 = 0;
     this.towerPanel2 = 0;
     this.towerPanel3 = 0;
-    
+
 
     document.getElementById('infoDiv').style.visibility = 'hidden'; // Make info tiles invisible on start page
     document.getElementById('menuDiv').style.visibility = 'hidden';
@@ -106,38 +116,46 @@ class GameState4 extends GameState { //Catalog
 
   run() {
     this.game.render();
-    // this.catalogPanel.render(false);
+
     if (this.towerPanel1) {
       this.towerPanel1.render(false);
       this.towerPanel2.render(false);
       this.towerPanel3.render(false);
     }
-    
-  
+
+
     if (this.specificTowerPanel) {
-      this.specificTowerPanel.render(true);
+      this.specificTowerPanel.render(false);
     }
   }
 }
 
 
 class GameState5 extends GameState { // game itself
-  constructor(game, levelSel) {
+  constructor(game, levelSel, custom) {
     super(game)
     this.game.health = 100;
     this.game.score = 0
-    this.game.bankValue = 400;
-    this.game.gameTime = 0
+    this.game.bankValue = 250;
+    this.game.gameTime = 0;
     this.game.grid = [];
     this.game.towers = [];
+    this.game.w;
     this.game.enemies = [];
     this.game.bullets = []
     this.game.cols = Math.floor(this.game.canvas.width / this.game.w);
     this.game.rows = Math.floor(this.game.canvas.height / this.game.w);
     this.game.backgroundMusic = new Audio('TowerGameJS-Phase4/resources/sounds/gameMusic.mp3')
+     if(this.game.gameStateID === 5){
+    this.game.cols*=2;
+     this.game.rows*=2;
+     this.game.w = 25;
+     }
     this.game.loadGrid();
     this.game.loadAllWaves();
     this.game.brushfire();
+    
+
     this.game.root = this.game.grid[this.game.cols - 1][this.game.rows - 1];
     if (levelSel === 1) {
       this.game.gameStateID = 6;
@@ -149,26 +167,32 @@ class GameState5 extends GameState { // game itself
       this.game.gameStateID = 5;
     }
 
+  
     // calls the grid created in level.js, creating the set path
     // and loading in the correct background for that level.
     // This is geared to be able to add more levels in the future, as
     // there are currently only 3.
     if (this.game.gameStateID === 5) {
+      console.log(this.game.cols + " " + this.game.rows)
       this.game.levelRender(customLevel);
       this.game.levelKey = customLevel;
-      this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/levels/level1.png')"
+      this.game.canvas.canDiv.style.backgroundImage = custom;
+   
     } else if (this.game.gameStateID === 6) {
       this.game.levelRender(level1Key);
       this.game.levelKey = level1Key;
       this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/levels/level1.png')"
+
     } else if (this.game.gameStateID === 7) {
       this.game.levelRender(level2Key);
       this.game.levelKey = level2Key;
       this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/levels/level2.jpg')"
+  
     } else if (this.game.gameStateID === 8) {
       this.game.levelRender(level3Key);
       this.game.levelKey = level3Key;
       this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/levels/level3.jpg')"
+
     }
 
     document.getElementById('infoDiv').style.visibility = 'visible'; // Make info tiles invisible on start page
@@ -176,7 +200,7 @@ class GameState5 extends GameState { // game itself
     document.getElementById('switchDiv').style.visibility = 'visible';
   }
   init() {
-    //need this to make code run even though neothing is init (like the pun?)
+    //need this to make code run even though nothing is init (like the pun?)
   }
   run() {
 
@@ -250,6 +274,9 @@ class GameState5 extends GameState { // game itself
     for (let i = 0; i < this.game.rays.length; i++) {
       this.game.rays[i].run();
     }
+    for (let i = 0; i < this.game.secondRays.length; i++) {
+      this.game.secondRays[i].run();
+    }
     if (this.game.wave) {
       this.game.wave.run();
     }
@@ -273,7 +300,7 @@ class GameState5 extends GameState { // game itself
       }
     }
     if (this.game.health <= 0) {
-      this.game.gameState = new GameState3(this.game)
+      this.game.gameState = new GameState3(this.game, "lose");
     }
     if (this.game.isRunning) {
       this.game.banner();

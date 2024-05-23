@@ -92,6 +92,7 @@ var panelJSON = [{
       picId: "play",
       funk: function () {
         towerGame.gameState = new GameState2(towerGame)
+
         document.getElementById("firstPanel").parentNode.removeChild(document.getElementById("firstPanel"))
       }
     }, {
@@ -220,9 +221,21 @@ var panelJSON = [{
       pic: "TowerGameJS-Phase4/resources/images/panels/levelSelPanel/custom.png",
       picId: "frame4",
       funk: function () {
-        towerGame.gameState = new GameState5(towerGame, 4)
+        towerGame.gameStateID = 5;
+        towerGame.gameState.customPanel = new Panel(towerGame, 18, 350)
+        towerGame.gameStateID = 5;
         document.getElementById("levelSelector").parentNode.removeChild(document.getElementById("levelSelector"))
 
+      }
+    }, {
+      name: "Home Button",
+      id: "quitButton",
+      pic: "TowerGameJS-Phase4/resources/images/panels/home.png",
+      picId: "home",
+      funk: function () {
+        document.getElementById("levelSelector").parentNode.removeChild(document.getElementById("levelSelector"))
+        towerGame.gameState = new GameState1(towerGame)
+        document.getElementById("levelSelector").parentNode.removeChild(document.getElementById("levelSelector"))
       }
     }
   ]
@@ -255,7 +268,7 @@ var panelJSON = [{
       pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanButt/archButt.png",
       picId: "arch",
       funk: function () {
-        towerGame.gameState.specificTowerPanel = new Panel(towerGame, 8, 180, 800, 680)
+        towerGame.gameState.specificTowerPanel = new Panel(towerGame, 8, 150, 800, 680)
         document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
         document.getElementById("towerInfoPanel2").parentNode.removeChild(document.getElementById("towerInfoPanel2"))
         document.getElementById("cataHome").parentNode.removeChild(document.getElementById("cataHome"))
@@ -266,7 +279,7 @@ var panelJSON = [{
       pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanButt/knightButt.png",
       picId: "knight",
       funk: function () {
-        towerGame.gameState.specificTowerPanel = new Panel(towerGame, 9, 180, 800, 680)
+        towerGame.gameState.specificTowerPanel = new Panel(towerGame, 9, 150, 800, 680)
         document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
         document.getElementById("towerInfoPanel2").parentNode.removeChild(document.getElementById("towerInfoPanel2"))
         document.getElementById("cataHome").parentNode.removeChild(document.getElementById("cataHome"))
@@ -277,7 +290,7 @@ var panelJSON = [{
       pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanButt/wizardButt.png",
       picId: "wizard",
       funk: function () {
-        towerGame.gameState.specificTowerPanel = new Panel(towerGame, 10, 180, 800, 680)
+        towerGame.gameState.specificTowerPanel = new Panel(towerGame, 10, 150, 800, 680)
         document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
         document.getElementById("towerInfoPanel2").parentNode.removeChild(document.getElementById("towerInfoPanel2"))
         document.getElementById("cataHome").parentNode.removeChild(document.getElementById("cataHome"))
@@ -288,7 +301,7 @@ var panelJSON = [{
       pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanButt/cannonButt.png",
       picId: "cannoneer",
       funk: function () {
-        towerGame.gameState.specificTowerPanel = new Panel(towerGame, 11, 180, 800, 680)
+        towerGame.gameState.specificTowerPanel = new Panel(towerGame, 11, 150, 800, 680)
         document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
         document.getElementById("towerInfoPanel2").parentNode.removeChild(document.getElementById("towerInfoPanel2"))
         document.getElementById("cataHome").parentNode.removeChild(document.getElementById("cataHome"))
@@ -299,7 +312,7 @@ var panelJSON = [{
       pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanButt/marksmanButt.png",
       picId: "marksman",
       funk: function () {
-        towerGame.gameState.specificTowerPanel = new Panel(towerGame, 12, 180, 800, 680)
+        towerGame.gameState.specificTowerPanel = new Panel(towerGame, 12, 150, 800, 680)
         document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
         document.getElementById("towerInfoPanel2").parentNode.removeChild(document.getElementById("towerInfoPanel2"))
         document.getElementById("cataHome").parentNode.removeChild(document.getElementById("cataHome"))
@@ -318,7 +331,7 @@ var panelJSON = [{
       pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanButt/assassinButt.png",
       picId: "assasThrower",
       funk: function () {
-        towerGame.gameState.specificTowerPanel = new Panel(towerGame, 13, 180, 800, 680)
+        towerGame.gameState.specificTowerPanel = new Panel(towerGame, 13, 150, 800, 680)
         document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
         document.getElementById("towerInfoPanel2").parentNode.removeChild(document.getElementById("towerInfoPanel2"))
         document.getElementById("cataHome").parentNode.removeChild(document.getElementById("cataHome"))
@@ -329,7 +342,7 @@ var panelJSON = [{
       pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanButt/bladestormButt.png",
       picId: "bladeTower",
       funk: function () {
-        towerGame.gameState.specificTowerPanel = new Panel(towerGame, 14, 180, 800, 680)
+        towerGame.gameState.specificTowerPanel = new Panel(towerGame, 14, 150, 800, 680)
         document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
         document.getElementById("towerInfoPanel2").parentNode.removeChild(document.getElementById("towerInfoPanel2"))
         document.getElementById("cataHome").parentNode.removeChild(document.getElementById("cataHome"))
@@ -340,7 +353,7 @@ var panelJSON = [{
       pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanButt/vampireButt.png",
       picId: "vampire",
       funk: function () {
-        towerGame.gameState.specificTowerPanel = new Panel(towerGame, 15, 180, 800, 680)
+        towerGame.gameState.specificTowerPanel = new Panel(towerGame, 15, 150, 800, 680)
         document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
         document.getElementById("towerInfoPanel2").parentNode.removeChild(document.getElementById("towerInfoPanel2"))
         document.getElementById("cataHome").parentNode.removeChild(document.getElementById("cataHome"))
@@ -351,7 +364,7 @@ var panelJSON = [{
       pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanButt/stonefangButt.png",
       picId: "rockThrower",
       funk: function () {
-        towerGame.gameState.specificTowerPanel = new Panel(towerGame, 16, 180, 800, 680)
+        towerGame.gameState.specificTowerPanel = new Panel(towerGame, 16, 150, 800, 680)
         document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
         document.getElementById("towerInfoPanel2").parentNode.removeChild(document.getElementById("towerInfoPanel2"))
         document.getElementById("cataHome").parentNode.removeChild(document.getElementById("cataHome"))
@@ -362,7 +375,7 @@ var panelJSON = [{
       pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanButt/mermanButt.png",
       picId: "buffTower",
       funk: function () {
-        towerGame.gameState.specificTowerPanel = new Panel(towerGame, 17, 180, 800, 680)
+        towerGame.gameState.specificTowerPanel = new Panel(towerGame, 17, 150, 800, 680)
         document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
         document.getElementById("towerInfoPanel2").parentNode.removeChild(document.getElementById("towerInfoPanel2"))
         document.getElementById("cataHome").parentNode.removeChild(document.getElementById("cataHome"))
@@ -387,9 +400,6 @@ var panelJSON = [{
         towerGame.gameState = new GameState1(towerGame)
         towerGame.numWave = 0;
         towerGame.firstClick = true;
-        towerGame.wave.spawnOver = false;
-
-        towerGame.wave.referenceTime = 20;
         document.getElementById('fastForward').innerHTML = "Start";
         FRAME_RATE = 30;
         document.getElementById("cataHome").parentNode.removeChild(document.getElementById("cataHome"))
@@ -423,7 +433,7 @@ var panelJSON = [{
 }, { //panel 9
   name: "Knight Catalog",
   id: "knightCata",
-  pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanels/archerCatalog.png",
+  pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanels/knightCatalog.png",
   picId: "knightCata",
   buttonJSON: [{
     name: "Back Button",
@@ -475,10 +485,10 @@ var panelJSON = [{
   }
   ]
 }, { //panel 12
-  name: "Sniper Catalog",
-  id: "sniperCata",
-  pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanels/archerCatalog.png",
-  picId: "sniperCata",
+  name: "Marksman Catalog",
+  id: "markCata",
+  pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanels/marksmanCatalog.png",
+  picId: "marksCata",
   buttonJSON: [{
     name: "Back Button",
     id: "back",
@@ -488,7 +498,7 @@ var panelJSON = [{
       towerGame.gameState.towerPanel1 = new Panel(towerGame, 5, 180, 800, 290)
       towerGame.gameState.towerPanel2 = new Panel(towerGame, 6, 180, 100, 290)
       towerGame.gameState.towerPanel3 = new Panel(towerGame, 7, 650, 450, 86)
-      document.getElementById("sniperCata").parentNode.removeChild(document.getElementById("sniperCata"))
+      document.getElementById("markCata").parentNode.removeChild(document.getElementById("markCata"))
     }
   }
   ]
@@ -531,7 +541,7 @@ var panelJSON = [{
 }, { //panel 15
   name: "Vampire Catalog",
   id: "vampireCata",
-  pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanels/bladestormCatalog.png",
+  pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanels/vampireCatalog.png",
   picId: "vampCata",
   buttonJSON: [{
     name: "Back Button",
@@ -579,6 +589,40 @@ var panelJSON = [{
       towerGame.gameState.towerPanel2 = new Panel(towerGame, 6, 180, 100, 290)
       towerGame.gameState.towerPanel3 = new Panel(towerGame, 7, 650, 450, 86)
       document.getElementById("buffTowerCata").parentNode.removeChild(document.getElementById("buffTowerCata"))
+    }
+  }
+  ]
+}, { //panel 18
+  name: "Custom Map Choice",
+  id: "customChoice",
+  pic: "",
+  picId: "choicePic",
+  buttonJSON: [{
+    name: "Cabin Button",
+    id: "cabinButt",
+    pic: "TowerGameJS-Phase4/resources/images/panels/customChoicePanel/shipCabinButt.png",
+    picId: "cabinPic",
+    funk: function () {
+      towerGame.gameState = new GameState5(towerGame, 4, "url('TowerGameJS-Phase4/resources/images/bg/levels/level1custom.jpg")
+      document.getElementById("customChoice").parentNode.removeChild(document.getElementById("customChoice"))
+    }
+  }, {
+    name: "Deck Button",
+    id: "deckButt",
+    pic: "TowerGameJS-Phase4/resources/images/panels/customChoicePanel/shipDeckButt.png",
+    picId: "deckPick",
+    funk: function () {
+      towerGame.gameState = new GameState5(towerGame, 4, "url('TowerGameJS-Phase4/resources/images/bg/levels/level2.jpg')")
+      document.getElementById("customChoice").parentNode.removeChild(document.getElementById("customChoice"))
+    }
+  }, {
+    name: "Dock Button",
+    id: "Dock Butt",
+    pic: "TowerGameJS-Phase4/resources/images/panels/customChoicePanel/villageDockButt.png",
+    picId: "dockPick",
+    funk: function () {
+      towerGame.gameState = new GameState5(towerGame, 4, "url('TowerGameJS-Phase4/resources/images/bg/levels/level3.jpg')")
+      document.getElementById("customChoice").parentNode.removeChild(document.getElementById("customChoice"))
     }
   }
   ]
