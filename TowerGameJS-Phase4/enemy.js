@@ -122,7 +122,7 @@ class Enemy {
       this.speed = 1; this.baseSpeed = this.speed;
     }
 if(towerGame.numWave != 1){
-    this.health *= 600 * (Math.log(0.0019 * towerGame.numWave+1)) ** 1.2 + 1;
+    this.health *= 400 * (Math.log(0.0019 * towerGame.numWave+1)) ** 1.2 + 1;
    
 }
 
