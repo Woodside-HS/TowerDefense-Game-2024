@@ -29,11 +29,15 @@ class Bullet {
     }
     if (this.ability == "cannon") {
       this.speed = 50;
+      this.lifeSpan = 750;
     }
     if (this.ability == "fast" && !this.fastUpgradeFinal) {
       this.speed = 13;
     }else if(this.ability == "fast"){
       this.speed = 0;
+    }
+    if(this.ability == "cannon"){
+      this.lifeSpan = 1000;
     }
 
 
@@ -52,6 +56,7 @@ class Bullet {
     }
 
    this.update();
+   this.lifeSpan --;
   }
 
 
