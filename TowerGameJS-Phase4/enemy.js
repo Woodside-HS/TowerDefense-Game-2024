@@ -540,7 +540,10 @@ if(towerGame.numWave != 1){
           if (!this.freezeImmunities[0]) {
             this.health = this.health - this.freezeDamage * towerGame.bullets[h].damageMult;
             this.slowed -= 1;
-            this.movement.speed = this.baseSpeed * 0.6;
+            this.movement.speed = this.baseSpeed * 0.4;
+            if(towerGamr.bullets[h].freezeUpgradeFinal){
+              this.movement.setTarget(this.loc, this.oppositeNextTarget());
+            }
             setTimeout(() => {
               this.slowed = 1.2;
               this.speed = this.baseSpeed;
