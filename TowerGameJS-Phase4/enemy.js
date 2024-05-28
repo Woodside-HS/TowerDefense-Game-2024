@@ -183,7 +183,7 @@ if(towerGame.numWave != 1){
     this.explosiveDamage = 100;
     this.cannonDamage = 3200;
     this.bladeStormDamage = 125;
-    this.liquifyDamage = 15;
+    this.liquifyDamage = 10;
     this.missileDamage = 400;
   }
 

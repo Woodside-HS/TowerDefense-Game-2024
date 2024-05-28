@@ -52,6 +52,8 @@ if(this.waveNumber <= 20){
       }
     }
   }
+
 }
-}
+
+  }
 }
