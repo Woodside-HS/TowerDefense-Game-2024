@@ -617,8 +617,7 @@ if(towerGame.numWave != 1){
     if (this.health <= 0) {
       this.kill = true;
       this.deathSound.play();
-      towerGame.bankValue += (15 + 5*this.type);
-
+    
     }
     this.movement.update();
     this.movement.render();
