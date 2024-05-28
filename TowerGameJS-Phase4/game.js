@@ -120,7 +120,7 @@ class Game {
     this.mouseX = 0;
     this.mouseY = 0;
     this.w = 50;
-   
+
     this.firstClick = true;
     this.gameState = new GameState1(this);
 
@@ -140,7 +140,7 @@ class Game {
 
     var fastForwardButton = document.getElementById('fastForward');
     //var infoDiv = document.getElementById('infoDiv');
-    
+
     fastForwardButton.addEventListener('click', function () {
       if (towerGame.firstClick) {
         towerGame.wave = new Wave(towerGame, towerGame.numWave);
@@ -148,19 +148,19 @@ class Game {
         towerGame.firstClick = false;
         FRAME_RATE = 30;
       }
-    
+
       towerGame.fastForward = !towerGame.fastForward;
-    
+
       if (towerGame.fastForward) { // if it is on slow mode
         FRAME_RATE = 30; // make it fast
         fastForwardButton.classList.remove('slow');
         fastForwardButton.classList.add('fast');
-       
+
       } else { // if it is on fast mode
         FRAME_RATE = 60; // make it slow
         fastForwardButton.classList.remove('fast');
         fastForwardButton.classList.add('slow');
-     
+
       }
     }, false);
 
@@ -254,7 +254,7 @@ class Game {
         if (towerGame.numWave != (0)) {
           towerGame.wave = new Wave(this, towerGame.numWave);
           towerGame.numWave++;
-          
+
         }
       }, 4000);
     }
@@ -283,17 +283,17 @@ class Game {
   }
 
 
- pause() {
+  pause() {
     var butt = document.getElementById('pauseButton');
     towerGame.paused = !towerGame.paused;
     if (towerGame.paused) {
-        butt.classList.remove('pause');
-        butt.classList.add('play');
+      butt.classList.remove('pause');
+      butt.classList.add('play');
     } else {
-        butt.classList.remove('play');
-        butt.classList.add('pause');
+      butt.classList.remove('play');
+      butt.classList.add('pause');
     }
-}
+  }
 
 
   render() { // draw game stuff
@@ -491,43 +491,43 @@ class Game {
   removeEnemies() {
     for (let i = this.enemies.length - 1; i >= 0; i--) {
       if (this.enemies[i].kill && this.enemies[i].type != 10) {
-        if(this.enemies[i].secondTarget){
+        if (this.enemies[i].secondTarget) {
           this.secondTarget = true;
           this.deathLoc = this.enemies[i].loc;
-         }
-       if(this.secondTarget){
-        for(let i = 0; i < this.enemies.length; i ++){
-          let dist = this.enemies[i].loc.dist(this.deathLoc);
-          let closestDist = 10000;
-          if(dist < closestDist){
-            closestDist = dist;
-            this.index = i;
-          }
-          
         }
-        this.secondRays.push(new LockOn(this.deathLoc, this.enemies[this.index].loc));
+        if (this.secondTarget) {
+          for (let i = 0; i < this.enemies.length; i++) {
+            let dist = this.enemies[i].loc.dist(this.deathLoc);
+            let closestDist = 10000;
+            if (dist < closestDist) {
+              closestDist = dist;
+              this.index = i;
+            }
 
-        towerGame.enemies[this.index].isLocked = true;
-        towerGame.enemies[this.index].deathTimer = 5000;
-        towerGame.enemies[this.index].deathByRay = true;
-        setTimeout(() => {
-          this.secondRays.splice(0, 1);
-        }, 5000);
-       }
-       towerGame.bankValue += (15 + 5*this.enemies[i].type);
-       this.enemies.splice(i, 1);
+          }
+          this.secondRays.push(new LockOn(this.deathLoc, this.enemies[this.index].loc));
+
+          towerGame.enemies[this.index].isLocked = true;
+          towerGame.enemies[this.index].deathTimer = 5000;
+          towerGame.enemies[this.index].deathByRay = true;
+          setTimeout(() => {
+            this.secondRays.splice(0, 1);
+          }, 5000);
+        }
+        towerGame.bankValue += (15 + 5 * this.enemies[i].type);
+        this.enemies.splice(i, 1);
       }
       else if (this.enemies[i].kill && this.enemies[i].type == 10 && this.enemies[i].explodingAfterMathGrowth >= 120
         || this.enemies[i].currentCell == towerGame.root) {
-          console.log(this.enemies[i].type)
-          towerGame.bankValue += (15 + 5*this.enemies[i].type);
+        console.log(this.enemies[i].type)
+        towerGame.bankValue += (15 + 5 * this.enemies[i].type);
         this.enemies.splice(i, 1);
       }
     }
   }
 
   removeBullets() {
-  
+
     if (this.bullets.length < 1) return;
     for (let i = this.bullets.length - 1; i >= 0; i--) {
 
@@ -535,11 +535,11 @@ class Game {
         this.bullets[i].loc.x > this.canvas.width ||
         this.bullets[i].loc.y < 0 ||
         this.bullets[i].loc.y > this.canvas.height)
-      || this.bullets[i].lifeSpan == 0) {
+        || this.bullets[i].lifeSpan == 0) {
 
         this.bullets.splice(i, 1);
       }
-      
+
 
     }
   }
@@ -606,7 +606,7 @@ class Game {
         value.innerHTML = this.health;
         info.appendChild(value);
       }
-     
+
     }
   }
   updateCostInfoElement(value) {
@@ -614,7 +614,11 @@ class Game {
 
     let infoElements = document.getElementById('infoDiv').getElementsByClassName('infoTileDiv');
     let info = infoElements[infoElements.length - 3];
-    info.innerHTML = value;
+    info.innerHTML = ''; // Clear existing content
+    var valueElement = document.createElement('div'); // Create a new div for the text
+    valueElement.innerHTML = value;
+    valueElement.style.transform = "translateY(-15px)"; // Move the text up
+    info.appendChild(valueElement); // Append the new div with the text to the info element
   }
 
 
@@ -808,7 +812,7 @@ class Game {
       [5, 2, 1, 0, 0, 0, 0, 0, 0, 0],
       [7, 7, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 3, 2, 0, 0, 0, 0, 0, 0],
-      [0, 5, 0, 0, 3, 0, 0, 0, 0, 0], 
+      [0, 5, 0, 0, 3, 0, 0, 0, 0, 0],
 
       [10, 0, 0, 4, 0, 0, 0, 0, 0, 0],
       [30, 30, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -841,7 +845,7 @@ class Game {
       // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
-      
+
       // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -967,7 +971,7 @@ class Game {
       //follow mouse
       towerGame.towers[towerGame.towers.length - 1].loc.x = this.mouseX;
       towerGame.towers[towerGame.towers.length - 1].loc.y = this.mouseY;
-    
+
     }
   }
 
@@ -1053,7 +1057,7 @@ class Game {
   levelRender(key) { //premade level render
     //they are called levels, but are really just maps. 
     //you don't have to complete the previous one to go to the next one
-    
+
     for (let row = 0; row < key.length; row++) {
       for (let col = 0; col < key[0].length; col++) {
         if (key[row][col] === 'b') {
@@ -1069,9 +1073,9 @@ class Game {
           this.root = this.grid[col][row];
         }
       }
-    //}
+      //}
+    }
   }
-}
 
 
 
