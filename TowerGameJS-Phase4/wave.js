@@ -16,15 +16,13 @@ class Wave {
     let spawnedEnemies = 0;
     let numberEnemy = 1;
     let unSpawnedEnemies = towerGame.waves[this.waveNumber];
+if(this.waveNumber <= 20){
+
+
     
-    let NumberOfEnemiesInWave = 0;
-    for(let i = 0; i < towerGame.waves[this.waveNumber].length; i ++){
-       if(towerGame.numWave < towerGame.waves[this.waveNumber].length-1){
-      NumberOfEnemiesInWave += towerGame.waves[this.waveNumber][i];
+       if(towerGame.numWave >= towerGame.waves.length){
+        towerGame.gameState = new GameState3(towerGame, "win");
        } else {
-         towerGame.gameState = new GameState3(towerGame, "win");
-       }
-   }
 
     if (!this.spawnOver) {
       while (unSpawnedEnemies.length > 0) {
@@ -41,17 +39,21 @@ class Wave {
             setTimeout(() => {
               towerGame.enemies.push(new Enemy(towerGame, randomEnemyType));
               spawnedEnemies++;
-            }, (1200-this.waveNumber*30) * numberEnemy + 600);
+            }, (1200-this.waveNumber*20) * numberEnemy + 600);
             numberEnemy++;
             unSpawnedEnemies[randomEnemyType]--;
           }
         } else {
           setTimeout(() => {
           this.spawnOver = true;
-        }, 1200 * numberEnemy + 600);
+        }, 2400 );
           break;
         }
       }
     }
+  }
+
+}
+
   }
 }

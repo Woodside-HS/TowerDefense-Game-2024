@@ -39,6 +39,7 @@ class Tower {
     this.bladeFinal = false;
     this.finalCannon = false;
     this.finalFreeze = false;
+    this.fastUpgradeFinal = false;
     this.closestCell = 0;
     this.finalRay = false;
     this.deathByRay = false;
@@ -55,7 +56,8 @@ class Tower {
     }
 
     else if (ability == "fast") {
-      this.coolDown = 500;
+      this.coolDown = 600;
+   
     }
     else if (ability == "cannon") {
       this.coolDown = 1000;
@@ -78,7 +80,7 @@ class Tower {
       this.coolDown = 1000;
     } else if (ability == "ray") {
       this.range = 450;
-      this.coolDown = 2700;
+      this.coolDown = 2000;
     }
     this.maxCoolDown = this.coolDown;
 
@@ -95,20 +97,20 @@ class Tower {
   }
 
   damageUpgrade() {
-    this.damageMult *= 1.2;
+    this.damageMult *= 1.4;
   }
   coolDownUpgrade() {
-    this.coolDown *= 0.8;
+    this.coolDown *= 0.7;
   }
   rangeUpgrade() {
-    this.range *= 1.2;
+    this.range *= 1.25;
 
   }
   finalUpgrade(ability) {
     if (ability == "normal") {
       this.normalFinalUpgrade();
     } else if (ability == "fast") {
-      this.finalFast = true;
+      this.fastUpgradeFinal = true;
       this.coolDown *= 2;
       this.damageMult *= 3;
     } else if (ability == "freeze") {
@@ -356,7 +358,7 @@ class Tower {
       // reset lastTime to current time
       this.lastTime = millis;
       let bulletLocation = vector2d(this.loc.x, this.loc.y);
-      let b = new Bullet(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.mouseLoc, this.loc, this.damageMult, this.finalCannon, this.finalFast, this.finalFreeze);
+      let b = new Bullet(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.mouseLoc, this.loc, this.damageMult, this.finalCannon, this.fastUpgradeFinal, this.finalFreeze);
       let q = new Missile(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.damageMult);
       let h = new Liquify(bulletLocation, this.bulletImg, this.towAngle, this.ability, "basic", this.damageMult);
       if (this.ability == "fast" || this.ability == "normal"
@@ -404,7 +406,7 @@ class Tower {
 
 
 
-    if (this.ability == "ray" && towerGame.enemies.length != 0 && this.finalRay == false) {
+    if (this.ability == "ray" && towerGame.enemies.length != 0) {
       var a3 = this.loc.x - this.target.x;
       var b3 = this.loc.y - this.target.y;
       var k = Math.sqrt(a3 * a3 + b3 * b3);
@@ -414,6 +416,9 @@ class Tower {
         if (this.findEnemyIndex() < towerGame.enemies.length) {
 
           towerGame.enemies[this.findEnemyIndex()].isLocked = true;
+          if(this.finalRay){
+          towerGame.enemies[this.findEnemyIndex()].secondTarget = true;
+          }
           towerGame.enemies[this.findEnemyIndex()].deathTimer = this.coolDown;
           towerGame.enemies[this.findEnemyIndex()].deathByRay = true;
         } else {

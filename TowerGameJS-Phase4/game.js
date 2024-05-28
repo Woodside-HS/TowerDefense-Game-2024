@@ -56,17 +56,21 @@ class Game {
     this.towerType = 0;
     this.gameTime = 0;
     this.towers = [];
+    this.secondTarget = false;
+    this.deathLoc;
     this.enemies = [];
     this.waves = [[]];
     this.bullets = [];
     this.missiles = [];//added with same logic as bullets
     this.hands = [];//added with same logic as bullets (this is the minion guy idk)
     this.blades = [];//added with same logic as bullets
+    this.secondRays = [];
     this.allowPlace = true;//to not place when picking a spot to target for two of the towers
     this.explosiveBullets = [];//added with same logic as bullets
     this.bankValue = 0;
     this.enemyNumArray = [];
     this.explosiveBullets = [];
+    this.enemyNumArray = [];
     this.rays = [];
     this.checkOnce = true;
     this.gameStateID = 1;
@@ -76,7 +80,8 @@ class Game {
     this.paused = false;
     this.towerState = 1;
     this.numWave = 0;
-
+    this.enemyNumArray = [];
+    this.index;
     this.loadEmptyImage();
     this.loadAllWaves();
     this.loadEnemyImages();
@@ -115,9 +120,7 @@ class Game {
     this.mouseX = 0;
     this.mouseY = 0;
     this.w = 50;
-   if(this.gameStateID == 5){
-    this.w = 25;
-    }
+   
     this.firstClick = true;
     this.gameState = new GameState1(this);
 
@@ -136,23 +139,30 @@ class Game {
     button.addEventListener('click', this.pause, false);
 
     var fastForwardButton = document.getElementById('fastForward');
-    fastForwardButton.addEventListener('click', function () {//upper right hand button
+    //var infoDiv = document.getElementById('infoDiv');
+    
+    fastForwardButton.addEventListener('click', function () {
       if (towerGame.firstClick) {
         towerGame.wave = new Wave(towerGame, towerGame.numWave);
         towerGame.numWave++;
         towerGame.firstClick = false;
-        FRAME_RATE = 60;
+        FRAME_RATE = 30;
       }
-      if (FRAME_RATE == 30) { //if it is on slow mode
-        FRAME_RATE = 60; //make it fast
-        fastForwardButton.innerHTML = "Slow Down"; //change the button to say "Slow Down"
-      } else { //if it is on fast mode
-        fastForwardButton.innerHTML = "Fast Forward"; //change the button to say "Fast Forward"
-        FRAME_RATE = 30; //make it slow
+    
+      towerGame.fastForward = !towerGame.fastForward;
+    
+      if (towerGame.fastForward) { // if it is on slow mode
+        FRAME_RATE = 30; // make it fast
+        fastForwardButton.classList.remove('slow');
+        fastForwardButton.classList.add('fast');
+       
+      } else { // if it is on fast mode
+        FRAME_RATE = 60; // make it slow
+        fastForwardButton.classList.remove('fast');
+        fastForwardButton.classList.add('slow');
+     
       }
-
     }, false);
-
 
     document.getElementById('switchDiv').style.transform = "translate(" + 0 + "px, " + -52 + "px)";//idk this is clipping
     //I suck at editing png so yeah
@@ -232,13 +242,6 @@ class Game {
   hideImgElement() { this.style.display = "none"; }
 
   run() { // called from draw()
-   for (let i = 0; i < towerGame.bullets.length; i ++) {
-
-    if(towerGame.bullets[i].slashArc > Math.PI*2){
-     towerGame.bullets.splice(i, 1);
-    
-  }
-   }
     if (towerGame.wave.spawnOver && towerGame.enemies.length == 0) {
       for (let i = towerGame.bullets.length; i >= 0; i--) {
         towerGame.bullets.splice(i, 1)
@@ -248,9 +251,10 @@ class Game {
       }
       towerGame.wave.spawnOver = false;
       setTimeout(() => {
-        if (towerGame.numWave != 0) {
-          towerGame.numWave++;
+        if (towerGame.numWave != (0)) {
           towerGame.wave = new Wave(this, towerGame.numWave);
+          towerGame.numWave++;
+          
         }
       }, 4000);
     }
@@ -279,12 +283,17 @@ class Game {
   }
 
 
-  pause() {
+ pause() {
     var butt = document.getElementById('pauseButton');
     towerGame.paused = !towerGame.paused;
-    if (towerGame.paused) butt.innerHTML = "Play";
-    if (!towerGame.paused) butt.innerHTML = "Pause";
-  }
+    if (towerGame.paused) {
+        butt.classList.remove('pause');
+        butt.classList.add('play');
+    } else {
+        butt.classList.remove('play');
+        butt.classList.add('pause');
+    }
+}
 
 
   render() { // draw game stuff
@@ -316,7 +325,6 @@ class Game {
 
     //code to display invalid grid banner
     if (this.invalidGridBanner == true) {
-      console.log("working");
       this.context.beginPath();
       this.context.rect(180, 220, 580, 250);
       this.context.strokeStyle = "#3B6C8E";
@@ -338,7 +346,6 @@ class Game {
 
     //invalid tower placement banner
     if (this.towerErrorBanner == true) {
-      console.log("working");
       this.context.beginPath();
       this.context.rect(180, 220, 580, 250);
       this.context.strokeStyle = "#3B6C8E";
@@ -461,11 +468,9 @@ class Game {
     if (tower) {
       return function () {
         cell.hasTower = false;
-        console.log(tower.cost)
-        towerGame.bankValue += (tower.cost);
-        towerGame.towers.splice(towerGame.towers.indexOf(tower));
+        towerGame.bankValue += tower.cost;
+        towerGame.towers.splice(towerGame.towers.indexOf(tower))
         towerGame.towerErrorBanner = true;
-
       }
     } else {
       return function () {
@@ -486,29 +491,55 @@ class Game {
   removeEnemies() {
     for (let i = this.enemies.length - 1; i >= 0; i--) {
       if (this.enemies[i].kill && this.enemies[i].type != 10) {
-        if(this.enemies[i].deathByRay){
+        if(this.enemies[i].secondTarget){
+          this.secondTarget = true;
+          this.deathLoc = this.enemies[i].loc;
+         }
+       if(this.secondTarget){
+        for(let i = 0; i < this.enemies.length; i ++){
+          let dist = this.enemies[i].loc.dist(this.deathLoc);
+          let closestDist = 10000;
+          if(dist < closestDist){
+            closestDist = dist;
+            this.index = i;
+          }
           
         }
-        this.enemies.splice(i, 1);
-        // delete this dead enemy
+        this.secondRays.push(new LockOn(this.deathLoc, this.enemies[this.index].loc));
+
+        towerGame.enemies[this.index].isLocked = true;
+        towerGame.enemies[this.index].deathTimer = 5000;
+        towerGame.enemies[this.index].deathByRay = true;
+        setTimeout(() => {
+          this.secondRays.splice(0, 1);
+        }, 5000);
+       }
+       towerGame.bankValue += (15 + 5*this.enemies[i].type);
+       this.enemies.splice(i, 1);
       }
       else if (this.enemies[i].kill && this.enemies[i].type == 10 && this.enemies[i].explodingAfterMathGrowth >= 120
         || this.enemies[i].currentCell == towerGame.root) {
+          console.log(this.enemies[i].type)
+          towerGame.bankValue += (15 + 5*this.enemies[i].type);
         this.enemies.splice(i, 1);
       }
     }
   }
 
   removeBullets() {
+  
     if (this.bullets.length < 1) return;
     for (let i = this.bullets.length - 1; i >= 0; i--) {
 
-      if (this.bullets[i].loc.x < 0 ||
+      if ((this.bullets[i].loc.x < 0 ||
         this.bullets[i].loc.x > this.canvas.width ||
         this.bullets[i].loc.y < 0 ||
-        this.bullets[i].loc.y > this.canvas.height) {
+        this.bullets[i].loc.y > this.canvas.height)
+      || this.bullets[i].lifeSpan == 0) {
+
         this.bullets.splice(i, 1);
       }
+      
 
     }
   }
@@ -538,43 +569,44 @@ class Game {
     for (let i = 0; i < infoElements.length - 1; i++) {
       let info = infoElements[i];
       // change the html content after condition--use indexOf
-      if (info.innerHTML.indexOf('Bank') != -1) {
-        info.innerHTML = 'Bank <br/>';
+      if (info.id === 'bankTile') {
+        info.innerHTML = '';
         var value = document.createElement('p');
-        value.style.fontSize = '10pt';
+        value.style.fontSize = '12pt';
         value.innerHTML = this.bankValue;
         info.appendChild(value)
         if (this.bankValue < 0) {
           this.bankValue == 0;
         }
-      } else if (info.innerHTML.indexOf('Time') != -1) {
-        info.innerHTML = 'Time <br/>';
+      } else if (info.id === 'timeTile') {
+        info.innerHTML = '';
         var value = document.createElement('p');
-        value.style.fontSize = '10pt';
+        value.style.fontSize = '12pt';
         value.innerHTML = this.updateGameTime();
         info.appendChild(value);
       }
-      if (info.innerHTML.indexOf('Score') != -1) {
-        info.innerHTML = 'Score <br/>';
+      if (info.id === 'scoreTile') {
+        info.innerHTML = '';
         var value = document.createElement('p');
-        value.style.fontSize = '10pt';
+        value.style.fontSize = '12pt';
         value.innerHTML = this.score;
         info.appendChild(value);
       }
-      if (info.innerHTML.indexOf('Wave') != -1) {
-        info.innerHTML = 'Wave <br/>';
+      if (info.id === 'waveTile') {
+        info.innerHTML = '';
         var value = document.createElement('p');
         value.style.fontSize = '10pt';
         value.innerHTML = towerGame.numWave;
         info.appendChild(value);
       }
-      if (info.innerHTML.indexOf('Health') != -1) {
-        info.innerHTML = 'Health <br/>';
+      if (info.id === 'healthTile') {
+        info.innerHTML = '';
         var value = document.createElement('p');
         value.style.fontSize = '12pt';
         value.innerHTML = this.health;
         info.appendChild(value);
       }
+     
     }
   }
   updateCostInfoElement(value) {
@@ -582,7 +614,7 @@ class Game {
 
     let infoElements = document.getElementById('infoDiv').getElementsByClassName('infoTileDiv');
     let info = infoElements[infoElements.length - 3];
-    info.innerHTML = 'Cost <br/>' + value;
+    info.innerHTML = value;
   }
 
 
@@ -684,7 +716,7 @@ class Game {
         innerDiv.style.margin = "5px";
         mtd.appendChild(innerDiv);
         document.getElementById("menuDiv").appendChild(mtd);
-        mtd.cost = 75 * (i) + 75;
+        mtd.cost = 50 * (i) + 100;
 
 
 
@@ -732,7 +764,7 @@ class Game {
         innerDiv.style.margin = "5px";
         mtd.appendChild(innerDiv);
         document.getElementById("menuDiv").appendChild(mtd);
-        mtd.cost = 75 * (i) + 75;
+        mtd.cost = 50 * (i) + 100;
 
 
 
@@ -770,17 +802,19 @@ class Game {
       //turtle(8)
       //frog(9)
       //starfish(10)
-      [4, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [3, 2, 1, 0, 0, 0, 0, 0, 0, 0],
-      [7, 10, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 3, 1, 0, 0, 0, 0, 0, 0],
-      [0, 5, 0, 0, 3, 0, 0, 0, 0, 0],
+
+
+      [5, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [5, 2, 1, 0, 0, 0, 0, 0, 0, 0],
+      [7, 7, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 3, 2, 0, 0, 0, 0, 0, 0],
+      [0, 5, 0, 0, 3, 0, 0, 0, 0, 0], 
 
       [10, 0, 0, 4, 0, 0, 0, 0, 0, 0],
       [30, 30, 0, 0, 0, 0, 0, 0, 0, 0],
       [12, 12, 12, 0, 0, 0, 0, 0, 0, 0],
       [0, 25, 0, 0, 5, 0, 7, 0, 0, 0],
-      [0, 12, 0, 0, 0, 12, 0, 0, 0, 0],
+      [0, 12, 0, 4, 0, 24, 0, 0, 0, 0],
 
       [8, 8, 0, 0, 0, 8, 8, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 10, 0, 0],
@@ -794,6 +828,31 @@ class Game {
       [8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
       [0, 0, 0, 0, 0, 25, 25, 0, 0, 25],
 
+
+      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+
+      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+
+      
+      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+
+      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     ];
     for (let i = 0; i < this.enemyNumArray.length; i++) {
       this.waves[i] = [];
@@ -889,10 +948,8 @@ class Game {
     if (towerGame.placingTower === true) return;
     if (towerGame.createTower(this))
       towerGame.placingTower = true;
-
-
-
   }
+
   //  ++++++++++++++++++++++++++++++++++++++++++++++++++    mouse handlers
 
   handleCNVMouseOver() {
@@ -910,7 +967,7 @@ class Game {
       //follow mouse
       towerGame.towers[towerGame.towers.length - 1].loc.x = this.mouseX;
       towerGame.towers[towerGame.towers.length - 1].loc.y = this.mouseY;
-
+    
     }
   }
 
@@ -926,11 +983,10 @@ class Game {
     else if (!towerGame.placingTower && !cell.hasTower) {
       // toggle the occupied property of the clicked cell
       if (!cell.occupied && towerGame.bankValue >= towerGame.wallCost && towerGame.allowPlace && towerGame.gameStateID === 5) {
-        console.log(towerGame.allowPlace)
         towerGame.bankValue -= towerGame.wallCost;
         cell.occupied = true;
       }
-      else if (towerGame.allowPlace && towerGame.gameStateID === 5) {
+      else if (towerGame.allowPlace && towerGame.gameStateID === 5 && cell.hasTower) {
         towerGame.bankValue += towerGame.wallCost;
         cell.occupied = false;
       }
@@ -964,7 +1020,6 @@ class Game {
 
               document.getElementById('refundButton').addEventListener('click', () => {
                 towerGame.setBankValue(Math.floor(popup.sellPrice)); // Refund the cost of the tower
-                
                 towerGame.towers.splice(i, 1); // Remove the tower from the array
                 cell.hasTower = false; // Update the cell's state
                 console.log("Tower removed and cost refunded.");
@@ -998,6 +1053,7 @@ class Game {
   levelRender(key) { //premade level render
     //they are called levels, but are really just maps. 
     //you don't have to complete the previous one to go to the next one
+    
     for (let row = 0; row < key.length; row++) {
       for (let col = 0; col < key[0].length; col++) {
         if (key[row][col] === 'b') {
@@ -1013,8 +1069,9 @@ class Game {
           this.root = this.grid[col][row];
         }
       }
-    }
+    //}
   }
+}
 
 
 

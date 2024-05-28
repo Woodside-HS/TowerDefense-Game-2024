@@ -4,12 +4,12 @@
 <head>
   <meta charset="UTF-8">
   <title>The Sea's Surrender</title>
-  <script src="TowerGameJS-Phase4/libraries/vector2d.js" type="text/javascript"></script>
+  
   <div class="loader" id='loader'></div>
   <link rel="stylesheet" type="text/css" href="TowerGameJS-Phase4/styles.css">
   <script src="TowerGameJS-Phase4/cell.js" type="text/javascript"></script>
-  <script src="TowerGameJS-Phase4/game.js" type="text/javascript"></script>
   <script src="TowerGameJS-Phase4/gamestate.js" type="text/javascript"></script>
+  <script src="TowerGameJS-Phase4/game.js" type="text/javascript"></script>
   <script src="TowerGameJS-Phase4/enemy.js" type="text/javascript"></script>
   <script src="TowerGameJS-Phase4/tower.js" type="text/javascript"></script>
   <script src="TowerGameJS-Phase4/bullet.js" type="text/javascript"></script>
@@ -23,6 +23,7 @@
   <script src="TowerGameJS-Phase4/blade.js" type="text/javascript"></script>
   <script src="TowerGameJS-Phase4/popUp.js" type="text/javascript"></script>
   <script src="TowerGameJS-Phase4/level.js" type="text/javascript"></script>
+  <script src="TowerGameJS-Phase4/vector2d.js" type="text/javascript"></script>
   <script src="TowerGameJS-Phase4/resources/images/spritesheets/sprites.js"></script>
   <script src="TowerGameJS-Phase4/resources/images/spritesheets/buttons.js"></script>
 </head>
@@ -30,16 +31,14 @@
 <body>
   <div id="wrapperDiv">
     <div id="infoDiv">
-      <div class="infoTileDiv">Bank</div>
-      <div class="infoTileDiv">Wave</div>
-      <!-- <div class = "infoTileDiv">Enemies</div>
-      <div class = "infoTileDiv">Destroyed</div> -->
-      <div class="infoTileDiv">Time</div>
-      <div class="infoTileDiv">Score</div>
-      <div class="infoTileDiv">Health</div>
-      <div class="infoTileDiv">Cost</div>
-      <button class="infoTileDiv" id="pauseButton">Pause</button>
-      <div class="infoTileDiv" id="fastForward">Start</div>
+      <div class="infoTileDiv" id="bankTile"></div>
+      <div class="infoTileDiv" id="waveTile"></div>
+      <div class="infoTileDiv" id="timeTile"></div>
+      <div class="infoTileDiv" id="scoreTile"></div>
+      <div class="infoTileDiv" id="healthTile"></div>
+      <div class="infoTileDiv" id="costTile"></div>
+      <button class="infoTileDiv" id="pauseButton"></button>
+      <button class="infoTileDiv" id="fastForward"></button>
     </div>
     <div id="canDiv"></div>
     <div id="menuDiv"></div>

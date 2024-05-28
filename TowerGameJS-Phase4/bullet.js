@@ -12,8 +12,9 @@ class Bullet {
     this.towerLoc = towerLoc;
     this.speed = 15;
     this.r = 30;
+    this.lifeSpan = 0;
     this.choosenTarget = false;
-    this.shape = "circle";
+    this.shape = "square";
     this.cannonBulletAngle = 0;
     this.angle = angle;
     this.img = bImg;
@@ -29,11 +30,15 @@ class Bullet {
     }
     if (this.ability == "cannon") {
       this.speed = 50;
+      this.lifeSpan = 750;
     }
     if (this.ability == "fast" && !this.fastUpgradeFinal) {
-      this.speed = 8;
+      this.speed = 13;
     }else if(this.ability == "fast"){
       this.speed = 0;
+    }
+    if(this.ability == "cannon"){
+      this.lifeSpan = 1000;
     }
 
 
@@ -52,6 +57,7 @@ class Bullet {
     }
 
    this.update();
+   this.lifeSpan --;
   }
 
 
@@ -182,8 +188,7 @@ class Bullet {
         //circle-circle
         if (shape1.r + shape2.r >= shape1.loc.copy().dist(shape2.loc)) return true;
         return false;
-      } else if (shape2.shape === "square") {//this does not work for rectangles but its close enought for a 57x50 thing
-        //circle-square
+      } else if (shape2.shape === "square") {
         let topLeft = shape2.loc;
         let topRight = new vector2d(shape2.loc.x + shape2.w, shape2.loc.y);
         let bottomRight = new vector2d(shape2.loc.x + shape2.w, shape2.loc.y + shape2.w);
