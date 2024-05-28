@@ -32,6 +32,9 @@ class Bullet {
       this.speed = 50;
       this.lifeSpan = 750;
     }
+    if(this.ability == "explosive"){
+      this.lifeSpan = 750;
+    }
     if (this.ability == "fast" && !this.fastUpgradeFinal) {
       this.speed = 13;
     }else if(this.ability == "fast"){

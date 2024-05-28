@@ -180,7 +180,7 @@ if(towerGame.numWave != 1){
     this.normalDamage = 500;
     this.fastDamage = 750;
     this.freezeDamage = 10;
-    this.explosiveDamage = 100;
+    this.explosiveDamage = 3200;
     this.cannonDamage = 3200;
     this.bladeStormDamage = 125;
     this.liquifyDamage = 10;
@@ -557,7 +557,6 @@ if(towerGame.numWave != 1){
           }
         } else if (towerGame.bullets[h].ability == "cannon") {
           if (!this.cannonImmunities[0]) {
-            console.log("a")
             this.health = this.health - this.cannonDamage * towerGame.bullets[h].damageMult;
             towerGame.bullets.splice(h, 1);
           } else if (!this.cannonUpgradedImmunities[0]) {
