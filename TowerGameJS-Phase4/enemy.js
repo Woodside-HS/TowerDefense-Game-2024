@@ -122,7 +122,7 @@ class Enemy {
       this.speed = 1; this.baseSpeed = this.speed;
     }
 if(towerGame.numWave != 1){
-    this.health *= 600 * (Math.log(0.0019 * towerGame.numWave+1)) ** 1.2 + 1;
+    this.health *= 400 * (Math.log(0.0019 * towerGame.numWave+1)) ** 1.2 + 1;
    
 }
 
@@ -183,7 +183,7 @@ if(towerGame.numWave != 1){
     this.explosiveDamage = 100;
     this.cannonDamage = 3200;
     this.bladeStormDamage = 125;
-    this.liquifyDamage = 15;
+    this.liquifyDamage = 10;
     this.missileDamage = 400;
   }
 
