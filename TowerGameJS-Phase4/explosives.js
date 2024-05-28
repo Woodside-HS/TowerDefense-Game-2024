@@ -25,8 +25,6 @@ class Explosives{
     var ctx = towerGame.context;
     ctx.fillStyle = 'orange';
     ctx.beginPath();
-
-
     ctx.ellipse(this.loc.x, this.loc.y, this.radius, this.radius, 0, 2*Math.PI, false);
     ctx.fill();
 
