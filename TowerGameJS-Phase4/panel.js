@@ -579,7 +579,7 @@ var panelJSON = [{
 }, { //panel 17
   name: "Buff Catalog",
   id: "buffTowerCata",
-  pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanels/bladestormCatalog.png",
+  pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanels/mermanCatalog.png",
   picId: "buffCata",
   buttonJSON: [{
     name: "Back Button",
