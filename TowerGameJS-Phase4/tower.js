@@ -338,10 +338,11 @@ class Tower {
         }
       }
         if (count > 0) {
-          this.damageMult *= this.buffConstant ^ (count);
+          let nr = this.range/this.buff3;
+          this.damageMult = this.buffConstant ** (count);
           this.damageMult *= this.buff1;
-          this.coolDown *= this.maxCoolDown * this.buff2;
-          this.range *= this.minRange *  this.buff3;
+          this.coolDown = this.maxCoolDown * this.buff2;
+          this.range = nr *  this.buff3;
         }
       
     }
