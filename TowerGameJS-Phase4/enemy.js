@@ -362,7 +362,11 @@ if(towerGame.numWave != 1){
         candidates.push(this.currentCell.neighbors[i]);
     }
     // randomly pick one of the candidates
+    if(candidates.length != 0){
     return candidates[Math.floor(Math.random() * candidates.length)];
+    }else{
+      return this.target;
+    }
   }
 
 
@@ -540,10 +544,13 @@ if(towerGame.numWave != 1){
           if (!this.freezeImmunities[0]) {
             this.health = this.health - this.freezeDamage * towerGame.bullets[h].damageMult;
             this.slowed -= 1;
-            this.movement.speed = this.baseSpeed * 0.6;
+            this.movement.speed = this.baseSpeed * 0.4;
+            if(towerGame.bullets[h].freezeUpgradeFinal){
+              this.movement.speed = Math.abs(this.baseSpeed) * -1;
+            }
             setTimeout(() => {
               this.slowed = 1.2;
-              this.speed = this.baseSpeed;
+              this.movement.speed = this.baseSpeed;
             }, 3500);
           }
           if (!this.freezeUpgradedImmunities[0]) {
