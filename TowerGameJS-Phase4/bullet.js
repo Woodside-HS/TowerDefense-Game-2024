@@ -12,7 +12,7 @@ class Bullet {
     this.towerLoc = towerLoc;
     this.speed = 15;
     this.r = 30;
-    this.lifeSpan = 0;
+    this.lifeSpan = -1;
     this.choosenTarget = false;
     this.shape = "square";
     this.cannonBulletAngle = 0;

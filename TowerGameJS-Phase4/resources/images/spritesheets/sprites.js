@@ -107,11 +107,11 @@ json = {"frames": {
 },
 "T40000":
 {
-	"frame": {"x":60,"y":70,"w":35,"h":25},
+	"frame": {"x":155,"y":0,"w":59,"h":62},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":35,"h":25},
-	"sourceSize": {"w":35,"h":25}
+	"spriteSourceSize": {"x":0,"y":0,"w":59,"h":62},
+	"sourceSize": {"w":59,"h":62}
 },
 "T50000":
 {
