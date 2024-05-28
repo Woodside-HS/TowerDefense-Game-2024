@@ -99,6 +99,7 @@
                 <p>- Prompt Engineer (Background Art)</p>
                 <p>- Button Images</p>
                 <p>- Normal Upgrades</p>
+                <p>- Overhauled the Info Tiles Art</p>
               
                 <p>John Gilbert: </p>
                 <p>- Prompt Engineer (Character Portrait Art)</p>
@@ -130,6 +131,8 @@
                 <p>Charles Weickert: </p>
                 <p>- Wanted to be here and helped with a few details</p>
 
+                <p>Now here is some blooper art that did not make it into the game.</p>
+
                 <div class="image-container" id="imageContainer">
                     <!-- Images will be dynamically inserted here -->
                 </div>
@@ -141,23 +144,40 @@
 
     <script>
         window.addEventListener('mousedown', loadSound, false);
+        window.addEventListener('keydown', keyPress)
+        function keyPress(e){
+            if(e.keyCode === 27){
+                window.location.href = "index.html";
+            }
+        }
 
-        // function addImage() {
-        //     let imageContainer = document.getElementById('imageContainer');
-        //     let img = document.createElement('img');
-        //     img.src = "image.jpg"; // Update with the correct path to your image
-        //     img.style.width = "50%"; // Adjust width as needed
-        //     imageContainer.appendChild(img);
-        // }
 
-        // for (let i = 0; i < 100; i++) {
-        //     addImage();
-        // }
 
+        function addImage(i) {
+            let imageContainer = document.getElementById('imageContainer');
+            let img = document.createElement('img');
+            let imgArr = ["extras/bloop1.webp",
+                       "extras/bloop2.webp", 
+                       "extras/bloop3.webp",
+                       "extras/bloop4.webp",
+                       "extras/bloop5.webp",
+                       "extras/bloop6.webp",
+                       "extras/bloop7.webp",
+                       "extras/bloop8.webp"];
+            img.src = imgArr[i]; // Update with the correct path to your image
+            img.style.width = "50%"; // Adjust width as needed
+            imageContainer.appendChild(img);
+        }
+
+        for (let i = 0; i < 7; i++) {
+            addImage(i);
+        }
+        
+        
         function loadSound() {
             let creditsMusic = document.getElementById('creditsMusic');
             let element = document.getElementById("scrolling-content");
-            element.setAttribute("style", "animation: scroll-up 100s linear infinite");
+            element.setAttribute("style", "animation: scroll-up 400s linear infinite");
             creditsMusic.play();
             
         }
