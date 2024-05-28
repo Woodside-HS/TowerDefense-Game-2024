@@ -139,23 +139,30 @@ class Game {
     button.addEventListener('click', this.pause, false);
 
     var fastForwardButton = document.getElementById('fastForward');
-    fastForwardButton.addEventListener('click', function () {//upper right hand button
+    //var infoDiv = document.getElementById('infoDiv');
+    
+    fastForwardButton.addEventListener('click', function () {
       if (towerGame.firstClick) {
         towerGame.wave = new Wave(towerGame, towerGame.numWave);
-        towerGame.numWave ++;
+        towerGame.numWave++;
         towerGame.firstClick = false;
-        FRAME_RATE = 60;
+        FRAME_RATE = 30;
       }
-      if (FRAME_RATE == 30) { //if it is on slow mode
-        FRAME_RATE = 60; //make it fast
-        fastForwardButton.innerHTML = "Slow Down"; //change the button to say "Slow Down"
-      } else { //if it is on fast mode
-        fastForwardButton.innerHTML = "Fast Forward"; //change the button to say "Fast Forward"
-        FRAME_RATE = 30; //make it slow
+    
+      towerGame.fastForward = !towerGame.fastForward;
+    
+      if (towerGame.fastForward) { // if it is on slow mode
+        FRAME_RATE = 30; // make it fast
+        fastForwardButton.classList.remove('slow');
+        fastForwardButton.classList.add('fast');
+       
+      } else { // if it is on fast mode
+        FRAME_RATE = 60; // make it slow
+        fastForwardButton.classList.remove('fast');
+        fastForwardButton.classList.add('slow');
+     
       }
-
     }, false);
-
 
     document.getElementById('switchDiv').style.transform = "translate(" + 0 + "px, " + -52 + "px)";//idk this is clipping
     //I suck at editing png so yeah
@@ -276,12 +283,17 @@ class Game {
   }
 
 
-  pause() {
+ pause() {
     var butt = document.getElementById('pauseButton');
     towerGame.paused = !towerGame.paused;
-    if (towerGame.paused) butt.innerHTML = "Play";
-    if (!towerGame.paused) butt.innerHTML = "Pause";
-  }
+    if (towerGame.paused) {
+        butt.classList.remove('pause');
+        butt.classList.add('play');
+    } else {
+        butt.classList.remove('play');
+        butt.classList.add('pause');
+    }
+}
 
 
   render() { // draw game stuff
@@ -557,43 +569,44 @@ class Game {
     for (let i = 0; i < infoElements.length - 1; i++) {
       let info = infoElements[i];
       // change the html content after condition--use indexOf
-      if (info.innerHTML.indexOf('Bank') != -1) {
-        info.innerHTML = 'Bank <br/>';
+      if (info.id === 'bankTile') {
+        info.innerHTML = '';
         var value = document.createElement('p');
-        value.style.fontSize = '10pt';
+        value.style.fontSize = '12pt';
         value.innerHTML = this.bankValue;
         info.appendChild(value)
         if (this.bankValue < 0) {
           this.bankValue == 0;
         }
-      } else if (info.innerHTML.indexOf('Time') != -1) {
-        info.innerHTML = 'Time <br/>';
+      } else if (info.id === 'timeTile') {
+        info.innerHTML = '';
         var value = document.createElement('p');
-        value.style.fontSize = '10pt';
+        value.style.fontSize = '12pt';
         value.innerHTML = this.updateGameTime();
         info.appendChild(value);
       }
-      if (info.innerHTML.indexOf('Score') != -1) {
-        info.innerHTML = 'Score <br/>';
+      if (info.id === 'scoreTile') {
+        info.innerHTML = '';
         var value = document.createElement('p');
-        value.style.fontSize = '10pt';
+        value.style.fontSize = '12pt';
         value.innerHTML = this.score;
         info.appendChild(value);
       }
-      if (info.innerHTML.indexOf('Wave') != -1) {
-        info.innerHTML = 'Wave <br/>';
+      if (info.id === 'waveTile') {
+        info.innerHTML = '';
         var value = document.createElement('p');
         value.style.fontSize = '10pt';
         value.innerHTML = towerGame.numWave;
         info.appendChild(value);
       }
-      if (info.innerHTML.indexOf('Health') != -1) {
-        info.innerHTML = 'Health <br/>';
+      if (info.id === 'healthTile') {
+        info.innerHTML = '';
         var value = document.createElement('p');
         value.style.fontSize = '12pt';
         value.innerHTML = this.health;
         info.appendChild(value);
       }
+     
     }
   }
   updateCostInfoElement(value) {
@@ -601,7 +614,7 @@ class Game {
 
     let infoElements = document.getElementById('infoDiv').getElementsByClassName('infoTileDiv');
     let info = infoElements[infoElements.length - 3];
-    info.innerHTML = 'Cost <br/>' + value;
+    info.innerHTML = value;
   }
 
 
