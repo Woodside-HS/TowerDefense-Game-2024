@@ -523,7 +523,7 @@ class Game {
         this.bullets[i].loc.x > this.canvas.width ||
         this.bullets[i].loc.y < 0 ||
         this.bullets[i].loc.y > this.canvas.height)
-      || this.bullets[i].lifeSpan <= 0) {
+      || this.bullets[i].lifeSpan == 0) {
 
         this.bullets.splice(i, 1);
       }
@@ -792,8 +792,8 @@ class Game {
 
 
       [5, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [5, 4, 1, 0, 0, 0, 0, 0, 0, 0],
-      [7, 10, 0, 0, 0, 0, 0, 0, 0, 0],
+      [5, 2, 1, 0, 0, 0, 0, 0, 0, 0],
+      [7, 7, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 3, 2, 0, 0, 0, 0, 0, 0],
       [0, 5, 0, 0, 3, 0, 0, 0, 0, 0], 
 
