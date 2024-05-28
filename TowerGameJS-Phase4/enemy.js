@@ -180,7 +180,7 @@ if(towerGame.numWave != 1){
     this.normalDamage = 500;
     this.fastDamage = 750;
     this.freezeDamage = 10;
-    this.explosiveDamage = 100;
+    this.explosiveDamage = 3200;
     this.cannonDamage = 3200;
     this.bladeStormDamage = 125;
     this.liquifyDamage = 10;
@@ -311,15 +311,15 @@ if(towerGame.numWave != 1){
         this.missileUpgradedImmunities = [true, "untargetable"];
         this.exploding = true;
         this.movement.speed = 0;
-        if(this.countDown >= 1){
-        this.countDown--;
+        if (this.countDown >= 1) {
+          this.countDown--;
         }
         if (this.countDown <= 0 && !this.explodingAfterMath) {
           for (let i = 0; i < towerGame.towers.length; i++) {
             let distToTower = this.loc.dist(towerGame.towers[i].loc);
-        
+
             if (distToTower < 120) {
-              let doDestroyTower = Math.round(Math.random()*3);
+              let doDestroyTower = Math.round(Math.random() * 3);
               if (doDestroyTower == 3) {
                 towerGame.towers.splice(i, 1);
               }
@@ -362,7 +362,11 @@ if(towerGame.numWave != 1){
         candidates.push(this.currentCell.neighbors[i]);
     }
     // randomly pick one of the candidates
+    if(candidates.length != 0){
     return candidates[Math.floor(Math.random() * candidates.length)];
+    }else{
+      return this.target;
+    }
   }
 
 
@@ -445,16 +449,16 @@ if(towerGame.numWave != 1){
       ctx.strokeStyle = 'rgba(255, 0, 0, 0.5)';
       ctx.fillStyle = 'rgba(255, 0, 0, 0.2';
       ctx.beginPath();
-      
-      ctx.arc(0, 0, 60 - (Math.abs(this.countDown*3/20 - 55)), 0, Math.PI * 2, false);
-      
+
+      ctx.arc(0, 0, 60 - (Math.abs(this.countDown * 3 / 20 - 55)), 0, Math.PI * 2, false);
+
       ctx.closePath();
       ctx.stroke();
       ctx.fill();
       ctx.restore();
 
     }
-    if(this.explodingAfterMath){
+    if (this.explodingAfterMath) {
       ctx.save();
       ctx.translate(this.loc.x, this.loc.y);
       ctx.strokeStyle = 'rgba(255, 0, 0, 0.5)';
@@ -540,10 +544,13 @@ if(towerGame.numWave != 1){
           if (!this.freezeImmunities[0]) {
             this.health = this.health - this.freezeDamage * towerGame.bullets[h].damageMult;
             this.slowed -= 1;
-            this.movement.speed = this.baseSpeed * 0.6;
+            this.movement.speed = this.baseSpeed * 0.4;
+            if(towerGame.bullets[h].freezeUpgradeFinal){
+              this.movement.speed = Math.abs(this.baseSpeed) * -1;
+            }
             setTimeout(() => {
               this.slowed = 1.2;
-              this.speed = this.baseSpeed;
+              this.movement.speed = this.baseSpeed;
             }, 3500);
           }
           if (!this.freezeUpgradedImmunities[0]) {
@@ -617,7 +624,7 @@ if(towerGame.numWave != 1){
     if (this.health <= 0) {
       this.kill = true;
       this.deathSound.play();
-    //  towerGame.bankValue += (15 + 5*this.type);
+    
     }
     this.movement.update();
     this.movement.render();
