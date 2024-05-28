@@ -180,7 +180,7 @@ if(towerGame.numWave != 1){
     this.normalDamage = 500;
     this.fastDamage = 750;
     this.freezeDamage = 10;
-    this.explosiveDamage = 100;
+    this.explosiveDamage = 3200;
     this.cannonDamage = 3200;
     this.bladeStormDamage = 125;
     this.liquifyDamage = 10;
@@ -617,8 +617,7 @@ if(towerGame.numWave != 1){
     if (this.health <= 0) {
       this.kill = true;
       this.deathSound.play();
-      towerGame.bankValue += (15 + 5*this.type);
-
+    
     }
     this.movement.update();
     this.movement.render();

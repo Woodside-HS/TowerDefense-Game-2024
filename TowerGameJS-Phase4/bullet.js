@@ -12,7 +12,7 @@ class Bullet {
     this.towerLoc = towerLoc;
     this.speed = 15;
     this.r = 30;
-    this.lifeSpan = 0;
+    this.lifeSpan = -1;
     this.choosenTarget = false;
     this.shape = "square";
     this.cannonBulletAngle = 0;
@@ -30,6 +30,9 @@ class Bullet {
     }
     if (this.ability == "cannon") {
       this.speed = 50;
+      this.lifeSpan = 750;
+    }
+    if(this.ability == "explosive"){
       this.lifeSpan = 750;
     }
     if (this.ability == "fast" && !this.fastUpgradeFinal) {
