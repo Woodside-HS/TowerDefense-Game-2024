@@ -32,13 +32,18 @@ body {
   background-color: #6666ff;
 }
 
-#fastForward:hover {
-  background-color: #6666ff;
+#fastForward {
+  background-image: url("resources/images/start.png");
 }
 
-#pauseButton:hover {
-  background-color: #6666ff;
+#fastForward.fast {
+  background-image: url("resources/images/regSpeed.png");
 }
+
+#fastForward.slow {
+  background-image: url("resources/images/fastSpeed.png");
+}
+
 
 .loader {
   margin: auto;
@@ -80,33 +85,72 @@ body {
 }
 
 #pauseButton {
-  background-color: #999999;
+  background-color: white;
+  background-image: url("resources/images/pause.png");
 }
 
-#pauseButton:hover {
-  background-color: #6666ff;
+#pauseButton.play {
+  background-image: url("resources/images/play.png");
+}
+
+#pauseButton.pause {
+  background-image: url("resources/images/pause.png");
 }
 
 .infoTileDiv {
   background-color: white;
+  background-image: url("resources/images/bBtn 1 small.png");
   width: 80px;
   height: 80px;
   border-radius: 50%;
   float: left;
   margin-left: 4%;
   margin-top: 10px;
-  padding-top: 15px;
   font-family: Garamond, serif;
   font-size: 12pt;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  text-align: center;
 }
 
+
+#bankTile {
+  background-color: white;
+  background-image: url("resources/images/bank.png");
+}
+
+#timeTile {
+  background-color: white;
+  background-image: url("resources/images/time.png");
+}
+
+#healthTile {
+  background-color: white;
+  background-image: url("resources/images/health.png");
+}
+
+#costTile {
+  background-color: white;
+  background-image: url("resources/images/cost.png");
+}
+
+#scoreTile {
+  background-color: white;
+  background-image: url("resources/images/score.png");
+}
+
+#waveTile {
+  background-color: white;
+  background-image: url("resources/images/wave.png");
+}
 .menuTileDiv {
   background-color: #DDD;
   background-image: url("wframe.png");
   width: 80px;
   height: 80px;
-  margin-top: 38px;
-  margin-left: 10px;
+ /* margin-top: 38px;
+  margin-left: 10px;*/
   float: left;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 14pt;
