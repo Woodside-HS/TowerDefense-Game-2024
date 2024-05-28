@@ -39,7 +39,7 @@ if(this.waveNumber <= 20){
             setTimeout(() => {
               towerGame.enemies.push(new Enemy(towerGame, randomEnemyType));
               spawnedEnemies++;
-            }, (1200-this.waveNumber*20) * numberEnemy + 600);
+            }, (1200-this.waveNumber*20) * numberEnemy);
             numberEnemy++;
             unSpawnedEnemies[randomEnemyType]--;
           }
