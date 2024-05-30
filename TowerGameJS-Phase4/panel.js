@@ -130,7 +130,7 @@ var panelJSON = [{
       pic: "TowerGameJS-Phase4/resources/images/panels/back.png",
       picId: "back",
       funk: function () {
-        towerGame.gameState.panelStart = new Panel(towerGame, 0, 400)
+        towerGame.gameState.panelStart = new Panel(towerGame, 0)
         document.getElementById("instructionPanel").parentNode.removeChild(document.getElementById("instructionPanel"))
       }
     }]
