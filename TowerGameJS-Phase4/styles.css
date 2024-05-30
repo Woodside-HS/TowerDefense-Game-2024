@@ -144,12 +144,13 @@ body {
   background-color: white;
   background-image: url("resources/images/infoDivImg/wave.png");
 }
+
 .menuTileDiv {
   background-color: #DDD;
   background-image: url("wframe.png");
   width: 80px;
   height: 80px;
- /* margin-top: 38px;
+  /* margin-top: 38px;
   margin-left: 10px;*/
   float: left;
   font-family: Arial, Helvetica, sans-serif;
