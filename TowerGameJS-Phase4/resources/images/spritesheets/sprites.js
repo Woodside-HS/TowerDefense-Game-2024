@@ -147,19 +147,19 @@ json = {"frames": {
 },
 "T90000":
 {
-	"frame": {"x":1,"y":106,"w":38,"h":38},
+	"frame": {"x":585,"y":0,"w":67,"h":59},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":38,"h":38},
-	"sourceSize": {"w":38,"h":38}
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":59},
+	"sourceSize": {"w":67,"h":59}
 },
 "T100000":
 {
-	"frame": {"x":673,"y":1,"w":89,"h":83},
+	"frame": {"x":697,"y":1,"w":65,"h":62},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":89,"h":83},
-	"sourceSize": {"w":89,"h":83}
+	"spriteSourceSize": {"x":0,"y":0,"w":65,"h":62},
+	"sourceSize": {"w":65,"h":62}
 },
 "T110000":
 {
