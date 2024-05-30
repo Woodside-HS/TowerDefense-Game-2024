@@ -47,7 +47,7 @@ class Tower {
     this.buff1 = 1;
     this.buff2 = 1;
     this.buff3 = 1;
-    this.blades = [0];
+    this.blades = [];
     if (ability == "freeze") {
       this.coolDown = 1000;
       this.range = 150;
@@ -389,7 +389,7 @@ class Tower {
       if (this.ability == "bladeStorm") {
         if (this.numOfBlades < 4 && !this.bladeFinal) {//creating the four blades 
           let bulletLocation = vector2d(this.loc.x, this.loc.y);
-          let s = new Blade(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.blades, this.damageMult, "first");
+          let s = new Blade(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.numOfBlades, this.damageMult, "first");
           this.blades.push(s);
           this.numOfBlades++;
         } else if (this.numOfBlades < 8 && this.bladeFinal) {
@@ -402,7 +402,7 @@ class Tower {
           } else {
             if (this.numOfBlades < 8) {
               let bulletLocation = vector2d(this.loc.x, this.loc.y);
-              let s = new Blade(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.blades, this.damageMult, "second");
+              let s = new Blade(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.numOfBlades, this.damageMult, "second");
               this.blades.push(s);
               this.numOfBlades++;
             }
