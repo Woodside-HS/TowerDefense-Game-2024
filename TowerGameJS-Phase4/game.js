@@ -63,7 +63,7 @@ class Game {
     this.bullets = [];
     this.missiles = [];//added with same logic as bullets
     this.hands = [];//added with same logic as bullets (this is the minion guy idk)
-    this.blades = [];//added with same logic as bullets
+   // this.blades = [];//added with same logic as bullets
     this.secondRays = [];
     this.allowPlace = true;//to not place when picking a spot to target for two of the towers
     this.explosiveBullets = [];//added with same logic as bullets
@@ -1024,10 +1024,10 @@ class Game {
 
               document.getElementById('refundButton').addEventListener('click', () => {
                 towerGame.setBankValue(Math.floor(popup.sellPrice)); // Refund the cost of the tower
-                for (let i = towerGame.blades.length; i >= 0; i--) {
-                  towerGame.blades.splice(i, 1);
-                }
+
+
                 towerGame.towers.splice(i, 1); // Remove the tower from the array
+
                 cell.hasTower = false; // Update the cell's state
                 console.log("Tower removed and cost refunded.");
                 towerGame.brushfire(); // Re-run the pathfinding algorithm

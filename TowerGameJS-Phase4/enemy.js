@@ -504,18 +504,19 @@ if(towerGame.numWave != 1){
         }
       }
     }
-    for (let h = 0; h < towerGame.blades.length; h++) {
-      if (this.checkCollide(this, towerGame.blades[h])) {
-        if (towerGame.blades[h].ability == "bladeStorm") {
+    if(towerGame.towers.length > 0){
+    for (let h = 0; h < towerGame.towers.blades.length; h++) {
+      if (this.checkCollide(this, towerGame.towers.blades[h])) {
+        if (towerGame.towers.blades[h].ability == "bladeStorm") {
           if (!this.bladeStormImmunities[0]) {
-            this.health -= this.bladeStormDamage * towerGame.blades[h].damageMult;
+            this.health -= this.bladeStormDamage * towerGame.towers.blades[h].damageMult;
           } else if (!this.bladeStormUpgradedImmunities[0]) {
-            this.health -= this.bladeStormDamage * towerGame.blades[h].damageMult;
+            this.health -= this.bladeStormDamage * towerGame.towers.blades[h].damageMult;
           }
         }
       }
     }
-
+  }
 
     for (let h = 0; h < towerGame.bullets.length; h++) {
       if (this.checkCollide(this, towerGame.bullets[h])) {

@@ -19,7 +19,7 @@ class Tower {
     this.enemies = towerGame.enemies;
     this.range = 200;
     this.minRange = 0;
-    this.blades = 0;
+    this.numOfBlades = 0;
     this.ability = ability;
     this.chooseTargetArea = true;
     this.mouseLoc;
@@ -47,6 +47,7 @@ class Tower {
     this.buff1 = 1;
     this.buff2 = 1;
     this.buff3 = 1;
+    this.blades = [0];
     if (ability == "freeze") {
       this.coolDown = 1000;
       this.range = 150;
@@ -386,24 +387,24 @@ class Tower {
         towerGame.hands.push(h);
       }
       if (this.ability == "bladeStorm") {
-        if (this.blades < 4 && !this.bladeFinal) {//creating the four blades 
+        if (this.numOfBlades < 4 && !this.bladeFinal) {//creating the four blades 
           let bulletLocation = vector2d(this.loc.x, this.loc.y);
           let s = new Blade(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.blades, this.damageMult, "first");
-          towerGame.blades.push(s);
-          this.blades++;
-        } else if (this.blades < 8 && this.bladeFinal) {
+          this.blades.push(s);
+          this.numOfBlades++;
+        } else if (this.numOfBlades < 8 && this.bladeFinal) {
           if (!this.replaced) {
             for (let i = 4; i > -1; i--) {
-              towerGame.blades.splice(i, 1);
+              this.blades.splice(i, 1);
               this.replaced = true;
-              this.blades = 0;
+              this.numOfBlades = 0;
             }
           } else {
-            if (this.blades < 8) {
+            if (this.numOfBlades < 8) {
               let bulletLocation = vector2d(this.loc.x, this.loc.y);
               let s = new Blade(bulletLocation, this.bulletImg, this.towAngle, this.ability, this.blades, this.damageMult, "second");
-              towerGame.blades.push(s);
-              this.blades++;
+              this.blades.push(s);
+              this.numOfBlades++;
             }
           }
         }
