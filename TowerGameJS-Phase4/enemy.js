@@ -142,7 +142,7 @@ if(towerGame.numWave != 1){
     }
     this.randomPath = 1;   //boolean to randomize or not
     this.radius = 15.0;
-    this.r = this.img.width;
+    this.r = this.img.width/2;
     this.vel = vector2d(0, 0); // Initialize velocity vector
     this.acc = vector2d(0, 0)
     this.count = 0;
@@ -178,10 +178,10 @@ if(towerGame.numWave != 1){
 
     //towers damage
     this.normalDamage = 500;
-    this.fastDamage = 75000;
+    this.fastDamage = 750;
     this.freezeDamage = 10;
-    this.explosiveDamage = 3200;
-    this.cannonDamage = 3200;
+    this.explosiveDamage = 1600;
+    this.cannonDamage = 1600;
     this.bladeStormDamage = 125;
     this.liquifyDamage = 10;
     this.missileDamage = 400;

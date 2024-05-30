@@ -134,7 +134,7 @@ class GameState4 extends GameState { //Catalog
 class GameState5 extends GameState { // game itself
   constructor(game, levelSel, custom) {
     super(game)
-    this.game.health = 20;
+    this.game.health = 50;
     this.game.score = 0
     this.game.bankValue = 250;
     this.game.gameTime = 0;

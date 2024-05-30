@@ -1024,14 +1024,15 @@ class Game {
 
               document.getElementById('refundButton').addEventListener('click', () => {
                 towerGame.setBankValue(Math.floor(popup.sellPrice)); // Refund the cost of the tower
+                for (let i = towerGame.blades.length; i >= 0; i--) {
+                  this.blades.splice(i, 1);
+                }
                 towerGame.towers.splice(i, 1); // Remove the tower from the array
                 cell.hasTower = false; // Update the cell's state
                 console.log("Tower removed and cost refunded.");
                 towerGame.brushfire(); // Re-run the pathfinding algorithm
                 popup.hide(); // Close the popup
-                for (let i = towerGame.blades.length; i >= 0; i--) {
-                  this.blades.splice(i, 1);
-                }
+
               });
               // Upgrade tower logic (You'll need to define it)
               document.getElementById('upgradeButton').addEventListener('click', () => {
