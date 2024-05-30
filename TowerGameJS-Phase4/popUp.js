@@ -99,6 +99,7 @@ class Popup {
       this.tower.upgradedRange = true;
       towerGame.bankValue -= Math.ceil(this.tower.cost * 0.6);
       this.sellPrice += this.tower.cost * 0.6;
+      this.tower.buff3 *= 1.25;
       this.hideUpgrade();
       towerGame.shownBase = false;
       }
@@ -111,6 +112,7 @@ class Popup {
       this.tower.upgradedCoolDown = true;
       towerGame.bankValue -= Math.ceil(this.tower.cost * 1);
       this.sellPrice += this.tower.cost * 1;
+      this.tower.buff2 *= 0.8;
       this.hideUpgrade();
       towerGame.shownBase = false;
       }
@@ -122,6 +124,7 @@ class Popup {
       this.tower.upgradedDamage = true;
       towerGame.bankValue -= Math.ceil(this.tower.cost * 1.25);
       this.sellPrice += this.tower.cost * 1.25;
+      this.tower.buff1 *= 1.2;
       this.tower.damageUpgrade();
       this.hideUpgrade();
       towerGame.shownBase = false;

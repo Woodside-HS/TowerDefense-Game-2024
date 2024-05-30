@@ -142,7 +142,7 @@ if(towerGame.numWave != 1){
     }
     this.randomPath = 1;   //boolean to randomize or not
     this.radius = 15.0;
-    this.r = 15.0;
+    this.r = this.img.width;
     this.vel = vector2d(0, 0); // Initialize velocity vector
     this.acc = vector2d(0, 0)
     this.count = 0;
@@ -178,9 +178,9 @@ if(towerGame.numWave != 1){
 
     //towers damage
     this.normalDamage = 500;
-    this.fastDamage = 750;
+    this.fastDamage = 75000;
     this.freezeDamage = 10;
-    this.explosiveDamage = 100;
+    this.explosiveDamage = 3200;
     this.cannonDamage = 3200;
     this.bladeStormDamage = 125;
     this.liquifyDamage = 10;
@@ -311,15 +311,15 @@ if(towerGame.numWave != 1){
         this.missileUpgradedImmunities = [true, "untargetable"];
         this.exploding = true;
         this.movement.speed = 0;
-        if(this.countDown >= 1){
-        this.countDown--;
+        if (this.countDown >= 1) {
+          this.countDown--;
         }
         if (this.countDown <= 0 && !this.explodingAfterMath) {
           for (let i = 0; i < towerGame.towers.length; i++) {
             let distToTower = this.loc.dist(towerGame.towers[i].loc);
-        
+
             if (distToTower < 120) {
-              let doDestroyTower = Math.round(Math.random()*3);
+              let doDestroyTower = Math.round(Math.random() * 3);
               if (doDestroyTower == 3) {
                 towerGame.towers.splice(i, 1);
               }
@@ -362,7 +362,11 @@ if(towerGame.numWave != 1){
         candidates.push(this.currentCell.neighbors[i]);
     }
     // randomly pick one of the candidates
+    if(candidates.length != 0){
     return candidates[Math.floor(Math.random() * candidates.length)];
+    }else{
+      return this.target;
+    }
   }
 
 
@@ -445,16 +449,16 @@ if(towerGame.numWave != 1){
       ctx.strokeStyle = 'rgba(255, 0, 0, 0.5)';
       ctx.fillStyle = 'rgba(255, 0, 0, 0.2';
       ctx.beginPath();
-      
-      ctx.arc(0, 0, 60 - (Math.abs(this.countDown*3/20 - 55)), 0, Math.PI * 2, false);
-      
+
+      ctx.arc(0, 0, 60 - (Math.abs(this.countDown * 3 / 20 - 55)), 0, Math.PI * 2, false);
+
       ctx.closePath();
       ctx.stroke();
       ctx.fill();
       ctx.restore();
 
     }
-    if(this.explodingAfterMath){
+    if (this.explodingAfterMath) {
       ctx.save();
       ctx.translate(this.loc.x, this.loc.y);
       ctx.strokeStyle = 'rgba(255, 0, 0, 0.5)';
@@ -539,11 +543,17 @@ if(towerGame.numWave != 1){
         } else if (towerGame.bullets[h].ability == "freeze") {
           if (!this.freezeImmunities[0]) {
             this.health = this.health - this.freezeDamage * towerGame.bullets[h].damageMult;
+
+            if(towerGame.bullets[h].freezeUpgradeFinal){
+              this.movement.speed = Math.abs(this.baseSpeed) * -1;
+              
+            }else{
+            this.movement.speed = this.baseSpeed * 0.4;
+            }
             this.slowed -= 1;
-            this.movement.speed = this.baseSpeed * 0.6;
             setTimeout(() => {
               this.slowed = 1.2;
-              this.speed = this.baseSpeed;
+              this.movement.speed = this.baseSpeed;
             }, 3500);
           }
           if (!this.freezeUpgradedImmunities[0]) {
@@ -617,7 +627,7 @@ if(towerGame.numWave != 1){
     if (this.health <= 0) {
       this.kill = true;
       this.deathSound.play();
-    //  towerGame.bankValue += (15 + 5*this.type);
+    
     }
     this.movement.update();
     this.movement.render();
@@ -668,14 +678,17 @@ if(towerGame.numWave != 1){
     if (shape1.shape === "circle") {
       if (shape2.shape === "circle") {
         //circle-circle
+
         if (shape1.r + shape2.r >= shape1.loc.copy().dist(shape2.loc)) return true;
         return false;
       } else if (shape2.shape === "square") {//this does not work for rectangles but its close enought for a 57x50 thing
         //circle-square
+
         let topLeft = shape2.loc;
         let topRight = new vector2d(shape2.loc.x + shape2.w, shape2.loc.y);
         let bottomRight = new vector2d(shape2.loc.x + shape2.w, shape2.loc.y + shape2.w);
         let bottomLeft = new vector2d(shape2.loc.x, shape2.loc.y + shape2.w);
+
         let dist1 = topLeft.dist(shape1.loc);
         let dist2 = topRight.dist(shape1.loc);
         let dist3 = bottomRight.dist(shape1.loc);

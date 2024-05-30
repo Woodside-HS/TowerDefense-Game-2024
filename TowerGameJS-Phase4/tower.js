@@ -43,7 +43,10 @@ class Tower {
     this.closestCell = 0;
     this.finalRay = false;
     this.deathByRay = false;
-    this.buffConstant = 0.8; //multiply cooldown by buffConstant
+    this.buffConstant = 1.1; //multiply dmaage by buffConstant
+    this.buff1 = 1;
+    this.buff2 = 1;
+    this.buff3 = 1;
     if (ability == "freeze") {
       this.coolDown = 1000;
       this.range = 150;
@@ -72,7 +75,7 @@ class Tower {
     }
     else if (ability == "missile") {
       this.range = 800;
-      this.minRange = this.range / 3;
+      this.minRange = 0;
       this.coolDown = 1000 / 6;
 
     } else if (ability == "liquify") {
@@ -116,7 +119,7 @@ class Tower {
     } else if (ability == "freeze") {
       this.finalFreeze = true;
     } else if (ability == "explosive") {
-      this.coolDown *= 0.5;
+      this.coolDown *= 0.75;
     } else if (ability == "ray") {
       this.range *= 3;
       this.finalRay = true;
@@ -335,7 +338,11 @@ class Tower {
         }
       }
         if (count > 0) {
-          this.coolDown = this.maxCoolDown * this.buffConstant ^ (count);
+          let nr = this.range/this.buff3;
+          this.damageMult = this.buffConstant ** (count);
+          this.damageMult *= this.buff1;
+          this.coolDown = this.maxCoolDown * this.buff2;
+          this.range = nr *  this.buff3;
         }
       
     }

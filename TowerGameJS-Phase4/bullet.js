@@ -11,8 +11,8 @@ class Bullet {
     this.loc = location;
     this.towerLoc = towerLoc;
     this.speed = 15;
-    this.r = 30;
-    this.lifeSpan = 0;
+
+    this.lifeSpan = -1;
     this.choosenTarget = false;
     this.shape = "square";
     this.cannonBulletAngle = 0;
@@ -23,8 +23,11 @@ class Bullet {
     this.spots = [];
     this.choosenTargetLoc = 0;
     this.cannonAngle;
+    this.r = this.img.width;
+    this.w = this.img.width;
     this.damageMult = damageMult;
-    this.slashArc = 0;
+    this.slashArc = -Math.PI/2;
+    this.clr = this.randomColor();
     if (this.ability == "freeze") {
       this.speed = 10;
     }
@@ -32,10 +35,13 @@ class Bullet {
       this.speed = 50;
       this.lifeSpan = 750;
     }
-    if (this.ability == "fast" && !this.fastUpgradeFinal) {
-      this.speed = 13;
-    }else if(this.ability == "fast"){
+    if(this.ability == "explosive"){
+      this.lifeSpan = 750;
+    }
+    if (this.ability == "fast" && this.fastUpgradeFinal) {
       this.speed = 0;
+    }else if(this.ability == "fast"){
+      this.speed = 13;
     }
     if(this.ability == "cannon"){
       this.lifeSpan = 1000;
@@ -43,9 +49,15 @@ class Bullet {
 
 
   }
-
+  randomColor() {
+    let red = Math.floor(Math.random() * 256);
+    let green = Math.floor(Math.random() * 256);
+    let blue = Math.floor(Math.random() * 256);
+    return 'rgba(' + red + ',' + green + ',' + blue + ',' + 1 + ')';
+  }
   run() {
-  if(this.ability == "fast" && this.fastUpgradeFinal){
+  if(this.ability == "fast" && this.fastUpgradeFinal == true){
+    this.shape = "circle";
       this.finalUpgradeSlashAttack();
     }else{
    this.render();
@@ -171,13 +183,18 @@ class Bullet {
       ctx.strokeStyle = clr;
       ctx.fillStyle = clr;
       ctx.translate(this.loc.x, this.loc.y);
-      ctx.moveTo(0, 0);
+      //ctx.moveTo(0, 0);
       ctx.rotate(this.slashArc);
-      ctx.drawImage(this.img, -this.img.width*1.6, -this.img.height*1.6);
+     this.loc.x += Math.cos(this.slashArc);
+     this.loc.y += Math.sin(this.slashArc);
+      ctx.drawImage(this.img, -this.img.width*1.1, -this.img.height*1.1);
       ctx.stroke();
       ctx.fill();
       ctx.restore();
-      this.slashArc += 0.04*Math.PI;
+      this.slashArc += 0.02*Math.PI;
+      if(this.slashArc > 0.5*Math.PI){
+        this.slashArc = "over";
+      }
     
     
   }

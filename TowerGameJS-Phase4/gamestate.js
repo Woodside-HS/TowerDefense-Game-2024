@@ -134,7 +134,7 @@ class GameState4 extends GameState { //Catalog
 class GameState5 extends GameState { // game itself
   constructor(game, levelSel, custom) {
     super(game)
-    this.game.health = 20;
+    
     this.game.score = 0
     this.game.bankValue = 250;
     this.game.gameTime = 0;
@@ -177,21 +177,24 @@ class GameState5 extends GameState { // game itself
       this.game.levelRender(customLevel);
       this.game.levelKey = customLevel;
       this.game.canvas.canDiv.style.backgroundImage = custom;
-   
+      this.game.health = 100;
     } else if (this.game.gameStateID === 6) {
       this.game.levelRender(level1Key);
       this.game.levelKey = level1Key;
       this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/levels/level1.png')"
+      this.game.health = 50;
 
     } else if (this.game.gameStateID === 7) {
       this.game.levelRender(level2Key);
       this.game.levelKey = level2Key;
       this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/levels/level2.jpg')"
+      this.game.health = 30;
   
     } else if (this.game.gameStateID === 8) {
       this.game.levelRender(level3Key);
       this.game.levelKey = level3Key;
       this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/levels/level3.jpg')"
+      this.game.health = 15;
 
     }
 

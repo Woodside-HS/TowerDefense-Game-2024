@@ -51,6 +51,11 @@
             margin: 0 auto;
         }
 
+        h2 {
+            font-size: 80px;
+            margin: 0 auto;
+        }
+
         .credits-content p {
             font-size: 75px;
             margin: 0 auto;
@@ -87,29 +92,32 @@
                 </div>
 
 
-                <p>ChatGPT: </p>
+                <h2>ChatGPT: </h2>
                 <p>- Background and Character Art</p>
 
-                <p>Eric Ettlin: </p>
+                <h2>Eric Ettlin: </h2>
                 <p>- Teacher</p>
                 <p>- Mentor</p>
 
-                <p>Bryan Calder: </p>
+                <h2>Bryan Calder: </h2>
                 <p>- Credits code</p>
                 <p>- Prompt Engineer (Background Art)</p>
                 <p>- Button Images</p>
                 <p>- Normal Upgrades</p>
+                <p>- Finding The Music (Game)</p>
+                <p>- Overhauled the Info Tiles</p>
               
-                <p>John Gilbert: </p>
+                <h2>John Gilbert: </h2>
                 <p>- Prompt Engineer (Character Portrait Art)</p>
          
-                <p>Yoan Renninger: </p>
+                <h2>Yoan Renninger: </h2>
                 <p>- Level Map Creation (Wall Placement)</p>
                 <p>- 2D Array Grid System Render</p>
                 <p>- Catalog Code and Panel Text</p>
                 <p>- Game States</p>
+                <p>- Was staunchly against calling the website Skibidi Sunshine</p>
 
-                <p>Logan Thomas: </p>
+                <h2>Logan Thomas: </h2>
                 <p>- Towers</p>
                 <p>- Enemies</p>
                 <p>- Wave System</p>
@@ -117,18 +125,23 @@
                 <p>- Caused Most Major Bugs</p>
                 <p>- Fixed Most Major Bugs</p>
 
-                <p>Patrick Van Hoven: </p>
+                <h2>Patrick Van Hoven: </h2>
                 <p>- Server Setup</p>
                 <p>- General Bugfixer</p>
 
-                <p>Anthony Rastellini:</p>
+                <h2>Anthony Rastellini:</h2>
                 <p>- Photoshop Expert</p>
 
-                <p>Kaitlyn Jackson: </p>
+                <h2>Kaitlyn Jackson: </h2>
                 <p>- Topdown Tower Art</p>
 
-                <p>Charles Weickert: </p>
+                <h2>Charles Weickert: </h2>
                 <p>- Wanted to be here and helped with a few details</p>
+                <h2>The Group We Inherited This Game From</h2>
+                <p>- Music (Credits)</p>
+                <p>- The Base TD game</p>
+                <h2> And You, the player, for playing a game made by High Schoolers</h2>
+                <h2>Now here is some blooper art that did not make it into the game.</h2>
 
                 <div class="image-container" id="imageContainer">
                     <!-- Images will be dynamically inserted here -->
@@ -141,23 +154,40 @@
 
     <script>
         window.addEventListener('mousedown', loadSound, false);
+        window.addEventListener('keydown', keyPress)
+        function keyPress(e){
+            if(e.keyCode === 27){
+                window.location.href = "index.html";
+            }
+        }
 
-        // function addImage() {
-        //     let imageContainer = document.getElementById('imageContainer');
-        //     let img = document.createElement('img');
-        //     img.src = "image.jpg"; // Update with the correct path to your image
-        //     img.style.width = "50%"; // Adjust width as needed
-        //     imageContainer.appendChild(img);
-        // }
 
-        // for (let i = 0; i < 100; i++) {
-        //     addImage();
-        // }
 
+        function addImage(i) {
+            let imageContainer = document.getElementById('imageContainer');
+            let img = document.createElement('img');
+            let imgArr = ["extras/bloop1.webp",
+                       "extras/bloop2.webp", 
+                       "extras/bloop3.webp",
+                       "extras/bloop4.webp",
+                       "extras/bloop5.webp",
+                       "extras/bloop6.webp",
+                       "extras/bloop7.webp",
+                       "extras/bloop8.webp"];
+            img.src = imgArr[i]; // Update with the correct path to your image
+            img.style.width = "50%"; // Adjust width as needed
+            imageContainer.appendChild(img);
+        }
+
+        for (let i = 0; i < 7; i++) {
+            addImage(i);
+        }
+        
+        
         function loadSound() {
             let creditsMusic = document.getElementById('creditsMusic');
             let element = document.getElementById("scrolling-content");
-            element.setAttribute("style", "animation: scroll-up 100s linear infinite");
+            element.setAttribute("style", "animation: scroll-up 400s linear infinite");
             creditsMusic.play();
             
         }
