@@ -394,17 +394,19 @@ var panelJSON = [{
       pic: "TowerGameJS-Phase4/resources/images/panels/home.png",
       picId: "home",
       funk: function () {
-        document.getElementById("cataHome").parentNode.removeChild(document.getElementById("cataHome"))
+        
         document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
         document.getElementById("towerInfoPanel2").parentNode.removeChild(document.getElementById("towerInfoPanel2"))
+        document.getElementById("cataHome").parentNode.removeChild(document.getElementById("cataHome"))
         towerGame.gameState = new GameState1(towerGame)
         towerGame.numWave = 0;
         towerGame.firstClick = true;
         document.getElementById('fastForward').innerHTML = "Start";
         FRAME_RATE = 30;
-        document.getElementById("cataHome").parentNode.removeChild(document.getElementById("cataHome"))
+
         document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
         document.getElementById("towerInfoPanel2").parentNode.removeChild(document.getElementById("towerInfoPanel2"))
+        document.getElementById("cataHome").parentNode.removeChild(document.getElementById("cataHome"))
       }
     }
   ]
@@ -577,7 +579,7 @@ var panelJSON = [{
 }, { //panel 17
   name: "Buff Catalog",
   id: "buffTowerCata",
-  pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanels/bladestormCatalog.png",
+  pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanels/mermanCatalog.png",
   picId: "buffCata",
   buttonJSON: [{
     name: "Back Button",
