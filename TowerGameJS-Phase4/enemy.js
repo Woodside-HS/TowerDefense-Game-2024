@@ -142,7 +142,7 @@ if(towerGame.numWave != 1){
     }
     this.randomPath = 1;   //boolean to randomize or not
     this.radius = 15.0;
-    this.r = 15.0;
+    this.r = this.img.width;
     this.vel = vector2d(0, 0); // Initialize velocity vector
     this.acc = vector2d(0, 0)
     this.count = 0;
@@ -178,7 +178,7 @@ if(towerGame.numWave != 1){
 
     //towers damage
     this.normalDamage = 500;
-    this.fastDamage = 750;
+    this.fastDamage = 75000;
     this.freezeDamage = 10;
     this.explosiveDamage = 3200;
     this.cannonDamage = 3200;
@@ -543,11 +543,14 @@ if(towerGame.numWave != 1){
         } else if (towerGame.bullets[h].ability == "freeze") {
           if (!this.freezeImmunities[0]) {
             this.health = this.health - this.freezeDamage * towerGame.bullets[h].damageMult;
-            this.slowed -= 1;
-            this.movement.speed = this.baseSpeed * 0.4;
+
             if(towerGame.bullets[h].freezeUpgradeFinal){
               this.movement.speed = Math.abs(this.baseSpeed) * -1;
+              
+            }else{
+            this.movement.speed = this.baseSpeed * 0.4;
             }
+            this.slowed -= 1;
             setTimeout(() => {
               this.slowed = 1.2;
               this.movement.speed = this.baseSpeed;
@@ -675,14 +678,17 @@ if(towerGame.numWave != 1){
     if (shape1.shape === "circle") {
       if (shape2.shape === "circle") {
         //circle-circle
+
         if (shape1.r + shape2.r >= shape1.loc.copy().dist(shape2.loc)) return true;
         return false;
       } else if (shape2.shape === "square") {//this does not work for rectangles but its close enought for a 57x50 thing
         //circle-square
+
         let topLeft = shape2.loc;
         let topRight = new vector2d(shape2.loc.x + shape2.w, shape2.loc.y);
         let bottomRight = new vector2d(shape2.loc.x + shape2.w, shape2.loc.y + shape2.w);
         let bottomLeft = new vector2d(shape2.loc.x, shape2.loc.y + shape2.w);
+
         let dist1 = topLeft.dist(shape1.loc);
         let dist2 = topRight.dist(shape1.loc);
         let dist3 = bottomRight.dist(shape1.loc);
