@@ -150,7 +150,9 @@ var panelJSON = [{
         towerGame.numWave = 0;
         towerGame.firstClick = true;
         towerGame.wave.referenceTime = 20;
-        document.getElementById('fastForward').innerHTML = "Start";
+        document.getElementById('fastForward').classList.remove('fast');
+        document.getElementById('fastForward').classList.remove('slow');
+
         FRAME_RATE = 30;
         document.getElementById("endPanel").parentNode.removeChild(document.getElementById("endPanel"))
       }
@@ -168,7 +170,8 @@ var panelJSON = [{
         towerGame.firstClick = true;
         towerGame.wave.spawnOver = false;
         towerGame.wave.referenceTime = 20;
-        document.getElementById('fastForward').innerHTML = "Start"; // Reset the button text to "Start"
+        document.getElementById('fastForward').classList.remove('fast');
+        document.getElementById('fastForward').classList.remove('slow');
         FRAME_RATE = 30;
       }
     }, {
@@ -394,14 +397,15 @@ var panelJSON = [{
       pic: "TowerGameJS-Phase4/resources/images/panels/home.png",
       picId: "home",
       funk: function () {
-        
+
         document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
         document.getElementById("towerInfoPanel2").parentNode.removeChild(document.getElementById("towerInfoPanel2"))
         document.getElementById("cataHome").parentNode.removeChild(document.getElementById("cataHome"))
         towerGame.gameState = new GameState1(towerGame)
         towerGame.numWave = 0;
         towerGame.firstClick = true;
-        document.getElementById('fastForward').innerHTML = "Start";
+        document.getElementById('fastForward').classList.remove('fast');
+        document.getElementById('fastForward').classList.remove('slow');
         FRAME_RATE = 30;
 
         document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
