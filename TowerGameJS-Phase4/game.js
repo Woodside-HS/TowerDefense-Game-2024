@@ -153,13 +153,13 @@ class Game {
 
       if (towerGame.fastForward) { // if it is on slow mode
         FRAME_RATE = 30; // make it fast
-        fastForwardButton.classList.remove('slow');
-        fastForwardButton.classList.add('fast');
+        fastForwardButton.classList.remove('fast');
+        fastForwardButton.classList.add('slow');
 
       } else { // if it is on fast mode
         FRAME_RATE = 60; // make it slow
-        fastForwardButton.classList.remove('fast');
-        fastForwardButton.classList.add('slow');
+        fastForwardButton.classList.remove('slow');
+        fastForwardButton.classList.add('fast');
 
       }
     }, false);
