@@ -383,7 +383,6 @@ if(towerGame.numWave != 1){
 
     ctx.drawImage(this.img, -this.img.width / 2, -this.img.height / 2);
     
-
     ctx.globalAlpha = 1.0;
     ctx.restore();
 
