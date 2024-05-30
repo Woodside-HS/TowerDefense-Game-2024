@@ -153,13 +153,13 @@ class Game {
 
       if (towerGame.fastForward) { // if it is on slow mode
         FRAME_RATE = 30; // make it fast
-        fastForwardButton.classList.remove('slow');
-        fastForwardButton.classList.add('fast');
+        fastForwardButton.classList.remove('fast');
+        fastForwardButton.classList.add('slow');
 
       } else { // if it is on fast mode
         FRAME_RATE = 60; // make it slow
-        fastForwardButton.classList.remove('fast');
-        fastForwardButton.classList.add('slow');
+        fastForwardButton.classList.remove('slow');
+        fastForwardButton.classList.add('fast');
 
       }
     }, false);
@@ -572,8 +572,9 @@ class Game {
       if (info.id === 'bankTile') {
         info.innerHTML = '';
         var value = document.createElement('p');
-        value.style.fontSize = '12pt';
+        value.style.fontSize = '20pt';
         value.innerHTML = this.bankValue;
+        value.style.transform = "translateY(15px)"; // Move the text down
         info.appendChild(value)
         if (this.bankValue < 0) {
           this.bankValue == 0;
@@ -581,29 +582,33 @@ class Game {
       } else if (info.id === 'timeTile') {
         info.innerHTML = '';
         var value = document.createElement('p');
-        value.style.fontSize = '12pt';
+        value.style.fontSize = '20pt';
         value.innerHTML = this.updateGameTime();
+        value.style.transform = "translateY(15px)"; // Move the text down
         info.appendChild(value);
       }
       if (info.id === 'scoreTile') {
         info.innerHTML = '';
         var value = document.createElement('p');
-        value.style.fontSize = '12pt';
+        value.style.fontSize = '20pt';
         value.innerHTML = this.score;
+        value.style.transform = "translateY(23px)"; // Move the text down
         info.appendChild(value);
       }
       if (info.id === 'waveTile') {
         info.innerHTML = '';
         var value = document.createElement('p');
-        value.style.fontSize = '10pt';
+        value.style.fontSize = '20pt';
         value.innerHTML = towerGame.numWave;
+        value.style.transform = "translateY(15px)"; // Move the text down
         info.appendChild(value);
       }
       if (info.id === 'healthTile') {
         info.innerHTML = '';
         var value = document.createElement('p');
-        value.style.fontSize = '12pt';
+        value.style.fontSize = '20pt';
         value.innerHTML = this.health;
+        value.style.transform = "translateY(15px)"; // Move the text down
         info.appendChild(value);
       }
 

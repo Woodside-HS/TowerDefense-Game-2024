@@ -101,7 +101,7 @@ var panelJSON = [{
       pic: "TowerGameJS-Phase4/resources/images/panels/homePanel/help.png",
       picId: "wframe",
       funk: function () {
-        towerGame.gameState.panelInstructions = new Panel(towerGame, 1, 450, 800, 375)
+        towerGame.gameState.panelInstructions = new Panel(towerGame, 1, 185, 800, 680)
         document.getElementById("firstPanel").parentNode.removeChild(document.getElementById("firstPanel"));
       }
     }, {
@@ -150,7 +150,9 @@ var panelJSON = [{
         towerGame.numWave = 0;
         towerGame.firstClick = true;
         towerGame.wave.referenceTime = 20;
-        document.getElementById('fastForward').innerHTML = "Start";
+        document.getElementById('fastForward').classList.remove('fast');
+        document.getElementById('fastForward').classList.remove('slow');
+
         FRAME_RATE = 30;
         document.getElementById("endPanel").parentNode.removeChild(document.getElementById("endPanel"))
       }
@@ -168,7 +170,8 @@ var panelJSON = [{
         towerGame.firstClick = true;
         towerGame.wave.spawnOver = false;
         towerGame.wave.referenceTime = 20;
-        document.getElementById('fastForward').innerHTML = "Start"; // Reset the button text to "Start"
+        document.getElementById('fastForward').classList.remove('fast');
+        document.getElementById('fastForward').classList.remove('slow');
         FRAME_RATE = 30;
       }
     }, {
@@ -394,14 +397,15 @@ var panelJSON = [{
       pic: "TowerGameJS-Phase4/resources/images/panels/home.png",
       picId: "home",
       funk: function () {
-        
+
         document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
         document.getElementById("towerInfoPanel2").parentNode.removeChild(document.getElementById("towerInfoPanel2"))
         document.getElementById("cataHome").parentNode.removeChild(document.getElementById("cataHome"))
         towerGame.gameState = new GameState1(towerGame)
         towerGame.numWave = 0;
         towerGame.firstClick = true;
-        document.getElementById('fastForward').innerHTML = "Start";
+        document.getElementById('fastForward').classList.remove('fast');
+        document.getElementById('fastForward').classList.remove('slow');
         FRAME_RATE = 30;
 
         document.getElementById("towerInfoPanel").parentNode.removeChild(document.getElementById("towerInfoPanel"))
@@ -561,7 +565,7 @@ var panelJSON = [{
 }, { //panel 16
   name: "Rock Thrower Catalog",
   id: "rockThrowerCata",
-  pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanels/bladestormCatalog.png",
+  pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanels/stonefangCatalog.png",
   picId: "rockCata",
   buttonJSON: [{
     name: "Back Button",
@@ -605,7 +609,7 @@ var panelJSON = [{
     pic: "TowerGameJS-Phase4/resources/images/panels/customChoicePanel/shipCabinButt.png",
     picId: "cabinPic",
     funk: function () {
-      towerGame.gameState = new GameState5(towerGame, 4, "url('TowerGameJS-Phase4/resources/images/bg/levels/level1custom.jpg")
+      towerGame.gameState = new GameState5(towerGame, 4, "url('TowerGameJS-Phase4/resources/images/bg/levels/level1.png")
       document.getElementById("customChoice").parentNode.removeChild(document.getElementById("customChoice"))
     }
   }, {

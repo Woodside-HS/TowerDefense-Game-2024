@@ -134,9 +134,9 @@ class GameState4 extends GameState { //Catalog
 class GameState5 extends GameState { // game itself
   constructor(game, levelSel, custom) {
     super(game)
-    this.game.health = 50;
+    
     this.game.score = 0
-    this.game.bankValue = 250;
+    this.game.bankValue = 25000;
     this.game.gameTime = 0;
     this.game.grid = [];
     this.game.towers = [];
@@ -177,21 +177,24 @@ class GameState5 extends GameState { // game itself
       this.game.levelRender(customLevel);
       this.game.levelKey = customLevel;
       this.game.canvas.canDiv.style.backgroundImage = custom;
-   
+      this.game.health = 100;
     } else if (this.game.gameStateID === 6) {
       this.game.levelRender(level1Key);
       this.game.levelKey = level1Key;
       this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/levels/level1.png')"
+      this.game.health = 50;
 
     } else if (this.game.gameStateID === 7) {
       this.game.levelRender(level2Key);
       this.game.levelKey = level2Key;
       this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/levels/level2.jpg')"
+      this.game.health = 30;
   
     } else if (this.game.gameStateID === 8) {
       this.game.levelRender(level3Key);
       this.game.levelKey = level3Key;
       this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/levels/level3.jpg')"
+      this.game.health = 15;
 
     }
 
@@ -252,6 +255,9 @@ class GameState5 extends GameState { // game itself
     // draw the towers
     for (let i = 0; i < this.game.towers.length; i++) {
       this.game.towers[i].run();
+      for(let j = 0; j < this.game.towers[i].blades.length; j ++){
+      this.game.towers[i].blades[j].run();
+      }
     }
     for (let i = 0; i < this.game.enemies.length; i++) {
       this.game.enemies[i].run();
@@ -262,7 +268,6 @@ class GameState5 extends GameState { // game itself
     for (let i = 0; i < this.game.explosiveBullets.length; i++) {
       this.game.explosiveBullets[i].run();
     }
-
     for (let i = 0; i < this.game.missiles.length; i++) {
       this.game.missiles[i].run();
     }
