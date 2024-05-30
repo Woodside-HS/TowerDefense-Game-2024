@@ -3,14 +3,15 @@ class Blade {
   constructor(location, bImg, angle, type, blades, damageMult, isOrginal) {
     this.loc = new vector2d(0, 0);
     this.towerLoc = location;
-    this.shape = "square";
+    this.shape = "sword";
     this.img = bImg;
     this.ability = type;
     this.orbitalRadius = 0;
     this.isOrginal = isOrginal;
     this.angle = 0;
     this.angularVelocity = 0.05;
-    this.w = this.img.width * 1.0;
+    this.w = this.img.width;
+    this.h = this.img.height;
     this.blades = blades;
     this.damageMult = damageMult;
   }
