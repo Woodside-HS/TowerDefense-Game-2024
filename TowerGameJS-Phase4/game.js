@@ -535,7 +535,7 @@ class Game {
         this.bullets[i].loc.x > this.canvas.width ||
         this.bullets[i].loc.y < 0 ||
         this.bullets[i].loc.y > this.canvas.height)
-        || this.bullets[i].lifeSpan == 0) {
+        || this.bullets[i].lifeSpan == 0 || this.bullets[i].slashArc == "over") {
 
         this.bullets.splice(i, 1);
       }

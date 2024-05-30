@@ -75,7 +75,7 @@ class Tower {
     }
     else if (ability == "missile") {
       this.range = 800;
-      this.minRange = this.range / 3;
+      this.minRange = 0;
       this.coolDown = 1000 / 6;
 
     } else if (ability == "liquify") {
