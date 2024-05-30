@@ -101,7 +101,7 @@ var panelJSON = [{
       pic: "TowerGameJS-Phase4/resources/images/panels/homePanel/help.png",
       picId: "wframe",
       funk: function () {
-        towerGame.gameState.panelInstructions = new Panel(towerGame, 1, 450, 800, 375)
+        towerGame.gameState.panelInstructions = new Panel(towerGame, 1, 185, 800, 680)
         document.getElementById("firstPanel").parentNode.removeChild(document.getElementById("firstPanel"));
       }
     }, {
