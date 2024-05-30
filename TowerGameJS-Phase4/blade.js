@@ -6,12 +6,12 @@ class Blade {
     this.shape = "sword";
     this.img = bImg;
     this.ability = type;
-    this.orbitalRadius = 0;
+    this.orbitalRadius = this.img.height/1.5;
     this.isOrginal = isOrginal;
     this.angle = 0;
     this.angularVelocity = 0.05;
-    this.w = this.img.width;
-    this.h = this.img.height;
+    this.w = this.img.width/1.5;
+    this.h = this.img.height/1.5;
     this.blades = blades;
     this.damageMult = damageMult;
   }
@@ -27,10 +27,11 @@ class Blade {
       var ctx = towerGame.context;
       ctx.save();
       ctx.translate(this.towerLoc.x + 0, this.towerLoc.y + 0)
-      ctx.rotate(this.blades * 0.5 * Math.PI);//idk the png is scuffed so its not perfect
+      ctx.rotate((this.blades-1) * 0.5 * Math.PI);//idk the png is scuffed so its not perfect
       // but I can not be asked to fix the png yet
       ctx.rotate(this.angle)
-
+      //this.loc.y += Math.sin(this.angle)*10;
+      //this.loc.x += Math.cos(this.angle)*10;
 
       ctx.drawImage(this.img, 0 , 0,
         this.img.width/1.5, this.img.height/1.5);

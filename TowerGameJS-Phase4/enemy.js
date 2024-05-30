@@ -699,11 +699,25 @@ if(towerGame.numWave != 1){
             return false;
         } else if (shape2.shape === "sword") {
             // circle-sword (sword is treated as a rectangle)
-            let swordLeft = shape2.loc.x;
-            let swordRight = shape2.loc.x + shape2.w;
-            let swordTop = shape2.loc.y;
-            let swordBottom = shape2.loc.y + shape2.h;
-
+            let realDist = new vector2d(0, 0);
+            realDist = shape2.loc.rotate(shape2.angle)
+            let swordLeft = realDist.loc.x;
+            let swordRight = realDist.loc.x + realDist.w;
+            let swordTop = realDist.loc.y;
+            let swordBottom = realDist.loc.y + realDist.h;
+          let ctx = this.game.context;
+          ctx.strokeStyle = this.clr1;
+          ctx.fillStyle = this.clr2;
+          ctx.save();
+          ctx.moveTo(swordLeft, swordTop);
+          ctx.lineTo(swordLeft, swordTop)
+          ctx.lineTo(swordRight, swordTop);
+        //  ctx.moveTo(swordLeft, swordBottom);
+          ctx.lineTo(swordRight, swordBottom);
+          ctx.lineTo(swordLeft, swordBottom)
+          ctx.stroke()
+          ctx.fill()
+          ctx.restore();
             // Check if the circle's center is inside the sword's bounds
             if (shape1.loc.x >= swordLeft && shape1.loc.x <= swordRight &&
                 shape1.loc.y >= swordTop && shape1.loc.y <= swordBottom) {
