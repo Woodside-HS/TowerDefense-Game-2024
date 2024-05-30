@@ -182,7 +182,7 @@ if(towerGame.numWave != 1){
     this.freezeDamage = 10;
     this.explosiveDamage = 1600;
     this.cannonDamage = 1600;
-    this.bladeStormDamage = 125;
+    this.bladeStormDamage = 60;
     this.liquifyDamage = 10;
     this.missileDamage = 400;
   }
@@ -321,6 +321,9 @@ if(towerGame.numWave != 1){
             if (distToTower < 120) {
               let doDestroyTower = Math.round(Math.random() * 3);
               if (doDestroyTower == 3) {
+                for(let i = towerGame.blades.length; i > 0; i ++){
+                  towerGame.blades.splice(i, 1)
+                }
                 towerGame.towers.splice(i, 1);
               }
             }
@@ -443,7 +446,7 @@ if(towerGame.numWave != 1){
       ctx.save();
       ctx.translate(this.loc.x, this.loc.y);
       ctx.strokeStyle = 'rgba(255, 0, 0, 0.5)';
-      ctx.fillStyle = 'rgba(255, 0, 0, 0.2';
+      ctx.fillStyle = 'rgba(255, 0, 0, 0.2)';
       ctx.beginPath();
 
       ctx.arc(0, 0, 60 - (Math.abs(this.countDown * 3 / 20 - 55)), 0, Math.PI * 2, false);
