@@ -3,6 +3,7 @@ class Enemy {
   constructor(game, enemyNumber, parent, summon) {
 
     this.game = game;
+    this.nBlade = 0;
     this.parent = parent;
     this.summoned = summon;
     this.summoningEffect = false;
@@ -505,9 +506,12 @@ if(towerGame.numWave != 1){
       }
     }
     if(towerGame.towers.length > 0){
+      this.nBlade = 0;
       for(let k = 0; k < towerGame.towers.length; k ++){
     for (let h = 0; h < towerGame.towers[k].blades.length; h++) {
+      this.nBlade++;
       if (this.checkCollide(this, towerGame.towers[k].blades[h])) {
+
         if (towerGame.towers[k].blades[h].ability == "bladeStorm") {
           if (!this.bladeStormImmunities[0]) {
             this.health -= this.bladeStormDamage * towerGame.towers[k].blades[h].damageMult;
@@ -702,24 +706,15 @@ if(towerGame.numWave != 1){
             let ctx = this.game.context;
             ctx.save();
             //ctx.translate(shape2.loc.x, shape2.loc.y)
-            let realDist = shape2.loc.rotatePoint(shape2.angle + shape2.blades*0.5*Math.PI, shape2.loc)
-            let swordLeft = realDist.x;
-            let swordRight = realDist.x + shape2.w;
-            let swordTop = realDist.y;
-            let swordBottom = realDist.y + shape2.h;
 
-          ctx.strokeStyle = this.clr1;
-          ctx.fillStyle = this.clr2;
+            let realDist = shape2.loc.rotatePoint(this.nBlade*0.5*Math.PI + Math.PI, shape2.loc);
+            
+            let swordLeft = shape2.loc.x;
+            let swordRight = shape2.loc.x + shape2.w;
+            let swordTop = shape2.loc.y;
+            let swordBottom = shape2.loc.y + shape2.h;
 
-          ctx.moveTo(swordLeft, swordTop);
-          ctx.lineTo(swordLeft, swordTop)
-          ctx.lineTo(swordRight, swordTop);
-        //  ctx.moveTo(swordLeft, swordBottom);
-          ctx.lineTo(swordRight, swordBottom);
-          ctx.lineTo(swordLeft, swordBottom)
-          ctx.stroke()
-          ctx.fill()
-          ctx.restore();
+        
             // Check if the circle's center is inside the sword's bounds
             if (shape1.loc.x >= swordLeft && shape1.loc.x <= swordRight &&
                 shape1.loc.y >= swordTop && shape1.loc.y <= swordBottom) {
