@@ -699,16 +699,18 @@ if(towerGame.numWave != 1){
             return false;
         } else if (shape2.shape === "sword") {
             // circle-sword (sword is treated as a rectangle)
-            let realDist = new vector2d(0, 0);
-            realDist = shape2.loc.rotate(shape2.angle)
-            let swordLeft = realDist.loc.x;
-            let swordRight = realDist.loc.x + realDist.w;
-            let swordTop = realDist.loc.y;
-            let swordBottom = realDist.loc.y + realDist.h;
-          let ctx = this.game.context;
+            let ctx = this.game.context;
+            ctx.save();
+            //ctx.translate(shape2.loc.x, shape2.loc.y)
+            let realDist = shape2.loc.rotatePoint(shape2.angle + shape2.blades*0.5*Math.PI, shape2.loc)
+            let swordLeft = realDist.x;
+            let swordRight = realDist.x + shape2.w;
+            let swordTop = realDist.y;
+            let swordBottom = realDist.y + shape2.h;
+
           ctx.strokeStyle = this.clr1;
           ctx.fillStyle = this.clr2;
-          ctx.save();
+
           ctx.moveTo(swordLeft, swordTop);
           ctx.lineTo(swordLeft, swordTop)
           ctx.lineTo(swordRight, swordTop);
