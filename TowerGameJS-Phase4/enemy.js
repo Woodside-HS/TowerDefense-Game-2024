@@ -183,7 +183,7 @@ if(towerGame.numWave != 1){
     this.freezeDamage = 10;
     this.explosiveDamage = 1600;
     this.cannonDamage = 1600;
-    this.bladeStormDamage = 60000;
+    this.bladeStormDamage = 60;
     this.liquifyDamage = 10;
     this.missileDamage = 400;
   }
@@ -705,9 +705,13 @@ if(towerGame.numWave != 1){
             // circle-sword (sword is treated as a rectangle)
             let ctx = this.game.context;
             ctx.save();
-            //ctx.translate(shape2.loc.x, shape2.loc.y)
+           ctx.strokeStyle = this.clr1;
+           ctx.fillStyle = this.clr1;
+           ctx.lineWidth = 10;
+          ctx.stroke();
+          ctx.fill();
+          ctx.restore();
 
-            let realDist = shape2.loc.rotatePoint(this.nBlade*0.5*Math.PI + Math.PI, shape2.loc);
             
             let swordLeft = shape2.loc.x;
             let swordRight = shape2.loc.x + shape2.w;

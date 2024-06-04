@@ -100,6 +100,7 @@ class Popup {
       towerGame.bankValue -= Math.ceil(this.tower.cost * 0.6);
       this.sellPrice += this.tower.cost * 0.6;
       this.tower.buff3 *= 1.25;
+     
       this.hideUpgrade();
       towerGame.shownBase = false;
       }
