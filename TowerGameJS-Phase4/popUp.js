@@ -5,13 +5,13 @@ class Popup {
     this.x = x;
     this.y = y;
     this.tower = tower;
-    this.baseSellPrice = this.tower.cost / 3;
-    this.sellPrice = this.baseSellPrice;
-    this.popupElement = this.createPopup();
+    this.baseSellPrice = this.tower.cost / 3; //towers that are already placed sell for 1/3 of their original cost
+    this.sellPrice = this.baseSellPrice; //seems extraneous but whatever
+    this.popupElement = this.createPopup(); //creates new popup object
     this.show();
   }
 
-  createButton(cost, id, text, onClickCallback) {
+  createButton(cost, id, text, onClickCallback) { //general function to create a customizable button
     towerGame.shownBase = true;
     const button = document.createElement('button');
     button.id = id;
@@ -22,7 +22,7 @@ class Popup {
       button.style.backgroundColor = 'lightgray'; // Change background color on hover
       towerGame.updateCostInfoElement(cost);
     });
-  
+
     button.addEventListener('mouseout', () => {
       button.style.backgroundColor = ''; // Revert to original background color when not hovered
       towerGame.updateCostInfoElement('');
@@ -52,7 +52,7 @@ class Popup {
     });
     const cancleButton = this.createButton('', 'cancleButton', 'X', () => {
       towerGame.shownBase = false;
-      console.log('Cancle button clicked');
+      console.log('Cancle button clicked'); //spelling mistake lol
     });
 
     popup.appendChild(refundButton);
@@ -81,54 +81,54 @@ class Popup {
     console.log(this.tower.upgradedRange + "    " + this.tower.upgradedCoolDown + "    " + this.tower.upgradedDamage);
     let cost = Math.ceil(this.tower.cost * 2)
     const finalUpgrade = this.createButton(cost, 'finalUpgrade', 'Final', () => {
-      if(towerGame.bankValue >= Math.ceil(this.tower.cost * 2)){
-      this.tower.finalUpgrade(this.tower.ability);
-      console.log("Final Upgrade");
-      this.tower.upgradedFinal = true;
-      this.hideUpgrade();
-      towerGame.bankValue -= Math.ceil(this.tower.cost * 2);
-      this.sellPrice += this.tower.cost * 2;
-      towerGame.shownBase = false;
+      if (towerGame.bankValue >= Math.ceil(this.tower.cost * 2)) {
+        this.tower.finalUpgrade(this.tower.ability);
+        console.log("Final Upgrade");
+        this.tower.upgradedFinal = true;
+        this.hideUpgrade();
+        towerGame.bankValue -= Math.ceil(this.tower.cost * 2);
+        this.sellPrice += this.tower.cost * 2;
+        towerGame.shownBase = false;
       }
     });
     cost = Math.ceil(this.tower.cost * 0.6);
     const rangeButton = this.createButton(cost, 'rangeButton', 'Range', () => {
-      if(towerGame.bankValue >= Math.ceil(this.tower.cost * 0.6)){
-      this.tower.rangeUpgrade();
-      console.log("Range increased by 20%");
-      this.tower.upgradedRange = true;
-      towerGame.bankValue -= Math.ceil(this.tower.cost * 0.6);
-      this.sellPrice += this.tower.cost * 0.6;
-      this.tower.buff3 *= 1.25;
-     
-      this.hideUpgrade();
-      towerGame.shownBase = false;
+      if (towerGame.bankValue >= Math.ceil(this.tower.cost * 0.6)) {
+        this.tower.rangeUpgrade();
+        console.log("Range increased by 20%");
+        this.tower.upgradedRange = true;
+        towerGame.bankValue -= Math.ceil(this.tower.cost * 0.6);
+        this.sellPrice += this.tower.cost * 0.6;
+        this.tower.buff3 *= 1.25;
+
+        this.hideUpgrade();
+        towerGame.shownBase = false;
       }
     });
     cost = Math.ceil(this.tower.cost * 1)
     const cooldownButton = this.createButton(cost, 'cooldownButton', 'Cooldown', () => {
-      if(towerGame.bankValue >= Math.ceil(this.tower.cost * 1)){
-      this.tower.coolDownUpgrade();
-      console.log("Cooldown decreased by 20%");
-      this.tower.upgradedCoolDown = true;
-      towerGame.bankValue -= Math.ceil(this.tower.cost * 1);
-      this.sellPrice += this.tower.cost * 1;
-      this.tower.buff2 *= 0.8;
-      this.hideUpgrade();
-      towerGame.shownBase = false;
+      if (towerGame.bankValue >= Math.ceil(this.tower.cost * 1)) {
+        this.tower.coolDownUpgrade();
+        console.log("Cooldown decreased by 20%");
+        this.tower.upgradedCoolDown = true;
+        towerGame.bankValue -= Math.ceil(this.tower.cost * 1);
+        this.sellPrice += this.tower.cost * 1;
+        this.tower.buff2 *= 0.8;
+        this.hideUpgrade();
+        towerGame.shownBase = false;
       }
     });
     cost = Math.ceil(this.tower.cost * 1.25)
     const damageButton = this.createButton(cost, 'damageButton', 'Damage', () => {
-      if(towerGame.bankValue >= Math.ceil(this.tower.cost * 1.25)){
-      console.log("Damage increased by 20%");
-      this.tower.upgradedDamage = true;
-      towerGame.bankValue -= Math.ceil(this.tower.cost * 1.25);
-      this.sellPrice += this.tower.cost * 1.25;
-      this.tower.buff1 *= 1.2;
-      this.tower.damageUpgrade();
-      this.hideUpgrade();
-      towerGame.shownBase = false;
+      if (towerGame.bankValue >= Math.ceil(this.tower.cost * 1.25)) {
+        console.log("Damage increased by 20%");
+        this.tower.upgradedDamage = true;
+        towerGame.bankValue -= Math.ceil(this.tower.cost * 1.25);
+        this.sellPrice += this.tower.cost * 1.25;
+        this.tower.buff1 *= 1.2;
+        this.tower.damageUpgrade();
+        this.hideUpgrade();
+        towerGame.shownBase = false;
       }
     });
 
