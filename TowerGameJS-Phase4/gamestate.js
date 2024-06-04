@@ -253,6 +253,9 @@ class GameState5 extends GameState { // game itself
     // draw the towers
     for (let i = 0; i < this.game.towers.length; i++) {
       this.game.towers[i].run();
+      for(let j = 0; j < this.game.towers[i].blades.length; j ++){
+      this.game.towers[i].blades[j].run();
+      }
     }
     for (let i = 0; i < this.game.enemies.length; i++) {
       this.game.enemies[i].run();
@@ -262,9 +265,6 @@ class GameState5 extends GameState { // game itself
     }
     for (let i = 0; i < this.game.explosiveBullets.length; i++) {
       this.game.explosiveBullets[i].run();
-    }
-    for (let i = 0; i < this.game.blades.length; i++) {
-      this.game.blades[i].run();
     }
     for (let i = 0; i < this.game.missiles.length; i++) {
       this.game.missiles[i].run();

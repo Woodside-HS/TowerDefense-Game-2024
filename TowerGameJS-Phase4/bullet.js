@@ -23,8 +23,8 @@ class Bullet {
     this.spots = [];
     this.choosenTargetLoc = 0;
     this.cannonAngle;
-    this.r = this.img.width;
-    this.w = this.img.width;
+    this.r = this.img.width/2;
+    this.w = this.img.width/2;
     this.damageMult = damageMult;
     this.slashArc = -Math.PI/2;
     this.clr = this.randomColor();
@@ -32,7 +32,7 @@ class Bullet {
       this.speed = 10;
     }
     if (this.ability == "cannon") {
-      this.speed = 50;
+      this.speed = 14;
       this.lifeSpan = 750;
     }
     if(this.ability == "explosive"){
@@ -120,6 +120,9 @@ class Bullet {
       let total = towerToLocation - bulletFromTowerDist;
       if (total < 0) {
         this.speed = 0;
+        if(this.cannonUpgradeFinal){
+          this.spinny = true;
+        }
       }
     } else if (this.spinny == true) {
       this.cannonSpinny();

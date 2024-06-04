@@ -63,7 +63,7 @@ class Game {
     this.bullets = [];
     this.missiles = [];//added with same logic as bullets
     this.hands = [];//added with same logic as bullets (this is the minion guy idk)
-    this.blades = [];//added with same logic as bullets
+   // this.blades = [];//added with same logic as bullets
     this.secondRays = [];
     this.allowPlace = true;//to not place when picking a spot to target for two of the towers
     this.explosiveBullets = [];//added with same logic as bullets
@@ -153,13 +153,13 @@ class Game {
 
       if (towerGame.fastForward) { // if it is on slow mode
         FRAME_RATE = 30; // make it fast
-        fastForwardButton.classList.remove('slow');
-        fastForwardButton.classList.add('fast');
+        fastForwardButton.classList.remove('fast');
+        fastForwardButton.classList.add('slow');
 
       } else { // if it is on fast mode
         FRAME_RATE = 60; // make it slow
-        fastForwardButton.classList.remove('fast');
-        fastForwardButton.classList.add('slow');
+        fastForwardButton.classList.remove('slow');
+        fastForwardButton.classList.add('fast');
 
       }
     }, false);
@@ -572,8 +572,9 @@ class Game {
       if (info.id === 'bankTile') {
         info.innerHTML = '';
         var value = document.createElement('p');
-        value.style.fontSize = '12pt';
+        value.style.fontSize = '20pt';
         value.innerHTML = this.bankValue;
+        value.style.transform = "translateY(15px)"; // Move the text down
         info.appendChild(value)
         if (this.bankValue < 0) {
           this.bankValue == 0;
@@ -581,29 +582,33 @@ class Game {
       } else if (info.id === 'timeTile') {
         info.innerHTML = '';
         var value = document.createElement('p');
-        value.style.fontSize = '12pt';
+        value.style.fontSize = '20pt';
         value.innerHTML = this.updateGameTime();
+        value.style.transform = "translateY(15px)"; // Move the text down
         info.appendChild(value);
       }
       if (info.id === 'scoreTile') {
         info.innerHTML = '';
         var value = document.createElement('p');
-        value.style.fontSize = '12pt';
+        value.style.fontSize = '20pt';
         value.innerHTML = this.score;
+        value.style.transform = "translateY(23px)"; // Move the text down
         info.appendChild(value);
       }
       if (info.id === 'waveTile') {
         info.innerHTML = '';
         var value = document.createElement('p');
-        value.style.fontSize = '10pt';
+        value.style.fontSize = '20pt';
         value.innerHTML = towerGame.numWave;
+        value.style.transform = "translateY(15px)"; // Move the text down
         info.appendChild(value);
       }
       if (info.id === 'healthTile') {
         info.innerHTML = '';
         var value = document.createElement('p');
-        value.style.fontSize = '12pt';
+        value.style.fontSize = '20pt';
         value.innerHTML = this.health;
+        value.style.transform = "translateY(15px)"; // Move the text down
         info.appendChild(value);
       }
 
@@ -1024,14 +1029,15 @@ class Game {
 
               document.getElementById('refundButton').addEventListener('click', () => {
                 towerGame.setBankValue(Math.floor(popup.sellPrice)); // Refund the cost of the tower
+
+
                 towerGame.towers.splice(i, 1); // Remove the tower from the array
+
                 cell.hasTower = false; // Update the cell's state
                 console.log("Tower removed and cost refunded.");
                 towerGame.brushfire(); // Re-run the pathfinding algorithm
                 popup.hide(); // Close the popup
-                for (let i = towerGame.blades.length; i >= 0; i--) {
-                  this.blades.splice(i, 1);
-                }
+
               });
               // Upgrade tower logic (You'll need to define it)
               document.getElementById('upgradeButton').addEventListener('click', () => {
