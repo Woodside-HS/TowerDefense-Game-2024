@@ -112,7 +112,24 @@ var vector2d = function (vx, vy) {
             vec.y = x * sinVal + y * cosVal;
             return(this);
        },
-
+        rotatePoint: function (angle, around) {
+        // Translate point to origin
+        let translatedX = vec.x - around.x;
+        let translatedY = vec.y - around.y;
+    
+        // Apply rotation
+        let cosVal = Math.cos(angle);
+        let sinVal = Math.sin(angle);
+        let rotatedX = translatedX * cosVal - translatedY * sinVal;
+        let rotatedY = translatedX * sinVal + translatedY * cosVal;
+    
+        // Translate point back
+        vec.x = rotatedX + around.x;
+        vec.y = rotatedY + around.y;
+    
+        return vec;
+    },
+    
         // toString() is a utility function for displaying the vector as text,
         // a useful debugging aid.
         toString: function () {
