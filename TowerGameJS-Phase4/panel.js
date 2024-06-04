@@ -2,73 +2,77 @@
 
 class Panel {
   constructor(game, number, y = 550, w = 450, h = 290) {
-    this.game = game;
-    this.temp = 0;
-    this.y = -590;
-    this.endY = y;
+    this.game = game; // Reference to the game object
+    this.temp = 0; // Temporary variable, purpose unclear
+    this.y = -590; // Initial y-position of the panel, off-screen
+    this.endY = y; // Target y-position for the panel
 
+    // Create a new div element for the panel
     this.panel = document.createElement("div");
-    this.panel.id = panelJSON[number].id;
-    this.panel.style.width = w + "px";
-    this.panel.style.height = h + "px";
-    this.panel.style.backgroundImage = 'url("' + panelJSON[number].pic + '")';
-    this.panel.style.position = "fixed";
-    this.panel.style.align = "center";
-    this.panel.style.top = 0 + "px";
-    this.panel.style.left = 0 + "px";
-    this.panel.style.right = 0 + "px";
-    this.panel.style.textAlign = "center";
+    this.panel.id = panelJSON[number].id; // Set the id from the panelJSON data
+    this.panel.style.width = w + "px"; // Set the width of the panel
+    this.panel.style.height = h + "px"; // Set the height of the panel
+    this.panel.style.backgroundImage = 'url("' + panelJSON[number].pic + '")'; // Set background image
+    this.panel.style.position = "fixed"; // Fix position to make it stay in place during scroll
+    this.panel.style.align = "center"; // Align the panel to center (not a valid CSS property for aligning)
+    this.panel.style.top = 0 + "px"; // Initial top position
+    this.panel.style.left = 0 + "px"; // Initial left position
+    this.panel.style.right = 0 + "px"; // Initial right position
+    this.panel.style.textAlign = "center"; // Text alignment
 
+    // Append the panel to the wrapper div in the HTML
     this.wrapper = document.getElementById('wrapperDiv').appendChild(this.panel);
+    // Create buttons for the panel based on the buttonJSON data
     for (let i = 0; i < panelJSON[number].buttonJSON.length; i++) {
       this.createButton(panelJSON[number], i);
     }
-    this.updatePanelPosition();
+    this.updatePanelPosition(); // Update the panel position
 
-
-    // Add event listener for window resize
+    // Add event listener for window resize to update panel position
     window.addEventListener('resize', () => {
       this.updatePanelPosition();
     });
   }
 
   render(slideCheck) {
+    // Slide the panel up or down based on slideCheck
     if (slideCheck === true) {
       this.y = this.slideDown(this.y, this.endY, .03);
     } else if (slideCheck === false) {
       this.y = this.endY;
     }
-    this.panel.style.top = this.y + "px";
+    this.panel.style.top = this.y + "px"; // Update the top style with new y position
   }
 
-  slideDown(start, end, incroment) {
-    if ((incroment * (end - start)) > 1)
-      return start + incroment * (end - start)
+  slideDown(start, end, increment) {
+    // Calculate the next position in a slide down animation
+    if ((increment * (end - start)) > 1)
+      return start + increment * (end - start)
     return start;
   }
 
-
-
   createButton(JSON1, i) {
+    // Create a new button with properties from JSON
     var button = document.createElement("div");
-    button.id = JSON1.buttonJSON[i].picId;
-    button.style.width = 123 + "px";
-    button.style.height = 30 + "px";
-    button.style.position = "relative";
-    button.style.top = 5 + 21 * i + "%";
-    button.style.left = 50 + "px";
-    button.image = document.createElement("img");
-    button.image.id = JSON1.buttonJSON[i].picId;
-    button.image.src = JSON1.buttonJSON[i].pic;
-    button.image.addEventListener("click", JSON1.buttonJSON[i].funk, false);
-    button.appendChild(button.image);
-    this.panel.appendChild(button);
+    button.id = JSON1.buttonJSON[i].picId; // Set button id
+    button.style.width = 123 + "px"; // Set button width
+    button.style.height = 30 + "px"; // Set button height
+    button.style.position = "relative"; // Set position relative to its normal position
+    button.style.top = 5 + 21 * i + "%"; // Set top position based on index
+    button.style.left = 50 + "px"; // Set left position
+    button.image = document.createElement("img"); // Create an img element for the button
+    button.image.id = JSON1.buttonJSON[i].picId; // Set image id
+    button.image.src = JSON1.buttonJSON[i].pic; // Set image source
+    button.image.addEventListener("click", JSON1.buttonJSON[i].funk, false); // Add click event listener
+    button.appendChild(button.image); // Append image to button
+    this.panel.appendChild(button); // Append button to panel
   }
 
   // Function to update panel position on resize
   updatePanelPosition() {
     let panelLeft = this.panel.offsetLeft; // Get the left position of the panel
 
+    // Adjust panel position based on its current position and window width
     if (panelLeft > 260) {
       this.panel.style.left = (window.innerWidth / 2 - 40) - (this.panel.offsetWidth / 2) + 'px';
     } else {
@@ -120,7 +124,7 @@ var panelJSON = [{ // first panel that shows up when you open game
     }]
 }, { //shows the instructions
   name: "Instruction Panel", // panel 1
-  id: "instructionPanel", 
+  id: "instructionPanel",
   pic: "TowerGameJS-Phase4/resources/images/panels/homePanel/instructions.png",
   picId: "pan",
   buttonJSON: [
@@ -136,7 +140,7 @@ var panelJSON = [{ // first panel that shows up when you open game
     }]
 }, { // Panel when u die or win
   name: "End Panel", // panel 2
-  id: "endPanel", 
+  id: "endPanel",
   pic: "TowerGameJS-Phase4/resources/images/panels/panel.png",
   picId: "pan",
   buttonJSON: [
@@ -598,7 +602,7 @@ var panelJSON = [{ // first panel that shows up when you open game
     }
   }
   ]
-}, 
+},
 
 { //panel 18
   name: "Custom Map Choice",

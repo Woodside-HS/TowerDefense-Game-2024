@@ -3,105 +3,108 @@
 class Bullet {
 
   constructor(location, bImg, angle, type, mouseLoc, towerLoc, damageMult, finalCannon, finalFast, finalFreeze) {
-    // issue#1 use preloaded bullet image instead of loadImage
-    this.cannonUpgradeFinal = finalCannon;
-    this.fastUpgradeFinal = finalFast;
-    this.freezeUpgradeFinal = finalFreeze;
-    this.spinny = false;
-    this.loc = location;
-    this.towerLoc = towerLoc;
-    this.speed = 15;
+    // Constructor initializes the Bullet object with various properties
+    this.cannonUpgradeFinal = finalCannon; // Boolean indicating if cannon upgrade is final
+    this.fastUpgradeFinal = finalFast; // Boolean indicating if fast upgrade is final
+    this.freezeUpgradeFinal = finalFreeze; // Boolean indicating if freeze upgrade is final
+    this.spinny = false; // Boolean to control spin behavior
+    this.loc = location; // Location vector of the bullet
+    this.towerLoc = towerLoc; // Location vector of the tower
+    this.speed = 15; // Default speed of the bullet
 
-    this.lifeSpan = -1;
-    this.choosenTarget = false;
-    this.shape = "square";
-    this.cannonBulletAngle = 0;
-    this.angle = angle;
-    this.img = bImg;
-    this.ability = type;
-    this.mouseLoc = mouseLoc;
-    this.spots = [];
-    this.choosenTargetLoc = 0;
-    this.cannonAngle;
-    this.r = this.img.width/2;
-    this.w = this.img.width/2;
-    this.damageMult = damageMult;
-    this.slashArc = -Math.PI/2;
-    this.clr = this.randomColor();
+    this.lifeSpan = -1; // Default lifespan of the bullet
+    this.choosenTarget = false; // Boolean to check if a target has been chosen
+    this.shape = "square"; // Default shape of the bullet
+    this.cannonBulletAngle = 0; // Initial angle for cannon bullet
+    this.angle = angle; // Angle of the bullet's trajectory
+    this.img = bImg; // Image of the bullet
+    this.ability = type; // Type of bullet (e.g., cannon, fast, freeze)
+    this.mouseLoc = mouseLoc; // Location vector of the mouse
+    this.spots = []; // Array to store potential target spots
+    this.choosenTargetLoc = 0; // Location vector of the chosen target
+    this.cannonAngle; // Angle towards the chosen target
+    this.r = this.img.width / 2; // Radius of the bullet for collision detection
+    this.w = this.img.width / 2; // Width of the bullet for rendering
+    this.damageMult = damageMult; // Damage multiplier
+    this.slashArc = -Math.PI / 2; // Initial arc for slashing effect
+    this.clr = this.randomColor(); // Random color for the bullet
     if (this.ability == "freeze") {
-      this.speed = 10;
+      this.speed = 10; // Reduced speed for freeze bullets
     }
     if (this.ability == "cannon") {
-      this.speed = 14;
-      this.lifeSpan = 750;
+      this.speed = 14; // Adjusted speed for cannon bullets
+      this.lifeSpan = 750; // Lifespan for cannon bullets
     }
-    if(this.ability == "explosive"){
-      this.lifeSpan = 750;
+    if (this.ability == "explosive") {
+      this.lifeSpan = 750; // Lifespan for explosive bullets
     }
     if (this.ability == "fast" && this.fastUpgradeFinal) {
-      this.speed = 0;
-    }else if(this.ability == "fast"){
-      this.speed = 13;
+      this.speed = 0; // Speed set to 0 for final fast upgrade
+    } else if (this.ability == "fast") {
+      this.speed = 13; // Default speed for fast bullets
     }
-    if(this.ability == "cannon"){
-      this.lifeSpan = 1000;
+    if (this.ability == "cannon") {
+      this.lifeSpan = 1000; // Extended lifespan for cannon bullets
     }
-
-
   }
+
   randomColor() {
+    // Generates a random color in rgba format
     let red = Math.floor(Math.random() * 256);
     let green = Math.floor(Math.random() * 256);
     let blue = Math.floor(Math.random() * 256);
     return 'rgba(' + red + ',' + green + ',' + blue + ',' + 1 + ')';
   }
+
   run() {
-  if(this.ability == "fast" && this.fastUpgradeFinal == true){
-    this.shape = "circle";
-      this.finalUpgradeSlashAttack();
-    }else{
-   this.render();
+    // Main method called to update bullet behavior per frame
+    if (this.ability == "fast" && this.fastUpgradeFinal == true) {
+      this.shape = "circle"; // Change shape to circle for final fast upgrade
+      this.finalUpgradeSlashAttack(); // Perform slash attack
+    } else {
+      this.render(); // Render the bullet
     }
     if (this.ability == "cannon") {
-      this.cannonMovement();
+      this.cannonMovement(); // Handle cannon movement
     } else if (this.ability == "explosive") {
-      this.explosiveRandom();
+      this.explosiveRandom(); // Handle explosive movement
     }
 
-   this.update();
-   this.lifeSpan --;
+    this.update(); // Update the bullet's position
+    this.lifeSpan--; // Decrease lifespan each frame
   }
-
 
   explosiveRandom() {
+    // Handles movement for explosive bullets
     if (!this.randomChoosenTarget) {
-      let can = this.chooseRandomExplosiveSpot();
-      let angleOfTarget = Math.atan2(can.loc.y - this.loc.y, can.loc.x - this.loc.x);
+      let can = this.chooseRandomExplosiveSpot(); // Choose a random target spot
+      let angleOfTarget = Math.atan2(can.loc.y - this.loc.y, can.loc.x - this.loc.x); // Calculate angle to target
       this.randomChoosenTarget = true;
-      this.cannonAngle = angleOfTarget;
+      this.cannonAngle = angleOfTarget; // Set cannon angle to target angle
       this.choosenTarget = true;
-      this.choosenTargetLoc = new vector2d(can.loc.x, can.loc.y);
+      this.choosenTargetLoc = new vector2d(can.loc.x, can.loc.y); // Set chosen target location
     }
-    this.loc.y += Math.sin(this.cannonAngle) * this.speed;
-    this.loc.x += Math.cos(this.cannonAngle) * this.speed;
-    let bulletFromTowerDist = this.loc.dist(this.towerLoc);
-    let towerToLocation = this.towerLoc.dist(this.choosenTargetLoc);
-    let total = towerToLocation - bulletFromTowerDist;
+    this.loc.y += Math.sin(this.cannonAngle) * this.speed; // Update Y position based on angle and speed
+    this.loc.x += Math.cos(this.cannonAngle) * this.speed; // Update X position based on angle and speed
+    let bulletFromTowerDist = this.loc.dist(this.towerLoc); // Calculate distance from bullet to tower
+    let towerToLocation = this.towerLoc.dist(this.choosenTargetLoc); // Calculate distance from tower to target location
+    let total = towerToLocation - bulletFromTowerDist; // Calculate remaining distance to target
     if (total < 0) {
-      this.speed = 0;
-
+      this.speed = 0; // Stop the bullet if it has reached the target
     }
   }
+
   chooseRandomExplosiveSpot() {
+    // Chooses a random spot for explosive bullets to target
     this.spots = [];
     let count = 0;
     for (let i = 0; i < 18; i++) {
       for (let j = 0; j < 15; j++) {
         count++;
-        this.spots.push(towerGame.grid[i][j]);
+        this.spots.push(towerGame.grid[i][j]); // Add grid spot to spots array
       }
     }
-    let j = Math.ceil(Math.random() * (this.spots.length)) - 1;
+    let j = Math.ceil(Math.random() * (this.spots.length)) - 1; // Select a random spot
     return this.spots[j];
   }
   cannonMovement() {
@@ -120,7 +123,7 @@ class Bullet {
       let total = towerToLocation - bulletFromTowerDist;
       if (total < 0) {
         this.speed = 0;
-        if(this.cannonUpgradeFinal){
+        if (this.cannonUpgradeFinal) {
           this.spinny = true;
         }
       }
@@ -178,28 +181,28 @@ class Bullet {
 
 
 
-  finalUpgradeSlashAttack(){
-  
-      let clr = 'rgba(0, 100, 0, 0.12)'
-      var ctx = towerGame.context;
-      ctx.save();
-      ctx.strokeStyle = clr;
-      ctx.fillStyle = clr;
-      ctx.translate(this.loc.x, this.loc.y);
-      //ctx.moveTo(0, 0);
-      ctx.rotate(this.slashArc);
-     this.loc.x += Math.cos(this.slashArc);
-     this.loc.y += Math.sin(this.slashArc);
-      ctx.drawImage(this.img, -this.img.width*1.1, -this.img.height*1.1);
-      ctx.stroke();
-      ctx.fill();
-      ctx.restore();
-      this.slashArc += 0.02*Math.PI;
-      if(this.slashArc > 0.5*Math.PI){
-        this.slashArc = "over";
-      }
-    
-    
+  finalUpgradeSlashAttack() {
+
+    let clr = 'rgba(0, 100, 0, 0.12)'
+    var ctx = towerGame.context;
+    ctx.save();
+    ctx.strokeStyle = clr;
+    ctx.fillStyle = clr;
+    ctx.translate(this.loc.x, this.loc.y);
+    //ctx.moveTo(0, 0);
+    ctx.rotate(this.slashArc);
+    this.loc.x += Math.cos(this.slashArc);
+    this.loc.y += Math.sin(this.slashArc);
+    ctx.drawImage(this.img, -this.img.width * 1.1, -this.img.height * 1.1);
+    ctx.stroke();
+    ctx.fill();
+    ctx.restore();
+    this.slashArc += 0.02 * Math.PI;
+    if (this.slashArc > 0.5 * Math.PI) {
+      this.slashArc = "over";
+    }
+
+
   }
   checkCollide(shape1, shape2) {
 
