@@ -79,14 +79,14 @@ class Panel {
     }
   }
 }
-var panelJSON = [{
+var panelJSON = [{ // first panel that shows up when you open game
   name: "Start Panel", // panel 0
   id: "firstPanel",
   pic: "TowerGameJS-Phase4/resources/images/panels/panel.png",
   picId: "pan",
   buttonJSON: [
     {
-      name: "Start Button",
+      name: "Start Button", // goes to level screen
       id: "start",
       pic: "TowerGameJS-Phase4/resources/images/panels/homePanel/play.png",
       picId: "play",
@@ -96,7 +96,7 @@ var panelJSON = [{
         document.getElementById("firstPanel").parentNode.removeChild(document.getElementById("firstPanel"))
       }
     }, {
-      name: "Instruction Button",
+      name: "Instruction Button", // goes to instruction panel
       id: "instruction",
       pic: "TowerGameJS-Phase4/resources/images/panels/homePanel/help.png",
       picId: "wframe",
@@ -105,7 +105,7 @@ var panelJSON = [{
         document.getElementById("firstPanel").parentNode.removeChild(document.getElementById("firstPanel"));
       }
     }, {
-      name: "Catalog Button",
+      name: "Catalog Button", // goes to catalog gamestate (gamestate4)
       id: "catalogButton",
       pic: "TowerGameJS-Phase4/resources/images/panels/homePanel/catalog.png",
       picId: "catalog",
@@ -118,9 +118,9 @@ var panelJSON = [{
       }
 
     }]
-}, {
+}, { //shows the instructions
   name: "Instruction Panel", // panel 1
-  id: "instructionPanel",
+  id: "instructionPanel", 
   pic: "TowerGameJS-Phase4/resources/images/panels/homePanel/instructions.png",
   picId: "pan",
   buttonJSON: [
@@ -134,14 +134,14 @@ var panelJSON = [{
         document.getElementById("instructionPanel").parentNode.removeChild(document.getElementById("instructionPanel"))
       }
     }]
-}, {
+}, { // Panel when u die or win
   name: "End Panel", // panel 2
-  id: "endPanel",
+  id: "endPanel", 
   pic: "TowerGameJS-Phase4/resources/images/panels/panel.png",
   picId: "pan",
   buttonJSON: [
     {
-      name: "Replay Button",
+      name: "Replay Button", //same code as play
       id: "replayButton",
       pic: "TowerGameJS-Phase4/resources/images/panels/endPanel/restart.png",
       picId: "wframe",
@@ -157,7 +157,7 @@ var panelJSON = [{
         document.getElementById("endPanel").parentNode.removeChild(document.getElementById("endPanel"))
       }
     }, {
-      name: "Home Button",
+      name: "Home Button", // goes back to GameState1/ home screen
       id: "quitButton",
       pic: "TowerGameJS-Phase4/resources/images/panels/home.png",
       picId: "home",
@@ -175,7 +175,7 @@ var panelJSON = [{
         FRAME_RATE = 30;
       }
     }, {
-      name: "Credits Button",
+      name: "Credits Button", // opens credits.html and rolls the credits
       id: "creditsButton",
       pic: "TowerGameJS-Phase4/resources/images/panels/endPanel/credits.png",
       picId: "wframe",
@@ -184,14 +184,14 @@ var panelJSON = [{
         document.getElementById("endPanel").parentNode.removeChild(document.getElementById("endPanel"))
       }
     }]
-}, {
+}, { // choose which level you go to
   name: "Level Selector", // panel 3
   id: "levelSelector",
   pic: "",
   picId: "pan",
   buttonJSON: [
     {
-      name: "Level 1 Button",
+      name: "Level 1 Button", // go to level 1
       id: "level1Button",
       pic: "TowerGameJS-Phase4/resources/images/panels/levelSelPanel/level1Butt.png",
       picId: "frame1",
@@ -200,7 +200,7 @@ var panelJSON = [{
         document.getElementById("levelSelector").parentNode.removeChild(document.getElementById("levelSelector"))
       }
     }, {
-      name: "Level 2 Button",
+      name: "Level 2 Button",// go to level 2
       id: "level2Button",
       pic: "TowerGameJS-Phase4/resources/images/panels/levelSelPanel/level2Butt.png",
       picId: "frame2",
@@ -210,7 +210,7 @@ var panelJSON = [{
 
       }
     }, {
-      name: "Level 3 Button",
+      name: "Level 3 Button",// go to level 3
       id: "level3Button",
       pic: "TowerGameJS-Phase4/resources/images/panels/levelSelPanel/level3Butt.png",
       picId: "frame3",
@@ -219,7 +219,7 @@ var panelJSON = [{
         document.getElementById("levelSelector").parentNode.removeChild(document.getElementById("levelSelector"))
       }
     }, {
-      name: "Custom Level Button",
+      name: "Custom Level Button", // go to custom panel choice
       id: "customLvlButton",
       pic: "TowerGameJS-Phase4/resources/images/panels/levelSelPanel/custom.png",
       picId: "frame4",
@@ -231,7 +231,7 @@ var panelJSON = [{
 
       }
     }, {
-      name: "Home Button",
+      name: "Home Button", // go back to homescreen
       id: "quitButton",
       pic: "TowerGameJS-Phase4/resources/images/panels/home.png",
       picId: "home",
@@ -242,7 +242,7 @@ var panelJSON = [{
       }
     }
   ]
-}, {
+}, { // completely useless but if deleted have to change all new Panel(towerGame, x-1), x being the original number there, after this panel
   name: "Credites Panel", //panel 4
   id: "creditesPanel",
   pic: "TowerGameJS-Phase4/resources/images/panels/pan.png",
@@ -259,14 +259,14 @@ var panelJSON = [{
       }
     },]
 
-}, { //panel 5
-  name: "Tower Info Panel",
+}, { // the left side of the catalog buttons on catalog gamestate
+  name: "Tower Info Panel",//panel 5
   id: "towerInfoPanel",
   pic: "",
   picId: "towerPan",
   buttonJSON: [
     {
-      name: "Archer Button",
+      name: "Archer Button", // when clicked goes to archer panel
       id: "archButt",
       pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanButt/archButt.png",
       picId: "arch",
@@ -277,7 +277,7 @@ var panelJSON = [{
         document.getElementById("cataHome").parentNode.removeChild(document.getElementById("cataHome"))
       }
     }, {
-      name: "Knight Button",
+      name: "Knight Button",// when clicked goes to knight panel
       id: "knightButt",
       pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanButt/knightButt.png",
       picId: "knight",
@@ -288,7 +288,7 @@ var panelJSON = [{
         document.getElementById("cataHome").parentNode.removeChild(document.getElementById("cataHome"))
       }
     }, {
-      name: "Wizard Button",
+      name: "Wizard Button",// when clicked goes to wizard panel
       id: "wizButt",
       pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanButt/wizardButt.png",
       picId: "wizard",
@@ -299,7 +299,7 @@ var panelJSON = [{
         document.getElementById("cataHome").parentNode.removeChild(document.getElementById("cataHome"))
       }
     }, {
-      name: "Cannoneer Button",
+      name: "Cannoneer Button",// when clicked goes to cannonneer panel
       id: "cannonButt",
       pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanButt/cannonButt.png",
       picId: "cannoneer",
@@ -310,7 +310,7 @@ var panelJSON = [{
         document.getElementById("cataHome").parentNode.removeChild(document.getElementById("cataHome"))
       }
     }, {
-      name: "Marksman Button",
+      name: "Marksman Button",// when clicked goes to marksman panel
       id: "markButt",
       pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanButt/marksmanButt.png",
       picId: "marksman",
@@ -322,14 +322,14 @@ var panelJSON = [{
       }
     }
   ]
-}, { //panel 6
-  name: "Tower Info Panel 2",
+}, { // the right side of catalog in catalog gamestate
+  name: "Tower Info Panel 2", //panel 6
   id: "towerInfoPanel2",
   pic: "",
   picId: "towerPan2",
   buttonJSON: [
     {
-      name: "Assassin Button",
+      name: "Assassin Button", // when clickd goes to assassin panel
       id: "assassinButt",
       pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanButt/assassinButt.png",
       picId: "assasThrower",
@@ -340,7 +340,7 @@ var panelJSON = [{
         document.getElementById("cataHome").parentNode.removeChild(document.getElementById("cataHome"))
       }
     }, {
-      name: "Bladestorm Button",
+      name: "Bladestorm Button",// when clickd goes to bladestorm panel
       id: "bladeButt",
       pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanButt/bladestormButt.png",
       picId: "bladeTower",
@@ -351,7 +351,7 @@ var panelJSON = [{
         document.getElementById("cataHome").parentNode.removeChild(document.getElementById("cataHome"))
       }
     }, {
-      name: "Vampire Button",
+      name: "Vampire Button",// when clickd goes to vampire panel
       id: "vampButt",
       pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanButt/vampireButt.png",
       picId: "vampire",
@@ -362,7 +362,7 @@ var panelJSON = [{
         document.getElementById("cataHome").parentNode.removeChild(document.getElementById("cataHome"))
       }
     }, {
-      name: "Rock Thrower Button",
+      name: "Rock Thrower Button",// when clickd goes to rock thrower panel
       id: "rockButt",
       pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanButt/stonefangButt.png",
       picId: "rockThrower",
@@ -373,7 +373,7 @@ var panelJSON = [{
         document.getElementById("cataHome").parentNode.removeChild(document.getElementById("cataHome"))
       }
     }, {
-      name: "Buff Tower Button",
+      name: "Buff Tower Button", // when clickd goes to buff tower/merman panel
       id: "buffButt",
       pic: "TowerGameJS-Phase4/resources/images/panels/catalogPanel/towerPanButt/mermanButt.png",
       picId: "buffTower",
@@ -386,13 +386,13 @@ var panelJSON = [{
     }
   ]
 }, { // panel 7
-  name: "Catalog Home",
+  name: "Catalog Home", // the home button on the catalog panel
   id: "cataHome",
   pic: "",
   picId: "homeCata",
   buttonJSON: [
     {
-      name: "Home Button",
+      name: "Home Button", // when clicked goes back to home screen
       id: "home",
       pic: "TowerGameJS-Phase4/resources/images/panels/home.png",
       picId: "home",
@@ -416,7 +416,7 @@ var panelJSON = [{
   ]
 },
 
-
+// The next set of panels (until 17) are all the catalog panels with the lore/description of the towers in the game.
 
 { //panel 8
   name: "Archer Catalog Panel",
@@ -598,13 +598,15 @@ var panelJSON = [{
     }
   }
   ]
-}, { //panel 18
+}, 
+
+{ //panel 18
   name: "Custom Map Choice",
   id: "customChoice",
   pic: "",
   picId: "choicePic",
   buttonJSON: [{
-    name: "Cabin Button",
+    name: "Cabin Button", // when clicked, goes to the cabin map in custom mode
     id: "cabinButt",
     pic: "TowerGameJS-Phase4/resources/images/panels/customChoicePanel/shipCabinButt.png",
     picId: "cabinPic",
@@ -613,7 +615,7 @@ var panelJSON = [{
       document.getElementById("customChoice").parentNode.removeChild(document.getElementById("customChoice"))
     }
   }, {
-    name: "Deck Button",
+    name: "Deck Button",// when clicked, goes to the deck map in custom mode
     id: "deckButt",
     pic: "TowerGameJS-Phase4/resources/images/panels/customChoicePanel/shipDeckButt.png",
     picId: "deckPick",
@@ -622,7 +624,7 @@ var panelJSON = [{
       document.getElementById("customChoice").parentNode.removeChild(document.getElementById("customChoice"))
     }
   }, {
-    name: "Dock Button",
+    name: "Dock Button",// when clicked, goes to the dock map in custom mode
     id: "Dock Butt",
     pic: "TowerGameJS-Phase4/resources/images/panels/customChoicePanel/villageDockButt.png",
     picId: "dockPick",
