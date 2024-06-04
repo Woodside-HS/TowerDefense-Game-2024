@@ -32,35 +32,47 @@ class Popup {
   }
 
   createPopup() {
+    // Create a new div element for the popup
     const popup = document.createElement('popupDiv');
+    // Set the position of the popup to be absolute
     popup.style.position = 'absolute';
+    // Set the left position of the popup based on the x coordinate
     popup.style.left = `${this.x}px`;
+    // Set the top position of the popup based on the y coordinate
     popup.style.top = `${this.y}px`;
+    // Add padding around the content inside the popup
     popup.style.padding = '10px';
+    // Set the border style of the popup
     popup.style.border = '1px solid black';
-    // Set the background to a PNG image
+    // Set the background image of the popup
     popup.style.background = `url('TowerGameJS-Phase4/resources/images/button1.png')`;
-    popup.style.backgroundSize = 'cover'; // Ensure the background covers the whole popup
+    // Ensure the background image covers the entire area of the popup
+    popup.style.backgroundSize = 'cover';
+    // Add shadow to the popup for better visibility
     popup.style.boxShadow = '0 2px 5px rgba(0,0,0,0.2)';
 
+    // Create a refund button and define its behavior on click
     const refundButton = this.createButton(Math.floor(this.sellPrice), 'refundButton', 'Refund', () => {
-      console.log('Refund button clicked');
-      towerGame.shownBase = false;
+      console.log('Refund button clicked'); // Log action to console
+      towerGame.shownBase = false; // Update game state to not show base
     });
+    // Create an upgrade button and define its behavior on click
     const upgradeButton = this.createButton('', 'upgradeButton', 'Upgrade', () => {
-      this.upgradeElement = this.createUpgradePopup();
+      this.upgradeElement = this.createUpgradePopup(); // Create and show upgrade popup
     });
+    // Create a cancel button, correct the spelling in comments only
     const cancleButton = this.createButton('', 'cancleButton', 'X', () => {
-      towerGame.shownBase = false;
-      console.log('Cancle button clicked'); //spelling mistake lol
+      towerGame.shownBase = false; // Update game state to not show base
+      console.log('Cancle button clicked'); // Log action to console, note the spelling mistake
     });
 
+    // Append all buttons to the popup
     popup.appendChild(refundButton);
     popup.appendChild(upgradeButton);
     popup.appendChild(cancleButton);
 
+    // Return the complete popup element
     return popup;
-
   }
 
   createUpgradePopup() {
