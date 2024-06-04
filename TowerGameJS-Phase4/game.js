@@ -47,12 +47,16 @@ class Game {
 
   //  This is a test
   constructor() { // from setup()
+
+    //these three variables control whether various error banners are showing; they start off, of course, not displaying
     this.displayOverDraftBanner = false;
     this.invalidGridBanner = false;
     this.towerErrorBanner = false;
-    this.isRunning = true;
-    this.placingTower = false;
-    this.currentTower = 0;
+
+
+    this.isRunning = true;//controls pause function
+    this.placingTower = false;//controls whether you are actively trying to place a tower
+    this.currentTower = 0;// tells us what tower is focused
     this.towerType = 0;
     this.gameTime = 0;
     this.towers = [];
@@ -63,7 +67,7 @@ class Game {
     this.bullets = [];
     this.missiles = [];//added with same logic as bullets
     this.hands = [];//added with same logic as bullets (this is the minion guy idk)
-   // this.blades = [];//added with same logic as bullets
+    // this.blades = [];//added with same logic as bullets
     this.secondRays = [];
     this.allowPlace = true;//to not place when picking a spot to target for two of the towers
     this.explosiveBullets = [];//added with same logic as bullets
@@ -132,8 +136,8 @@ class Game {
     this.loadGrid();
     this.rootX = 1;
     this.rootY = 1;
-    this.root = this.grid[this.cols - 1][this.rows - 1];
-    this.brushfire();
+    this.root = this.grid[this.cols - 1][this.rows - 1]; //where the enemies start spawning (gets changed in code for custom levels)
+    this.brushfire(); //pathfinding function
     this.loadWallImage();
     var button = document.getElementById('pauseButton');
     button.addEventListener('click', this.pause, false);
@@ -141,23 +145,25 @@ class Game {
     var fastForwardButton = document.getElementById('fastForward');
     //var infoDiv = document.getElementById('infoDiv');
 
-    fastForwardButton.addEventListener('click', function () {
-      if (towerGame.firstClick) {
-        towerGame.wave = new Wave(towerGame, towerGame.numWave);
-        towerGame.numWave++;
+    fastForwardButton.addEventListener('click', function () { //controls start/speed toggle button
+      if (towerGame.firstClick) { //if its the first time you are clicking
+        towerGame.wave = new Wave(towerGame, towerGame.numWave); //start the game
+        towerGame.numWave++; //switch us to wave 1
         towerGame.firstClick = false;
-        FRAME_RATE = 30;
+        FRAME_RATE = 30; //keep the framerate at normal speed
       }
 
       towerGame.fastForward = !towerGame.fastForward;
 
-      if (towerGame.fastForward) { // if it is on slow mode
-        FRAME_RATE = 30; // make it fast
+      if (towerGame.fastForward) { // if it is on fast mode
+        FRAME_RATE = 30; // make it slow
+        //change button
         fastForwardButton.classList.remove('fast');
         fastForwardButton.classList.add('slow');
 
-      } else { // if it is on fast mode
-        FRAME_RATE = 60; // make it slow
+      } else { // if it is on slow mode
+        FRAME_RATE = 60; // make it fast
+        //change button
         fastForwardButton.classList.remove('slow');
         fastForwardButton.classList.add('fast');
 
@@ -199,7 +205,7 @@ class Game {
 
   }
 
-  loadEmptyImage() {
+  loadEmptyImage() { //loads imnages in cells w/o wals
     let propName = "B70000";
     var f = buttonsJSON.frames[propName].frame;
     createImageBitmap(bsImage, f.x, f.y, f.w, f.h).then(function (emptyImage) {
@@ -222,7 +228,7 @@ class Game {
       enemyData.push(createImageBitmap(ssImage, f.x, f.y, f.w, f.h));
     }
 
-    Promise.all(enemyData).then(function (enemies) {
+    Promise.all(enemyData).then(function (enemies) { //tells us what enemies have what images
       Enemy.image1 = enemies[0];
       Enemy.image2 = enemies[1];
       Enemy.image3 = enemies[2];
@@ -283,13 +289,15 @@ class Game {
   }
 
 
-  pause() {
-    var butt = document.getElementById('pauseButton');
+  pause() { //controls pause button
+    var butt = document.getElementById('pauseButton'); //identifes which HTML object is the pause button
     towerGame.paused = !towerGame.paused;
-    if (towerGame.paused) {
+    if (towerGame.paused) { //if its already paused
+      //change button to play
       butt.classList.remove('pause');
       butt.classList.add('play');
     } else {
+      //change button to pause
       butt.classList.remove('play');
       butt.classList.add('pause');
     }
@@ -303,7 +311,8 @@ class Game {
 
   banner() {
     //overdraft banner
-    if (this.displayOverDraftBanner == true) {
+    if (this.displayOverDraftBanner == true) { //if we are supposed to be displaying the banner
+      //draw the banner
       this.context.beginPath();
       this.context.rect(150, 210, 600, 250);
       this.context.strokeStyle = "#3B6C8E";
@@ -318,12 +327,12 @@ class Game {
       const textX = 150 + (600 - textWidth) / 2; // Center the text horizontally
       const textY = 200 + 350 / 2; // Center the text vertically
       this.context.fillText(text, textX, textY);
-      setTimeout(() => {
-        this.displayOverDraftBanner = false;
-      }, 600);
+      setTimeout(() => { //set a timer
+        this.displayOverDraftBanner = false; //once timer is up, stop displaying the banner
+      }, 600); //timer is for 600 milliseconds
     }
 
-    //code to display invalid grid banner
+    //code to display invalid grid banner (see comments for overDraftBanner)
     if (this.invalidGridBanner == true) {
       this.context.beginPath();
       this.context.rect(180, 220, 580, 250);
@@ -446,7 +455,7 @@ class Game {
   //check the map to see if there are cells without parents
 
   //check the map to see if there are cells without parents
-  validMap() {
+  validMap() { //this is for the custom level; it determines if you can build the map you want to build (prevents blocking off origin, for example)
     if (this.grid[0][0].occupied || this.grid[0][0].hasTower) {
       return false;
     }
@@ -464,13 +473,13 @@ class Game {
     }
   }
   //undo an invalid map action
-  undo(cell, tower) {
+  undo(cell, tower) { //this just reverts everything back to before the wrong action
     if (tower) {
       return function () {
         cell.hasTower = false;
         towerGame.bankValue += tower.cost;
         towerGame.towers.splice(towerGame.towers.indexOf(tower))
-        towerGame.towerErrorBanner = true;
+        towerGame.towerErrorBanner = true; //displays banner
       }
     } else {
       return function () {
@@ -481,7 +490,7 @@ class Game {
           cell.occupied = true;
           towerGame.bankValue -= towerGame.wallCost;
         }
-        towerGame.invalidGridBanner = true;
+        towerGame.invalidGridBanner = true; //dispays banner
       }
     }
   }
@@ -514,8 +523,8 @@ class Game {
             this.secondRays.splice(0, 1);
           }, 5000);
         }
-        towerGame.bankValue += (15 + 5 * this.enemies[i].type);
-        this.enemies.splice(i, 1);
+        towerGame.bankValue += (15 + 5 * this.enemies[i].type); //rewards player for killiung enemies
+        this.enemies.splice(i, 1); //removes enemied from array
       }
       else if (this.enemies[i].kill && this.enemies[i].type == 10 && this.enemies[i].explodingAfterMathGrowth >= 120
         || this.enemies[i].currentCell == towerGame.root) {
@@ -526,7 +535,7 @@ class Game {
     }
   }
 
-  removeBullets() {
+  removeBullets() { //some towers fire bullets
 
     if (this.bullets.length < 1) return;
     for (let i = this.bullets.length - 1; i >= 0; i--) {
@@ -537,7 +546,7 @@ class Game {
         this.bullets[i].loc.y > this.canvas.height)
         || this.bullets[i].lifeSpan == 0 || this.bullets[i].slashArc == "over") {
 
-        this.bullets.splice(i, 1);
+        this.bullets.splice(i, 1); //removes bullets from the array
       }
 
 
@@ -564,7 +573,7 @@ class Game {
     }
   }
 
-  updateInfoElements() {
+  updateInfoElements() { //this just keeps the graphic displays at the top of the game up to date
     let infoElements = document.getElementById('infoDiv').getElementsByClassName('infoTileDiv');
     for (let i = 0; i < infoElements.length - 1; i++) {
       let info = infoElements[i];
@@ -799,7 +808,7 @@ class Game {
     this.bankValue += refund;
   }
 
-  loadAllWaves() {
+  loadAllWaves() { //hardcodded wave arrays
     this.enemyNumArray = [
       //normal (1)
       //normal fast (2)
@@ -813,7 +822,7 @@ class Game {
       //starfish(10)
 
 
-      [5, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [5, 0, 0, 0, 0, 0, 0, 0, 0, 0], //tells you how many of each type of enemy are in each wave
       [4, 2, 1, 0, 0, 0, 0, 0, 0, 0],
       [7, 7, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 3, 2, 0, 0, 0, 0, 0, 0],
@@ -840,6 +849,7 @@ class Game {
 
     
     ];
+    //this just parses the enemy array and adds it to the waves
     for (let i = 0; i < this.enemyNumArray.length; i++) {
       this.waves[i] = [];
       for (let j = 0; j < this.enemyNumArray[i].length; j++) {
