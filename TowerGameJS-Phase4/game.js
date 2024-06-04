@@ -847,30 +847,7 @@ class Game {
       [0, 0, 0, 0, 0, 25, 25, 0, 0, 25],
 
 
-      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-
-      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-
-
-      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-
-      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      // [1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    
     ];
     //this just parses the enemy array and adds it to the waves
     for (let i = 0; i < this.enemyNumArray.length; i++) {
@@ -1076,7 +1053,7 @@ class Game {
 
     for (let row = 0; row < key.length; row++) {
       for (let col = 0; col < key[0].length; col++) {
-        if (key[row][col] === 'b') {
+        if (key[row][col] === 'b') { // creates a block at place indicated in level.js
           if (towerGame.placingTower && towerGame.canAddTower(towerGame.grid[col][row])) {
             towerGame.placeTower(towerGame.grid[col][row]);
           }
@@ -1085,7 +1062,7 @@ class Game {
             towerGame.grid[col][row].occupied = true;
             towerGame.brushfire(towerGame.undo(towerGame.grid[col][row]));
           }
-        } else if (key[row][col] === 'e') {
+        } else if (key[row][col] === 'e') { // sets the cell that the enemies go to
           this.root = this.grid[col][row];
         }
       }
