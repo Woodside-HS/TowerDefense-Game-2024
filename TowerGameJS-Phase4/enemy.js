@@ -3,6 +3,7 @@ class Enemy {
   constructor(game, enemyNumber, parent, summon) {
 
     this.game = game;
+    this.nBlade = 0;
     this.parent = parent;
     this.summoned = summon;
     this.summoningEffect = false;
@@ -142,7 +143,7 @@ if(towerGame.numWave != 1){
     }
     this.randomPath = 1;   //boolean to randomize or not
     this.radius = 15.0;
-    this.r = this.img.width;
+    this.r = this.img.width/2;
     this.vel = vector2d(0, 0); // Initialize velocity vector
     this.acc = vector2d(0, 0)
     this.count = 0;
@@ -178,11 +179,11 @@ if(towerGame.numWave != 1){
 
     //towers damage
     this.normalDamage = 500;
-    this.fastDamage = 75000;
+    this.fastDamage = 750;
     this.freezeDamage = 10;
-    this.explosiveDamage = 3200;
-    this.cannonDamage = 3200;
-    this.bladeStormDamage = 125;
+    this.explosiveDamage = 1600;
+    this.cannonDamage = 1600;
+    this.bladeStormDamage = 60;
     this.liquifyDamage = 10;
     this.missileDamage = 400;
   }
@@ -321,6 +322,9 @@ if(towerGame.numWave != 1){
             if (distToTower < 120) {
               let doDestroyTower = Math.round(Math.random() * 3);
               if (doDestroyTower == 3) {
+                for(let i = towerGame.blades.length; i > 0; i ++){
+                  towerGame.blades.splice(i, 1)
+                }
                 towerGame.towers.splice(i, 1);
               }
             }
@@ -380,13 +384,9 @@ if(towerGame.numWave != 1){
     }
     ctx.translate(this.loc.x, this.loc.y)
     ctx.rotate(this.angle - Math.PI / 2);
-  if(towerGame.gameStateID != 5){
-   
-  
+
     ctx.drawImage(this.img, -this.img.width / 2, -this.img.height / 2);
-    }else{
-     ctx.drawImage(this.img, -this.img.width/2, -this.img.height/2); 
-    }
+    
     ctx.globalAlpha = 1.0;
     ctx.restore();
 
@@ -447,7 +447,7 @@ if(towerGame.numWave != 1){
       ctx.save();
       ctx.translate(this.loc.x, this.loc.y);
       ctx.strokeStyle = 'rgba(255, 0, 0, 0.5)';
-      ctx.fillStyle = 'rgba(255, 0, 0, 0.2';
+      ctx.fillStyle = 'rgba(255, 0, 0, 0.2)';
       ctx.beginPath();
 
       ctx.arc(0, 0, 60 - (Math.abs(this.countDown * 3 / 20 - 55)), 0, Math.PI * 2, false);
@@ -505,19 +505,24 @@ if(towerGame.numWave != 1){
         }
       }
     }
-    for (let h = 0; h < towerGame.blades.length; h++) {
-      if (this.checkCollide(this, towerGame.blades[h])) {
-        if (towerGame.blades[h].ability == "bladeStorm") {
+    if(towerGame.towers.length > 0){
+      this.nBlade = 0;
+      for(let k = 0; k < towerGame.towers.length; k ++){
+    for (let h = 0; h < towerGame.towers[k].blades.length; h++) {
+      this.nBlade++;
+      if (this.checkCollide(this, towerGame.towers[k].blades[h])) {
+
+        if (towerGame.towers[k].blades[h].ability == "bladeStorm") {
           if (!this.bladeStormImmunities[0]) {
-            this.health -= this.bladeStormDamage * towerGame.blades[h].damageMult;
+            this.health -= this.bladeStormDamage * towerGame.towers[k].blades[h].damageMult;
           } else if (!this.bladeStormUpgradedImmunities[0]) {
-            this.health -= this.bladeStormDamage * towerGame.blades[h].damageMult;
+            this.health -= this.bladeStormDamage * towerGame.towers[k].blades[h].damageMult;
           }
         }
       }
     }
-
-
+  }
+    }
     for (let h = 0; h < towerGame.bullets.length; h++) {
       if (this.checkCollide(this, towerGame.bullets[h])) {
         if (towerGame.bullets[h].ability == "normal") {
@@ -674,82 +679,105 @@ if(towerGame.numWave != 1){
 
 
   checkCollide(shape1, shape2) {
-
     if (shape1.shape === "circle") {
-      if (shape2.shape === "circle") {
-        //circle-circle
+        if (shape2.shape === "circle") {
+            // circle-circle
+            if (shape1.r + shape2.r >= shape1.loc.copy().dist(shape2.loc)) return true;
+            return false;
+        } else if (shape2.shape === "square") {
+            // circle-square
+            let topLeft = shape2.loc;
+            let topRight = new vector2d(shape2.loc.x + shape2.w, shape2.loc.y);
+            let bottomRight = new vector2d(shape2.loc.x + shape2.w, shape2.loc.y + shape2.w);
+            let bottomLeft = new vector2d(shape2.loc.x, shape2.loc.y + shape2.w);
 
-        if (shape1.r + shape2.r >= shape1.loc.copy().dist(shape2.loc)) return true;
-        return false;
-      } else if (shape2.shape === "square") {//this does not work for rectangles but its close enought for a 57x50 thing
-        //circle-square
+            let dist1 = topLeft.dist(shape1.loc);
+            let dist2 = topRight.dist(shape1.loc);
+            let dist3 = bottomRight.dist(shape1.loc);
+            let dist4 = bottomLeft.dist(shape1.loc);
+            if (dist1 <= shape1.r || dist2 <= shape1.r || dist3 <= shape1.r || dist4 <= shape1.r) return true;
+            return false;
+        } else if (shape2.shape === "point") {
+            // circle-point
+            if (shape1.r >= shape1.loc.dist(shape2.loc)) return true;
+            return false;
+        } else if (shape2.shape === "sword") {
+            // circle-sword (sword is treated as a rectangle)
+           
 
-        let topLeft = shape2.loc;
-        let topRight = new vector2d(shape2.loc.x + shape2.w, shape2.loc.y);
-        let bottomRight = new vector2d(shape2.loc.x + shape2.w, shape2.loc.y + shape2.w);
-        let bottomLeft = new vector2d(shape2.loc.x, shape2.loc.y + shape2.w);
+            
+            let swordLeft = shape2.loc.x;
+            let swordRight = shape2.loc.x + shape2.w;
+            let swordTop = shape2.loc.y;
+            let swordBottom = shape2.loc.y + shape2.h;
 
-        let dist1 = topLeft.dist(shape1.loc);
-        let dist2 = topRight.dist(shape1.loc);
-        let dist3 = bottomRight.dist(shape1.loc);
-        let dist4 = bottomLeft.dist(shape1.loc);
-        if (dist1 <= shape1.r || dist2 <= shape1.r || dist3 <= shape1.r || dist4 <= shape1.r) return true;
-        return false;
-      } else if (shape2.shape === "point") {
-        //circle-point
-        if (shape1.r >= shape1.loc.dist(shape2.loc)) return true;
-        return false;
-      } else {
-        throw "shape2 shape not acceptable.";
-      }
+        
+            // Check if the circle's center is inside the sword's bounds
+            if (shape1.loc.x >= swordLeft && shape1.loc.x <= swordRight &&
+                shape1.loc.y >= swordTop && shape1.loc.y <= swordBottom) {
+                return true;
+            }
 
-    } else if (shape1.shape === "square") {
-      if (shape2.shape === "circle") {
-        //square-circle
-        let topLeft = shape1.loc;
-        let topRight = new vector2d(shape1.loc.x + shape1.w, shape1.loc.y);
-        let bottomRight = new vector2d(shape1.loc.x + shape1.w, shape1.loc.y + shape1.w);
-        let bottomLeft = new vector2d(shape1.loc.x, shape1.loc.y + shape1.w);
-        let dist1 = topLeft.dist(shape2.loc);
-        let dist2 = topRight.dist(shape2.loc);
-        let dist3 = bottomRight.dist(shape2.loc);
-        let dist4 = bottomLeft.dist(shape2.loc);
-        if (dist1 <= shape2.r || dist2 <= shape2.r || dist3 <= shape2.r || dist4 <= shape2.r) return true;
-        return false;
-      } else if (shape2.shape === "square") {
-        //square-square
-        if (shape1.loc.x < shape2.loc.x + shape2.w &&
-          shape1.loc.x + shape1.w > shape2.loc.x &&
-          shape1.loc.y < shape2.loc.y + shape2.w &&
-          shape1.w + shape1.loc.y > shape2.loc.y) {
-          return true;
+            // Check for collision with the sword's edges
+            let closestX = Math.max(swordLeft, Math.min(shape1.loc.x, swordRight));
+            let closestY = Math.max(swordTop, Math.min(shape1.loc.y, swordBottom));
+
+            let distToEdge = Math.sqrt((shape1.loc.x - closestX) ** 2 + (shape1.loc.y - closestY) ** 2);
+
+            if (distToEdge <= shape1.r) {
+                return true;
+            }
+
+            return false;
+        } else {
+            throw "shape2 shape not acceptable.";
         }
-        return false;
-      } else if (shape2.shape === "point") {
-        //square-point
-      } else {
-        throw "shape2 shape not acceptable.";
-      }
+    } else if (shape1.shape === "square") {
+        if (shape2.shape === "circle") {
+            // square-circle
+            let topLeft = shape1.loc;
+            let topRight = new vector2d(shape1.loc.x + shape1.w, shape1.loc.y);
+            let bottomRight = new vector2d(shape1.loc.x + shape1.w, shape1.loc.y + shape1.w);
+            let bottomLeft = new vector2d(shape1.loc.x, shape1.loc.y + shape1.w);
+            let dist1 = topLeft.dist(shape2.loc);
+            let dist2 = topRight.dist(shape2.loc);
+            let dist3 = bottomRight.dist(shape2.loc);
+            let dist4 = bottomLeft.dist(shape2.loc);
+            if (dist1 <= shape2.r || dist2 <= shape2.r || dist3 <= shape2.r || dist4 <= shape2.r) return true;
+            return false;
+        } else if (shape2.shape === "square") {
+            // square-square
+            if (shape1.loc.x < shape2.loc.x + shape2.w &&
+                shape1.loc.x + shape1.w > shape2.loc.x &&
+                shape1.loc.y < shape2.loc.y + shape2.w &&
+                shape1.w + shape1.loc.y > shape2.loc.y) {
+                return true;
+            }
+            return false;
+        } else if (shape2.shape === "point") {
+            // square-point
+        } else {
+            throw "shape2 shape not acceptable.";
+        }
     } else if (shape1.shape === "point") {
-      if (shape2.shape === "circle") {
-        //point-circle
-        if (shape2.r >= shape2.loc.dist(shape1.loc)) return true;
-        return false;
-      } else if (shape2.shape === "square") {
-        //point-square
-      } else if (shape2.shape === "point") {
-        //point-point
-        if (shape2.loc.dist(shape1.loc) < 1) return true;
-        return false;
-      } else {
-        throw "shape2 shape not acceptable.";
-      }
+        if (shape2.shape === "circle") {
+            // point-circle
+            if (shape2.r >= shape2.loc.dist(shape1.loc)) return true;
+            return false;
+        } else if (shape2.shape === "square") {
+            // point-square
+        } else if (shape2.shape === "point") {
+            // point-point
+            if (shape2.loc.dist(shape1.loc) < 1) return true;
+            return false;
+        } else {
+            throw "shape2 shape not acceptable.";
+        }
     } else {
-      throw "shape1 shape not acceptable.";
+        throw "shape1 shape not acceptable.";
     }
+}
 
-
-  }
 }
 
 // end class ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
