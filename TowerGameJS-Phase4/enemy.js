@@ -703,14 +703,7 @@ if(towerGame.numWave != 1){
             return false;
         } else if (shape2.shape === "sword") {
             // circle-sword (sword is treated as a rectangle)
-            let ctx = this.game.context;
-            ctx.save();
-           ctx.strokeStyle = this.clr1;
-           ctx.fillStyle = this.clr1;
-           ctx.lineWidth = 10;
-          ctx.stroke();
-          ctx.fill();
-          ctx.restore();
+           
 
             
             let swordLeft = shape2.loc.x;
