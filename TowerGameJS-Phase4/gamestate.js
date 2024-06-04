@@ -15,7 +15,7 @@ class GameState {
 }
 
 
-class GameState1 extends GameState { // Start Screen
+class GameState1 extends GameState { // Start/home Screen
   constructor(game) {
     super(game, 1)
     this.game.gameStateID = 1;
@@ -24,11 +24,11 @@ class GameState1 extends GameState { // Start Screen
     this.panelInstructions = 0
     this.panelQuit = 0
     document.getElementById('infoDiv').style.visibility = 'hidden'; // Make info tiles invisible on start page
-    document.getElementById('menuDiv').style.visibility = 'hidden';
-    document.getElementById('switchDiv').style.visibility = 'hidden';
+    document.getElementById('menuDiv').style.visibility = 'hidden'; // make all the towers on the right side disappear on start page
+    document.getElementById('switchDiv').style.visibility = 'hidden'; // hides the button that switches between towers.
 
 
-  }
+  }// renders the panels when true.
   run() {
     if (this.panelStart) {
       this.panelStart.render(true)
@@ -50,7 +50,7 @@ class GameState2 extends GameState { // Level screen
     this.panelQuit = 0;
 
   }
-
+// renders the level selector in order to choose a lvl to play
   run() {
     this.game.render();
     if (this.customPanel) {
@@ -86,11 +86,9 @@ class GameState3 extends GameState { // end screen
   }
   run() {
     this.game.render()
+    //resets health
     document.getElementById("infoDiv").getElementsByClassName("infoTileDiv")[4].innerHTML = ("Health </br>" + 0); if (this.panelQuit) {
       this.panelQuit.render(true)
-    }
-    if (this.panelCredits) {
-      this.panelCredits.render(true)
     }
   }
 }
@@ -103,20 +101,20 @@ class GameState4 extends GameState { //Catalog
 
     this.game.canvas.canDiv.style.backgroundImage = "url('TowerGameJS-Phase4/resources/images/bg/catalog.jpg')"
 
-    this.specificTowerPanel = 0;
+    this.specificTowerPanel = 0; // makes all the variables have nothing stored, they become panels through panel.js
     this.towerPanel1 = 0;
     this.towerPanel2 = 0;
     this.towerPanel3 = 0;
 
 
-    document.getElementById('infoDiv').style.visibility = 'hidden'; // Make info tiles invisible on start page
+    document.getElementById('infoDiv').style.visibility = 'hidden'; // Make tiles invisible on start page
     document.getElementById('menuDiv').style.visibility = 'hidden';
     document.getElementById('switchDiv').style.visibility = 'hidden';
   }
 
   run() {
     this.game.render();
-
+    //renders all the buttons for the catalog
     if (this.towerPanel1) {
       this.towerPanel1.render(false);
       this.towerPanel2.render(false);
@@ -135,18 +133,18 @@ class GameState5 extends GameState { // game itself
   constructor(game, levelSel, custom) {
     super(game)
     
-    this.game.score = 0
-    this.game.bankValue = 250;
-    this.game.gameTime = 0;
-    this.game.grid = [];
-    this.game.towers = [];
+    this.game.score = 0 // does nothing
+    this.game.bankValue = 250; //start bank
+    this.game.gameTime = 0; // timer
+    this.game.grid = []; // map
+    this.game.towers = []; 
     this.game.w;
     this.game.enemies = [];
     this.game.bullets = []
-    this.game.cols = Math.floor(this.game.canvas.width / this.game.w);
-    this.game.rows = Math.floor(this.game.canvas.height / this.game.w);
+    this.game.cols = Math.floor(this.game.canvas.width / this.game.w); //sets the amount of columns in game
+    this.game.rows = Math.floor(this.game.canvas.height / this.game.w); //sets the amount of rows in game
     this.game.backgroundMusic = new Audio('TowerGameJS-Phase4/resources/sounds/gameMusic.mp3')
-     if(this.game.gameStateID === 5){
+     if(this.game.gameStateID === 5){ // makes canvas 4x smaller when in custom mode.
     this.game.cols*=2;
      this.game.rows*=2;
      this.game.w = 25;
@@ -155,7 +153,7 @@ class GameState5 extends GameState { // game itself
     this.game.loadAllWaves();
     this.game.brushfire();
     
-
+     // gameStateID determines what map is rendered.
     this.game.root = this.game.grid[this.game.cols - 1][this.game.rows - 1];
     if (levelSel === 1) {
       this.game.gameStateID = 6;
